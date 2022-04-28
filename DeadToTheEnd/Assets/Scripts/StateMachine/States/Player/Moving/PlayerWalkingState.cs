@@ -14,6 +14,13 @@ namespace StateMachine.States.Player
             base.Enter();
 
             PlayerMovementStateMachine.ReusableData.MovementSpeedModifier = MovementData.WalkData.SpeedModifier;
+            PlayerMovementStateMachine.ReusableData.CurrentJumpForce = AirborneData.PlayerJumpData.WeakForce;
+
+        }
+
+        protected override void OnMovementCanceled(InputAction.CallbackContext obj)
+        {
+            PlayerMovementStateMachine.ChangeState(PlayerMovementStateMachine.LightStoppingState);
         }
 
         protected override void OnWalkStarted(InputAction.CallbackContext obj)

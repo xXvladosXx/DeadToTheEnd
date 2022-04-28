@@ -9,4 +9,9 @@ public interface IState
     public void HandleInput();
     public void Update();
     public void FixedUpdate();
+    public void OnAnimationEnterEvent();
+    public void OnAnimationExitEvent();
+    public void OnAnimationTransitionEvent();
+    public void OnTriggerEnter(Collider collider);
+    public void OnTriggerExit(Collider collider);
 }

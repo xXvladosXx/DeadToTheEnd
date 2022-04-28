@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Utilities
 {
@@ -24,5 +26,17 @@ namespace Utilities
         {
             InputAction.Disable();
          }
+
+        public void DisableActionFor(InputAction inputAction, float seconds)
+        {
+            StartCoroutine(DisableAction(inputAction, seconds));
+        }
+
+        private IEnumerator DisableAction(InputAction inputAction, float seconds)
+        {
+            inputAction.Disable();
+            yield return new WaitForSeconds(seconds);
+            inputAction.Enable();
+        }
     }
 }
