@@ -8,5 +8,11 @@ namespace Utilities.Collider
     public class PlayerColliderUtility : CapsuleColliderUtility
     {
         [field: SerializeField] public PlayerTriggerColliderData TriggerColliderData { get; private set; }
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            TriggerColliderData.Initialize();
+        }
     }
 }

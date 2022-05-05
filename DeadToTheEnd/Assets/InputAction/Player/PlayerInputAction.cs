@@ -89,6 +89,24 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ada52c91-9c55-4c6d-ba6b-71b724617f11"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Combo"",
+                    ""type"": ""Button"",
+                    ""id"": ""0aa4ded2-9010-4082-821c-759eb9dd48ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -234,6 +252,28 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""566f7d06-3420-48f6-adf1-c2ea3ed0ee5c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb16d3a5-c6f9-45c8-bc21-846a3302baff"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Combo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -249,6 +289,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Attack1 = m_Player.FindAction("Attack1", throwIfNotFound: true);
+        m_Player_Combo = m_Player.FindAction("Combo", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +357,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Attack1;
+    private readonly InputAction m_Player_Combo;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -326,6 +370,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
+        public InputAction @Combo => m_Wrapper.m_Player_Combo;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -356,6 +402,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Attack1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                @Attack1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                @Attack1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                @Combo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
+                @Combo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
+                @Combo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -381,6 +433,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Attack1.started += instance.OnAttack1;
+                @Attack1.performed += instance.OnAttack1;
+                @Attack1.canceled += instance.OnAttack1;
+                @Combo.started += instance.OnCombo;
+                @Combo.performed += instance.OnCombo;
+                @Combo.canceled += instance.OnCombo;
             }
         }
     }
@@ -394,5 +452,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnAttack1(InputAction.CallbackContext context);
+        void OnCombo(InputAction.CallbackContext context);
     }
 }

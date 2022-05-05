@@ -1,15 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Data.Camera;
+using UnityEngine;
 
 namespace Data.States
 {
-    public class PlayerStateReusableData
+    [Serializable]
+    public sealed class PlayerStateReusableData
     {
+        public List<PlayerCameraRecenteringData> BackCameraRecenteringDatas { get; set; }
+        public List<PlayerCameraRecenteringData> SideCameraRecenteringDatas { get; set; }
+
         public Vector2 MovementInput { get; set; }
-        public float MovementSpeedModifier { get; set; } = 1f;
+        [field: SerializeField] public float MovementSpeedModifier { get; set; } = 1f;
         public float MovementSlopeSpeedModifier { get; set; } = 1f;
         public float MovementDecelerationForce { get; set; } = 1f;
         public bool ShouldWalk { get; set; }
         public bool ShouldSprint { get; set; }
+        public bool CanMakeCombo { get; set; }
+        public bool ComboWasMade { get; set; }
         
         private Vector3 _currentTargetRotation;
         private Vector3 _timeToReachTargetRotation;
@@ -23,5 +32,6 @@ namespace Data.States
         public Vector3 CurrentJumpForce { get; set; }
 
         public PlayerRotationData RotationData { get; set; }
+        public bool IsMovingAfterStop { get; set; }
     }
 }

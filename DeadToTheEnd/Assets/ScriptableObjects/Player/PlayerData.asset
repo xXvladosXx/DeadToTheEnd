@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GroundData>k__BackingField:
     <BaseSpeed>k__BackingField: 4
+    <SmoothSpeedModifier>k__BackingField: 1.5
     <GroundToFallRayDistance>k__BackingField: 5
     <SlopeSpeedAngles>k__BackingField:
       serializedVersion: 2
@@ -70,14 +71,25 @@ MonoBehaviour:
       <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.14, z: 0}
     <WalkData>k__BackingField:
       <SpeedModifier>k__BackingField: 0.225
+      <BackCameraRecenteringDatas>k__BackingField:
+      - <MinimumAngle>k__BackingField: 80
+        <MaximumAngle>k__BackingField: 90
+        <WaitTime>k__BackingField: -1
+        <RecenteringTime>k__BackingField: -1
+    <IdleData>k__BackingField:
+      <BackCameraRecenteringDatas>k__BackingField:
+      - <MinimumAngle>k__BackingField: 80
+        <MaximumAngle>k__BackingField: 90
+        <WaitTime>k__BackingField: 0.25
+        <RecenteringTime>k__BackingField: 0.5
     <RunData>k__BackingField:
       <SpeedModifier>k__BackingField: 1
     <SprintData>k__BackingField:
-      <SpeedModifier>k__BackingField: 1.7
+      <SpeedModifier>k__BackingField: 2
       <SprintToRunTime>k__BackingField: 1
       <RunToWalkTime>k__BackingField: 1
     <DashData>k__BackingField:
-      <SpeedModifier>k__BackingField: 1.3
+      <SpeedModifier>k__BackingField: 5.5
       <TimeToBeConsider>k__BackingField: 0.3
       <DashLimitAmount>k__BackingField: 3
       <DashLimitCooldown>k__BackingField: 0.3
@@ -85,14 +97,28 @@ MonoBehaviour:
         <TargetRotationReachTime>k__BackingField: {x: 0, y: 0, z: 0}
     <StopData>k__BackingField:
       <LightDeceleration>k__BackingField: 5
-      <MediumDeceleration>k__BackingField: 6.5
-      <HardDeceleration>k__BackingField: 5
+      <MediumDeceleration>k__BackingField: 1.23
+      <HardDeceleration>k__BackingField: 36.53
+    <SideCameraRecenteringDatas>k__BackingField:
+    - <MinimumAngle>k__BackingField: 0
+      <MaximumAngle>k__BackingField: 80
+      <WaitTime>k__BackingField: -1
+      <RecenteringTime>k__BackingField: -1
+    - <MinimumAngle>k__BackingField: 80
+      <MaximumAngle>k__BackingField: 90
+      <WaitTime>k__BackingField: 0
+      <RecenteringTime>k__BackingField: 0.2
+    <BackCameraRecenteringDatas>k__BackingField:
+    - <MinimumAngle>k__BackingField: 80
+      <MaximumAngle>k__BackingField: 90
+      <WaitTime>k__BackingField: 0
+      <RecenteringTime>k__BackingField: 0.5
   <AirborneData>k__BackingField:
     <PlayerJumpData>k__BackingField:
-      <StationaryForce>k__BackingField: {x: 0, y: 5, z: 0}
-      <WeakForce>k__BackingField: {x: 1, y: 5, z: 1}
-      <MediumForce>k__BackingField: {x: 3, y: 5, z: 3.5}
-      <StrongForce>k__BackingField: {x: 5, y: 5, z: 5}
+      <StationaryForce>k__BackingField: {x: 0, y: 25, z: 0}
+      <WeakForce>k__BackingField: {x: 1, y: 25, z: 1}
+      <MediumForce>k__BackingField: {x: 3, y: 25, z: 3.5}
+      <StrongForce>k__BackingField: {x: 5, y: 25, z: 5}
       <JumpForceModifierOnSlopeUp>k__BackingField:
         serializedVersion: 2
         m_Curve:
@@ -189,6 +215,6 @@ MonoBehaviour:
       <JumpToGroundRayDistance>k__BackingField: 0
       <RotationData>k__BackingField:
         <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.02, z: 0}
-      <DecelerationForce>k__BackingField: 1.3
+      <DecelerationForce>k__BackingField: -0.47
     <PlayerFallData>k__BackingField:
       <SpeedLimit>k__BackingField: 15
