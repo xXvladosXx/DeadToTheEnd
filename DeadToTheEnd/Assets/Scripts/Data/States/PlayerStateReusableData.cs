@@ -33,5 +33,7 @@ namespace Data.States
 
         public PlayerRotationData RotationData { get; set; }
         public bool IsMovingAfterStop { get; set; }
+        public bool IsLocked { get; set; }
+        public Transform Target { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Data.Animations;
+﻿using System;
+using Data.Animations;
 using Data.Layers;
 using Data.ScriptableObjects;
 using Data.States;
@@ -16,7 +17,7 @@ namespace Entities
         [field: SerializeField] public PlayerColliderUtility ColliderUtility { get; private set; }
         [field: SerializeField] public PlayerLayerData PlayerLayerData { get; private set; }
         [field: SerializeField] public PlayerCameraUtility CameraUtility { get; private set; }
-        [field: SerializeField] public AnimationData AnimationData { get; private set; }
+        [field: SerializeField] public PlayerAnimationData PlayerAnimationData { get; private set; }
         [field: SerializeField] public PlayerStateReusableData ReusableData { get; set; }
         public Transform MainCamera { get; private set; }
         public PlayerInput InputAction { get; private set; }
@@ -32,7 +33,7 @@ namespace Entities
             ColliderUtility.Init(gameObject);
             ColliderUtility.CalculateCapsuleColliderDimensions();
             CameraUtility.Init();
-            AnimationData.Init();
+            PlayerAnimationData.Init();
 
             MainCamera = UnityEngine.Camera.main.transform;
             ReusableData = new PlayerStateReusableData();
@@ -104,12 +105,6 @@ namespace Entities
             return slopeSpeedModifier;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-        }
+        
     }
 }

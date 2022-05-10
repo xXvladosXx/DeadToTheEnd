@@ -31,7 +31,10 @@ namespace Camera
 
             _inputProvider = GetComponent<CinemachineInputProvider>();
             _currentTargetDistance = _defaultDistance;
+
         }
+
+        
 
         private void Update()
         {

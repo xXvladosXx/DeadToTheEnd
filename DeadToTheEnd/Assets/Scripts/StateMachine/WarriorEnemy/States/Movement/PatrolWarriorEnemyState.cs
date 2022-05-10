@@ -3,66 +3,70 @@ using UnityEngine;
 
 namespace StateMachine.WarriorEnemy.States.Movement
 {
-    public class PatrolWarriorEnemyState: IState
+    public class PatrolWarriorEnemyState: BaseMovementEnemyState, IState
     {
-        private readonly WarriorStateMachine _warriorStateMachine;
-        private readonly WarriorEnemyData _warriorEnemyData;
-        
         private Vector3 _pointToMoveTo;
 
-        public PatrolWarriorEnemyState(WarriorStateMachine warriorStateMachine)
+        public PatrolWarriorEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
         {
-            _warriorStateMachine = warriorStateMachine;
+            WarriorStateMachine = warriorStateMachine;
             
-            _warriorEnemyData = _warriorStateMachine.WarriorEnemy.WarriorEnemyData;
+            WarriorEnemyData = WarriorStateMachine.WarriorEnemy.WarriorEnemyData;
         }
-        public void Enter()
+        public override void Enter()
         {
-            _warriorStateMachine.WarriorEnemy.NavMeshAgent.speed = _warriorEnemyData.EnemyWalkData.WalkSpeedModifer;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyWalkData.WalkSpeedModifer;
 
             FindRandomPointInRadius();
-            
-            _warriorStateMachine.WarriorEnemy.NavMeshAgent.destination = _pointToMoveTo;
-            _warriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = false;
+          
         }
-        public void Exit()
+        public override void Exit()
         {
            
         }
 
-        public void HandleInput()
+        public override void HandleInput()
         {
            
         }
 
-        public void Update()
+        public override void Update()
         {
-            if (Vector3.Distance(_warriorStateMachine.WarriorEnemy.MainPlayer.transform.position,
-                    _warriorStateMachine.WarriorEnemy.transform.position) <
-                _warriorEnemyData.EnemyPatrolData.DistanceToFindTarget)
+            MoveTo(WarriorStateMachine.WarriorEnemy.NavMeshAgent, _pointToMoveTo);
+            if(IsEnoughDistance(WarriorEnemyData.EnemyPatrolData.DistanceToFindTarget,WarriorStateMachine.WarriorEnemy.MainPlayer.transform,
+                WarriorStateMachine.WarriorEnemy.transform))
             {
-                _warriorStateMachine.ChangeState(_warriorStateMachine.FollowWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
                 return;
             }
             
-            if (Vector3.Distance(_pointToMoveTo, _warriorStateMachine.WarriorEnemy.transform.position) < 1)
+            if (Vector3.Distance(_pointToMoveTo, WarriorStateMachine.WarriorEnemy.transform.position) < 1f)
             {
-                _warriorStateMachine.ChangeState(_warriorStateMachine.IdleWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.IdleWarriorEnemyState);
             }
         }
 
-        public void FixedUpdate()
+        public override void FixedUpdate()
         {
            
         }
-        
+
+        public override void OnAnimationEnterEvent()
+        {
+            
+        }
+
+        public override void OnAnimationExitEvent()
+        {
+            
+        }
+
         private void FindRandomPointInRadius()
         {
-            var center = _warriorStateMachine.WarriorEnemy.EnemyStateReusableData.StartPosition;
-            var radius = _warriorEnemyData.EnemyPatrolData.RadiusToPatrol;
+            var center = WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.StartPosition;
+            var radius = WarriorEnemyData.EnemyPatrolData.RadiusToPatrol;
 
             _pointToMoveTo = center + (radius * UnityEngine.Random.insideUnitSphere);
-            _pointToMoveTo.y = 0;
         }
     }
 }

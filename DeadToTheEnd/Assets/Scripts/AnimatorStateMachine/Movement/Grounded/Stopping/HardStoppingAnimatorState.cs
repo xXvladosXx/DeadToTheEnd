@@ -12,5 +12,13 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
             base.OnEnter(characterState, animator, stateInfo, playerInputActions);
             Player.ReusableData.MovementDecelerationForce = GroundedData.StopData.HardDeceleration;
         }
+
+        protected override void AddInputCallbacks()
+        {
+        }
+
+        protected override void RemoveInputCallbacks()
+        {
+        }
     }
 }

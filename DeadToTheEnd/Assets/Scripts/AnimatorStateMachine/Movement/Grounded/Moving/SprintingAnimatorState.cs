@@ -22,6 +22,8 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
             if (Player.ReusableData.MovementInput == Vector2.zero)
             {
                 Player.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, true);
+                Player.Animator.SetBool(PlayerAnimationData.MovingParameterHash, false);
+                Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, true);
                 return;
             }
             
@@ -34,7 +36,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
             PlayerInput playerInputActions)
         {
             Player.ReusableData.MovementSpeedModifier = GroundedData.SprintData.SpeedModifier;
-
+            Player.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
             base.OnExit(characterState, animator, stateInfo, playerInputActions);
         }
         
@@ -47,6 +49,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
         protected override void RemoveInputCallbacks()
         {
             Player.InputAction.PlayerActions.Attack1.performed -= OnSprintAttackCalled;
+            Player.InputAction.PlayerActions.Sprint.canceled -= OnSprintEnded;
         }
 
         protected override void OnMovementCanceled(InputAction.CallbackContext obj)

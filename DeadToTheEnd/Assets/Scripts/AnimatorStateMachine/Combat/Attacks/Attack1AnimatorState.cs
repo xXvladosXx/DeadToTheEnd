@@ -12,10 +12,10 @@ namespace AnimatorStateMachine.Combat.Attacks
             PlayerInput playerInputActions)
         {
             base.OnExit(characterState, animator, stateInfo, playerInputActions);
-            Player.Animator.SetBool(Player.AnimationData.Attack1ParameterHash, false);
-            Player.Animator.SetBool(Player.AnimationData.ComboParameterHash, false);
-            Player.Animator.SetBool(Player.AnimationData.MovingParameterHash, false);
-            Player.Animator.SetBool(Player.AnimationData.WasMovingParameterHash, false);
+            Player.Animator.SetBool(Player.PlayerAnimationData.Attack1ParameterHash, false);
+            Player.Animator.SetBool(Player.PlayerAnimationData.ComboParameterHash, false);
+            Player.Animator.SetBool(Player.PlayerAnimationData.MovingParameterHash, false);
+            Player.Animator.SetBool(Player.PlayerAnimationData.WasMovingParameterHash, false);
         }
 
     }

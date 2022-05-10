@@ -8,32 +8,36 @@ using PlayerInput = Utilities.PlayerInput;
 namespace AnimatorStateMachine.Combat
 {
     [CreateAssetMenu(menuName = "AnimatorState/BaseCombatState")]
-    public class BaseCombatAnimatorState: BaseAnimatorState
+    public class BaseCombatAnimatorState : BaseAnimatorState
     {
         [SerializeField] protected float _startTimeToMakeCombo;
         [SerializeField] protected float _endTimeToMakeCombo;
-        
+
         protected MainPlayer Player;
-        protected AnimationData PlayerAnimationData;
+        protected PlayerAnimationData PlayerAnimationData;
         private float _time;
 
-        public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
+        public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator,
+            AnimatorStateInfo stateInfo,
             PlayerInput playerInputActions)
         {
             Player = animator.GetComponent<MainPlayer>();
-            PlayerAnimationData = Player.AnimationData;
-            
+            PlayerAnimationData = Player.PlayerAnimationData;
+
             Player.ReusableData.CanMakeCombo = true;
             Player.ReusableData.ComboWasMade = false;
             Player.Animator.applyRootMotion = true;
 
             AddInputCallbacks();
         }
-      
 
-        public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
+
+        public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator,
+            AnimatorStateInfo stateInfo,
             PlayerInput playerInputActions)
         {
+            TargetLocked();
+
             _time = stateInfo.normalizedTime;
             if (stateInfo.normalizedTime > _endTimeToMakeCombo)
             {
@@ -42,13 +46,14 @@ namespace AnimatorStateMachine.Combat
             }
         }
 
-        public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
+        public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator,
+            AnimatorStateInfo stateInfo,
             PlayerInput playerInputActions)
         {
             RemoveInputCallbacks();
             Player.ReusableData.CanMakeCombo = true;
-            
-            if(!Player.ReusableData.ComboWasMade)
+
+            if (!Player.ReusableData.ComboWasMade)
                 Player.Animator.SetBool(PlayerAnimationData.ComboParameterHash, false);
         }
 
@@ -56,7 +61,7 @@ namespace AnimatorStateMachine.Combat
         {
             Player.InputAction.PlayerActions.Combo.performed += OnComboCalled;
         }
-        
+
         protected virtual void RemoveInputCallbacks()
         {
             Player.InputAction.PlayerActions.Combo.performed -= OnComboCalled;
@@ -70,6 +75,15 @@ namespace AnimatorStateMachine.Combat
                 Player.ReusableData.ComboWasMade = true;
             }
         }
-        
+
+        private void TargetLocked()
+        {
+            if (Player.ReusableData.IsLocked)
+            {
+                Transform transform;
+                (transform = Player.transform).LookAt(Player.ReusableData.Target);
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            }
+        }
     }
 }

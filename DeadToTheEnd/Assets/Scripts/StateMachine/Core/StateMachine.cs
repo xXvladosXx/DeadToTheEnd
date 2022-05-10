@@ -13,12 +13,7 @@ namespace StateMachine
             _currentState.Enter();
         }
 
-        public void HandleInput()
-        {
-            _currentState?.HandleInput();
-        }
-
-        public void Update()
+        public virtual void Update()
         {
             Debug.Log(_currentState);
             _currentState?.Update();
@@ -28,5 +23,16 @@ namespace StateMachine
         {
             _currentState?.FixedUpdate();
         }
+        
+        public void OnAnimationEnterEvent()
+        {
+            _currentState?.OnAnimationEnterEvent();
+        }
+
+        public void OnAnimationExitEvent()
+        {
+            _currentState?.OnAnimationExitEvent();
+        }
+
     }
 }

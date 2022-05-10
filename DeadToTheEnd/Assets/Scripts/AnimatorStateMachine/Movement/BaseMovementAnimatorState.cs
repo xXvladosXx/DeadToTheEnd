@@ -17,9 +17,8 @@ namespace AnimatorStateMachine.Movement
         private SlopeData SlopeData;
        
         protected PlayerGroundData GroundedData;
-        protected PlayerAirborneData AirborneData;
 
-        protected AnimationData PlayerAnimationData;
+        protected PlayerAnimationData PlayerAnimationData;
         private float _time;
 
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
@@ -27,8 +26,7 @@ namespace AnimatorStateMachine.Movement
         {
             Player = animator.GetComponent<MainPlayer>();
             GroundedData = Player.PlayerData.GroundData;
-            AirborneData = Player.PlayerData.AirborneData;
-            PlayerAnimationData = Player.AnimationData;
+            PlayerAnimationData = Player.PlayerAnimationData;
             Player.Animator.applyRootMotion = false;
             _time = 0;
             AddInputCallbacks();
@@ -40,8 +38,19 @@ namespace AnimatorStateMachine.Movement
         public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
             PlayerInput playerInputActions)
         {
+            TargetLocked();
             ReadMovementInput();
             Move();
+        }
+
+        protected void TargetLocked()
+        {
+            if (Player.ReusableData.IsLocked)
+            {
+                Transform transform;
+                (transform = Player.transform).LookAt(Player.ReusableData.Target);
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            }
         }
 
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
@@ -82,12 +91,12 @@ namespace AnimatorStateMachine.Movement
 
         private void OnMovementPerformed(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(Player.AnimationData.MovingParameterHash, true);
+            Player.Animator.SetBool(Player.PlayerAnimationData.MovingParameterHash, true);
         }
 
         private void OnDashStarted(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(Player.AnimationData.SprintParameterHash, true);
+            Player.Animator.SetBool(Player.PlayerAnimationData.SprintParameterHash, true);
         }
         protected virtual void RemoveInputCallbacks()
         {
@@ -121,14 +130,17 @@ namespace AnimatorStateMachine.Movement
           
             var movementDirection = GetMovementInputDirection();
             var targetRotationAngle = Rotate(movementDirection);
+           
+            
             var targetRotationDirection = GetTargetRotationDirection(targetRotationAngle);
             var movementSpeed = GetSmoothMovementSpeed();
-
+            
             var currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
             
             Player.Animator.SetBool(PlayerAnimationData.MovingParameterHash, true);
             Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, true);
             Player.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, Player.ReusableData.MovementSpeedModifier, 0.3f, Time.deltaTime);
+            Debug.Log("WW");
             
             Player.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
         }
@@ -221,7 +233,9 @@ namespace AnimatorStateMachine.Movement
                 return;
             }
 
-            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, Player.ReusableData.CurrentTargetRotation.y, ref Player.ReusableData.DampedTargetRotationCurrentVelocity.y, Player.ReusableData.TimeToReachTargetRotation.y - Player.ReusableData.DampedTargetRotationPassedTime.y);
+            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, Player.ReusableData.CurrentTargetRotation.y,
+                ref Player.ReusableData.DampedTargetRotationCurrentVelocity.y, 
+                Player.ReusableData.TimeToReachTargetRotation.y - Player.ReusableData.DampedTargetRotationPassedTime.y);
 
             Player.ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
 
@@ -260,47 +274,6 @@ namespace AnimatorStateMachine.Movement
         protected Vector3 GetPlayerVerticalVelocity()
         {
             return new Vector3(0f, Player.Rigidbody.velocity.y, 0f);
-        }
-
-        protected virtual void OnContactWithGround(Collider collider)
-        {
-        }
-
-        protected virtual void OnContactWithGroundExited(Collider collider)
-        {
-        }
-
-        protected void UpdateCameraRecenteringState(Vector2 movementInput)
-        {
-            if (movementInput == Vector2.zero)
-            {
-                return;
-            }
-
-            if (movementInput == Vector2.up)
-            {
-                DisableCameraRecentering();
-
-                return;
-            }
-
-            float cameraVerticalAngle = Player.MainCamera.eulerAngles.x;
-
-            if (cameraVerticalAngle >= 270f)
-            {
-                cameraVerticalAngle -= 360f;
-            }
-
-            cameraVerticalAngle = Mathf.Abs(cameraVerticalAngle);
-
-            if (movementInput == Vector2.down)
-            {
-                SetCameraRecenteringState(cameraVerticalAngle, Player.ReusableData.BackCameraRecenteringDatas);
-
-                return;
-            }
-
-            SetCameraRecenteringState(cameraVerticalAngle, Player.ReusableData.SideCameraRecenteringDatas);
         }
 
         protected void SetCameraRecenteringState(float cameraVerticalAngle, List<PlayerCameraRecenteringData> cameraRecenteringData)

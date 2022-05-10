@@ -14,7 +14,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
             PlayerInput playerInputActions)
         {
             base.OnEnter(characterState, animator, stateInfo, playerInputActions);
-            Player.ReusableData.MovementSpeedModifier = 3f;
+            Player.ReusableData.MovementSpeedModifier = 0f;
             Player.ReusableData.IsMovingAfterStop = true;
             SetBaseCameraRecenteringData();
             Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
@@ -24,13 +24,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo,
             PlayerInput playerInputActions)
         {
-            //Stop();
             RotateTowardsTargetRotation();
-            if (stateInfo.normalizedTime > _timeToStopDecelerating)
-            {
-                ResetVelocity();
-            }
-            
             DecelerateHorizontally();
             if (Player.ReusableData.MovementInput != Vector2.zero)
             {
@@ -47,19 +41,8 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
             Player.Animator.SetBool(PlayerAnimationData.DashParameterHash, false);
             Player.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, false);
             Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
-            
+
             ResetVelocity();
-        }
-        
-        private void Stop()
-        {
-            Vector3 dashDirection = Player.transform.forward;
-
-            dashDirection.y = 0f;
-
-            UpdateTargetRotation(dashDirection, false);
-
-            Player.Rigidbody.velocity = dashDirection * GroundedData.StopData.MediumDeceleration;
         }
 
         protected override void AddInputCallbacks()

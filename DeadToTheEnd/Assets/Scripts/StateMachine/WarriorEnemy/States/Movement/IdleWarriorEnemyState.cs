@@ -1,52 +1,61 @@
-﻿using Data.ScriptableObjects;
+﻿using Data.Animations;
+using Data.ScriptableObjects;
 using UnityEngine;
 
 namespace StateMachine.WarriorEnemy.States.Movement
 {
-    public class IdleWarriorEnemyState : IState
+    public class IdleWarriorEnemyState : BaseMovementEnemyState
     {
-        private readonly WarriorEnemyData _warriorEnemyData;
-        private readonly WarriorStateMachine _warriorStateMachine;
-
         private float _curTime;
+        private bool _randomDestinationSet;
 
-        public IdleWarriorEnemyState(WarriorStateMachine warriorStateMachine)
+        public IdleWarriorEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
         {
-            _warriorStateMachine = warriorStateMachine;
-
-            _warriorEnemyData = _warriorStateMachine.WarriorEnemy.WarriorEnemyData;
+            
         }
 
-        public void Enter()
+        public override void Enter()
         {
-            _warriorStateMachine.WarriorEnemy.NavMeshAgent.speed = _warriorEnemyData.EnemyIdleData.IdleSpeedModifer;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = 1;
             _curTime = 0f;
         }
 
-        public void Exit()
+        public override void Exit()
         {
            
         }
 
-        public void HandleInput()
+        public override void HandleInput()
         {
            
         }
 
-        public void Update()
+        public override void Update()
         {
-            Debug.Log("waiting..." + _curTime);
             _curTime += Time.deltaTime;
-            if (_curTime > _warriorEnemyData.EnemyIdleData.TimeOfIdlePositioning)
+            if(_curTime < WarriorEnemyData.EnemyIdleData.TimeOfIdlePositioning) return;
+
+            if (IsEnoughDistance(WarriorEnemyData.EnemyIdleData.DistanceToFindTarget,
+                    WarriorStateMachine.WarriorEnemy.transform,
+                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform))
             {
-                _warriorStateMachine.ChangeState(_warriorStateMachine.PatrolWarriorEnemyState);
+                base.Update();
             }
         }
-
-        public void FixedUpdate()
+        
+        public override void FixedUpdate()
         {
            
         }
 
+        public override void OnAnimationEnterEvent()
+        {
+            
+        }
+
+        public override void OnAnimationExitEvent()
+        {
+            
+        }
     }
 }
