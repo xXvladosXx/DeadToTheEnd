@@ -15,7 +15,6 @@ namespace StateMachine
 
         public virtual void Update()
         {
-            Debug.Log(_currentState);
             _currentState?.Update();
         }
 
@@ -34,5 +33,9 @@ namespace StateMachine
             _currentState?.OnAnimationExitEvent();
         }
 
+        public void OnAnimationHandleEvent()
+        {
+            _currentState?.OnAnimationHandleEvent();
+        }
     }
 }

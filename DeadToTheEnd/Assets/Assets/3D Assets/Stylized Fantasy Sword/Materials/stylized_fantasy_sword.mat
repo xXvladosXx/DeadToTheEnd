@@ -51,11 +51,11 @@ Material:
     - Vector1_6616CC8B: 0.88
     - Vector1_6F7B0E49: 0.748
     - Vector1_A84AC431: 5
-    - Vector1_D54AA2CB: 0.471
+    - Vector1_D54AA2CB: 0.728
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_62171ABB: {r: 0, g: 0.8938153, b: 1.3132209, a: 0}
+    - Color_62171ABB: {r: 0, g: 0.9164292, b: 1.753253, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1490728765226559539
 MonoBehaviour:

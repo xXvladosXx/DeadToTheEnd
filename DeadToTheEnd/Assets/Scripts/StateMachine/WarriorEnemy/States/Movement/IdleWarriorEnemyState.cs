@@ -20,15 +20,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
             _curTime = 0f;
         }
 
-        public override void Exit()
-        {
-           
-        }
-
-        public override void HandleInput()
-        {
-           
-        }
 
         public override void Update()
         {
@@ -41,21 +32,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
             {
                 base.Update();
             }
-        }
-        
-        public override void FixedUpdate()
-        {
-           
-        }
-
-        public override void OnAnimationEnterEvent()
-        {
-            
-        }
-
-        public override void OnAnimationExitEvent()
-        {
-            
         }
     }
 }

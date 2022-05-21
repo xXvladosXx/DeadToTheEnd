@@ -1,5 +1,6 @@
 ﻿using Data.Animations;
 using Data.ScriptableObjects;
+using StateMachine.WarriorEnemy.States.Combat;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,31 +12,31 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected WarriorStateMachine WarriorStateMachine;
         protected WarriorEnemyData WarriorEnemyData;
 
+        private float _curTime;
+        private float _timeToWait;
+
         protected BaseMovementEnemyState(WarriorStateMachine warriorStateMachine)
         {
             WarriorStateMachine = warriorStateMachine;
-            
+
             WarriorEnemyData = WarriorStateMachine.WarriorEnemy.WarriorEnemyData;
             WarriorEnemyAnimationData = WarriorStateMachine.WarriorEnemy.WarriorEnemyAnimationData;
         }
-        
+
         public virtual void Enter()
         {
-            
+            Stop();
         }
 
         public virtual void Exit()
         {
-            
-        }
-
-        public virtual void HandleInput()
-        {
-            
+            Stop();
+            _curTime = 0;
         }
 
         public virtual void Update()
         {
+            _curTime += Time.deltaTime;
             float viewAngle = GetViewAngle(WarriorStateMachine.WarriorEnemy.transform,
                 WarriorStateMachine.WarriorEnemy.MainPlayer.transform);
 
@@ -48,27 +49,30 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         public virtual void FixedUpdate()
         {
-            
         }
 
         public virtual void OnAnimationEnterEvent()
         {
-           
         }
 
         public virtual void OnAnimationExitEvent()
         {
-            
-        }   protected void MoveTo(NavMeshAgent enemy, Vector3 target, float speed = 1f)
+        }
+
+        public virtual void OnAnimationHandleEvent()
+        {
+        }
+
+        protected void MoveTo(NavMeshAgent enemy, Vector3 target, float speed = 1f)
         {
             enemy.destination = target;
             enemy.isStopped = false;
         }
 
-        protected void Stop(NavMeshAgent enemy)
+        protected void Stop()
         {
-            enemy.ResetPath();
-            enemy.isStopped = true;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.ResetPath();
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = true;
         }
 
         protected float GetViewAngle(Transform enemy, Transform target)
@@ -79,29 +83,140 @@ namespace StateMachine.WarriorEnemy.States.Movement
             return viewableAngle;
         }
 
-        protected bool IsEnoughDistance(float distance, Transform enemy, Transform target) => 
+        protected bool IsEnoughDistance(float distance, Transform enemy, Transform target) =>
             distance > Vector3.Distance(enemy.position, target.position);
 
-        protected void MakeOrdinaryAttack()
+
+        protected void TargetLocked()
         {
-            if (IsEnoughDistance(WarriorEnemyData.EnemyFollowData.DistanceToStartOrdinaryAttack,
+            Transform transform;
+            (transform = WarriorStateMachine.WarriorEnemy.transform).LookAt(WarriorStateMachine.WarriorEnemy.MainPlayer
+                .transform);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
+
+        protected bool MakeOrdinaryAttack()
+        {
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     WarriorStateMachine.WarriorEnemy.transform,
                     WarriorStateMachine.WarriorEnemy.MainPlayer.transform))
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.LightAttackWarriorEnemyState);
+                return true;
             }
+
+            return false;
         }
 
-        protected void MakeDashAttack()
+        protected float DecideTimeOfMoving(float minTime, float maxTime) => Random.Range(maxTime, maxTime);
+
+        protected bool MakeDashAttack()
         {
-            if (IsEnoughDistance(WarriorEnemyData.EnemyFollowData.DistanceToStartDashAttack,
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartDashAttack,
                     WarriorStateMachine.WarriorEnemy.transform,
                     WarriorStateMachine.WarriorEnemy.MainPlayer.transform) &&
-                !IsEnoughDistance(WarriorEnemyData.EnemyFollowData.DistanceToStartOrdinaryAttack,
+                !IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     WarriorStateMachine.WarriorEnemy.transform,
-                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform))
+                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashFirstAttackWarriorEnemyState)))
             {
-                WarriorStateMachine.ChangeState(WarriorStateMachine.DashAttackWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.DashFirstAttackWarriorEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool MakeSecondDashAttack()
+        {
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartSecondDashAttack,
+                    WarriorStateMachine.WarriorEnemy.transform,
+                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform) &&
+                !IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
+                    WarriorStateMachine.WarriorEnemy.transform,
+                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashSecondAttackWarriorEnemy)))
+            {
+                WarriorStateMachine.ChangeState(WarriorStateMachine.DashSecondAttackWarriorEnemy);
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool MakeComboSecondAttack()
+        {
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
+                    WarriorStateMachine.WarriorEnemy.transform,
+                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboSecondWarriorEnemyState))
+                && !WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction)
+            {
+                WarriorStateMachine.ChangeState(WarriorStateMachine.ComboSecondWarriorEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+        
+        protected bool MakeComboFirstAttack()
+        {
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboFirstAttack,
+                    WarriorStateMachine.WarriorEnemy.transform,
+                    WarriorStateMachine.WarriorEnemy.MainPlayer.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboFirstWarriorEnemyState))
+                && !WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction)
+            {
+                WarriorStateMachine.ChangeState(WarriorStateMachine.ComboFirstWarriorEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+        
+        protected void DecideAttackToDo()
+        {
+            var result = false;
+            while (true)
+            {
+                int attack = Random.Range(0, 6);
+                switch (attack)
+                {
+                    case 0:
+                        result = MakeOrdinaryAttack();
+                        if (result)
+                            break;
+
+                        continue;
+                    case 1:
+                        result = MakeDashAttack();
+                        if (result)
+                            break;
+                        
+                        continue;
+                    case 2:
+                        result = MakeComboFirstAttack();
+                        if (result)
+                            break;
+                        
+                        continue;
+                    case 3:
+                        result = MakeSecondDashAttack();
+                        if (result)
+                            break;
+                        
+                        continue;
+                    case 4:
+                        result = MakeComboSecondAttack();
+                        if (result)
+                            break;
+                        
+                        continue;
+                    case 5:
+                        break;
+                }
+                
+                break;
             }
         }
     }

@@ -20,16 +20,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
             FindRandomPointInRadius();
           
         }
-        public override void Exit()
-        {
-           
-        }
-
-        public override void HandleInput()
-        {
-           
-        }
-
         public override void Update()
         {
             MoveTo(WarriorStateMachine.WarriorEnemy.NavMeshAgent, _pointToMoveTo);
@@ -46,20 +36,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
             }
         }
 
-        public override void FixedUpdate()
-        {
-           
-        }
-
-        public override void OnAnimationEnterEvent()
-        {
-            
-        }
-
-        public override void OnAnimationExitEvent()
-        {
-            
-        }
 
         private void FindRandomPointInRadius()
         {

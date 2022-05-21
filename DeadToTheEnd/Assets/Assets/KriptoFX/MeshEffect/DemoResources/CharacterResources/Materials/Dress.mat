@@ -14,6 +14,7 @@ Material:
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OCCLUSIONMAP
+  - _SPECGLOSSMAP
   - _SPECULAR_SETUP
   m_InvalidKeywords: []
   m_LightmapFlags: 1
@@ -118,7 +119,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &3563917035288164354
+--- !u!114 &4275695881682234603
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

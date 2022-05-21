@@ -107,6 +107,24 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MovementWithoutNormalization"",
+                    ""type"": ""Value"",
+                    ""id"": ""e590bd65-952d-42a5-9893-fa482d97892c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""0482f8e6-a73e-49fa-a2ca-b98bf58537ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -274,6 +292,72 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Combo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""ffbee6ef-7dc5-43c6-a869-12235753753b"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementWithoutNormalization"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""d35b0e0a-cc83-4909-80af-5bd8cb209eb7"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementWithoutNormalization"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""cbb6f363-b721-4805-b56b-6bfc7fe94890"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementWithoutNormalization"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4301cb5d-da7d-44ea-9bcc-4979fd6e8925"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementWithoutNormalization"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c178ac31-d747-474b-b7be-bf8c3ee0f573"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementWithoutNormalization"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14fc486f-71e2-4d8d-979d-adb898bf6f24"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -291,6 +375,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Attack1 = m_Player.FindAction("Attack1", throwIfNotFound: true);
         m_Player_Combo = m_Player.FindAction("Combo", throwIfNotFound: true);
+        m_Player_MovementWithoutNormalization = m_Player.FindAction("MovementWithoutNormalization", throwIfNotFound: true);
+        m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -359,6 +445,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Attack1;
     private readonly InputAction m_Player_Combo;
+    private readonly InputAction m_Player_MovementWithoutNormalization;
+    private readonly InputAction m_Player_Roll;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -372,6 +460,8 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
         public InputAction @Combo => m_Wrapper.m_Player_Combo;
+        public InputAction @MovementWithoutNormalization => m_Wrapper.m_Player_MovementWithoutNormalization;
+        public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -408,6 +498,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Combo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
                 @Combo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
                 @Combo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
+                @MovementWithoutNormalization.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovementWithoutNormalization;
+                @MovementWithoutNormalization.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovementWithoutNormalization;
+                @MovementWithoutNormalization.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovementWithoutNormalization;
+                @Roll.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
+                @Roll.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
+                @Roll.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -439,6 +535,12 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Combo.started += instance.OnCombo;
                 @Combo.performed += instance.OnCombo;
                 @Combo.canceled += instance.OnCombo;
+                @MovementWithoutNormalization.started += instance.OnMovementWithoutNormalization;
+                @MovementWithoutNormalization.performed += instance.OnMovementWithoutNormalization;
+                @MovementWithoutNormalization.canceled += instance.OnMovementWithoutNormalization;
+                @Roll.started += instance.OnRoll;
+                @Roll.performed += instance.OnRoll;
+                @Roll.canceled += instance.OnRoll;
             }
         }
     }
@@ -454,5 +556,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttack1(InputAction.CallbackContext context);
         void OnCombo(InputAction.CallbackContext context);
+        void OnMovementWithoutNormalization(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
 }

@@ -15,10 +15,40 @@ MonoBehaviour:
   <EnemyRunData>k__BackingField:
     <RunSpeedModifer>k__BackingField: 7
   <EnemyWalkData>k__BackingField:
-    <WalkSpeedModifer>k__BackingField: 3
+    <WalkSpeedModifer>k__BackingField: 1.7
+    <WalkMinTime>k__BackingField: 3
+    <WalkMaxTime>k__BackingField: 5
   <EnemyIdleData>k__BackingField:
     <TimeOfIdlePositioning>k__BackingField: 3
     <IdleSpeedModifer>k__BackingField: 0
+    <RotationSpeedModifer>k__BackingField: 15
+    <DistanceToFindTarget>k__BackingField: 10
   <EnemyPatrolData>k__BackingField:
     <RadiusToPatrol>k__BackingField: 5
     <DistanceToFindTarget>k__BackingField: 10
+  <EnemyAttackData>k__BackingField:
+    <DistanceToStartOrdinaryAttack>k__BackingField: 2
+    <DistanceToStartDashAttack>k__BackingField: 10
+    <DistanceToStartSecondDashAttack>k__BackingField: 10
+    <DistanceToStartComboFirstAttack>k__BackingField: 4
+    <DistanceToStartComboSecondAttack>k__BackingField: 3
+    <MinTimeToAttack>k__BackingField: 0.5
+    <MaxTimeToAttack>k__BackingField: 2
+  <EnemyRollData>k__BackingField:
+    <RollSpeedModifer>k__BackingField: 10
+  <EnemyDashData>k__BackingField:
+    <TimeBeforeAttack>k__BackingField: 0.4
+    <DashSpeedModifier>k__BackingField: 22
+    <DashAttackCooldown>k__BackingField: 5
+    <DashSecondSpeedModifierFirstPhase>k__BackingField: 20
+    <DashSecondSpeedModifierSecondPhase>k__BackingField: 5
+    <DashSecondAttackCooldown>k__BackingField: 15
+  <EnemyComboData>k__BackingField:
+    <ComboFirstAttackCooldown>k__BackingField: 10
+    <ComboFirstAttackSpeed>k__BackingField: 1.5
+    <ComboSecondAttackCooldown>k__BackingField: 15
+    <ComboSecondAttackSpeed>k__BackingField: 5
+  <EnemyStrafeData>k__BackingField:
+    <StrafeSpeedModifer>k__BackingField: 1
+    <StrafeMinTime>k__BackingField: 4
+    <StrafeMaxTime>k__BackingField: 6

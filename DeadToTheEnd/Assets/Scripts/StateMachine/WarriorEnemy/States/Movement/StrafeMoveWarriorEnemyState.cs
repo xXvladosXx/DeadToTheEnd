@@ -19,28 +19,28 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.CanStrafe = false;
             WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = false;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyStrafeData.StrafeSpeedModifer;
             
             _curTime = 0;
-            DecideTimeOfStrafing();
+            _timeToStrafe = DecideTimeOfMoving(WarriorEnemyData.EnemyStrafeData.StrafeMinTime, WarriorEnemyData.EnemyStrafeData.StrafeMaxTime);
             DecideDirectionOfStrafe();
         }
 
         public override void Exit()
         {
-            WarriorStateMachine.WarriorEnemy.Animator.SetBool("move", false);
-            WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = true;
+            base.Exit();
 
+            WarriorStateMachine.WarriorEnemy.Animator.SetBool("move", false);
             WarriorStateMachine.WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0f, .2f, Time.deltaTime);
             WarriorStateMachine.WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f,  .2f, Time.deltaTime);
         }
 
-        public override void HandleInput()
-        {
-           
-        }
-
         public override void Update()
         {
+            MakeComboFirstAttack();
+            MakeComboSecondAttack();
+            if(WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction) return;
+            
             _curTime += Time.deltaTime;
             if (_curTime > _timeToStrafe)
             {
@@ -55,26 +55,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
             }
             
             StrafeLeft();
-        }
-
-        public override void FixedUpdate()
-        {
-            
-        }
-
-        public override void OnAnimationEnterEvent()
-        {
-            
-        }
-
-        public override void OnAnimationExitEvent()
-        {
-            
-        }
-        
-        private void DecideTimeOfStrafing()
-        {
-            _timeToStrafe = Random.Range(2, 4);
         }
         
         private void DecideDirectionOfStrafe()

@@ -82,14 +82,15 @@ MonoBehaviour:
         <MaximumAngle>k__BackingField: 90
         <WaitTime>k__BackingField: 0.25
         <RecenteringTime>k__BackingField: 0.5
-    <RunData>k__BackingField:
+    <PlayerRunData>k__BackingField:
       <SpeedModifier>k__BackingField: 1
+      <StrafeSpeedModifier>k__BackingField: 0.6
     <SprintData>k__BackingField:
       <SpeedModifier>k__BackingField: 2
       <SprintToRunTime>k__BackingField: 1
       <RunToWalkTime>k__BackingField: 1
     <DashData>k__BackingField:
-      <SpeedModifier>k__BackingField: 5.5
+      <SpeedModifier>k__BackingField: 4
       <TimeToBeConsider>k__BackingField: 0.3
       <DashLimitAmount>k__BackingField: 3
       <DashLimitCooldown>k__BackingField: 0.3
@@ -99,6 +100,8 @@ MonoBehaviour:
       <LightDeceleration>k__BackingField: 5
       <MediumDeceleration>k__BackingField: 1.23
       <HardDeceleration>k__BackingField: 36.53
+    <RollData>k__BackingField:
+      <SpeedModifier>k__BackingField: 2
     <SideCameraRecenteringDatas>k__BackingField:
     - <MinimumAngle>k__BackingField: 0
       <MaximumAngle>k__BackingField: 80
@@ -113,108 +116,3 @@ MonoBehaviour:
       <MaximumAngle>k__BackingField: 90
       <WaitTime>k__BackingField: 0
       <RecenteringTime>k__BackingField: 0.5
-  <AirborneData>k__BackingField:
-    <PlayerJumpData>k__BackingField:
-      <StationaryForce>k__BackingField: {x: 0, y: 25, z: 0}
-      <WeakForce>k__BackingField: {x: 1, y: 25, z: 1}
-      <MediumForce>k__BackingField: {x: 3, y: 25, z: 3.5}
-      <StrongForce>k__BackingField: {x: 5, y: 25, z: 5}
-      <JumpForceModifierOnSlopeUp>k__BackingField:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: -0.0125
-          outSlope: -0.0125
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 20
-          value: 0.75
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 35
-          value: 0.5
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 75
-          value: 1
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 90
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      <JumpForceModifierOnSlopeDown>k__BackingField:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: -0.007499999
-          outSlope: -0.007499999
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 20
-          value: 0.85
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 70
-          value: 1
-          inSlope: Infinity
-          outSlope: Infinity
-          tangentMode: 103
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 90
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 34
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      <JumpToGroundRayDistance>k__BackingField: 0
-      <RotationData>k__BackingField:
-        <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.02, z: 0}
-      <DecelerationForce>k__BackingField: -0.47
-    <PlayerFallData>k__BackingField:
-      <SpeedLimit>k__BackingField: 15

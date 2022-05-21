@@ -5,46 +5,29 @@ namespace StateMachine.WarriorEnemy.States.Combat
 {
     public class BaseAttackEnemyState : BaseMovementEnemyState, IState
     {
-        private readonly WarriorStateMachine _warriorStateMachine;
-        private readonly WarriorEnemyData _warriorEnemyData;
-        
         public BaseAttackEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
         {
-            _warriorStateMachine = warriorStateMachine;
-            
-            _warriorEnemyData = _warriorStateMachine.WarriorEnemy.WarriorEnemyData;
-        }
-        public void Enter()
-        {
             
         }
 
-        public void Exit()
+        public override void Enter()
         {
-           
+            WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction = true;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = true;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.SetDestination(WarriorStateMachine.WarriorEnemy.MainPlayer
+                .transform.position);
+            
+            TargetLocked();
         }
 
-        public void HandleInput()
+        public override void Exit()
         {
-           
+            Stop();
+            WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction = false;
         }
 
-        public void Update()
-        {
-           
-        }
 
-        public void FixedUpdate()
-        {
-          
-        }
-
-        public void OnAnimationEnterEvent()
-        {
-           
-        }
-
-        public void OnAnimationExitEvent()
+        public override void Update()
         {
            
         }

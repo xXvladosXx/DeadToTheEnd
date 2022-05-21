@@ -11,12 +11,12 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         public override void Enter()
         {
+            Stop();
             WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.CanRoll = false;
             WarriorStateMachine.WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.RollParameterHash, true);
-            WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = false;
-            
+
             WarriorStateMachine.WarriorEnemy.NavMeshAgent.updateRotation = false;
-            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = 10f;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyRollData.RollSpeedModifer;
         }
 
         public override void Update()
@@ -31,22 +31,20 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         public override void Exit()
         {
+            base.Exit();
             WarriorStateMachine.WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.RollParameterHash, false);
+        }
+
+        public override void OnAnimationEnterEvent()
+        {
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = false;
         }
 
         public override void OnAnimationExitEvent()
         {
-            WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = true;
-            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = 1f;
-           
             WarriorStateMachine.WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.RollParameterHash, false);
-
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
         }
-
-        
-        public override void OnAnimationEnterEvent()
-        {
-        }
+      
     }
 }

@@ -1,8 +1,12 @@
 ﻿using System;
-using Camera;
+using CameraManage;
+using Combat;
+using Combat.ColliderActivators;
 using Data.Animations;
+using Data.Combat;
 using Data.ScriptableObjects;
 using Data.States;
+using Data.Stats;
 using StateMachine.WarriorEnemy;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,17 +25,23 @@ namespace Entities
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
         
+        public AttackColliderActivator AttackColliderActivator { get; private set; }
         public MainPlayer MainPlayer { get; private set; }
 
         private WarriorStateMachine _warriorStateMachine;
 
-        private void Awake()
+        public override Health Health { get; protected set; }
+
+        protected override void Awake()
         {
+            base.Awake();
             EnemyStateReusableData.Initialize(this);
 
+            Health = new Health(EnemyStateReusableData);
             NavMeshAgent = GetComponent<NavMeshAgent>();
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
+            AttackColliderActivator = GetComponentInChildren<AttackColliderActivator>();
             MainPlayer = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();
             
             WarriorEnemyAnimationData.Init();
@@ -64,6 +74,10 @@ namespace Entities
         {
             _warriorStateMachine.OnAnimationExitEvent();
         }
+        public void OnMovementStateAnimationHandleEvent()
+        {
+            _warriorStateMachine.OnAnimationHandleEvent();
+        }
 
         private void OnAnimatorMove()
         {
@@ -79,13 +93,22 @@ namespace Entities
             Vector3 deltaPosition = Animator.deltaPosition;
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / delta;
-          
-            Debug.Log("Moving");
         }
 
         public Transform Lock()
         {
             return _lockAim;
+        }
+
+
+        public void OnAttackMake(float time, AttackType attackType)
+        {
+            AttackData attackData = new AttackData
+            {
+                AttackType = attackType
+            };
+            
+            AttackColliderActivator.ActivateCollider(time, attackData);
         }
     }
 }

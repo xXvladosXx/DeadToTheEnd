@@ -1,14 +1,14 @@
 ﻿using System;
+using Data.States.StateData;
 using Entities;
 using UnityEngine;
 
 namespace Data.States
 {
     [Serializable]
-    public sealed class EnemyStateReusableData
+    public sealed class EnemyStateReusableData : IReusable
     {
         [field: SerializeField] public float MovementSpeedModifier { get; set; } = 1f;
-        [field: SerializeField] public float DashAttackCooldown { get; set; } = 4f;
         [field: SerializeField] public float ComboAttackCooldown { get; set; } = 4f;
         [field: SerializeField] public Vector3 StartPosition { get; set; }
         [field: SerializeField] public bool IsPerformingAction { get; set; }
@@ -23,5 +23,7 @@ namespace Data.States
         {
             StartPosition = enemy.transform.position;
         }
+
+        public bool IsBlocking { get; set; }
     }
 }

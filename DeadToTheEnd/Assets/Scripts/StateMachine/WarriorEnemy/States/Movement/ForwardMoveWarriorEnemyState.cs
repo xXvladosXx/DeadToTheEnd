@@ -5,7 +5,9 @@ namespace StateMachine.WarriorEnemy.States.Movement
 {
     public class ForwardMoveWarriorEnemyState : BaseMovementEnemyState, IState
     {
-
+        private float _curTime;
+        private float _timeToMoveForward;
+        
         public ForwardMoveWarriorEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
         {
            
@@ -14,53 +16,39 @@ namespace StateMachine.WarriorEnemy.States.Movement
         public override void Enter()
         {
             WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = false;
+            WarriorStateMachine.WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyWalkData.WalkSpeedModifer;
+            _timeToMoveForward = DecideTimeOfMoving(WarriorEnemyData.EnemyWalkData.WalkMinTime, WarriorEnemyData.EnemyWalkData.WalkMaxTime);
         }
 
         public override void Exit()
         {
-            WarriorStateMachine.WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0);
-        }
+            base.Exit();
 
-        public override void HandleInput()
-        {
+            WarriorStateMachine.WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0);
         }
 
         public override void Update()
         {
+            if(WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction) return;
+            _curTime += Time.deltaTime;
             base.Update();
+            if(_curTime > _timeToMoveForward)
+                DecideAttackToDo();
+            
             HandleMoveToTarget();
-            CheckCombatConditions();
         }
-
-        private void CheckCombatConditions()
-        {
-        }
-
-        public override void FixedUpdate()
-        {
-        }
-
-        public override void OnAnimationEnterEvent()
-        {
-        }
-
-        public override void OnAnimationExitEvent()
-        {
-        }
-
+        
         private void HandleMoveToTarget()
         {
-            WarriorStateMachine.ChangeState(WarriorStateMachine.RollBackWarriorEnemyState);
-            
-            if (IsEnoughDistance(3,
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     WarriorStateMachine.WarriorEnemy.transform,
                     WarriorStateMachine.WarriorEnemy.MainPlayer.transform))
             {
+                DecideAttackToDo();
                 WarriorStateMachine.WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0, .1f, Time.deltaTime);
-                WarriorStateMachine.WarriorEnemy.NavMeshAgent.isStopped = true;
-                //WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
+                return;
             }
-            else if (!IsEnoughDistance(3,
+            else if (!IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                          WarriorStateMachine.WarriorEnemy.transform,
                          WarriorStateMachine.WarriorEnemy.MainPlayer.transform))
             {
@@ -68,6 +56,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             }
 
             HandleRotateTowardsTarget();
+            TargetLocked();
         }
 
         private void HandleRotateTowardsTarget()

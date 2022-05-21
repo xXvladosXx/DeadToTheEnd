@@ -7,6 +7,5 @@ namespace Data.ScriptableObjects
     public sealed class PlayerData : ScriptableObject
     {
         [field: SerializeField] public PlayerGroundData GroundData { get; private set; }
-        [field: SerializeField] public PlayerAirborneData AirborneData { get; private set; }
     }
 }

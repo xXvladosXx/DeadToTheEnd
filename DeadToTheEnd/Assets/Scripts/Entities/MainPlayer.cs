@@ -1,8 +1,10 @@
 ﻿using System;
+using Combat.ColliderActivators;
 using Data.Animations;
 using Data.Layers;
 using Data.ScriptableObjects;
 using Data.States;
+using Data.Stats;
 using UnityEngine;
 using Utilities;
 using Utilities.Camera;
@@ -24,8 +26,13 @@ namespace Entities
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
 
-        private void Awake()
+        public DefenseColliderActivator DefenseColliderActivator { get; private set; }
+        public AttackColliderActivator AttackColliderActivator { get; private set; }
+        public override Health Health { get; protected set; }
+
+        protected override void Awake()
         {
+            base.Awake();
             InputAction = GetComponent<PlayerInput>();
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
@@ -37,6 +44,10 @@ namespace Entities
 
             MainCamera = UnityEngine.Camera.main.transform;
             ReusableData = new PlayerStateReusableData();
+            Health = new Health(ReusableData);
+
+            AttackColliderActivator = GetComponentInChildren<AttackColliderActivator>();
+            DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
         }
 
         private void OnValidate()

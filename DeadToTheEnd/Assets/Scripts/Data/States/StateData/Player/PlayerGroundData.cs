@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data.Camera;
+using Data.States.StateData.Player;
 using UnityEngine;
 
 namespace Data.States
@@ -15,10 +16,11 @@ namespace Data.States
         [field: SerializeField] public PlayerRotationData BaseRotationData { get; private set; }
         [field: SerializeField] public WalkData WalkData { get; private set; }
         [field: SerializeField] public PlayerIdleData IdleData { get; private set; }
-        [field: SerializeField] public RunData RunData { get; private set; }
+        [field: SerializeField] public PlayerRunData PlayerRunData { get; private set; }
         [field: SerializeField] public PlayerSprintData SprintData { get; private set; }
         [field: SerializeField] public PlayerDashData DashData { get; private set; }
         [field: SerializeField] public PlayerStopData StopData { get; private set; }
+        [field: SerializeField] public PlayerRollData RollData { get; private set; }
         [field: SerializeField] public List<PlayerCameraRecenteringData> SideCameraRecenteringDatas { get; private set; }
         [field: SerializeField] public List<PlayerCameraRecenteringData> BackCameraRecenteringDatas { get; private set; }
     }

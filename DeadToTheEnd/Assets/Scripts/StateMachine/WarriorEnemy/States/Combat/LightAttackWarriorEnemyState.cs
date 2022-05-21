@@ -18,37 +18,15 @@ namespace StateMachine.WarriorEnemy.States.Combat
         
         public override void Enter()
         {
-            Stop(_warriorStateMachine.WarriorEnemy.NavMeshAgent);
+            Stop();
             
             _warriorStateMachine.WarriorEnemy.Animator.SetBool(
                 _warriorStateMachine.WarriorEnemy.WarriorEnemyAnimationData.LightAttackParameterHash, true);
-            
-            Debug.Log("Made light Attack");
-        }
-
-        public override void Exit()
-        {
-           
-        }
-
-        public override void HandleInput()
-        {
-           
         }
 
         public override void Update()
         {
             TargetLocked();
-        }
-
-        public override void FixedUpdate()
-        {
-           
-        }
-
-        public override void OnAnimationEnterEvent()
-        {
-            
         }
 
         public override void OnAnimationExitEvent()
@@ -58,11 +36,6 @@ namespace StateMachine.WarriorEnemy.States.Combat
                 _warriorStateMachine.WarriorEnemy.WarriorEnemyAnimationData.LightAttackParameterHash, false);
         }
         
-        private void TargetLocked()
-        {
-            Transform transform;
-            (transform = _warriorStateMachine.WarriorEnemy.transform).LookAt(_warriorStateMachine.WarriorEnemy.MainPlayer.transform);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        }
+        
     }
 }

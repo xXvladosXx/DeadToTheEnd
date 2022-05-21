@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4c94f8be6245bd8ce4dd202e2788e1, type: 3}
+  m_Name: New Base Attack Enemy Animator StateDash2 1
+  m_EditorClassIdentifier: 
+  _timeToActivate: 0.8
+  _timeToDeactivate: 0.81
+  _disable: 0.2
+  _leanTween: {fileID: 0}
+  _enemy: {fileID: 0}
+  _attackColliderActivator: {fileID: 0}
+  _wasDeactivated: 1
+  _time: -1

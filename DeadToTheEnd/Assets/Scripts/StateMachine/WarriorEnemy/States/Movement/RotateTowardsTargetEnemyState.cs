@@ -12,14 +12,8 @@ namespace StateMachine.WarriorEnemy.States.Movement
             
         }
         
-        public override void Enter()
-        {
-            
-            
-        }
         public override void Exit()
         {
-             WarriorStateMachine.WarriorEnemy.Animator.applyRootMotion = false;
             WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction = false;
             WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsRotatingWithRootMotion = false;
             WarriorStateMachine.WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.RotateLeftParameterHash, false);
@@ -27,11 +21,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
             WarriorStateMachine.WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.RotateBehindParameterHash, false);
         }
 
-        public override void HandleInput()
-        {
-           
-        }
-        
         public override void Update()
         {
             WarriorStateMachine.WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0);
@@ -56,23 +45,13 @@ namespace StateMachine.WarriorEnemy.States.Movement
             }
         }
 
-        public override void FixedUpdate()
-        {
-        }
-
-        public override void OnAnimationEnterEvent()
-        {
-        }
-        
         public override void OnAnimationExitEvent()
         {
-           
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
         }
         
         private void RotateWithRootMotion(int rotateLeftParameterHash)
         {
-            WarriorStateMachine.WarriorEnemy.Animator.applyRootMotion = true;
             WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsPerformingAction = true;
             WarriorStateMachine.WarriorEnemy.EnemyStateReusableData.IsRotatingWithRootMotion = true;
             WarriorStateMachine.WarriorEnemy.Animator.SetBool(rotateLeftParameterHash, true);

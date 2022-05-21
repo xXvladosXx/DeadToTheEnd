@@ -11,6 +11,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94b29202f1154b7691672732f4b2b788, type: 3}
   m_Name: New Attack 1 Animator State
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp:AnimatorStateMachine.Combat.Attacks:Attack1AnimatorState
   _startTimeToMakeCombo: 0.2
   _endTimeToMakeCombo: 0.5

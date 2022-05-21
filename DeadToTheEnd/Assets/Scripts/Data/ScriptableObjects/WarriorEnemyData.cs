@@ -10,6 +10,10 @@ namespace Data.ScriptableObjects
         [field: SerializeField] public EnemyWalkData EnemyWalkData { get; private set; }
         [field: SerializeField] public EnemyIdleData EnemyIdleData { get; private set; }
         [field: SerializeField] public EnemyPatrolData EnemyPatrolData { get; private set; }
-        [field: SerializeField] public EnemyFollowData EnemyFollowData { get; private set; }
+        [field: SerializeField] public EnemyAttackData EnemyAttackData { get; private set; }
+        [field: SerializeField] public EnemyRollData EnemyRollData { get; private set; }
+        [field: SerializeField] public EnemyDashData EnemyDashData { get; private set; }
+        [field: SerializeField] public EnemyComboData EnemyComboData { get; private set; }
+        [field: SerializeField] public EnemyStrafeData EnemyStrafeData { get; private set; }
     }
 }

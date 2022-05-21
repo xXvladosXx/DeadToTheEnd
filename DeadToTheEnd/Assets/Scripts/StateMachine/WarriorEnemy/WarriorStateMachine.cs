@@ -16,49 +16,57 @@ namespace StateMachine.WarriorEnemy
         public FollowWarriorEnemyState FollowWarriorEnemyState { get; }
         public PatrolWarriorEnemyState PatrolWarriorEnemyState { get; }
         public LightAttackWarriorEnemyState LightAttackWarriorEnemyState { get; }
-        public DashAttackWarriorEnemyState DashAttackWarriorEnemyState { get; }
+        public DashFirstAttackWarriorEnemyState DashFirstAttackWarriorEnemyState { get; }
+        public DashSecondAttackWarriorEnemy DashSecondAttackWarriorEnemy { get; }
         public RotateTowardsTargetEnemyState RotateTowardsEnemyState { get; }
         public ForwardMoveWarriorEnemyState ForwardMoveWarriorEnemyState { get; }
         public StrafeMoveWarriorEnemyState StrafeMoveWarriorEnemyState { get; }
         public RollBackWarriorEnemyState RollBackWarriorEnemyState { get; }
+        public ComboFirstWarriorEnemyState ComboFirstWarriorEnemyState { get; }
+        public ComboSecondWarriorEnemyState ComboSecondWarriorEnemyState { get; }
 
-        public Dictionary<IState, float> StatesCooldown { get; private set; }
-        public Dictionary<IState, float> CurrentStatesCooldown { get; private set; }
+        public Dictionary<Type, float> StatesCooldown { get; private set; }
+        public Dictionary<Type, float> CurrentStatesCooldown { get; private set; }
 
-        private Timer _timer;
+        private AttackCooldownTimer _attackCooldownTimer;
 
         public WarriorStateMachine(Enemy warriorEnemy)
         {
             WarriorEnemy = warriorEnemy;
-            StatesCooldown = new Dictionary<IState, float>();
+            StatesCooldown = new Dictionary<Type, float>();
             
             IdleWarriorEnemyState = new IdleWarriorEnemyState(this);
             FollowWarriorEnemyState = new FollowWarriorEnemyState(this);
             PatrolWarriorEnemyState = new PatrolWarriorEnemyState(this);
             LightAttackWarriorEnemyState = new LightAttackWarriorEnemyState(this);
-            DashAttackWarriorEnemyState = new DashAttackWarriorEnemyState(this);
+            DashFirstAttackWarriorEnemyState = new DashFirstAttackWarriorEnemyState(this);
             RotateTowardsEnemyState = new RotateTowardsTargetEnemyState(this);
             ForwardMoveWarriorEnemyState = new ForwardMoveWarriorEnemyState(this);
             StrafeMoveWarriorEnemyState = new StrafeMoveWarriorEnemyState(this);
             RollBackWarriorEnemyState = new RollBackWarriorEnemyState(this);
+            RollBackWarriorEnemyState = new RollBackWarriorEnemyState(this);
+            ComboFirstWarriorEnemyState = new ComboFirstWarriorEnemyState(this);
+            DashSecondAttackWarriorEnemy = new DashSecondAttackWarriorEnemy(this);
+            ComboSecondWarriorEnemyState = new ComboSecondWarriorEnemyState(this);
 
-            _timer = new Timer();
-            _timer.Init(StatesCooldown);
+            _attackCooldownTimer = new AttackCooldownTimer();
+            _attackCooldownTimer.Init(StatesCooldown);
         }
 
         public override void Update()
         {
-            _timer.Update(Time.deltaTime, CurrentStatesCooldown);
-            StatesCooldown = _timer.StatesCooldown;
+            _attackCooldownTimer.Update(Time.deltaTime, CurrentStatesCooldown);
+            StatesCooldown = _attackCooldownTimer.StatesCooldown;
             base.Update();
         }
 
-        public void StartCooldown(IState state, float time)
+        public void StartCooldown(Type state, float time)
         {
+            if(!typeof(IState).IsAssignableFrom(state)) return;
             if(StatesCooldown.ContainsKey(state)) return;
 
             StatesCooldown.Add(state, time);
-            CurrentStatesCooldown = new Dictionary<IState, float>(StatesCooldown);
+            CurrentStatesCooldown = new Dictionary<Type, float>(StatesCooldown);
         }
     }
 }
