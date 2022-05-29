@@ -1,4 +1,5 @@
-﻿using Data.Animations;
+﻿using CameraManage;
+using Data.Animations;
 using Data.ScriptableObjects;
 using StateMachine.WarriorEnemy.States.Combat;
 using UnityEngine;
@@ -26,12 +27,27 @@ namespace StateMachine.WarriorEnemy.States.Movement
         public virtual void Enter()
         {
             Stop();
+            AddEventCallbacks();
         }
 
         public virtual void Exit()
         {
             Stop();
+            RemoveEventCallbacks();
             _curTime = 0;
+        }
+
+        protected void AddEventCallbacks()
+        {
+            WarriorStateMachine.WarriorEnemy.Health.OnDamageTaken += HealthOnOnAttackApplied;
+        }
+        protected void RemoveEventCallbacks()
+        {
+            WarriorStateMachine.WarriorEnemy.Health.OnDamageTaken -= HealthOnOnAttackApplied;
+        }
+        private void HealthOnOnAttackApplied()
+        {
+            CinemachineShake.Instance.ShakeCamera(.3f, .3f);
         }
 
         public virtual void Update()
@@ -61,6 +77,11 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         public virtual void OnAnimationHandleEvent()
         {
+        }
+
+        public void HandleInput()
+        {
+            
         }
 
         protected void MoveTo(NavMeshAgent enemy, Vector3 target, float speed = 1f)

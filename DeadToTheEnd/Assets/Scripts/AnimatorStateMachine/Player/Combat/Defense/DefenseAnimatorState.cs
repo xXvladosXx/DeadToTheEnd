@@ -15,13 +15,13 @@ namespace AnimatorStateMachine.Movement.Grounded.Locked
         {
             base.OnEnter(characterState, animator, stateInfo);
             
-            Player.Health.OnAttackApplied += OnDefenseImpact;
+            MainPlayer.Health.OnAttackApplied += OnDefenseImpact;
             
-            Player.ReusableData.IsBlocking = true;
-            Player.ReusableData.MovementSpeedModifier = 0f;
+            MainPlayer.ReusableData.IsBlocking = true;
+            MainPlayer.ReusableData.MovementSpeedModifier = 0f;
             
-            Player.DefenseColliderActivator.ActivateCollider();
-            Player.AttackColliderActivator.enabled = false;
+            //MainPlayer.DefenseColliderActivator.ActivateCollider();
+            //MainPlayer.AttackColliderActivator.enabled = false;
         }
         
         public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -33,41 +33,41 @@ namespace AnimatorStateMachine.Movement.Grounded.Locked
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnExit(characterState, animator, stateInfo);
-            Player.Animator.SetBool(PlayerAnimationData.DefenseImpactParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DefenseImpactParameterHash, false);
             
-            Player.Health.OnAttackApplied -= OnDefenseImpact;
+            MainPlayer.Health.OnAttackApplied -= OnDefenseImpact;
 
-            Player.ReusableData.IsMovingAfterStop = true;
-            Player.ReusableData.IsBlocking = false;
+            MainPlayer.ReusableData.IsMovingAfterStop = true;
+            MainPlayer.ReusableData.IsBlocking = false;
             
-            Player.DefenseColliderActivator.DeactivateCollider();
+            MainPlayer.DefenseColliderActivator.DeactivateCollider();
         }
 
         protected override void AddInputCallbacks()
         {
-            Player.InputAction.PlayerActions.Dash.canceled += OnDefenseCanceled;
-            Player.InputAction.PlayerActions.Attack1.performed += OnAttackCalled;
+            MainPlayer.InputAction.PlayerActions.Dash.canceled += OnDefenseCanceled;
+            MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackCalled;
         }
         
         protected override void RemoveInputCallbacks()
         {
-            Player.InputAction.PlayerActions.Dash.canceled -= OnDefenseCanceled;
-            Player.InputAction.PlayerActions.Attack1.performed -= OnAttackCalled;
+            MainPlayer.InputAction.PlayerActions.Dash.canceled -= OnDefenseCanceled;
+            MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackCalled;
         }
       
         private void OnAttackCalled(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, true);
         }
         private void OnDefenseImpact()
         {
             CinemachineShake.Instance.ShakeCamera(_shakeIntensity, .5f);
 
-            Player.Animator.SetBool(PlayerAnimationData.DefenseImpactParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DefenseImpactParameterHash, true);
         }
         private void OnDefenseCanceled(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.DefenseParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DefenseParameterHash, false);
         }
         
     }

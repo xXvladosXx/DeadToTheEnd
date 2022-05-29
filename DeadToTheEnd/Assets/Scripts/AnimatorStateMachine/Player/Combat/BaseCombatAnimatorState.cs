@@ -23,8 +23,6 @@ namespace AnimatorStateMachine.Combat
             Player = animator.GetComponent<MainPlayer>();
             PlayerAnimationData = Player.PlayerAnimationData;
 
-            Player.ReusableData.CanMakeCombo = true;
-            Player.ReusableData.ComboWasMade = false;
             Player.Animator.applyRootMotion = true;
 
             AddInputCallbacks();
@@ -39,7 +37,6 @@ namespace AnimatorStateMachine.Combat
             _time = stateInfo.normalizedTime;
             if (stateInfo.normalizedTime > _endTimeToMakeCombo)
             {
-                Player.ReusableData.CanMakeCombo = false;
                 RemoveInputCallbacks();
             }
         }
@@ -48,9 +45,7 @@ namespace AnimatorStateMachine.Combat
             AnimatorStateInfo stateInfo)
         {
             RemoveInputCallbacks();
-            Player.ReusableData.CanMakeCombo = true;
 
-            if (!Player.ReusableData.ComboWasMade)
                 Player.Animator.SetBool(PlayerAnimationData.ComboParameterHash, false);
         }
 
@@ -74,18 +69,14 @@ namespace AnimatorStateMachine.Combat
             if (_time > _startTimeToMakeCombo && _time < _endTimeToMakeCombo)
             {
                 Player.Animator.SetBool(PlayerAnimationData.ComboParameterHash, true);
-                Player.ReusableData.ComboWasMade = true;
             }
         }
 
         private void TargetLocked()
         {
-            if (Player.ReusableData.IsTargetLocked)
-            {
                 Transform transform;
                 (transform = Player.transform).LookAt(Player.ReusableData.Target);
                 transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            }
         }
         
     }

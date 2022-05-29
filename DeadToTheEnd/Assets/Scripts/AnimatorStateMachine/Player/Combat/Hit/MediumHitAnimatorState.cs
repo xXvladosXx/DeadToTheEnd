@@ -9,7 +9,7 @@ namespace AnimatorStateMachine.Combat.Hit
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnEnter(characterState, animator, stateInfo);
-            Player.Animator.SetBool(PlayerAnimationData.MediumHitParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.MediumHitParameterHash, false);
         }
     }
 }

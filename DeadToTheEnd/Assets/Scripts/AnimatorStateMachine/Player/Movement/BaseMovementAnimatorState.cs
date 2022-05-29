@@ -15,7 +15,7 @@ namespace AnimatorStateMachine.Movement
 {
     public abstract class BaseMovementAnimatorState  : BaseAnimatorState
     {
-        protected MainPlayer Player;
+        protected MainPlayer MainPlayer;
         private SlopeData SlopeData;
        
         protected PlayerGroundData GroundedData;
@@ -25,10 +25,10 @@ namespace AnimatorStateMachine.Movement
 
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            Player = animator.GetComponent<MainPlayer>();
-            GroundedData = Player.PlayerData.GroundData;
-            PlayerAnimationData = Player.PlayerAnimationData;
-            Player.Animator.applyRootMotion = false;
+            MainPlayer = animator.GetComponent<MainPlayer>();
+            GroundedData = MainPlayer.PlayerData.GroundData;
+            PlayerAnimationData = MainPlayer.PlayerAnimationData;
+            MainPlayer.Animator.applyRootMotion = false;
             
             _time = 0;
             AddInputCallbacks();
@@ -36,30 +36,29 @@ namespace AnimatorStateMachine.Movement
             InitializeData();
             ResetVelocity();
 
-            Player.Health.OnDamageTaken += HealthOnDamageTaken;
         }
 
         private void HealthOnDamageTaken(AttackData attackData)
         {
-            if(Player.ReusableData.IsKnockned)
+            if(MainPlayer.ReusableData.IsKnockned)
                 return;
 
-            if (Player.ReusableData.WasHit)
+            if (MainPlayer.ReusableData.WasHit)
             {
-                Player.Animator.SetBool(PlayerAnimationData.KnockdownParameterHash, true);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.KnockdownParameterHash, true);
                 return;
             }
             
             switch (attackData.AttackType)
             {
                 case AttackType.Knock:
-                    Player.Animator.SetBool(PlayerAnimationData.KnockdownParameterHash, true);
+                    MainPlayer.Animator.SetBool(PlayerAnimationData.KnockdownParameterHash, true);
                     break;
                 case AttackType.Medium:
-                    Player.Animator.SetBool(PlayerAnimationData.MediumHitParameterHash, true);
+                    MainPlayer.Animator.SetBool(PlayerAnimationData.MediumHitParameterHash, true);
                     break;
                 case AttackType.Easy:
-                    Player.Animator.SetBool(PlayerAnimationData.EasyHitParameterHash, true);
+                    MainPlayer.Animator.SetBool(PlayerAnimationData.EasyHitParameterHash, true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -71,18 +70,14 @@ namespace AnimatorStateMachine.Movement
             ReadMovementInputWithNormalization();
             ReadMovementInputWithoutNormalization();
             Move();
-            TargetLocked();
         }
 
       
         protected void TargetLocked()
         {
-            if (Player.ReusableData.IsTargetLocked)
-            {
                 Transform transform;
-                (transform = Player.transform).LookAt(Player.ReusableData.Target);
+                (transform = MainPlayer.transform).LookAt(MainPlayer.ReusableData.Target);
                 transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            }
         }
 
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -92,27 +87,27 @@ namespace AnimatorStateMachine.Movement
 
         protected void SetBaseCameraRecenteringData()
         {
-            Player.ReusableData.SideCameraRecenteringDatas = GroundedData.SideCameraRecenteringDatas;
-            Player.ReusableData.BackCameraRecenteringDatas = GroundedData.BackCameraRecenteringDatas;
+            MainPlayer.ReusableData.SideCameraRecenteringDatas = GroundedData.SideCameraRecenteringDatas;
+            MainPlayer.ReusableData.BackCameraRecenteringDatas = GroundedData.BackCameraRecenteringDatas;
         }
 
         protected void SetBaseRotationData()
         {
-            Player.ReusableData.RotationData = GroundedData.BaseRotationData;
+            MainPlayer.ReusableData.RotationData = GroundedData.BaseRotationData;
 
-            Player.ReusableData.TimeToReachTargetRotation = Player.ReusableData.RotationData.TargetRotationReachTime;
-        }
+            MainPlayer.ReusableData.TimeToReachTargetRotation = MainPlayer.ReusableData.RotationData.TargetRotationReachTimeDefault;
+                 }
         protected virtual void AddInputCallbacks()
         {
-            Player.InputAction.PlayerActions.Dash.performed += OnDashStarted;
-            Player.InputAction.PlayerActions.Movement.performed += OnMovementPerformed;
-            Player.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
-            Player.InputAction.PlayerActions.Attack1.performed += OnAttackCalled;
+            MainPlayer.InputAction.PlayerActions.Dash.performed += OnDashStarted;
+            MainPlayer.InputAction.PlayerActions.Movement.performed += OnMovementPerformed;
+            MainPlayer.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
+            MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackCalled;
         }
 
         private void OnAttackCalled(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, true);
         }
 
         protected virtual void OnMovementCanceled(InputAction.CallbackContext obj)
@@ -122,19 +117,19 @@ namespace AnimatorStateMachine.Movement
 
         private void OnMovementPerformed(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(Player.PlayerAnimationData.MovingParameterHash, true);
+            MainPlayer.Animator.SetBool(MainPlayer.PlayerAnimationData.MovingParameterHash, true);
         }
 
         private void OnDashStarted(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(Player.PlayerAnimationData.SprintParameterHash, true);
+            MainPlayer.Animator.SetBool(MainPlayer.PlayerAnimationData.SprintParameterHash, true);
         }
         protected virtual void RemoveInputCallbacks()
         {
-            Player.InputAction.PlayerActions.Dash.performed -= OnDashStarted;
-            Player.InputAction.PlayerActions.Movement.performed -= OnMovementPerformed;
-            Player.InputAction.PlayerActions.Movement.canceled -= OnMovementCanceled;
-            Player.InputAction.PlayerActions.Attack1.performed -= OnAttackCalled;
+            MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDashStarted;
+            MainPlayer.InputAction.PlayerActions.Movement.performed -= OnMovementPerformed;
+            MainPlayer.InputAction.PlayerActions.Movement.canceled -= OnMovementCanceled;
+            MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackCalled;
         }
         
         private void InitializeData()
@@ -146,21 +141,21 @@ namespace AnimatorStateMachine.Movement
 
         protected void ReadMovementInputWithNormalization()
         {
-            Player.ReusableData.MovementInputWithNormalization = Player.InputAction.PlayerActions.Movement.ReadValue<Vector2>();
+            MainPlayer.ReusableData.MovementInputWithNormalization = MainPlayer.InputAction.PlayerActions.Movement.ReadValue<Vector2>();
         }
 
         private void ReadMovementInputWithoutNormalization()
         {
-            Player.ReusableData.MovementInputWithoutNormalization = Player.InputAction.PlayerActions.MovementWithoutNormalization.ReadValue<Vector2>();
+            MainPlayer.ReusableData.MovementInputWithoutNormalization = MainPlayer.InputAction.PlayerActions.MovementWithoutNormalization.ReadValue<Vector2>();
         }
 
         protected void Move()
         {
-            if (Player.ReusableData.MovementInputWithNormalization == Vector2.zero ||
-                Player.ReusableData.MovementSpeedModifier == 0f)
+            if (MainPlayer.ReusableData.MovementInputWithNormalization == Vector2.zero ||
+                MainPlayer.ReusableData.MovementSpeedModifier == 0f)
             {            
-                Player.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, 0f, 0.05f, Time.deltaTime);
-                Player.Animator.SetBool(PlayerAnimationData.MovingParameterHash, false);
+                MainPlayer.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, 0f, 0.05f, Time.deltaTime);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.MovingParameterHash, false);
                 _time = 0;
                 
                 return;
@@ -175,25 +170,25 @@ namespace AnimatorStateMachine.Movement
             
             var currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
             
-            Player.Animator.SetBool(PlayerAnimationData.MovingParameterHash, true);
-            Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, true);
-            Player.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, Player.ReusableData.MovementSpeedModifier, 0.3f, Time.deltaTime);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.MovingParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, true);
+            MainPlayer.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, MainPlayer.ReusableData.MovementSpeedModifier, 0.3f, Time.deltaTime);
             
-            Player.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
+            MainPlayer.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
         }
 
         private float GetSmoothMovementSpeed()
         {
             _time += Time.deltaTime * GroundedData.SmoothSpeedModifier;
             float movementSpeed = GetMaxMovementSpeed();
-            if (Player.ReusableData.IsMovingAfterStop)
+            if (MainPlayer.ReusableData.IsMovingAfterStop)
             {
                 movementSpeed = Mathf.Lerp(0, GetMaxMovementSpeed(), _time);
             }
 
             if (GetMaxMovementSpeed() == movementSpeed)
             {
-                Player.ReusableData.IsMovingAfterStop = false;
+                MainPlayer.ReusableData.IsMovingAfterStop = false;
             }
 
             return movementSpeed;
@@ -201,7 +196,7 @@ namespace AnimatorStateMachine.Movement
 
         protected Vector3 GetMovementInputDirection()
         {
-            return new Vector3(Player.ReusableData.MovementInputWithNormalization.x, 0f, Player.ReusableData.MovementInputWithNormalization.y);
+            return new Vector3(MainPlayer.ReusableData.MovementInputWithNormalization.x, 0f, MainPlayer.ReusableData.MovementInputWithNormalization.y);
         }
 
         protected float Rotate(Vector3 direction)
@@ -222,7 +217,7 @@ namespace AnimatorStateMachine.Movement
                 directionAngle = AddCameraRotationToAngle(directionAngle);
             }
 
-            if (directionAngle != Player.ReusableData.CurrentTargetRotation.y)
+            if (directionAngle != MainPlayer.ReusableData.CurrentTargetRotation.y)
             {
                 UpdateTargetRotationData(directionAngle);
             }
@@ -244,7 +239,7 @@ namespace AnimatorStateMachine.Movement
 
         private float AddCameraRotationToAngle(float angle)
         {
-            angle += Player.MainCamera.eulerAngles.y;
+            angle += MainPlayer.MainCamera.eulerAngles.y;
 
             if (angle > 360f)
             {
@@ -256,29 +251,29 @@ namespace AnimatorStateMachine.Movement
 
         private void UpdateTargetRotationData(float targetAngle)
         {
-            Player.ReusableData.CurrentTargetRotation.y = targetAngle;
+            MainPlayer.ReusableData.CurrentTargetRotation.y = targetAngle;
 
-            Player.ReusableData.DampedTargetRotationPassedTime.y = 0f;
+            MainPlayer.ReusableData.DampedTargetRotationPassedTime.y = 0f;
         }
 
         protected void RotateTowardsTargetRotation()
         {
-            float currentYAngle = Player.Rigidbody.rotation.eulerAngles.y;
+            float currentYAngle = MainPlayer.Rigidbody.rotation.eulerAngles.y;
 
-            if (currentYAngle == Player.ReusableData.CurrentTargetRotation.y)
+            if (currentYAngle == MainPlayer.ReusableData.CurrentTargetRotation.y)
             {
                 return;
             }
 
-            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, Player.ReusableData.CurrentTargetRotation.y,
-                ref Player.ReusableData.DampedTargetRotationCurrentVelocity.y, 
-                Player.ReusableData.TimeToReachTargetRotation.y - Player.ReusableData.DampedTargetRotationPassedTime.y);
+            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, MainPlayer.ReusableData.CurrentTargetRotation.y,
+                ref MainPlayer.ReusableData.DampedTargetRotationCurrentVelocity.y, 
+                MainPlayer.ReusableData.TimeToReachTargetRotation.y - MainPlayer.ReusableData.DampedTargetRotationPassedTime.y);
 
-            Player.ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
+            MainPlayer.ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
 
             Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
 
-            Player.Rigidbody.MoveRotation(targetRotation);
+            MainPlayer.Rigidbody.MoveRotation(targetRotation);
         }
 
         protected Vector3 GetTargetRotationDirection(float targetRotationAngle)
@@ -288,11 +283,11 @@ namespace AnimatorStateMachine.Movement
 
         protected float GetMaxMovementSpeed(bool shouldConsiderSlopes = true)
         {
-            float movementSpeed = GroundedData.BaseSpeed * Player.ReusableData.MovementSpeedModifier;
+            float movementSpeed = GroundedData.BaseSpeed * MainPlayer.ReusableData.MovementSpeedModifier;
 
             if (shouldConsiderSlopes)
             {
-                movementSpeed *= Player.ReusableData.MovementSlopeSpeedModifier;
+                movementSpeed *= MainPlayer.ReusableData.MovementSlopeSpeedModifier;
             }
 
             return movementSpeed;
@@ -301,7 +296,7 @@ namespace AnimatorStateMachine.Movement
        
         protected Vector3 GetPlayerHorizontalVelocity()
         {
-            Vector3 playerHorizontalVelocity = Player.Rigidbody.velocity;
+            Vector3 playerHorizontalVelocity = MainPlayer.Rigidbody.velocity;
 
             playerHorizontalVelocity.y = 0f;
 
@@ -310,7 +305,7 @@ namespace AnimatorStateMachine.Movement
 
         protected Vector3 GetPlayerVerticalVelocity()
         {
-            return new Vector3(0f, Player.Rigidbody.velocity.y, 0f);
+            return new Vector3(0f, MainPlayer.Rigidbody.velocity.y, 0f);
         }
 
         protected void SetCameraRecenteringState(float cameraVerticalAngle, List<PlayerCameraRecenteringData> cameraRecenteringData)
@@ -339,38 +334,38 @@ namespace AnimatorStateMachine.Movement
                 movementSpeed = GroundedData.BaseSpeed;
             }
 
-            Player.CameraUtility.EnableRecentering(waitTime, recenteringTime, GroundedData.BaseSpeed, movementSpeed);
+            MainPlayer.CameraUtility.EnableRecentering(waitTime, recenteringTime, GroundedData.BaseSpeed, movementSpeed);
         }
 
         protected void DisableCameraRecentering()
         {
-            Player.CameraUtility.DisableRecentering();
+            MainPlayer.CameraUtility.DisableRecentering();
         }
 
         protected void ResetVelocity()
         {
-            Player.Rigidbody.velocity = Vector3.zero;
+            MainPlayer.Rigidbody.velocity = Vector3.zero;
         }
 
         protected void ResetVerticalVelocity()
         {
             Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
 
-            Player.Rigidbody.velocity = playerHorizontalVelocity;
+            MainPlayer.Rigidbody.velocity = playerHorizontalVelocity;
         }
 
         protected void DecelerateHorizontally()
         {
             Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
 
-            Player.Rigidbody.AddForce(-playerHorizontalVelocity * Player.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+            MainPlayer.Rigidbody.AddForce(-playerHorizontalVelocity * MainPlayer.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
         }
 
         protected void DecelerateVertically()
         {
             Vector3 playerVerticalVelocity = GetPlayerVerticalVelocity();
 
-            Player.Rigidbody.AddForce(-playerVerticalVelocity * Player.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+            MainPlayer.Rigidbody.AddForce(-playerVerticalVelocity * MainPlayer.ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
         }
 
         protected bool IsMovingHorizontally(float minimumMagnitude = 0.1f)

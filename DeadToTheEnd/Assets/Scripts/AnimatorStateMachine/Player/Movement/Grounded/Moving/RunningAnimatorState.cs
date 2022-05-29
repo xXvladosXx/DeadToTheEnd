@@ -11,7 +11,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
         {
             base.OnEnter(characterState, animator, stateInfo);
             
-            Player.ReusableData.MovementSpeedModifier = GroundedData.PlayerRunData.SpeedModifier;
+            MainPlayer.ReusableData.MovementSpeedModifier = GroundedData.PlayerRunData.SpeedModifier;
         }
     }
 }

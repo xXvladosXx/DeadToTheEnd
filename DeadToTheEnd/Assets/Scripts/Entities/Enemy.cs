@@ -25,11 +25,8 @@ namespace Entities
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
         
-        public AttackColliderActivator AttackColliderActivator { get; private set; }
         public MainPlayer MainPlayer { get; private set; }
-
-        private WarriorStateMachine _warriorStateMachine;
-
+        
         public override Health Health { get; protected set; }
 
         protected override void Awake()
@@ -41,42 +38,26 @@ namespace Entities
             NavMeshAgent = GetComponent<NavMeshAgent>();
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
-            AttackColliderActivator = GetComponentInChildren<AttackColliderActivator>();
             MainPlayer = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();
             
             WarriorEnemyAnimationData.Init();
 
-            _warriorStateMachine = new WarriorStateMachine(this);
+            StateMachine = new WarriorStateMachine(this);
         }
 
         private void Start()
         {
-            _warriorStateMachine.ChangeState(_warriorStateMachine.IdleWarriorEnemyState);
+            StateMachine.ChangeState(StateMachine.StartState());
         }
 
         private void Update()
         {
-            _warriorStateMachine.Update();
+            StateMachine.Update();
         }
 
         private void FixedUpdate()
         {
-            _warriorStateMachine.FixedUpdate();
-            
-        }
-
-        public void OnMovementStateAnimationEnterEvent()
-        {
-            _warriorStateMachine.OnAnimationEnterEvent();
-        }
-
-        public void OnMovementStateAnimationExitEvent()
-        {
-            _warriorStateMachine.OnAnimationExitEvent();
-        }
-        public void OnMovementStateAnimationHandleEvent()
-        {
-            _warriorStateMachine.OnAnimationHandleEvent();
+            StateMachine.FixedUpdate();
         }
 
         private void OnAnimatorMove()
@@ -98,17 +79,6 @@ namespace Entities
         public Transform Lock()
         {
             return _lockAim;
-        }
-
-
-        public void OnAttackMake(float time, AttackType attackType)
-        {
-            AttackData attackData = new AttackData
-            {
-                AttackType = attackType
-            };
-            
-            AttackColliderActivator.ActivateCollider(time, attackData);
         }
     }
 }

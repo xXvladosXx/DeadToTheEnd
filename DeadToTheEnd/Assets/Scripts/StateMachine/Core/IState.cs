@@ -12,4 +12,5 @@ public interface IState
     public void OnAnimationExitEvent();
     public void OnAnimationHandleEvent();
 
+    public void HandleInput();
 }

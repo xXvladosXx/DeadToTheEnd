@@ -8,18 +8,16 @@ namespace AnimatorStateMachine.Combat.Hit
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnEnter(characterState, animator, stateInfo);
-            Player.Animator.applyRootMotion = true;
-            Player.ReusableData.WasHit = true;
-            Player.ReusableData.IsTargetLocked = true;
+            MainPlayer.Animator.applyRootMotion = true;
+            MainPlayer.ReusableData.WasHit = true;
         }
         
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnExit(characterState, animator, stateInfo);
-            Player.Animator.applyRootMotion = false;
-            Player.Animator.SetBool(PlayerAnimationData.DefenseParameterHash, false);
-            Player.ReusableData.WasHit = false;
-            Player.ReusableData.IsTargetLocked = false;
+            MainPlayer.Animator.applyRootMotion = false;
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DefenseParameterHash, false);
+            MainPlayer.ReusableData.WasHit = false;
 
             ResetVelocity();
         }

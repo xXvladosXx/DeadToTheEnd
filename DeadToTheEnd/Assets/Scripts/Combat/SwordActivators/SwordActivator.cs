@@ -13,10 +13,12 @@ namespace Combat.SwordActivators
 
         private Renderer _renderer;
         private bool _startCount;
+        private bool _crActivateStarted;
+        private bool _crDeactivateStarted;
         private float _dissolveModifier;
-        private static readonly int Dissolve = Shader.PropertyToID("_Dissolve");
-        
+
         protected bool _isActive;
+        private static readonly int Dissolve = Shader.PropertyToID("_Dissolve");
 
         private void Awake()
         {
@@ -26,46 +28,35 @@ namespace Combat.SwordActivators
             SetValue(1);
         }
 
-        private void Update()
+        public void ActivateSword()
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                StartCoroutine(Dissolver());
-            }
+            StartCoroutine(ActivateSwordCoroutine());
         }
 
-        private IEnumerator Dissolver()
+        public void DeactivateSword()
         {
-            if (_isActive)
-            {
-                _renderer.material = _materials[1];
-            }
+            StartCoroutine(DeactivateSwordCoroutine());
+        }
 
+
+        private IEnumerator ActivateSwordCoroutine()
+        {
+            _crActivateStarted = true;
             while (true)
             {
                 _dissolveModifier += Time.deltaTime;
 
-                if (!_isActive)
-                {
-                    var value = Mathf.Lerp(1, 0, _dissolveModifier);
-                    SetValue(value);
-                }
-                else
-                {
-                    var value = Mathf.Lerp(0, 1, _dissolveModifier);
-                    SetValue(value);
-                }
+                var value = Mathf.Lerp(1, 0, _dissolveModifier);
+                SetValue(value);
 
                 if (_dissolveModifier > .7f)
                 {
-                    _isActive = !_isActive;
-                    SetValue(Convert.ToSingle(!_isActive));
-                    if (_isActive)
-                    {
-                        _renderer.material = _materials.First();
-                    }
+                    _renderer.material = _materials.First();
+                    _isActive = true;
 
                     _dissolveModifier = 0;
+                    _crActivateStarted = false;
+
                     yield break;
                 }
 
@@ -73,6 +64,32 @@ namespace Combat.SwordActivators
             }
         }
 
+        private IEnumerator DeactivateSwordCoroutine()
+        {
+            _renderer.material = _materials[1];
+            _crDeactivateStarted = true;
+
+            while (true)
+            {
+                _dissolveModifier += Time.deltaTime;
+
+                var value = Mathf.Lerp(0, 1, _dissolveModifier);
+                SetValue(value);
+
+                if (_dissolveModifier > .7f)
+                {
+                    _isActive = false;
+
+                    _dissolveModifier = 0;
+                    SetValue(1);
+                    _crDeactivateStarted = false;
+
+                    yield break;
+                }
+
+                yield return null;
+            }
+        }
         protected void SetValue(float value)
         {
             foreach (var material in _mainMaterials)

@@ -1,10 +1,12 @@
 ﻿using System;
 using Combat.ColliderActivators;
+using Combat.SwordActivators;
 using Data.Animations;
 using Data.Layers;
 using Data.ScriptableObjects;
 using Data.States;
 using Data.Stats;
+using StateMachine;
 using UnityEngine;
 using Utilities;
 using Utilities.Camera;
@@ -15,6 +17,9 @@ namespace Entities
     [RequireComponent(typeof(PlayerInput), typeof(Rigidbody))]
     public sealed class MainPlayer : AliveEntity
     {
+        [field:SerializeField] public SwordActivator LongSwordActivator { get; private set; }
+        [field:SerializeField] public ShortSwordActivator[] ShortSwordsActivator { get; private set; }
+        
         [field: SerializeField] public PlayerData PlayerData { get; private set; }
         [field: SerializeField] public PlayerColliderUtility ColliderUtility { get; private set; }
         [field: SerializeField] public PlayerLayerData PlayerLayerData { get; private set; }
@@ -26,28 +31,37 @@ namespace Entities
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
 
+        public ShortSwordColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
-        public AttackColliderActivator AttackColliderActivator { get; private set; }
+
         public override Health Health { get; protected set; }
 
         protected override void Awake()
         {
             base.Awake();
+
             InputAction = GetComponent<PlayerInput>();
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
-        
+            
             ColliderUtility.Init(gameObject);
             ColliderUtility.CalculateCapsuleColliderDimensions();
             CameraUtility.Init();
             PlayerAnimationData.Init();
 
             MainCamera = UnityEngine.Camera.main.transform;
+
+            DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
+            ShortSwordColliderActivators = GetComponentsInChildren<ShortSwordColliderActivator>();
+
             ReusableData = new PlayerStateReusableData();
             Health = new Health(ReusableData);
+            StateMachine = new PlayerStateMachine(this, gameObject);
+        }
 
-            AttackColliderActivator = GetComponentInChildren<AttackColliderActivator>();
-            DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
+        private void Start()
+        {
+            StateMachine.ChangeState(StateMachine.StartState());
         }
 
         private void OnValidate()
@@ -58,64 +72,14 @@ namespace Entities
 
         private void Update()
         {
-            NormalizeMovement();
+            StateMachine.HandleInput();
+            StateMachine.Update();
         }
 
         private void FixedUpdate()
         {
-            Float();
-        }
-    
-        private void NormalizeMovement()
-        {
-            if (Rigidbody.velocity.magnitude > ReusableData.MovementSpeedModifier)
-            {
-                Rigidbody.velocity = Rigidbody.velocity.normalized *
-                                     ReusableData.MovementSpeedModifier;
-            }
-        }
-        private void Float()
-        {
-            Vector3 capsuleColliderCenterInWorld = ColliderUtility
-                .CapsuleColliderData.Collider.bounds.center;
-
-            Ray downwardsRayFromCapsuleCenter = new Ray(capsuleColliderCenterInWorld, Vector3.down);
-            if (Physics.Raycast(downwardsRayFromCapsuleCenter, out RaycastHit raycastHit, ColliderUtility.SlopeData.FloatRayDistance, 
-                    PlayerLayerData.GroundLayer))
-            {
-                float groundAngle = Vector3.Angle(raycastHit.normal, -downwardsRayFromCapsuleCenter.direction);
-                float slopeSpeedModifier = SetSlopeSpeedModifierOnAngle(groundAngle);
-                
-                if(slopeSpeedModifier == 0f)
-                    return;
-                
-                float distanceToFloatingPoint = ColliderUtility
-                    .CapsuleColliderData.ColliderCenterInLocalSpace.y * transform.localScale.y - raycastHit.distance;
-                
-                if(distanceToFloatingPoint == 0f)
-                    return;
-
-                float amountToLift = distanceToFloatingPoint * ColliderUtility.SlopeData.StepReachForce - GetPlayerVerticalVelocity().y;
-                var liftForce = new Vector3(0f, amountToLift, 0f);
-                Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
-            }
-        }
-        private Vector3 GetPlayerVerticalVelocity()
-        {
-            return new Vector3(0f, Rigidbody.velocity.y, 0f);
-        }
-        private float SetSlopeSpeedModifierOnAngle(float angle)
-        {
-            float slopeSpeedModifier = PlayerData.GroundData.SlopeSpeedAngles.Evaluate(angle);
-
-            if (ReusableData.MovementSlopeSpeedModifier != slopeSpeedModifier)
-            {
-                ReusableData.MovementSlopeSpeedModifier = slopeSpeedModifier;
-            }
-
-            return slopeSpeedModifier;
+            StateMachine.FixedUpdate();
         }
 
-        
     }
 }

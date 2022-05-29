@@ -9,7 +9,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnEnter(characterState, animator, stateInfo);
-            Player.ReusableData.MovementDecelerationForce = GroundedData.StopData.HardDeceleration;
+            MainPlayer.ReusableData.MovementDecelerationForce = GroundedData.StopData.HardDeceleration;
         }
 
         protected override void AddInputCallbacks()

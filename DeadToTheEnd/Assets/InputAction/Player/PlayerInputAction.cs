@@ -125,6 +125,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Locked"",
+                    ""type"": ""Button"",
+                    ""id"": ""0dc6a6f7-d84f-42ce-b8cc-c35e232c344e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -358,6 +367,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87956a26-e21f-4de8-bc7b-e51848aa930f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Locked"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -377,6 +397,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Combo = m_Player.FindAction("Combo", throwIfNotFound: true);
         m_Player_MovementWithoutNormalization = m_Player.FindAction("MovementWithoutNormalization", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
+        m_Player_Locked = m_Player.FindAction("Locked", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -447,6 +468,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Combo;
     private readonly InputAction m_Player_MovementWithoutNormalization;
     private readonly InputAction m_Player_Roll;
+    private readonly InputAction m_Player_Locked;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -458,10 +480,11 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
+        public InputAction Attack => m_Wrapper.m_Player_Attack1;
         public InputAction @Combo => m_Wrapper.m_Player_Combo;
         public InputAction @MovementWithoutNormalization => m_Wrapper.m_Player_MovementWithoutNormalization;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
+        public InputAction @Locked => m_Wrapper.m_Player_Locked;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -492,9 +515,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Attack1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
-                @Attack1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
-                @Attack1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
                 @Combo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
                 @Combo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
                 @Combo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
@@ -504,6 +527,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Roll.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRoll;
+                @Locked.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLocked;
+                @Locked.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLocked;
+                @Locked.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLocked;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -529,9 +555,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Attack1.started += instance.OnAttack1;
-                @Attack1.performed += instance.OnAttack1;
-                @Attack1.canceled += instance.OnAttack1;
+                Attack.started += instance.OnAttack1;
+                Attack.performed += instance.OnAttack1;
+                Attack.canceled += instance.OnAttack1;
                 @Combo.started += instance.OnCombo;
                 @Combo.performed += instance.OnCombo;
                 @Combo.canceled += instance.OnCombo;
@@ -541,6 +567,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
+                @Locked.started += instance.OnLocked;
+                @Locked.performed += instance.OnLocked;
+                @Locked.canceled += instance.OnLocked;
             }
         }
     }
@@ -558,5 +587,6 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnCombo(InputAction.CallbackContext context);
         void OnMovementWithoutNormalization(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
+        void OnLocked(InputAction.CallbackContext context);
     }
 }

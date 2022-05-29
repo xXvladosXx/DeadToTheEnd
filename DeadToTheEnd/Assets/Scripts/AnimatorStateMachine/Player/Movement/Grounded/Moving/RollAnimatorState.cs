@@ -14,8 +14,8 @@ namespace AnimatorStateMachine.Player.Movement.Grounded.Moving
         {
             base.OnEnter(characterState, animator, stateInfo);
 
-            Player.ReusableData.IsPerformingAction = true;
-            Player.ReusableData.MovementSpeedModifier = Player.PlayerData.GroundData.RollData.SpeedModifier;
+            MainPlayer.ReusableData.IsPerformingAction = true;
+            MainPlayer.ReusableData.MovementSpeedModifier = MainPlayer.PlayerData.GroundData.RollData.SpeedModifier;
         }
 
         public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -33,29 +33,29 @@ namespace AnimatorStateMachine.Player.Movement.Grounded.Moving
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnExit(characterState, animator, stateInfo);
-            Player.ReusableData.MovementSpeedModifier = GroundedData.PlayerRunData.StrafeSpeedModifier;
-            Player.ReusableData.IsPerformingAction = false;
+            MainPlayer.ReusableData.MovementSpeedModifier = GroundedData.PlayerRunData.StrafeSpeedModifier;
+            MainPlayer.ReusableData.IsPerformingAction = false;
 
             ResetVelocity();
-            Player.Animator.SetBool(PlayerAnimationData.RollParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.RollParameterHash, false);
         }
         
         private void Roll()
         {
-            Vector3 dashDirection = Player.transform.forward;
+            Vector3 dashDirection = MainPlayer.transform.forward;
 
             dashDirection.y = 0f;
 
             UpdateTargetRotation(dashDirection, false);
 
-            if (Player.ReusableData.MovementInputWithNormalization != Vector2.zero)
+            if (MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
             {
                 UpdateTargetRotation(GetMovementInputDirection().normalized);
 
-                dashDirection = GetTargetRotationDirection(Player.ReusableData.CurrentTargetRotation.y);
+                dashDirection = GetTargetRotationDirection(MainPlayer.ReusableData.CurrentTargetRotation.y);
             }
 
-            Player.Rigidbody.velocity = dashDirection * GetMaxMovementSpeed(false);
+            MainPlayer.Rigidbody.velocity = dashDirection * GetMaxMovementSpeed(false);
         }
 
         protected override void AddInputCallbacks()

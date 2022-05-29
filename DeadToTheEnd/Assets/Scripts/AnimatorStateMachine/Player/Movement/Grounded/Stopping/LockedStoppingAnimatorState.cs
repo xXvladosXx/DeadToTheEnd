@@ -9,35 +9,33 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
     {
         public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if(Player.ReusableData.IsTargetLocked)
                 TargetLocked();
            
-            Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
         }
 
         protected override void AddInputCallbacks()
         {
             base.AddInputCallbacks();
-            Player.InputAction.PlayerActions.Dash.performed += OnDefenseCalled;
-            Player.InputAction.PlayerActions.Roll.performed += OnRollCalled;
+            MainPlayer.InputAction.PlayerActions.Dash.performed += OnDefenseCalled;
+            MainPlayer.InputAction.PlayerActions.Roll.performed += OnRollCalled;
         }
 
         private void OnRollCalled(InputAction.CallbackContext obj)
         {
-            Player.ReusableData.IsTargetLocked = false;
-            Player.Animator.SetBool(PlayerAnimationData.RollParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.RollParameterHash, true);
         }
 
         private void OnDefenseCalled(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.DefenseParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DefenseParameterHash, true);
         }
 
         protected override void RemoveInputCallbacks()
         {
             base.RemoveInputCallbacks();
-            Player.InputAction.PlayerActions.Dash.performed -= OnDefenseCalled;
-            Player.InputAction.PlayerActions.Roll.performed -= OnRollCalled;
+            MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDefenseCalled;
+            MainPlayer.InputAction.PlayerActions.Roll.performed -= OnRollCalled;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         {
             base.OnEnter(characterState, animator, stateInfo);
 
-            Player.ReusableData.MovementDecelerationForce = GroundedData.StopData.MediumDeceleration;
+            MainPlayer.ReusableData.MovementDecelerationForce = GroundedData.StopData.MediumDeceleration;
         }
     }
 }

@@ -18,9 +18,9 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnEnter(characterState, animator, stateInfo);
-            _shouldKeepRotating = Player.ReusableData.MovementInputWithNormalization != Vector2.zero;
+            _shouldKeepRotating = MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero;
             _shouldKeepSprinting = false;
-            Player.ReusableData.IsMovingAfterStop = false;
+            MainPlayer.ReusableData.IsMovingAfterStop = false;
             _f = 0;
         }
 
@@ -30,7 +30,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
             
             if (stateInfo.normalizedTime < _endTimeToDash && stateInfo.normalizedTime > _startTimeToDash)
             {
-                Player.ReusableData.MovementSpeedModifier = GroundedData.DashData.SpeedModifier-(_f*3);
+                MainPlayer.ReusableData.MovementSpeedModifier = GroundedData.DashData.SpeedModifier-(_f*3);
 
                 Dash();
                 if (!_shouldKeepRotating)
@@ -45,35 +45,35 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
 
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            Player.ReusableData.MovementSpeedModifier = GroundedData.SprintData.SpeedModifier;
+            MainPlayer.ReusableData.MovementSpeedModifier = GroundedData.SprintData.SpeedModifier;
             if(!_shouldKeepRotating)
-                Player.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
             
             SetBaseRotationData();
         }
         
         private void Dash()
         {
-            Vector3 dashDirection = Player.transform.forward;
+            Vector3 dashDirection = MainPlayer.transform.forward;
 
             dashDirection.y = 0f;
 
             UpdateTargetRotation(dashDirection, false);
 
-            if (Player.ReusableData.MovementInputWithNormalization != Vector2.zero)
+            if (MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
             {
                 UpdateTargetRotation(GetMovementInputDirection().normalized);
 
-                dashDirection = GetTargetRotationDirection(Player.ReusableData.CurrentTargetRotation.y);
+                dashDirection = GetTargetRotationDirection(MainPlayer.ReusableData.CurrentTargetRotation.y);
             }
 
-            Player.Rigidbody.velocity = dashDirection * GetMaxMovementSpeed(false);
+            MainPlayer.Rigidbody.velocity = dashDirection * GetMaxMovementSpeed(false);
         }
 
         protected override void AddInputCallbacks()
         {
             base.AddInputCallbacks();
-            Player.InputAction.PlayerActions.Sprint.performed += OnMovementPerformed;
+            MainPlayer.InputAction.PlayerActions.Sprint.performed += OnMovementPerformed;
 
         }
 
@@ -85,7 +85,7 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
         protected override void RemoveInputCallbacks()
         {
             base.RemoveInputCallbacks();
-            Player.InputAction.PlayerActions.Sprint.performed -= OnMovementPerformed;
+            MainPlayer.InputAction.PlayerActions.Sprint.performed -= OnMovementPerformed;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Data.Combat
+﻿using Entities;
+
+namespace Data.Combat
 {
     public enum AttackType
     {
@@ -11,5 +13,7 @@
     {
         public float Damage { get; set; }
         public AttackType AttackType { get; set; }
+        public bool Attack { get; set; }
+        public AliveEntity User { get; set; }
     }
 }

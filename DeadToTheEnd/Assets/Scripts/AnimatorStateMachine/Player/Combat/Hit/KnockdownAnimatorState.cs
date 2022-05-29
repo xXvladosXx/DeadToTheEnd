@@ -9,14 +9,14 @@ namespace AnimatorStateMachine.Combat.Hit
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnEnter(characterState, animator, stateInfo);
-            Player.Animator.SetBool(PlayerAnimationData.KnockdownParameterHash, false);
-            Player.ReusableData.IsKnockned = true;
+            MainPlayer.Animator.SetBool(PlayerAnimationData.KnockdownParameterHash, false);
+            MainPlayer.ReusableData.IsKnockned = true;
         }
 
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnExit(characterState, animator, stateInfo);
-            Player.ReusableData.IsKnockned = false;
+            MainPlayer.ReusableData.IsKnockned = false;
         }
     }
 }

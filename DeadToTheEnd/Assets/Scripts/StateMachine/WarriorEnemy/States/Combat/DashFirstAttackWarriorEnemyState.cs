@@ -19,7 +19,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         public override void Enter()
         {
             base.Enter();
-            WarriorStateMachine.WarriorEnemy.AttackColliderActivator.OnTargetHit += Stop;
+            WarriorStateMachine.WarriorEnemy.LongSwordColliderActivator.OnTargetHit += Stop;
             
             WarriorStateMachine.StartCooldown(typeof(DashFirstAttackWarriorEnemyState),
                 WarriorEnemyData.EnemyDashData.DashAttackCooldown);
@@ -49,7 +49,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         public override void Exit()
         {
             base.Exit();
-            WarriorStateMachine.WarriorEnemy.AttackColliderActivator.OnTargetHit -= Stop;
+            WarriorStateMachine.WarriorEnemy.LongSwordColliderActivator.OnTargetHit -= Stop;
         }
 
         public override void OnAnimationEnterEvent()
@@ -68,11 +68,11 @@ namespace StateMachine.WarriorEnemy.States.Combat
                 WarriorEnemyAnimationData.DashAttackParameterHash, false);
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
         }
-
+        
         private void Stop(AttackData attackData)
         {
             Stop();
-            WarriorStateMachine.WarriorEnemy.AttackColliderActivator.DeactivateCollider();
+            WarriorStateMachine.WarriorEnemy.LongSwordColliderActivator.DeactivateCollider();
         }
     }
 }

@@ -12,16 +12,16 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
         {
             base.OnEnter(characterState, animator, stateInfo);
             
-            Player.ReusableData.MovementSpeedModifier = GroundedData.SprintData.SpeedModifier;
+            MainPlayer.ReusableData.MovementSpeedModifier = GroundedData.SprintData.SpeedModifier;
         }
 
         public override void OnUpdate(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (Player.ReusableData.MovementInputWithNormalization == Vector2.zero)
+            if (MainPlayer.ReusableData.MovementInputWithNormalization == Vector2.zero)
             {
-                Player.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, true);
-                Player.Animator.SetBool(PlayerAnimationData.MovingParameterHash, false);
-                Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, true);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, true);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.MovingParameterHash, false);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, true);
                 return;
             }
             
@@ -31,36 +31,36 @@ namespace AnimatorStateMachine.Movement.Grounded.Moving
        
         public override void OnExit(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            Player.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
             base.OnExit(characterState, animator, stateInfo);
         }
         
         protected override void AddInputCallbacks()
         {
-            Player.InputAction.PlayerActions.Sprint.canceled += OnSprintEnded;
-            Player.InputAction.PlayerActions.Attack1.performed += OnSprintAttackCalled;
+            MainPlayer.InputAction.PlayerActions.Sprint.canceled += OnSprintEnded;
+            MainPlayer.InputAction.PlayerActions.Attack.performed += OnSprintAttackCalled;
         }
 
         protected override void RemoveInputCallbacks()
         {
-            Player.InputAction.PlayerActions.Attack1.performed -= OnSprintAttackCalled;
-            Player.InputAction.PlayerActions.Sprint.canceled -= OnSprintEnded;
+            MainPlayer.InputAction.PlayerActions.Attack.performed -= OnSprintAttackCalled;
+            MainPlayer.InputAction.PlayerActions.Sprint.canceled -= OnSprintEnded;
         }
 
         protected override void OnMovementCanceled(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, true);
         }
         
         private void OnSprintAttackCalled(InputAction.CallbackContext obj)
         {
-            if(Player.ReusableData.MovementInputWithNormalization != Vector2.zero)
-                Player.Animator.SetBool(PlayerAnimationData.SprintAttackParameterHash, true);
+            if(MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
+                MainPlayer.Animator.SetBool(PlayerAnimationData.SprintAttackParameterHash, true);
         }
 
         private void OnSprintEnded(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.SprintParameterHash, false);
         }
         
     }

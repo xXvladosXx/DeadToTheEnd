@@ -13,10 +13,10 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         public override void OnEnter(DefaultNamespace.AnimatorStateMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             base.OnEnter(characterState, animator, stateInfo);
-            Player.ReusableData.MovementSpeedModifier = 0f;
-            Player.ReusableData.IsMovingAfterStop = true;
+            MainPlayer.ReusableData.MovementSpeedModifier = 0f;
+            MainPlayer.ReusableData.IsMovingAfterStop = true;
             SetBaseCameraRecenteringData();
-            Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
             _wasReset = false;
         }
 
@@ -24,9 +24,9 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         {
             RotateTowardsTargetRotation();
             DecelerateHorizontally();
-            if (Player.ReusableData.MovementInputWithNormalization != Vector2.zero)
+            if (MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
             {
-                Player.Animator.SetBool(PlayerAnimationData.MovingParameterHash, true);
+                MainPlayer.Animator.SetBool(PlayerAnimationData.MovingParameterHash, true);
             }
         }
 
@@ -34,10 +34,10 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         {
             base.OnExit(characterState, animator, stateInfo);
             
-            Player.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, false);
-            Player.Animator.SetBool(PlayerAnimationData.DashParameterHash, false);
-            Player.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, false);
-            Player.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.StoppingParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DashParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, false);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.WasMovingParameterHash, false);
 
             ResetVelocity();
         }
@@ -45,25 +45,25 @@ namespace AnimatorStateMachine.Movement.Grounded.Stopping
         protected override void AddInputCallbacks()
         {
             base.AddInputCallbacks();
-            Player.InputAction.PlayerActions.Attack1.performed += OnAttack1Called;
-            Player.InputAction.PlayerActions.Dash.performed += OnDashCalled;
+            MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttack1Called;
+            MainPlayer.InputAction.PlayerActions.Dash.performed += OnDashCalled;
         }
 
         private void OnDashCalled(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.DashParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.DashParameterHash, true);
         }
 
         private void OnAttack1Called(InputAction.CallbackContext obj)
         {
-            Player.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, true);
+            MainPlayer.Animator.SetBool(PlayerAnimationData.Attack1ParameterHash, true);
         }
 
         protected override void RemoveInputCallbacks()
         {
             base.RemoveInputCallbacks();
-            Player.InputAction.PlayerActions.Attack1.performed -= OnAttack1Called;
-            Player.InputAction.PlayerActions.Dash.performed -= OnDashCalled;
+            MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttack1Called;
+            MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDashCalled;
         }
     }
 }

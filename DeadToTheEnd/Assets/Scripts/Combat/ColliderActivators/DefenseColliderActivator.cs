@@ -8,9 +8,16 @@ namespace Combat.ColliderActivators
         [SerializeField] private GameObject _blockParticle;
         [SerializeField] private Transform _positionToSpawn;
         [SerializeField] private float _timeToDestroyParticle = 1f;
+
+        private void Update()
+        {
+            if(enabled)
+                print("Enabled");
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out AttackColliderActivator attackColliderActivator))
+            if (other.TryGetComponent(out LongSwordColliderActivator attackColliderActivator))
             {
                 Debug.Log("Spawn");
                 var particle = Instantiate(_blockParticle,  transform.position, Quaternion.identity);

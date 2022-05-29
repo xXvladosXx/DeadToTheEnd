@@ -1,11 +1,12 @@
 ﻿using System;
+using CameraManage;
 using Data.Combat;
 using Entities;
 using UnityEngine;
 
 namespace Combat.ColliderActivators
 {
-    public class AttackColliderActivator : ColliderActivator
+    public class LongSwordColliderActivator : ColliderActivator
     {
         private float _time = -1;
         private AttackData _attackData;
@@ -32,9 +33,15 @@ namespace Combat.ColliderActivators
 
         private void OnTriggerEnter(Collider other)
         {
+            if(!enabled) return;
+           
             if (other.TryGetComponent(out AliveEntity aliveEntity))
             {
                 if(aliveEntity == GetComponentInParent<AliveEntity>()) return;
+
+                _attackData ??= new AttackData();
+                
+                _attackData.User = GetComponentInParent<AliveEntity>();
                 aliveEntity.Health.TakeDamage(_attackData);
                 OnTargetHit?.Invoke(_attackData);
             }

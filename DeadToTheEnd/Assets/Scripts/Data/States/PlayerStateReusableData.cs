@@ -21,9 +21,9 @@ namespace Data.States
         public float MovementDecelerationForce { get; set; } = 1f;
         public bool ShouldWalk { get; set; }
         public bool ShouldSprint { get; set; }
-        public bool CanMakeCombo { get; set; }
-        public bool ComboWasMade { get; set; }
-        public bool IsTargetLocked { get; set; }
+        public bool ShouldBlock { get; set; }
+        public bool ShouldCombo { get; set; }
+        public bool StopReading { get; set; }
         
         private Vector3 _currentTargetRotation;
         private Vector3 _timeToReachTargetRotation;
@@ -45,5 +45,6 @@ namespace Data.States
         public bool IsKnockned { get; set; }
         public bool IsPerformingAction { get; set; }
         public bool WasHit { get; set; }
+        
     }
 }

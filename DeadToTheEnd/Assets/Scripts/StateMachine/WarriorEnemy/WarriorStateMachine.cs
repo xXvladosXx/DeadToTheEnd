@@ -53,6 +53,8 @@ namespace StateMachine.WarriorEnemy
             _attackCooldownTimer.Init(StatesCooldown);
         }
 
+        public override IState StartState() => IdleWarriorEnemyState;
+
         public override void Update()
         {
             _attackCooldownTimer.Update(Time.deltaTime, CurrentStatesCooldown);
