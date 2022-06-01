@@ -106,13 +106,6 @@ namespace StateMachine.Player.States.Movement.Grounded
         }
 
 
-        protected void TargetLocked()
-        {
-            Transform transform;
-            (transform = MainPlayer.transform).LookAt(MainPlayer.ReusableData.Target);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        }
-        
         protected virtual void OnMove()
         {
             if (MainPlayer.ReusableData.ShouldSprint)

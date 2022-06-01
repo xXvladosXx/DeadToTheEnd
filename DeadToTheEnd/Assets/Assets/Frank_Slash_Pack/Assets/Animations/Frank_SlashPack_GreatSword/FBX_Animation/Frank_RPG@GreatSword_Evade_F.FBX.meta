@@ -650,14 +650,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6643738
+      - time: 0.6377072
         functionName: TriggerOnStateAnimationExitEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9212543
+      - time: 0.7745876
         functionName: TriggerOnStateAnimationHandleEvent
         data: 
         objectReferenceParameter: {instanceID: 0}

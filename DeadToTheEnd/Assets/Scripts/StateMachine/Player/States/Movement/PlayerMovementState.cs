@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CameraManage;
 using Data.Animations;
 using Data.Camera;
+using Data.Combat;
 using Data.States;
 using Entities;
 using UnityEngine;
@@ -88,8 +90,10 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed += OnLockedPerformed;
+            MainPlayer.Health.OnDamageTaken += OnDamageTaken;
         }
 
+        
         protected virtual void OnLockedPerformed(InputAction.CallbackContext obj)
         {
             if (MainPlayer.GetComponent<EnemyLockOn>().FindTarget())
@@ -103,6 +107,26 @@ namespace StateMachine.Player.States.Movement
             }
         }
 
+        protected virtual void OnDamageTaken(AttackData attackData)
+        {
+            if(MainPlayer.ReusableData.IsKnocked) return;
+
+            switch (attackData.AttackType)
+            {
+                case AttackType.Knock:
+                    PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerKnockHitState);
+                    break;
+                case AttackType.Medium:
+                    PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerMediumHitState);
+                    break;
+                case AttackType.Easy:
+                    PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLightHitState);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }    
+        }
+        
         protected virtual void OnAttackPerformed(InputAction.CallbackContext obj)
         {
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerAttackState);
@@ -123,6 +147,7 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled -= OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed -= OnLockedPerformed;
+            MainPlayer.Health.OnDamageTaken -= OnDamageTaken;
         }
 
         protected void SetBaseCameraRecenteringData()

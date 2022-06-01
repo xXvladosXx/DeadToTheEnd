@@ -17,7 +17,7 @@ namespace Combat.ColliderActivators
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out LongSwordColliderActivator attackColliderActivator))
+            if (other.TryGetComponent(out SwordColliderActivator attackColliderActivator))
             {
                 Debug.Log("Spawn");
                 var particle = Instantiate(_blockParticle,  transform.position, Quaternion.identity);

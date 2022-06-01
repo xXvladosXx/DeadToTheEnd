@@ -1,5 +1,4 @@
-﻿using AnimatorStateMachine.Movement.Grounded.Stopping;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace StateMachine.Player.States.Movement.Grounded.Stopping
 {

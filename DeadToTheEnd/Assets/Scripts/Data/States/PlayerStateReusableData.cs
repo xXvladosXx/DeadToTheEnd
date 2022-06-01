@@ -40,11 +40,9 @@ namespace Data.States
         public bool IsMovingAfterStop { get; set; }
         
         public Transform Target { get; set; }
+        public bool IsKnocked { get; set; }
+
         public bool IsBlocking { get; set; }
-        public bool IsStopped { get; set; }
-        public bool IsKnockned { get; set; }
-        public bool IsPerformingAction { get; set; }
-        public bool WasHit { get; set; }
-        
+        public bool IsRolling { get; set; }
     }
 }

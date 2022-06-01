@@ -4,6 +4,7 @@ using StateMachine.Player.States.Movement.Grounded;
 using StateMachine.Player.States.Movement.Grounded.Combat;
 using StateMachine.Player.States.Movement.Grounded.Defense;
 using StateMachine.Player.States.Movement.Grounded.Locked;
+using StateMachine.Player.States.Movement.Grounded.Locked.Hit;
 using StateMachine.Player.States.Movement.Grounded.Moving;
 using StateMachine.Player.States.Movement.Grounded.Stopping;
 using UnityEngine;
@@ -31,6 +32,10 @@ namespace StateMachine
         public PlayerComboLockedAttackState PlayerComboLockedAttackState { get; set; }
         public PlayerComboAttackState PlayerComboAttackState { get; set; }
         public PlayerAttackState PlayerAttackState { get; set; }
+        
+        public PlayerMediumHitState PlayerMediumHitState { get; }
+        public PlayerLightHitState PlayerLightHitState { get; }
+        public PlayerKnockHitState PlayerKnockHitState { get; }
 
 
         public PlayerStateMachine(MainPlayer player, GameObject gameObject)
@@ -45,6 +50,10 @@ namespace StateMachine
             PlayerSprintingState = new PlayerSprintingState(this);
 
             PlayerLockedMovementState = new PlayerLockedMovement(this);
+            
+            PlayerLightHitState = new PlayerLightHitState(this);
+            PlayerMediumHitState = new PlayerMediumHitState(this);
+            PlayerKnockHitState = new PlayerKnockHitState(this);
             
             PlayerAttackLockedState = new PlayerAttackLockedState(this);
             PlayerComboLockedAttackState = new PlayerComboLockedAttackState(this);

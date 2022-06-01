@@ -73,5 +73,13 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
             
             MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
         }
+
+        private void TargetLocked()
+        {
+            Transform transform;
+            (transform = MainPlayer.transform).LookAt(MainPlayer.ReusableData.Target);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
+
     }
 }

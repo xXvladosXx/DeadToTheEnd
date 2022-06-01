@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Entities.Core;
 using UnityEngine;
 
 namespace StateMachine
@@ -6,7 +7,7 @@ namespace StateMachine
     public abstract class StateMachine
     {
         protected IState _currentState;
-        private GameObject GameObject;
+        public AliveEntity AliveEntity { get; set; }
 
         public abstract IState StartState();
         public void ChangeState(IState newState)

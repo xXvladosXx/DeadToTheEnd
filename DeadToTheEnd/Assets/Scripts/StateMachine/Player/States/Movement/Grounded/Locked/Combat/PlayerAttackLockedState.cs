@@ -1,10 +1,11 @@
 ﻿using Data.Combat;
+using StateMachine.Player.States.Movement.Grounded.Locked;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace StateMachine.Player.States.Movement.Grounded.Combat
 {
-    public class PlayerAttackLockedState : PlayerGroundedState
+    public class PlayerAttackLockedState : PlayerLockedState
     {
         public PlayerAttackLockedState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
@@ -29,12 +30,14 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
 
         protected override void AddInputCallbacks()
         {
+            MainPlayer.Health.OnDamageTaken += OnDamageTaken;
             MainPlayer.InputAction.PlayerActions.Dash.canceled += OnDashStarted;
             MainPlayer.InputAction.PlayerActions.Dash.performed += OnDefensePerformed;
         }
 
         protected override void RemoveInputCallbacks()
         {
+            MainPlayer.Health.OnDamageTaken -= OnDamageTaken;
             MainPlayer.InputAction.PlayerActions.Dash.canceled -= OnDashStarted;
             MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDefensePerformed;
         }
@@ -83,8 +86,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
 
         public override void FixedUpdate()
         {
-            TargetLocked();
-            Float();
+            UnmovableLocked();
         }
     }
 }

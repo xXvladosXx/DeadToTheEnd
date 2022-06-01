@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Frank_Whip_Weapon_Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: hand_r_Align
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05/Sword_Blade06
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05/Sword_Blade06/Sword_Blade07
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05/Sword_Blade06/Sword_Blade07/Sword_Blade08
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05/Sword_Blade06/Sword_Blade07/Sword_Blade08/Sword_Blade09
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05/Sword_Blade06/Sword_Blade07/Sword_Blade08/Sword_Blade09/Sword_Blade10
+    m_Weight: 1
+  - m_Path: hand_r_Align/Sword_Root/Sword_Blade01/Sword_Blade02/Sword_Blade03/Sword_Blade04/Sword_Blade05/Sword_Blade06/Sword_Blade07/Sword_Blade08/Sword_Blade09/Sword_Blade10/Sword_Blade11
+    m_Weight: 1
+  - m_Path: Sword_R
+    m_Weight: 1

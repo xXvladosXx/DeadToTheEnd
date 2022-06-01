@@ -11,7 +11,7 @@ namespace Data.Stats
         private readonly IReusable _reusableData;
         
         public event Action OnAttackApplied;
-        public event Action OnDamageTaken;
+        public event Action<AttackData> OnDamageTaken;
 
         public Health(IReusable reusableData)
         {
@@ -23,6 +23,15 @@ namespace Data.Stats
             if(attackData == null) return;
             Debug.Log("Damaged " + attackData.User);
             
+            if(_reusableData.IsRolling) 
+                return;
+
+            if (attackData.AttackType == AttackType.Knock)
+            {
+                OnDamageTaken?.Invoke(attackData);
+                return;
+            }
+            
             if (_reusableData.IsBlocking)
             {
                 OnAttackApplied?.Invoke();
@@ -30,7 +39,7 @@ namespace Data.Stats
             }
             
             
-            OnDamageTaken?.Invoke();
+            OnDamageTaken?.Invoke(attackData);
         }
     }
 }

@@ -289,8 +289,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7506426930181499924}
-  m_StateMachineBehaviours:
-  - {fileID: 1958929387395197389}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1690,8 +1689,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7654380643785002381}
-  m_StateMachineBehaviours:
-  - {fileID: -6214116714420347330}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1982,9 +1980,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 1
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.19932702
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.4977036
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -2224,8 +2222,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1190706816995426684}
-  m_StateMachineBehaviours:
-  - {fileID: 992622184644908719}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2577,8 +2574,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2584474037549034110}
-  m_StateMachineBehaviours:
-  - {fileID: 3457193201598569613}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -2748,9 +2744,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 1
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.20439428
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.5302061
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -3080,7 +3076,7 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -4518579413897088547}
-    m_Position: {x: 60, y: -110, z: 0}
+    m_Position: {x: 30, y: -110, z: 0}
   m_AnyStateTransitions:
   - {fileID: 1874453431549755364}
   - {fileID: 7564857461698589973}

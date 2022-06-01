@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a612724f38840f4a1b5a742dc095790, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
+  <PlayerShakeCameraData>k__BackingField:
+    <MediumAttackHitIntensity>k__BackingField: 0.7
+    <MediumAttackHitTime>k__BackingField: 0.2
+    <DamageTakenIntensity>k__BackingField: 0.4
+    <DamageTakenTime>k__BackingField: 0.4
+    <KnockDamageTakenIntensity>k__BackingField: 0.8
+    <KnockDamageTakenTime>k__BackingField: 0.4
   <GroundData>k__BackingField:
     <BaseSpeed>k__BackingField: 4
     <SmoothSpeedModifier>k__BackingField: 1.5

@@ -257,7 +257,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LightAttack
+  m_Name: ComboAttack3
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -669,7 +669,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -2787854329771643924}
-    m_Position: {x: 330, y: 0, z: 0}
+    m_Position: {x: 560, y: -190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2476929878521017756}
     m_Position: {x: 690, y: 30, z: 0}

@@ -1,6 +1,7 @@
 ﻿using System;
 using Data.States.StateData;
 using Entities;
+using Entities.Enemies;
 using UnityEngine;
 
 namespace Data.States
@@ -25,5 +26,6 @@ namespace Data.States
         }
 
         public bool IsBlocking { get; set; }
+        public bool IsRolling { get; set; }
     }
 }

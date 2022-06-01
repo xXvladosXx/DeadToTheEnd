@@ -1,5 +1,6 @@
 ﻿using Data.Combat;
 using Entities;
+using Entities.Core;
 using UnityEngine;
 
 namespace StateMachine.WarriorEnemy
