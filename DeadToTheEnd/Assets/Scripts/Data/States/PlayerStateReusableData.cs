@@ -8,7 +8,7 @@ using Utilities;
 namespace Data.States
 {
     [Serializable]
-    public sealed class PlayerStateReusableData: IReusable
+    public sealed class PlayerStateReusableData : IReusable
     {
         public List<PlayerCameraRecenteringData> BackCameraRecenteringDatas { get; set; }
         public List<PlayerCameraRecenteringData> SideCameraRecenteringDatas { get; set; }
@@ -44,5 +44,6 @@ namespace Data.States
 
         public bool IsBlocking { get; set; }
         public bool IsRolling { get; set; }
+        public bool IsTargetBehind { get; set; }
     }
 }

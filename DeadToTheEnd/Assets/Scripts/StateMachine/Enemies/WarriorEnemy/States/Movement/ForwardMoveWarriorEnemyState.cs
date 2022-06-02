@@ -43,7 +43,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform))
+                    BossEnemy.Target.transform))
             {
                 DecideAttackToDo();
                 BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0, .1f, Time.deltaTime);
@@ -52,7 +52,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             
             if (!IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                          BossEnemy.transform,
-                         BossEnemy.MainPlayer.transform))
+                         BossEnemy.Target.transform))
             {
                 BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 1, .1f, Time.deltaTime);
             }
@@ -65,7 +65,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (BossEnemy.EnemyStateReusableData.IsPerformingAction)
             {
-                Vector3 direction = BossEnemy.MainPlayer.transform.position -
+                Vector3 direction = BossEnemy.Target.transform.position -
                                     BossEnemy.transform.position;
 
                 direction.y = 0;
@@ -87,7 +87,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
                 BossEnemy.NavMeshAgent.enabled = true;
                 BossEnemy.NavMeshAgent.SetDestination(BossEnemy
-                    .MainPlayer.transform.position);
+                    .Target.transform.position);
                 BossEnemy.Rigidbody.velocity = targetVelocity;
 
                 WarriorStateMachine.AliveEntity.transform.rotation = Quaternion.Slerp(

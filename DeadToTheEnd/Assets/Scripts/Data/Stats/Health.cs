@@ -21,11 +21,19 @@ namespace Data.Stats
         public void TakeDamage(AttackData attackData)
         {
             if(attackData == null) return;
-            Debug.Log("Damaged " + attackData.User);
             
             if(_reusableData.IsRolling) 
                 return;
 
+            if (_reusableData.IsTargetBehind)
+            {
+                OnDamageTaken?.Invoke(attackData);
+                Debug.Log("Damaged " + attackData.User);
+
+                return;
+            }
+
+            Debug.Log(attackData.AttackType);
             if (attackData.AttackType == AttackType.Knock)
             {
                 OnDamageTaken?.Invoke(attackData);

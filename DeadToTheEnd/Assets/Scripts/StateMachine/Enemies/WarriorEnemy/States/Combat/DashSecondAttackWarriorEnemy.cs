@@ -1,4 +1,5 @@
 ﻿using StateMachine.Enemies.WarriorEnemy;
+using StateMachine.Enemies.WarriorEnemy.States.Combat;
 using UnityEngine;
 
 namespace StateMachine.WarriorEnemy.States.Combat
@@ -23,7 +24,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
                 WarriorEnemyAnimationData.DashSecondAttackParameterHash, true);
 
             Enemy.NavMeshAgent.SetDestination(Enemy
-                .MainPlayer.transform.position - Enemy.transform.forward/2);
+                .Target.transform.position - Enemy.transform.forward/2);
             _hasStopped = false;
             _startAttack = false;
         }

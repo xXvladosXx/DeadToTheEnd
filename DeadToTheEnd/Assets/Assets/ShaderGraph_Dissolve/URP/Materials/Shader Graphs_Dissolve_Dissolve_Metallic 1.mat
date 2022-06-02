@@ -28,7 +28,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2451
+  m_CustomRenderQueue: 2001
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -62,7 +62,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 1
+    - _Dissolve: 0.29507244
     - _EdgeColorIntensity: 1
     - _EdgeWidth: 0.05
     - _Metallic: 0.485
@@ -74,7 +74,7 @@ Material:
     - _Smoothness: 0.932
     m_Colors:
     - _BaseColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
-    - _EdgeColor: {r: 0.9494723, g: 3.9999995, b: 0, a: 1}
+    - _EdgeColor: {r: 0.12119791, g: 2.8218582, b: 5.1387925, a: 1}
     - _NoiseUVSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _Offest: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}

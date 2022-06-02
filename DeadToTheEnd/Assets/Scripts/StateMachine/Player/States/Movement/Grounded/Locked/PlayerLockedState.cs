@@ -14,7 +14,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         {
             base.Enter();
             ResetVelocity();
-            MainPlayer.ReusableData.MovementInputWithNormalization = Vector2.zero;
+            MainPlayer.PlayerStateReusable.MovementInputWithNormalization = Vector2.zero;
         }
 
         public override void FixedUpdate()
@@ -77,7 +77,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         private void TargetLocked()
         {
             Transform transform;
-            (transform = MainPlayer.transform).LookAt(MainPlayer.ReusableData.Target);
+            (transform = MainPlayer.transform).LookAt(MainPlayer.PlayerStateReusable.Target);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
 

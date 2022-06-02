@@ -1,4 +1,5 @@
 ﻿using StateMachine.Enemies.WarriorEnemy;
+using StateMachine.Enemies.WarriorEnemy.States.Combat;
 
 namespace StateMachine.WarriorEnemy.States.Combat
 {

@@ -6,10 +6,10 @@
         {
         }
         
-         public override void Exit()
+        /* public override void Exit()
         {
-            GoblinEnemy.EnemyStateReusableData.IsPerformingAction = false;
-            GoblinEnemy.EnemyStateReusableData.IsRotatingWithRootMotion = false;
+            GoblinEnemy.GoblinStateReusableData.IsPerformingAction = false;
+            GoblinEnemy.GoblinStateReusableData.IsRotatingWithRootMotion = false;
             GoblinEnemy.Animator.SetBool(GoblinEnemyAnimationData.RotateLeftParameterHash, false);
             GoblinEnemy.Animator.SetBool(GoblinEnemyAnimationData.RotateRightParameterHash, false);
             GoblinEnemy.Animator.SetBool(GoblinEnemyAnimationData.RotateBehindParameterHash, false);
@@ -46,9 +46,9 @@
         
         private void RotateWithRootMotion(int rotateLeftParameterHash)
         {
-            GoblinEnemy.EnemyStateReusableData.IsPerformingAction = true;
-            GoblinEnemy.EnemyStateReusableData.IsRotatingWithRootMotion = true;
+            GoblinEnemy.GoblinStateReusableData.IsPerformingAction = true;
+            //GoblinEnemy.GoblinStateReusableData.IsRotatingWithRootMotion = true;
             GoblinEnemy.Animator.SetBool(rotateLeftParameterHash, true);
-        }
+        }*/
     }
 }

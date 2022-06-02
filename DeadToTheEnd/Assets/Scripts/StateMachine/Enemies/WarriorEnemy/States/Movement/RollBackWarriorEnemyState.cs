@@ -24,9 +24,9 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             BossEnemy.NavMeshAgent.speed -= Time.deltaTime*5;
             Vector3 direction = BossEnemy.transform.position -
-                                BossEnemy.MainPlayer.transform.position; 
+                                BossEnemy.Target.transform.position; 
             
-            BossEnemy.transform.LookAt(BossEnemy.MainPlayer.transform.position);
+            BossEnemy.transform.LookAt(BossEnemy.Target.transform.position);
             BossEnemy.NavMeshAgent.SetDestination(BossEnemy.transform.position + direction);
         }
 

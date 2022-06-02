@@ -9,8 +9,6 @@ namespace Data.States
     [Serializable]
     public sealed class EnemyStateReusableData : IReusable
     {
-        [field: SerializeField] public float MovementSpeedModifier { get; set; } = 1f;
-        [field: SerializeField] public float ComboAttackCooldown { get; set; } = 4f;
         [field: SerializeField] public Vector3 StartPosition { get; set; }
         [field: SerializeField] public bool IsPerformingAction { get; set; }
         
@@ -18,7 +16,6 @@ namespace Data.States
         public bool CanStrafe { get; set; }
         public bool CanRoll { get; set; }
         public bool IsRotatingWithRootMotion { get; set; }
-        public Vector3 LocalVelocity { get; set; }
 
         public void Initialize(Enemy enemy)
         {
@@ -27,5 +24,6 @@ namespace Data.States
 
         public bool IsBlocking { get; set; }
         public bool IsRolling { get; set; }
+        public bool IsTargetBehind { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Stopping
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.MovementSpeedModifier = 0f;
-            MainPlayer.ReusableData.IsMovingAfterStop = true;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = 0f;
+            MainPlayer.PlayerStateReusable.IsMovingAfterStop = true;
             SetBaseCameraRecenteringData();
 
             base.Enter();

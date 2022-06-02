@@ -13,14 +13,14 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.IsMovingAfterStop = true;
-            MainPlayer.ReusableData.MovementSpeedModifier = PlayerGroundData.PlayerRunData.StrafeSpeedModifier;
+            MainPlayer.PlayerStateReusable.IsMovingAfterStop = true;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.PlayerRunData.StrafeSpeedModifier;
             MainPlayer.GetComponent<EnemyLockOn>().FoundTarget();
                 
             base.Enter();
             StartAnimation(PlayerAnimationData.LockedParameterHash);
             
-            if(MainPlayer.ReusableData.ShouldBlock)
+            if(MainPlayer.PlayerStateReusable.ShouldBlock)
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDefenseState);
         }
 
@@ -28,8 +28,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         {
             base.Update(); 
            
-            MainPlayer.Animator.SetFloat(PlayerAnimationData.VerticalParameterHash, MainPlayer.ReusableData.MovementInputWithoutNormalization.y, 0.2f, Time.deltaTime);
-            MainPlayer.Animator.SetFloat(PlayerAnimationData.HorizontalParameterHash, MainPlayer.ReusableData.MovementInputWithoutNormalization.x, 0.2f, Time.deltaTime);
+            MainPlayer.Animator.SetFloat(PlayerAnimationData.VerticalParameterHash, MainPlayer.PlayerStateReusable.MovementInputWithoutNormalization.y, 0.2f, Time.deltaTime);
+            MainPlayer.Animator.SetFloat(PlayerAnimationData.HorizontalParameterHash, MainPlayer.PlayerStateReusable.MovementInputWithoutNormalization.x, 0.2f, Time.deltaTime);
         }
 
         protected override void AddInputCallbacks()

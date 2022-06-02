@@ -28,20 +28,25 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
 
         public override void Update()
         {
-            if (GoblinEnemy.EnemyStateReusableData.IsPerformingAction) return;
+            //if (GoblinEnemy.GoblinStateReusableData.IsPerformingAction) return;
             _curTime += Time.deltaTime;
             base.Update();
-            if (_curTime > _timeToMoveForward)
+            
+            if (IsEnoughDistance(5, GoblinStateMachine.AliveEntity.transform, 
+                    GoblinEnemy.Target.transform))
+            {
+                GoblinStateMachine.ChangeState(GoblinStateMachine.LightAttackGoblinEnemyState);
+            }
                 //DecideAttackToDo();
 
                 HandleMoveToTarget();
         }
-
+       
         private void HandleMoveToTarget()
         {
             if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinForwardMoveData.DistanceToStop,
                     GoblinEnemy.transform,
-                    GoblinEnemy.MainPlayer.transform))
+                    GoblinEnemy.Target.transform))
             {
                 //DecideAttackToDo();
                 Stop();
@@ -54,7 +59,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
 
             if (!IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinForwardMoveData.DistanceToStop,
                     GoblinEnemy.transform,
-                    GoblinEnemy.MainPlayer.transform))
+                    GoblinEnemy.Target.transform))
             {
                 GoblinEnemy.Animator.SetFloat(GoblinEnemyAnimationData.VerticalParameterHash, 1, .1f, Time.deltaTime);
             }
@@ -65,9 +70,9 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
 
         private void HandleRotateTowardsTarget()
         {
-            if (GoblinEnemy.EnemyStateReusableData.IsPerformingAction)
+            if (GoblinEnemy.GoblinStateReusableData.IsPerformingAction)
             {
-                Vector3 direction = GoblinEnemy.MainPlayer.transform.position -
+                Vector3 direction = GoblinEnemy.Target.transform.position -
                                     GoblinEnemy.transform.position;
 
                 direction.y = 0;
@@ -89,9 +94,8 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
 
                 GoblinEnemy.NavMeshAgent.enabled = true;
                 GoblinEnemy.NavMeshAgent.isStopped = false;
-                Debug.Log("Moving");
                 GoblinEnemy.NavMeshAgent.SetDestination(GoblinEnemy
-                    .MainPlayer.transform.position);
+                    .Target.transform.position);
                 GoblinEnemy.Rigidbody.velocity = targetVelocity;
 
                 GoblinStateMachine.AliveEntity.transform.rotation = Quaternion.Slerp(

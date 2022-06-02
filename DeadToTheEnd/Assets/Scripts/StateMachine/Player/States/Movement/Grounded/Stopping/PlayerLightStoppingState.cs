@@ -12,7 +12,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Stopping
         {
             base.Enter();
 
-            MainPlayer.ReusableData.MovementDecelerationForce = PlayerGroundData.StopData.LightDeceleration;
+            MainPlayer.PlayerStateReusable.MovementDecelerationForce = PlayerGroundData.StopData.LightDeceleration;
         }
     }
 }

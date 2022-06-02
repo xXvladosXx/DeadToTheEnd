@@ -12,7 +12,7 @@
 
             StartAnimation(PlayerAnimationData.HardStopParameterHash);
 
-            MainPlayer.ReusableData.MovementDecelerationForce = PlayerGroundData.StopData.HardDeceleration;
+            MainPlayer.PlayerStateReusable.MovementDecelerationForce = PlayerGroundData.StopData.HardDeceleration;
 
         }
 
@@ -26,7 +26,7 @@
         
         protected override void OnMove()
         {
-            if (MainPlayer.ReusableData.ShouldWalk)
+            if (MainPlayer.PlayerStateReusable.ShouldWalk)
             {
                 return;
             }

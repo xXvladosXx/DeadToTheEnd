@@ -13,7 +13,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.MovementSpeedModifier = PlayerGroundData.PlayerRunData.SpeedModifier;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.PlayerRunData.SpeedModifier;
 
             CalculateTime = 0;
             base.Enter();
@@ -34,7 +34,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
         {
             base.Update();
 
-            if (!MainPlayer.ReusableData.ShouldWalk)
+            if (!MainPlayer.PlayerStateReusable.ShouldWalk)
             {
                 return;
             }
@@ -49,7 +49,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
         private void StopRunning()
         {
-            if (MainPlayer.ReusableData.MovementInputWithNormalization == Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization == Vector2.zero)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
 

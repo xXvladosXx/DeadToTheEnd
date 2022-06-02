@@ -1,4 +1,5 @@
 ﻿using CameraManage;
+using Combat.ColliderActivators;
 using Data.Animations;
 using Data.Stats;
 using Entities.Core;
@@ -16,18 +17,19 @@ namespace Entities.Enemies
         public NavMeshAgent NavMeshAgent { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
-        public MainPlayer MainPlayer { get; private set; }
-        
+        public DefenseColliderActivator DefenseColliderActivator { get; private set; }
+
         public override Health Health { get; protected set; }
 
         protected override void Awake()
         {
             base.Awake();
 
+            DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
             NavMeshAgent = GetComponent<NavMeshAgent>();
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
-            MainPlayer = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();
+            Target = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();
         }
 
         private void Start()

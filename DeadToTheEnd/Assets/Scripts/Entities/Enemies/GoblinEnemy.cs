@@ -1,4 +1,5 @@
-﻿using Data.Animations;
+﻿using Combat.ColliderActivators;
+using Data.Animations;
 using Data.ScriptableObjects;
 using Data.States;
 using Data.Stats;
@@ -11,15 +12,18 @@ namespace Entities.Enemies
     public class GoblinEnemy : Enemy
     {
         [field: SerializeField] public GoblinEnemyData GoblinEnemyData { get; private set; }
-        [field: SerializeField] public EnemyStateReusableData EnemyStateReusableData { get; private set; }
         [field: SerializeField] public GoblinEnemyAnimationData GoblinEnemyAnimationData { get; private set; }
+        
+        public GoblinStateReusableData GoblinStateReusableData { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            EnemyStateReusableData.Initialize(this);
 
-            Health = new Health(EnemyStateReusableData);
+            Reusable = new GoblinStateReusableData();
+            GoblinStateReusableData = (GoblinStateReusableData) Reusable;
+            
+            Health = new Health(GoblinStateReusableData);
             GoblinEnemyAnimationData.Init();
             
             StateMachine = new GoblinStateMachine(this);
@@ -27,12 +31,12 @@ namespace Entities.Enemies
         
         private void OnAnimatorMove()
         {
-            if (EnemyStateReusableData.IsRotatingWithRootMotion)
-            {
-                transform.rotation *= Animator.deltaRotation;
-                Rigidbody.velocity = Vector3.zero;
-                return;
-            }
+            //if (GoblinStateReusableData.IsRotatingWithRootMotion)
+           // {
+           //     transform.rotation *= Animator.deltaRotation;
+          //      Rigidbody.velocity = Vector3.zero;
+          //      return;
+           // }
             
             float delta = Time.deltaTime;
             Rigidbody.drag = 0;

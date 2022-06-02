@@ -27,7 +27,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0);
             BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0);
             float viewableAngle = GetViewAngle(BossEnemy.transform,
-                BossEnemy.MainPlayer.transform);
+                BossEnemy.Target.transform);
 
             switch (viewableAngle)
             {

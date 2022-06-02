@@ -29,7 +29,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
             if (IsEnoughDistance(bossEnemyData.EnemyIdleData.DistanceToFindTarget,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform))
+                    BossEnemy.Target.transform))
             {
                 base.Update();
             }

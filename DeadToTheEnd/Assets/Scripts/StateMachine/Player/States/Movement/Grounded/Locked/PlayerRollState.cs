@@ -14,11 +14,11 @@ namespace StateMachine.Player.States.Movement.Grounded
          public override void Enter()
         {
             base.Enter();
-            MainPlayer.ReusableData.MovementSpeedModifier = PlayerGroundData.RollData.SpeedModifier;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.RollData.SpeedModifier;
             
             StartAnimation(PlayerAnimationData.RollParameterHash);
 
-            MainPlayer.ReusableData.RotationData = PlayerGroundData.DashData.RotationData;
+            MainPlayer.PlayerStateReusable.RotationData = PlayerGroundData.DashData.RotationData;
             Roll();
         }
 
@@ -29,7 +29,7 @@ namespace StateMachine.Player.States.Movement.Grounded
         public override void Exit()
         {
             base.Exit();
-            MainPlayer.ReusableData.StopReading = false;
+            MainPlayer.PlayerStateReusable.StopReading = false;
 
             StopAnimation(PlayerAnimationData.RollParameterHash);
         }
@@ -54,22 +54,22 @@ namespace StateMachine.Player.States.Movement.Grounded
         
         private void OnDefenseCanceled(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldBlock = !MainPlayer.ReusableData.ShouldBlock;
+            MainPlayer.PlayerStateReusable.ShouldBlock = !MainPlayer.PlayerStateReusable.ShouldBlock;
         }
 
         private void OnDefensePerformed(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldBlock = true;
+            MainPlayer.PlayerStateReusable.ShouldBlock = true;
         }
         
         public override void OnAnimationEnterEvent()
         {
-            MainPlayer.ReusableData.StopReading = true;
+            MainPlayer.PlayerStateReusable.StopReading = true;
         }
         
         public override void OnAnimationHandleEvent()
         {
-            if (MainPlayer.ReusableData.ShouldBlock)
+            if (MainPlayer.PlayerStateReusable.ShouldBlock)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDefenseState);
                 return;
@@ -80,7 +80,7 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         public override void OnAnimationExitEvent()
         {
-            if (MainPlayer.ReusableData.ShouldBlock)
+            if (MainPlayer.PlayerStateReusable.ShouldBlock)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDefenseState);
             }
@@ -94,11 +94,11 @@ namespace StateMachine.Player.States.Movement.Grounded
 
             UpdateTargetRotation(dashDirection, false);
 
-            if (MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization != Vector2.zero)
             {
                 UpdateTargetRotation(GetMovementInputDirection());
 
-                dashDirection = GetTargetRotationDirection(MainPlayer.ReusableData.CurrentTargetRotation.y);
+                dashDirection = GetTargetRotationDirection(MainPlayer.PlayerStateReusable.CurrentTargetRotation.y);
             }
 
             MainPlayer.Rigidbody.velocity = dashDirection * GetMovementSpeed(false);

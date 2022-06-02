@@ -34,17 +34,17 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         private void UpdateShouldSprintState()
         {
-            if (!MainPlayer.ReusableData.ShouldSprint)
+            if (!MainPlayer.PlayerStateReusable.ShouldSprint)
             {
                 return;
             }
 
-            if (MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization != Vector2.zero)
             {
                 return;
             }
 
-            MainPlayer.ReusableData.ShouldSprint = false;
+            MainPlayer.PlayerStateReusable.ShouldSprint = false;
         }
 
         protected void Float()
@@ -78,9 +78,9 @@ namespace StateMachine.Player.States.Movement.Grounded
         {
             float slopeSpeedModifier = PlayerGroundData.SlopeSpeedAngles.Evaluate(angle);
 
-            if (MainPlayer.ReusableData.MovementSlopeSpeedModifier != slopeSpeedModifier)
+            if (MainPlayer.PlayerStateReusable.MovementSlopeSpeedModifier != slopeSpeedModifier)
             {
-                MainPlayer.ReusableData.MovementSlopeSpeedModifier = slopeSpeedModifier;
+                MainPlayer.PlayerStateReusable.MovementSlopeSpeedModifier = slopeSpeedModifier;
             }
 
             return slopeSpeedModifier;
@@ -108,14 +108,14 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         protected virtual void OnMove()
         {
-            if (MainPlayer.ReusableData.ShouldSprint)
+            if (MainPlayer.PlayerStateReusable.ShouldSprint)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerSprintingState);
 
                 return;
             }
 
-            if (MainPlayer.ReusableData.ShouldWalk)
+            if (MainPlayer.PlayerStateReusable.ShouldWalk)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerWalkingState);
 

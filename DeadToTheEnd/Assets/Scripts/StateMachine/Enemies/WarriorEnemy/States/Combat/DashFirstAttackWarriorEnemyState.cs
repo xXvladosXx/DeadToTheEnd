@@ -2,6 +2,7 @@
 using Data.ScriptableObjects;
 using Entities;
 using StateMachine.Enemies.WarriorEnemy;
+using StateMachine.Enemies.WarriorEnemy.States.Combat;
 using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         public override void Enter()
         {
             base.Enter();
-            WarriorStateMachine.AliveEntity.SwordColliderActivator.OnTargetHit += Stop;
+            WarriorStateMachine.AliveEntity.SwordAttackColliderActivator.OnTargetHit += Stop;
             
             WarriorStateMachine.StartCooldown(typeof(DashFirstAttackWarriorEnemyState),
                 bossEnemyData.EnemyDashData.DashAttackCooldown);
@@ -50,7 +51,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         public override void Exit()
         {
             base.Exit();
-            WarriorStateMachine.AliveEntity.SwordColliderActivator.OnTargetHit -= Stop;
+            WarriorStateMachine.AliveEntity.SwordAttackColliderActivator.OnTargetHit -= Stop;
         }
 
         public override void OnAnimationEnterEvent()
@@ -73,7 +74,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         private void Stop(AttackData attackData)
         {
             Stop();
-            WarriorStateMachine.AliveEntity.SwordColliderActivator.DeactivateCollider();
+            WarriorStateMachine.AliveEntity.SwordAttackColliderActivator.DeactivateCollider();
         }
     }
 }

@@ -69,19 +69,19 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         }
         protected override void OnAttackPerformed(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldCombo = true;
+            MainPlayer.PlayerStateReusable.ShouldCombo = true;
 
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerComboLockedAttackState);
         }
 
         private void OnDefensePerformed(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldBlock = !MainPlayer.ReusableData.ShouldBlock;
+            MainPlayer.PlayerStateReusable.ShouldBlock = !MainPlayer.PlayerStateReusable.ShouldBlock;
         }
 
         protected override void OnDashStarted(InputAction.CallbackContext context)
         {
-            MainPlayer.ReusableData.ShouldBlock = false;
+            MainPlayer.PlayerStateReusable.ShouldBlock = false;
         }
 
         public override void FixedUpdate()

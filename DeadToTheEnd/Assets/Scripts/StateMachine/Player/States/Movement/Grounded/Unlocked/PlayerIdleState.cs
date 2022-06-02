@@ -10,9 +10,9 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.MovementSpeedModifier = 0f;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = 0f;
 
-            MainPlayer.ReusableData.BackCameraRecenteringDatas = PlayerGroundData.IdleData.BackCameraRecenteringDatas;
+            MainPlayer.PlayerStateReusable.BackCameraRecenteringDatas = PlayerGroundData.IdleData.BackCameraRecenteringDatas;
 
             base.Enter();
             
@@ -31,7 +31,7 @@ namespace StateMachine.Player.States.Movement.Grounded
         public override void Update()
         {
             base.Update();
-            if (MainPlayer.ReusableData.MovementInputWithNormalization == Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization == Vector2.zero)
             {
                 return;
             }

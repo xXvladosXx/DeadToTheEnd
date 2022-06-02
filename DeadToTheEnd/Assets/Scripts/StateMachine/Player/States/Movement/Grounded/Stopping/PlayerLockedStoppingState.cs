@@ -15,8 +15,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Stopping
             
             Debug.Log("Enter");
 
-            MainPlayer.ReusableData.MovementDecelerationForce = 0;
-            MainPlayer.ReusableData.MovementSpeedModifier = 0;
+            MainPlayer.PlayerStateReusable.MovementDecelerationForce = 0;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = 0;
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
         }
 

@@ -2,7 +2,7 @@
 
 namespace Combat.SwordActivators
 {
-    public class LongSwordColliderActivator : SwordColliderActivator
+    public class LongSwordAttackColliderActivator : SwordAttackColliderActivator
     {
         
     }

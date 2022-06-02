@@ -40,7 +40,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             base.Update();
             _curTime += Time.deltaTime;
             float viewAngle = GetViewAngle(BossEnemy.transform,
-                BossEnemy.MainPlayer.transform);
+                BossEnemy.Target.transform);
 
             if (viewAngle is > 45 or < -45)
             {
@@ -69,10 +69,10 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartDashAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform) &&
+                    BossEnemy.Target.transform) &&
                 !IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform) &&
+                    BossEnemy.Target.transform) &&
                 !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashFirstAttackWarriorEnemyState)))
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.DashFirstAttackWarriorEnemyState);
@@ -86,10 +86,10 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartSecondDashAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform) &&
+                    BossEnemy.Target.transform) &&
                 !IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform) &&
+                    BossEnemy.Target.transform) &&
                 !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashSecondAttackWarriorEnemy)))
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.DashSecondAttackWarriorEnemy);
@@ -103,7 +103,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform) &&
+                    BossEnemy.Target.transform) &&
                 !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboSecondWarriorEnemyState))
                 && !BossEnemy.EnemyStateReusableData.IsPerformingAction)
             {
@@ -117,7 +117,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform))
+                    BossEnemy.Target.transform))
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.LightAttackWarriorEnemyState);
                 return true;
@@ -130,7 +130,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartComboFirstAttack,
                     BossEnemy.transform,
-                    BossEnemy.MainPlayer.transform) &&
+                    BossEnemy.Target.transform) &&
                 !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboFirstWarriorEnemyState))
                 && !BossEnemy.EnemyStateReusableData.IsPerformingAction)
             {

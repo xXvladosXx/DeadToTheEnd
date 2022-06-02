@@ -7,7 +7,7 @@ namespace StateMachine
     public abstract class StateMachine
     {
         protected IState _currentState;
-        public AliveEntity AliveEntity { get; set; }
+        public AliveEntity AliveEntity { get; protected set; }
 
         public abstract IState StartState();
         public void ChangeState(IState newState)
@@ -19,7 +19,7 @@ namespace StateMachine
 
         public virtual void Update()
         {
-                Debug.Log(_currentState);
+//                Debug.Log(_currentState);
             _currentState?.Update();
         }
 

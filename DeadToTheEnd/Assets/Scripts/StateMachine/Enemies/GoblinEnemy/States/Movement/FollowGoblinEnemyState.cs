@@ -18,22 +18,23 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
             base.Enter();
             _curTime = 0;
             _timeToWaitMovement = TimeToWaitMovement();
-            
+          
            // _timeToWaitAttack = TimeToWaitAttack();
         }
 
         public override void Exit()
         {
             base.Exit();
+           
             GoblinEnemy.Animator.SetFloat(GoblinEnemyAnimationData.VerticalParameterHash, 0, .1f, Time.deltaTime);
         }
         
         public override void Update()
         {
-            if(GoblinEnemy.EnemyStateReusableData.IsPerformingAction) return;
+           // if(GoblinEnemy.GoblinStateReusableData.IsPerformingAction) return;
             _curTime += Time.deltaTime;
             base.Update();
-
+            
             if (_curTime > _timeToWaitMovement)
             {
                 DecideWhatToDo();
@@ -45,6 +46,9 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
                // DecideAttackToDo();
             }
         }
+        
+       
+        
         private float TimeToWaitMovement()
         {
             return Random.Range(GoblinEnemy.GoblinEnemyData.GoblinFollowData.MinTimeToWait, 
@@ -54,27 +58,26 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
         {
             while (true)
             {
-                int choice = Random.Range(0, 2);
+                int choice = Random.Range(0, 3);
                 switch (choice)
                 {
                     case 0:
                         GoblinStateMachine.ChangeState(GoblinStateMachine.ForwardMoveGoblinEnemyState);
-                        GoblinEnemy.EnemyStateReusableData.CanStrafe = true;
+                        GoblinEnemy.GoblinStateReusableData.CanStrafe = true;
                         break;
-                    /*case 2:
-                        if (!IsEnoughDistance(3, GoblinStateMachine.AliveEntity.transform, 
-                                GoblinEnemy.MainPlayer.transform) &&
-                            GoblinEnemy.EnemyStateReusableData.CanStrafe)
+                    case 2:
+                        if (IsEnoughDistance(5, GoblinStateMachine.AliveEntity.transform, 
+                                GoblinEnemy.Target.transform))
                         {
-                            GoblinStateMachine.ChangeState(GoblinStateMachine.StrafeMoveWarriorEnemyState);
+                            GoblinStateMachine.ChangeState(GoblinStateMachine.LightAttackGoblinEnemyState);
                             break;
                         }
 
-                        continue;*/
+                        continue;
                     case 1:
                         if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinFollowData.DistanceToRoll,
                                 GoblinStateMachine.AliveEntity.transform, 
-                                GoblinEnemy.MainPlayer.transform))
+                                GoblinEnemy.Target.transform))
                         {
                             GoblinStateMachine.ChangeState(GoblinStateMachine.RollGoblinEnemyState);
                             break;

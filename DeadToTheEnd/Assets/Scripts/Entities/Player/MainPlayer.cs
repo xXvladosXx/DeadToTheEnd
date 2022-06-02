@@ -28,13 +28,12 @@ namespace Entities
         [field: SerializeField] public PlayerLayerData PlayerLayerData { get; private set; }
         [field: SerializeField] public PlayerCameraUtility CameraUtility { get; private set; }
         [field: SerializeField] public PlayerAnimationData PlayerAnimationData { get; private set; }
-        [field: SerializeField] public PlayerStateReusableData ReusableData { get; set; }
         public Transform MainCamera { get; private set; }
         public PlayerInput InputAction { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
-
-        public ShortSwordColliderActivator[] ShortSwordColliderActivators { get; private set; } 
+        public PlayerStateReusableData PlayerStateReusable { get; private set; }
+        public ShortSwordAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
 
         public override Health Health { get; protected set; }
@@ -57,11 +56,13 @@ namespace Entities
             MainCamera = UnityEngine.Camera.main.transform;
 
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
-            ShortSwordColliderActivators = GetComponentsInChildren<ShortSwordColliderActivator>();
+            ShortSwordColliderActivators = GetComponentsInChildren<ShortSwordAttackColliderActivator>();
 
             _cameraShaker = new CameraShaker(PlayerData);
-            ReusableData = new PlayerStateReusableData();
-            Health = new Health(ReusableData);
+            
+            Reusable = new PlayerStateReusableData();
+            PlayerStateReusable = (PlayerStateReusableData) Reusable;
+            Health = new Health(PlayerStateReusable);
             StateMachine = new PlayerStateMachine(this, gameObject);
         }
 
@@ -72,7 +73,7 @@ namespace Entities
 
         private void OnEnable()
         {
-            SwordColliderActivator.OnTargetHit += _cameraShaker.ShakeCameraOnAttackHit;
+            SwordAttackColliderActivator.OnTargetHit += _cameraShaker.ShakeCameraOnAttackHit;
             Health.OnDamageTaken += _cameraShaker.ShakeCameraOnDamageTaken;
         }
 
@@ -95,7 +96,7 @@ namespace Entities
 
         private void OnDisable()
         {
-            SwordColliderActivator.OnTargetHit -= _cameraShaker.ShakeCameraOnAttackHit;
+            SwordAttackColliderActivator.OnTargetHit -= _cameraShaker.ShakeCameraOnAttackHit;
             Health.OnDamageTaken -= _cameraShaker.ShakeCameraOnAttackHit;
         }
     }

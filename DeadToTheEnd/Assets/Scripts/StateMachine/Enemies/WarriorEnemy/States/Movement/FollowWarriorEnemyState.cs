@@ -67,7 +67,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
                         break;
                     case 1:
                         if (!IsEnoughDistance(3, WarriorStateMachine.AliveEntity.transform, 
-                                BossEnemy.MainPlayer.transform) &&
+                                BossEnemy.Target.transform) &&
                             BossEnemy.EnemyStateReusableData.CanStrafe)
                         {
                             WarriorStateMachine.ChangeState(WarriorStateMachine.StrafeMoveWarriorEnemyState);
@@ -77,7 +77,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
                         continue;
                     case 2:
                         if (IsEnoughDistance(2, WarriorStateMachine.AliveEntity.transform, 
-                                BossEnemy.MainPlayer.transform))
+                                BossEnemy.Target.transform))
                         {
                             WarriorStateMachine.ChangeState(WarriorStateMachine.RollBackWarriorEnemyState);
                             break;

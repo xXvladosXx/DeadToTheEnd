@@ -17,8 +17,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             MainPlayer.DefenseColliderActivator.ActivateCollider();
             
             StartAnimation(PlayerAnimationData.DefenseParameterHash);
-            MainPlayer.ReusableData.ShouldBlock = true;
-            MainPlayer.ReusableData.IsBlocking = true;
+            MainPlayer.PlayerStateReusable.ShouldBlock = true;
+            MainPlayer.PlayerStateReusable.IsBlocking = true;
         }
 
         public override void Exit()
@@ -26,7 +26,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             base.Exit();
             
             MainPlayer.DefenseColliderActivator.DeactivateCollider();
-            MainPlayer.ReusableData.IsBlocking = false;
+            MainPlayer.PlayerStateReusable.IsBlocking = false;
             
             StopAnimation(PlayerAnimationData.DefenseParameterHash);
         }
@@ -59,7 +59,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
         }
         private void OnBlockCanceled(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldBlock = false;
+            MainPlayer.PlayerStateReusable.ShouldBlock = false;
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
         }
     }

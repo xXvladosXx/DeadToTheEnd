@@ -8,7 +8,7 @@
         
         public override void Enter()
         {
-            MainPlayer.ReusableData.IsKnocked = true;
+            MainPlayer.PlayerStateReusable.IsKnocked = true;
             base.Enter();
            
             StartAnimation(PlayerAnimationData.KnockdownParameterHash);
@@ -23,7 +23,7 @@
         public override void OnAnimationHandleEvent()
         {
             base.OnAnimationHandleEvent();
-            MainPlayer.ReusableData.IsKnocked = false;
+            MainPlayer.PlayerStateReusable.IsKnocked = false;
         }
     }
 }

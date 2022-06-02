@@ -1,8 +1,6 @@
-﻿using Data.ScriptableObjects;
-using StateMachine.Enemies.WarriorEnemy;
-using StateMachine.WarriorEnemy.States.Movement;
+﻿using StateMachine.WarriorEnemy.States.Movement;
 
-namespace StateMachine.WarriorEnemy.States.Combat
+namespace StateMachine.Enemies.WarriorEnemy.States.Combat
 {
     public class BaseAttackEnemyState : BaseWarriorEnemyState, IState
     {
@@ -15,7 +13,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         {
             BossEnemy.EnemyStateReusableData.IsPerformingAction = true;
             BossEnemy.NavMeshAgent.isStopped = true;
-            BossEnemy.NavMeshAgent.SetDestination(BossEnemy.MainPlayer.transform.position);
+            BossEnemy.NavMeshAgent.SetDestination(BossEnemy.Target.transform.position);
             
             TargetLocked();
         }

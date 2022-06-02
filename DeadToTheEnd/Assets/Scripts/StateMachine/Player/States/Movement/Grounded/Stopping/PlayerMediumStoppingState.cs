@@ -12,7 +12,7 @@
 
             StartAnimation(PlayerAnimationData.MediumStopParameterHash);
 
-            MainPlayer.ReusableData.MovementDecelerationForce = PlayerGroundData.StopData.MediumDeceleration;
+            MainPlayer.PlayerStateReusable.MovementDecelerationForce = PlayerGroundData.StopData.MediumDeceleration;
         }
 
         public override void Exit()

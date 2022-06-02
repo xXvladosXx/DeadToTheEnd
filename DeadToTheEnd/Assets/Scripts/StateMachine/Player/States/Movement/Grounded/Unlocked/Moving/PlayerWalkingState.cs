@@ -10,9 +10,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.MovementSpeedModifier = PlayerGroundData.WalkData.SpeedModifier;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.WalkData.SpeedModifier;
 
-            MainPlayer.ReusableData.BackCameraRecenteringDatas = PlayerGroundData.WalkData.BackCameraRecenteringDatas;
+            MainPlayer.PlayerStateReusable.BackCameraRecenteringDatas = PlayerGroundData.WalkData.BackCameraRecenteringDatas;
 
             base.Enter();
 

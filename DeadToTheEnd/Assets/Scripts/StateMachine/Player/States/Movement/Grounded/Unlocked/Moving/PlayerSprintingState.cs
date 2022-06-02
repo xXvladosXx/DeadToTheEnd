@@ -15,9 +15,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.MovementSpeedModifier = PlayerGroundData.SprintData.SpeedModifier;
-            MainPlayer.ReusableData.TimeToReachTargetRotation =
-                MainPlayer.ReusableData.RotationData.TargetRotationReachTimeSprint;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.SprintData.SpeedModifier;
+            MainPlayer.PlayerStateReusable.TimeToReachTargetRotation =
+                MainPlayer.PlayerStateReusable.RotationData.TargetRotationReachTimeSprint;
 
             base.Enter();
 
@@ -26,7 +26,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
             _startTime = UnityEngine.Time.time;
             _shouldResetSprintState = true;
 
-            if (!MainPlayer.ReusableData.ShouldSprint)
+            if (!MainPlayer.PlayerStateReusable.ShouldSprint)
             {
                 _keepSprinting = false;
             }
@@ -36,8 +36,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
         {
             base.Exit();
             
-            MainPlayer.ReusableData.TimeToReachTargetRotation =
-                MainPlayer.ReusableData.RotationData.TargetRotationReachTimeDefault;
+            MainPlayer.PlayerStateReusable.TimeToReachTargetRotation =
+                MainPlayer.PlayerStateReusable.RotationData.TargetRotationReachTimeDefault;
 
             StopAnimation(PlayerAnimationData.SprintParameterHash);
 
@@ -45,7 +45,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
             {
                 _keepSprinting = false;
 
-                MainPlayer.ReusableData.ShouldSprint = false;
+                MainPlayer.PlayerStateReusable.ShouldSprint = false;
             }
         }
 
@@ -68,7 +68,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
         private void StopSprinting()
         {
-            if (MainPlayer.ReusableData.MovementInputWithNormalization == Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization == Vector2.zero)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
 
@@ -96,7 +96,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
         {
             _keepSprinting = true;
 
-            MainPlayer.ReusableData.ShouldSprint = true;
+            MainPlayer.PlayerStateReusable.ShouldSprint = true;
         }
 
         protected override void OnMovementCanceled(InputAction.CallbackContext context)

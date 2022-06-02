@@ -1,5 +1,6 @@
 ﻿using Data.ScriptableObjects;
 using StateMachine.Enemies.WarriorEnemy;
+using StateMachine.Enemies.WarriorEnemy.States.Combat;
 using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
 

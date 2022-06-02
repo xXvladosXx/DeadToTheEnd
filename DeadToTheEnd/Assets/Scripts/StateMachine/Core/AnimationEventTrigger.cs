@@ -27,7 +27,6 @@ namespace StateMachine.WarriorEnemy
         
         public void MediumAttack(float time)
         {
-            print(time);
             Entity.OnAttackMake(time, AttackType.Medium);
         }
         

@@ -14,7 +14,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
         public override void Enter()
         {
             base.Enter();
-            MainPlayer.ReusableData.MovementSpeedModifier = 0;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = 0;
             StartAnimation(PlayerAnimationData.DefenseImpactParameterHash);
         }
 
@@ -31,12 +31,12 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
 
         private void OnDefensePerformed(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldBlock = false;
+            MainPlayer.PlayerStateReusable.ShouldBlock = false;
         }
 
         private void OnDefenseCanceled(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldBlock = false;
+            MainPlayer.PlayerStateReusable.ShouldBlock = false;
         }
 
         protected override void RemoveInputCallbacks()
@@ -47,7 +47,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
 
         public override void OnAnimationHandleEvent()
         {
-            if (MainPlayer.ReusableData.ShouldBlock)
+            if (MainPlayer.PlayerStateReusable.ShouldBlock)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDefenseState);
             }

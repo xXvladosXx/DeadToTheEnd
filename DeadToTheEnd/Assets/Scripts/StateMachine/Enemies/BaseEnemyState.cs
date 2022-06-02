@@ -2,6 +2,7 @@
 using Data.Animations;
 using Data.Combat;
 using Data.ScriptableObjects;
+using Data.States.StateData;
 using Entities;
 using Entities.Enemies;
 using StateMachine.Enemies.WarriorEnemy;
@@ -13,11 +14,15 @@ namespace StateMachine.WarriorEnemy.States.Movement
 {
     public class BaseEnemyState : IState
     {
-        protected readonly Enemy Enemy; 
+        protected readonly Enemy Enemy;
+        protected readonly IReusable Reusable;
+        protected StateMachine StateMachine;
         
         protected BaseEnemyState(StateMachine stateMachine)
         {
             Enemy = stateMachine.AliveEntity as Enemy;
+            Reusable = Enemy.Reusable;
+            StateMachine = stateMachine;
         }
 
         public virtual void Enter()
@@ -64,7 +69,16 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             
         }
+        
+        protected void StartAnimation(int animation)
+        {
+            Enemy.Animator.SetBool(animation, true);
+        }
 
+        protected void StopAnimation(int animation)
+        {
+            Enemy.Animator.SetBool(animation, false);
+        }
         protected void MoveTo(NavMeshAgent user, Vector3 target, float speed = 1f)
         {
             user.destination = target;
@@ -92,7 +106,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected void TargetLocked()
         {
             Transform transform;
-            (transform = Enemy.transform).LookAt(Enemy.MainPlayer.transform);
+            (transform = Enemy.transform).LookAt(Enemy.Target.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
 

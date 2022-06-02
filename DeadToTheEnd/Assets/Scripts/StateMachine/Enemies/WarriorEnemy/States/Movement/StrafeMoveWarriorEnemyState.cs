@@ -72,13 +72,13 @@ namespace StateMachine.WarriorEnemy.States.Movement
         private void StrafeRight()
         {
             var offsetPlayer = BossEnemy.transform.position -
-                               BossEnemy.MainPlayer.transform.position;
+                               BossEnemy.Target.transform.position;
 
             var dir = Vector3.Cross(offsetPlayer, Vector3.up);
             BossEnemy.NavMeshAgent.SetDestination(
                 BossEnemy.transform.position + dir);
 
-            var lookPos = BossEnemy.MainPlayer.transform.position -
+            var lookPos = BossEnemy.Target.transform.position -
                           BossEnemy.transform.position;
             lookPos.y = 0f;
             var rotation = Quaternion.LookRotation(lookPos);
@@ -93,14 +93,14 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         private void StrafeLeft()
         {
-            var offsetPlayer = BossEnemy.MainPlayer.transform.position -
+            var offsetPlayer = BossEnemy.Target.transform.position -
                                BossEnemy.transform.position;
 
             var dir = Vector3.Cross(offsetPlayer, Vector3.up);
             BossEnemy.NavMeshAgent.SetDestination(
                 BossEnemy.transform.position + dir);
 
-            var lookPos = BossEnemy.MainPlayer.transform.position -
+            var lookPos = BossEnemy.Target.transform.position -
                           BossEnemy.transform.position;
             lookPos.y = 0f;
             var rotation = Quaternion.LookRotation(lookPos);

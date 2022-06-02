@@ -67,7 +67,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         }
         protected override void OnAttackPerformed(InputAction.CallbackContext obj)
         {
-            MainPlayer.ReusableData.ShouldCombo = true;
+            MainPlayer.PlayerStateReusable.ShouldCombo = true;
 
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerComboAttackState);
         }

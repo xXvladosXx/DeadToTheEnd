@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Combat.ColliderActivators
 {
-    public class SwordColliderActivator : ColliderActivator
+    public class SwordAttackColliderActivator : ColliderActivator
     {
         private float _time = -1;
         private AttackData _attackData;

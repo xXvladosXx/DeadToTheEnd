@@ -9,19 +9,13 @@ namespace Combat.ColliderActivators
         [SerializeField] private Transform _positionToSpawn;
         [SerializeField] private float _timeToDestroyParticle = 1f;
 
-        private void Update()
-        {
-            if(enabled)
-                print("Enabled");
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out SwordColliderActivator attackColliderActivator))
+            if (other.TryGetComponent(out SwordAttackColliderActivator attackColliderActivator))
             {
                 Debug.Log("Spawn");
-                var particle = Instantiate(_blockParticle,  transform.position, Quaternion.identity);
-                Destroy(particle, _timeToDestroyParticle);
+//                var particle = Instantiate(_blockParticle,  transform.position, Quaternion.identity);
+              //  Destroy(particle, _timeToDestroyParticle);
             }
         }
     }

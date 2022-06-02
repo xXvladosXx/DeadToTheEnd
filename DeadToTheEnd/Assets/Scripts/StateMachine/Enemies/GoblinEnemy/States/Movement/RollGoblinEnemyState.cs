@@ -12,7 +12,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
         public override void Enter()
         {
             base.Enter();
-            GoblinEnemy.EnemyStateReusableData.CanRoll = false;
+            GoblinEnemy.GoblinStateReusableData.CanRoll = false;
             GoblinEnemy.Animator.SetBool(GoblinEnemyAnimationData.RollParameterHash, true);
 
             GoblinEnemy.NavMeshAgent.updateRotation = false;
@@ -23,9 +23,9 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
         {
             GoblinEnemy.NavMeshAgent.speed -= Time.deltaTime*5;
             Vector3 direction = GoblinEnemy.transform.position -
-                                GoblinEnemy.MainPlayer.transform.position; 
+                                GoblinEnemy.Target.transform.position; 
             
-            GoblinEnemy.transform.LookAt(GoblinEnemy.MainPlayer.transform.position);
+            GoblinEnemy.transform.LookAt(GoblinEnemy.Target.transform.position);
             GoblinEnemy.NavMeshAgent.SetDestination(GoblinEnemy.transform.position + direction);
         }
 
@@ -35,9 +35,16 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
             GoblinEnemy.Animator.SetBool(GoblinEnemyAnimationData.RollParameterHash, false);
         }
 
+        protected override void AddEventCallbacks()
+        {
+        }
+
+        protected override void RemoveEventCallbacks()
+        {
+        }
+
         public override void OnAnimationEnterEvent()
         {
-            Debug.Log("enter");
             GoblinEnemy.NavMeshAgent.isStopped = false;
         }
 

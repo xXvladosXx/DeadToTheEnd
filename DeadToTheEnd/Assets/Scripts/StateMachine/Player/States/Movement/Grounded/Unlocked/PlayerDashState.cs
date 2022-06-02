@@ -15,17 +15,17 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         public override void Enter()
         {
-            MainPlayer.ReusableData.MovementSpeedModifier = PlayerGroundData.DashData.SpeedModifier;
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.DashData.SpeedModifier;
 
             base.Enter();
 
             StartAnimation(PlayerAnimationData.DashParameterHash);
 
-            MainPlayer.ReusableData.RotationData = PlayerGroundData.DashData.RotationData;
-            MainPlayer.ReusableData.IsMovingAfterStop = false;
+            MainPlayer.PlayerStateReusable.RotationData = PlayerGroundData.DashData.RotationData;
+            MainPlayer.PlayerStateReusable.IsMovingAfterStop = false;
             Dash();
 
-            _shouldKeepRotating = MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero;
+            _shouldKeepRotating = MainPlayer.PlayerStateReusable.MovementInputWithNormalization != Vector2.zero;
 
             UpdateConsecutiveDashes();
 
@@ -55,7 +55,7 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         public override void OnAnimationHandleEvent()
         {
-            if (MainPlayer.ReusableData.MovementInputWithNormalization == Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization == Vector2.zero)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.HardStoppingState);
 
@@ -97,11 +97,11 @@ namespace StateMachine.Player.States.Movement.Grounded
 
             UpdateTargetRotation(dashDirection, false);
 
-            if (MainPlayer.ReusableData.MovementInputWithNormalization != Vector2.zero)
+            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization != Vector2.zero)
             {
                 UpdateTargetRotation(GetMovementInputDirection());
 
-                dashDirection = GetTargetRotationDirection(MainPlayer.ReusableData.CurrentTargetRotation.y);
+                dashDirection = GetTargetRotationDirection(MainPlayer.PlayerStateReusable.CurrentTargetRotation.y);
             }
 
             MainPlayer.Rigidbody.velocity = dashDirection * GetMovementSpeed(false);
