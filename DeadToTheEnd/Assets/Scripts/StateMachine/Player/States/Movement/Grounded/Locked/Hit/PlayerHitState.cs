@@ -1,4 +1,5 @@
 ﻿using Data.Combat;
+using UnityEngine.InputSystem;
 
 namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
@@ -34,7 +35,18 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
         public override void OnAnimationHandleEvent()
         {
             base.OnAnimationHandleEvent();
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
+            
+            if (MainPlayer.PlayerStateReusable.LockedState)
+            {
+                PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
+                return;
+            }
+            
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
+        }
+
+        protected override void OnLockedPerformed(InputAction.CallbackContext obj)
+        {
         }
 
         public override void Exit()

@@ -10,7 +10,7 @@ namespace StateMachine.WarriorEnemy
     {
         protected AliveEntity Entity;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Entity = GetComponent<AliveEntity>();
         }

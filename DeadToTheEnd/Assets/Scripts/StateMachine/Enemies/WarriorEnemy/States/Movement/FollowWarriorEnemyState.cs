@@ -28,12 +28,11 @@ namespace StateMachine.WarriorEnemy.States.Movement
         public override void Exit()
         {
             base.Exit();
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0, .1f, Time.deltaTime);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0, .1f, Time.deltaTime);
         }
 
         public override void Update()
         {
-            if(BossEnemy.EnemyStateReusableData.IsPerformingAction) return;
             _curTime += Time.deltaTime;
             base.Update();
 
@@ -62,13 +61,13 @@ namespace StateMachine.WarriorEnemy.States.Movement
                 switch (choice)
                 {
                     case 0:
-                        WarriorStateMachine.ChangeState(WarriorStateMachine.ForwardMoveWarriorEnemyState);
-                        BossEnemy.EnemyStateReusableData.CanStrafe = true;
+                        WarriorStateMachine.ChangeState(WarriorStateMachine.BaseForwardMoveEnemyState);
+                        WarriorEnemy.WarriorStateReusableData.CanStrafe = true;
                         break;
                     case 1:
                         if (!IsEnoughDistance(3, WarriorStateMachine.AliveEntity.transform, 
-                                BossEnemy.Target.transform) &&
-                            BossEnemy.EnemyStateReusableData.CanStrafe)
+                                WarriorEnemy.Target.transform) &&
+                            WarriorEnemy.WarriorStateReusableData.CanStrafe)
                         {
                             WarriorStateMachine.ChangeState(WarriorStateMachine.StrafeMoveWarriorEnemyState);
                             break;
@@ -77,9 +76,9 @@ namespace StateMachine.WarriorEnemy.States.Movement
                         continue;
                     case 2:
                         if (IsEnoughDistance(2, WarriorStateMachine.AliveEntity.transform, 
-                                BossEnemy.Target.transform))
+                                WarriorEnemy.Target.transform))
                         {
-                            WarriorStateMachine.ChangeState(WarriorStateMachine.RollBackWarriorEnemyState);
+                            WarriorStateMachine.ChangeState(WarriorStateMachine.BaseRollBackWarriorEnemyState);
                             break;
                         }
 
@@ -92,8 +91,8 @@ namespace StateMachine.WarriorEnemy.States.Movement
         
         private float TimeToWaitAttack()
         {
-            return Random.Range(bossEnemyData.EnemyAttackData.MinTimeToAttack,
-                bossEnemyData.EnemyAttackData.MaxTimeToAttack);
+            return Random.Range(WarriorEnemyData.EnemyAttackData.MinTimeToAttack,
+                WarriorEnemyData.EnemyAttackData.MaxTimeToAttack);
         }
 
         

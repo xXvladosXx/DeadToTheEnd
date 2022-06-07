@@ -1,6 +1,7 @@
 ﻿using CameraManage;
 using Combat.ColliderActivators;
 using Data.Animations;
+using Data.ScriptableObjects;
 using Data.Stats;
 using Entities.Core;
 using UnityEngine;
@@ -12,8 +13,10 @@ namespace Entities.Enemies
         typeof(Animator))]
     public abstract class Enemy : AliveEntity, ILockable
     {
-        [SerializeField] private Transform _lockAim;
+        [field: SerializeField] public EnemyAnimationData EnemyAnimationData { get; protected set; }
+        [field: SerializeField] public EnemyData EnemyData { get; protected set; }
         
+        [SerializeField] private Transform _lockAim;
         public NavMeshAgent NavMeshAgent { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
@@ -29,6 +32,9 @@ namespace Entities.Enemies
             NavMeshAgent = GetComponent<NavMeshAgent>();
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
+            
+            EnemyAnimationData.Init();
+            
             Target = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();
         }
 

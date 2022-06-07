@@ -1,4 +1,6 @@
-﻿namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
+﻿using UnityEngine;
+
+namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
     public class PlayerKnockHitState : PlayerHitState
     {

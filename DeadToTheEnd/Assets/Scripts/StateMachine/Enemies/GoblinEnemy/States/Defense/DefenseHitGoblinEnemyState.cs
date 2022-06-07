@@ -1,4 +1,5 @@
 ﻿using StateMachine.Enemies.GoblinEnemy.States.Movement;
+using UnityEngine;
 
 namespace StateMachine.Enemies.GoblinEnemy.States.Defense
 {
@@ -11,6 +12,19 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Defense
         public override void Enter()
         {
             base.Enter();
+
+            GoblinEnemy.GoblinStateReusableData.CurrentAmountOfFrontHits++;
+            if (GoblinEnemy.GoblinStateReusableData.CurrentAmountOfFrontHits >
+                GoblinEnemy.GoblinStateReusableData.MaxAmountOfFrontHits)
+            {
+                GoblinEnemy.GoblinStateReusableData.CurrentAmountOfFrontHits = 0;
+                GoblinStateMachine.ChangeState(GoblinStateMachine.SecondComboAttackGoblinEnemyState);
+                
+                GoblinEnemy.GoblinStateReusableData.MaxAmountOfFrontHits = Random.Range(3,6);
+
+                return;
+            }
+            
             StartAnimation(GoblinEnemyAnimationData.BlockHitParameterHash);
         }
 

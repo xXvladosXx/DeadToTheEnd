@@ -33,7 +33,6 @@ namespace Data.Stats
                 return;
             }
 
-            Debug.Log(attackData.AttackType);
             if (attackData.AttackType == AttackType.Knock)
             {
                 OnDamageTaken?.Invoke(attackData);
@@ -42,6 +41,7 @@ namespace Data.Stats
             
             if (_reusableData.IsBlocking)
             {
+                Debug.Log("From blocking");
                 OnAttackApplied?.Invoke();
                 return;
             }

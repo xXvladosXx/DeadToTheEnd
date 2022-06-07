@@ -18,12 +18,12 @@ namespace StateMachine.WarriorEnemy.States.Movement
         
         public override void Enter()
         {
-            BossEnemy.EnemyStateReusableData.CanStrafe = false;
-            BossEnemy.NavMeshAgent.isStopped = false;
-            BossEnemy.NavMeshAgent.speed = bossEnemyData.EnemyStrafeData.StrafeSpeedModifer;
+            WarriorEnemy.WarriorStateReusableData.CanStrafe = false;
+            WarriorEnemy.NavMeshAgent.isStopped = false;
+            WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyStrafeData.StrafeSpeedModifer;
             
             _curTime = 0;
-            _timeToStrafe = DecideTimeOfMoving(bossEnemyData.EnemyStrafeData.StrafeMinTime, bossEnemyData.EnemyStrafeData.StrafeMaxTime);
+            _timeToStrafe = DecideTime(WarriorEnemyData.EnemyStrafeData.StrafeMinTime, WarriorEnemyData.EnemyStrafeData.StrafeMaxTime);
             DecideDirectionOfStrafe();
         }
 
@@ -31,16 +31,16 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
             base.Exit();
 
-            BossEnemy.Animator.SetBool("move", false);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0f, .2f, Time.deltaTime);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f,  .2f, Time.deltaTime);
+            WarriorEnemy.Animator.SetBool("move", false);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0f, .2f, Time.deltaTime);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f,  .2f, Time.deltaTime);
         }
 
         public override void Update()
         {
             MakeComboFirstAttack();
             MakeComboSecondAttack();
-            if(BossEnemy.EnemyStateReusableData.IsPerformingAction) return;
+            if(WarriorEnemy.WarriorStateReusableData.IsPerformingAction) return;
             
             _curTime += Time.deltaTime;
             if (_curTime > _timeToStrafe)
@@ -71,45 +71,45 @@ namespace StateMachine.WarriorEnemy.States.Movement
         
         private void StrafeRight()
         {
-            var offsetPlayer = BossEnemy.transform.position -
-                               BossEnemy.Target.transform.position;
+            var offsetPlayer = WarriorEnemy.transform.position -
+                               WarriorEnemy.Target.transform.position;
 
             var dir = Vector3.Cross(offsetPlayer, Vector3.up);
-            BossEnemy.NavMeshAgent.SetDestination(
-                BossEnemy.transform.position + dir);
+            WarriorEnemy.NavMeshAgent.SetDestination(
+                WarriorEnemy.transform.position + dir);
 
-            var lookPos = BossEnemy.Target.transform.position -
-                          BossEnemy.transform.position;
+            var lookPos = WarriorEnemy.Target.transform.position -
+                          WarriorEnemy.transform.position;
             lookPos.y = 0f;
             var rotation = Quaternion.LookRotation(lookPos);
             WarriorStateMachine.AliveEntity.transform.rotation = Quaternion.Slerp(WarriorStateMachine.AliveEntity.transform.rotation, rotation,
                 Time.deltaTime * 15);
             
-            BossEnemy.Animator.SetBool("move", true);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, .5f, .2f, Time.deltaTime);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f, .2f, Time.deltaTime);
+            WarriorEnemy.Animator.SetBool("move", true);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, .5f, .2f, Time.deltaTime);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f, .2f, Time.deltaTime);
 
         }
 
         private void StrafeLeft()
         {
-            var offsetPlayer = BossEnemy.Target.transform.position -
-                               BossEnemy.transform.position;
+            var offsetPlayer = WarriorEnemy.Target.transform.position -
+                               WarriorEnemy.transform.position;
 
             var dir = Vector3.Cross(offsetPlayer, Vector3.up);
-            BossEnemy.NavMeshAgent.SetDestination(
-                BossEnemy.transform.position + dir);
+            WarriorEnemy.NavMeshAgent.SetDestination(
+                WarriorEnemy.transform.position + dir);
 
-            var lookPos = BossEnemy.Target.transform.position -
-                          BossEnemy.transform.position;
+            var lookPos = WarriorEnemy.Target.transform.position -
+                          WarriorEnemy.transform.position;
             lookPos.y = 0f;
             var rotation = Quaternion.LookRotation(lookPos);
             WarriorStateMachine.AliveEntity.transform.rotation = Quaternion.Slerp(WarriorStateMachine.AliveEntity.transform.rotation, rotation,
                 Time.deltaTime * 15);
             
-            BossEnemy.Animator.SetBool("move", true);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, -.5f, .2f, Time.deltaTime);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f, .2f, Time.deltaTime);
+            WarriorEnemy.Animator.SetBool("move", true);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, -.5f, .2f, Time.deltaTime);
+            WarriorEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0f, .2f, Time.deltaTime);
         }
     }
 }

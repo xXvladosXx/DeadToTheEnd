@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Linq;
 using CameraManage;
 using Data.Animations;
 using Data.Combat;
 using Data.ScriptableObjects;
+using StateMachine.Enemies.BaseStates;
+using StateMachine.Enemies.GoblinEnemy.States.Combat;
+using StateMachine.WarriorEnemy.Components;
 using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace StateMachine.Enemies.GoblinEnemy.States
 {
@@ -12,18 +17,29 @@ namespace StateMachine.Enemies.GoblinEnemy.States
     {
         protected GoblinEnemyAnimationData GoblinEnemyAnimationData;
         protected GoblinStateMachine GoblinStateMachine;
-        protected GoblinEnemyData BossEnemyData;
 
         protected Entities.Enemies.GoblinEnemy GoblinEnemy;
         private float _curTime;
         private float _timeToWait;
+        
+        private readonly Func<bool>[] _canAttackFunctions;
+        
         protected BaseGoblinEnemyState(GoblinStateMachine stateMachine) : base(stateMachine)
         {
             GoblinStateMachine = stateMachine;
 
             GoblinEnemy = stateMachine.AliveEntity as Entities.Enemies.GoblinEnemy;
-            BossEnemyData = GoblinEnemy.GoblinEnemyData;
-            GoblinEnemyAnimationData = GoblinEnemy.GoblinEnemyAnimationData;
+            GoblinEnemyAnimationData = GoblinEnemy.EnemyAnimationData as GoblinEnemyAnimationData;
+            //GoblinEnemyAnimationData = GoblinEnemy.GoblinEnemyAnimationData;
+
+            _canAttackFunctions = new Func<bool>[]
+            {
+                CanMakeHeavyAttack,
+                CanMakeLightAttack,
+                CanMakeRangeAttack,
+                CanMakeFirstComboAttack,
+                CanMakeSecondComboAttack,
+            };
         }
 
         public override void Enter()
@@ -66,35 +82,31 @@ namespace StateMachine.Enemies.GoblinEnemy.States
                     break;
                 default:
                     GoblinEnemy.Reusable.IsTargetBehind = false;
-                    Debug.Log("Front");
-
                     break;
             }
-            /*if (viewAngle is > 45 or < -45)
-            {
-                GoblinEnemy.NavMeshAgent.isStopped = true;
-                GoblinStateMachine.ChangeState(GoblinStateMachine.RotateGoblinEnemyState);
-            }*/
         }
-        
+
+        protected override void Rotate()
+        {
+            
+        }
+
         protected override void AddEventCallbacks()
         {
             base.AddEventCallbacks();
-            GoblinStateMachine.AliveEntity.Health.OnDamageTaken += HealthOnOnAttackApplied;
+            GoblinStateMachine.AliveEntity.Health.OnDamageTaken += HealthOnAttackApplied;
             Enemy.Health.OnAttackApplied += OnDefenseImpact;
         }
         protected override void RemoveEventCallbacks()
         {
             base.RemoveEventCallbacks();
-            GoblinStateMachine.AliveEntity.Health.OnDamageTaken -= HealthOnOnAttackApplied;
+            GoblinStateMachine.AliveEntity.Health.OnDamageTaken -= HealthOnAttackApplied;
             Enemy.Health.OnAttackApplied -= OnDefenseImpact;
         }
         
-        private void HealthOnOnAttackApplied(AttackData attackData)
+        protected override void HealthOnAttackApplied(AttackData attackData)
         {
             CinemachineShake.Instance.ShakeCamera(.3f, .3f);
-            
-            Debug.Log(attackData.AttackType);
             
             switch (attackData.AttackType)
             {
@@ -112,9 +124,114 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             }
         }
         
-        private void OnDefenseImpact()
+        protected virtual void OnDefenseImpact()
         {
             GoblinStateMachine.ChangeState(GoblinStateMachine.DefenseHitGoblinEnemyState);
+        }
+
+        protected override void DecideAttackToDo()
+        {
+            base.DecideAttackToDo();
+            int shouldWaitBeforeAttack = Random.Range(0, 1);
+            if (shouldWaitBeforeAttack == 1)
+            {
+                _timeToWait = DecideTime(1f, 2.5f);
+            }
+
+            if (shouldWaitBeforeAttack == 1)
+            {
+                if (_curTime > _timeToWait)
+                {
+                    TryToAttack();
+                }
+            }
+            else
+            {
+                TryToAttack();
+            }
+        }
+
+        private void TryToAttack()
+        {
+            while (true)
+            {
+                var any = _canAttackFunctions.Any(f => f());
+
+                if (!any)
+                {
+                    break;
+                }
+            }
+        }
+
+        protected bool CanMakeLightAttack()
+        {
+            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.DistanceToStartAttack,
+                    GoblinStateMachine.AliveEntity.transform,
+                    GoblinEnemy.Target.transform) && 
+                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(LightAttackGoblinEnemyState)))
+            {
+                GoblinStateMachine.ChangeState(GoblinStateMachine.LightAttackGoblinEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+        
+        protected bool CanMakeRangeAttack()
+        {
+            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinRangeAttackData.DistanceToStartAttack,
+                    GoblinStateMachine.AliveEntity.transform,
+                    GoblinEnemy.Target.transform) && 
+                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(RangeAttackGoblinEnemyState)))
+            {
+                GoblinStateMachine.ChangeState(GoblinStateMachine.RangeAttackGoblinEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+        
+        protected bool CanMakeHeavyAttack()
+        {
+            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinHeavyAttackData.DistanceToStartAttack,
+                    GoblinStateMachine.AliveEntity.transform,
+                    GoblinEnemy.Target.transform) && 
+                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(BaseHeavyAttackEnemyState)))
+            {
+                GoblinStateMachine.ChangeState(GoblinStateMachine.HeavyAttackGoblinEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+        
+        protected bool CanMakeFirstComboAttack()
+        {
+            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinFirstComboAttackData.DistanceToStartAttack,
+                    GoblinStateMachine.AliveEntity.transform,
+                    GoblinEnemy.Target.transform) && 
+                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(FirstComboAttackGoblinEnemyState)))
+            {
+                GoblinStateMachine.ChangeState(GoblinStateMachine.FirstComboAttackGoblinEnemyState);
+                return true;
+            }
+
+            return false;
+        }
+        
+        protected bool CanMakeSecondComboAttack()
+        {
+            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinSecondComboAttackData.DistanceToStartAttack,
+                    GoblinStateMachine.AliveEntity.transform,
+                    GoblinEnemy.Target.transform) && 
+                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(SecondComboAttackGoblinEnemyState)))
+            {
+                GoblinStateMachine.ChangeState(GoblinStateMachine.SecondComboAttackGoblinEnemyState);
+                return true;
+            }
+
+            return false;
         }
     }
 }

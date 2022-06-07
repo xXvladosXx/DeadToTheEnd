@@ -12,10 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddd23d267634458a4db51c78c007240, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
+  <EnemyRollData>k__BackingField:
+    <RollSpeedModifer>k__BackingField: 10
+  <EnemyWalkData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 0
+    <WalkMinTime>k__BackingField: 3
+    <WalkMaxTime>k__BackingField: 5
+    <StoppingDistance>k__BackingField: 1.5
+  <EnemyIdleData>k__BackingField:
+    <TimeOfIdlePositioning>k__BackingField: 1
+    <IdleSpeedModifer>k__BackingField: 0
+    <RotationSpeedModifer>k__BackingField: 15
+    <DistanceToFindTarget>k__BackingField: 10
+  <EnemyHeavyAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 2
+    <DistanceToStartAttack>k__BackingField: 3
+    <AttackCooldown>k__BackingField: 12
+  <EnemyOrdinaryAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 3
+    <DistanceToStartAttack>k__BackingField: 4
+    <AttackCooldown>k__BackingField: 10
   <GoblinFollowData>k__BackingField:
     <MinTimeToWait>k__BackingField: 1
     <MaxTimeToWait>k__BackingField: 2
-    <DistanceToRoll>k__BackingField: 2.5
+    <DistanceToRoll>k__BackingField: 1
     <DistanceToStrafe>k__BackingField: 3
   <GoblinForwardMoveData>k__BackingField:
     <WalkSpeedModifer>k__BackingField: 1
@@ -23,9 +43,29 @@ MonoBehaviour:
     <RotationSpeedModifer>k__BackingField: 15
     <WalkMaxTime>k__BackingField: 2
     <WalkMinTime>k__BackingField: 5
-  <EnemyRollData>k__BackingField:
-    <RollSpeedModifer>k__BackingField: 10
   <GoblinLightAttackData>k__BackingField:
-    <WalkSpeedModiferFirstAttack>k__BackingField: 15
-    <WalkSpeedModiferSecondAttack>k__BackingField: 2
-    <DistanceModifier>k__BackingField: 0
+    <WalkSpeedModifer>k__BackingField: 20
+    <WalkSpeedModiferSecond>k__BackingField: 2
+    <DistanceToStartAttack>k__BackingField: 9
+    <AttackCooldown>k__BackingField: 9
+  <GoblinOrdinaryAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 2
+    <DistanceToStartAttack>k__BackingField: 3
+    <AttackCooldown>k__BackingField: 5
+  <GoblinHeavyAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 0.4
+    <DistanceToStartAttack>k__BackingField: 2
+    <AttackCooldown>k__BackingField: 10
+  <GoblinRangeAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 3
+    <DistanceToStartAttack>k__BackingField: 2.2
+    <AttackCooldown>k__BackingField: 15
+  <GoblinFirstComboAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 2
+    <DistanceToStartAttack>k__BackingField: 3
+    <AttackCooldown>k__BackingField: 12
+  <GoblinSecondComboAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 3
+    <WalkSpeedSecondModifer>k__BackingField: 20
+    <DistanceToStartAttack>k__BackingField: 2
+    <AttackCooldown>k__BackingField: 4

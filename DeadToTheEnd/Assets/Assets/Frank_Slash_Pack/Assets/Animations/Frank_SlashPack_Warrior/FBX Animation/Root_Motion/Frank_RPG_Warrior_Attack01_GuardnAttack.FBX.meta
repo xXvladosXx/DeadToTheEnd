@@ -831,6 +831,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.089794755
+        functionName: ShieldAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.3
+        intParameter: 0
+        messageOptions: 0
       - time: 0.21333334
         functionName: TriggerOnStateAnimationHandleEvent
         data: 
@@ -838,11 +845,18 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.72408456
+      - time: 0.89947724
         functionName: TriggerOnStateAnimationExitEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.42435423
+        functionName: MediumAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.3
         intParameter: 0
         messageOptions: 0
       transformMask: []

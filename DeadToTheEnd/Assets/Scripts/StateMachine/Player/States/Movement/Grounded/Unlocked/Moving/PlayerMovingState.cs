@@ -1,4 +1,6 @@
-﻿namespace StateMachine.Player.States.Movement.Grounded.Moving
+﻿using UnityEngine.InputSystem;
+
+namespace StateMachine.Player.States.Movement.Grounded.Moving
 {
     public abstract class PlayerMovingState: PlayerGroundedState
     {
@@ -12,6 +14,12 @@
 
             StartAnimation(PlayerAnimationData.WasMovingParameterHash);
             StartAnimation(PlayerAnimationData.MovingParameterHash);
+        }
+
+        protected override void OnAttackPerformed(InputAction.CallbackContext obj)
+        {
+            base.OnAttackPerformed(obj);
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerAttackState);
         }
 
         public override void Exit()

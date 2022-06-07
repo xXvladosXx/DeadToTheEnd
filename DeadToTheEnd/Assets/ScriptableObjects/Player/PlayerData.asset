@@ -98,7 +98,7 @@ MonoBehaviour:
       <SprintToRunTime>k__BackingField: 1
       <RunToWalkTime>k__BackingField: 1
     <DashData>k__BackingField:
-      <SpeedModifier>k__BackingField: 4
+      <SpeedModifier>k__BackingField: 2.4
       <TimeToBeConsider>k__BackingField: 0.3
       <DashLimitAmount>k__BackingField: 3
       <DashLimitCooldown>k__BackingField: 0.3

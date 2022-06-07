@@ -19,7 +19,6 @@ namespace StateMachine
         public PlayerDashState PlayerDashState { get; }
         public PlayerLockedMovement PlayerLockedMovementState { get; }
 
-        public PlayerWalkingState PlayerWalkingState { get; }
         public PlayerRunningState PlayerRunningState { get; }
         public PlayerSprintingState PlayerSprintingState { get; }
         public PlayerLightStoppingState LightStoppingState { get; }
@@ -45,7 +44,6 @@ namespace StateMachine
             PlayerIdleState = new PlayerIdleState(this);
             PlayerDashState = new PlayerDashState(this);
 
-            PlayerWalkingState = new PlayerWalkingState(this);
             PlayerRunningState = new PlayerRunningState(this);
             PlayerSprintingState = new PlayerSprintingState(this);
 

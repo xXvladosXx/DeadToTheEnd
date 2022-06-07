@@ -17,7 +17,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         public override void Enter()
         {
-            BossEnemy.NavMeshAgent.speed = 1;
+            WarriorEnemy.NavMeshAgent.speed = 1;
             _curTime = 0f;
         }
 
@@ -25,11 +25,11 @@ namespace StateMachine.WarriorEnemy.States.Movement
         public override void Update()
         {
             _curTime += Time.deltaTime;
-            if(_curTime < bossEnemyData.EnemyIdleData.TimeOfIdlePositioning) return;
+            if(_curTime < WarriorEnemyData.EnemyIdleData.TimeOfIdlePositioning) return;
 
-            if (IsEnoughDistance(bossEnemyData.EnemyIdleData.DistanceToFindTarget,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform))
+            if (IsEnoughDistance(WarriorEnemyData.EnemyIdleData.DistanceToFindTarget,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform))
             {
                 base.Update();
             }

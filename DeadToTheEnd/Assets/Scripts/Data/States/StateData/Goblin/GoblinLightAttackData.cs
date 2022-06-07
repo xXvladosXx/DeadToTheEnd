@@ -6,8 +6,9 @@ namespace Data.States.StateData.Goblin
     [Serializable]
     public class GoblinLightAttackData
     {
-        [field: SerializeField] public float WalkSpeedModiferFirstAttack { get; private set; }
-        [field: SerializeField] public float WalkSpeedModiferSecondAttack { get; private set; }
-        [field: SerializeField] public float DistanceModifier { get; private set; }
+        [field: SerializeField] public float WalkSpeedModifer { get; private set; }
+        [field: SerializeField] public float WalkSpeedModiferSecond { get; private set; }
+        [field: SerializeField] public float DistanceToStartAttack { get; private set; }
+        [field: SerializeField] public float AttackCooldown { get; private set; }
     }
 }

@@ -12,12 +12,6 @@
             StartAnimation(PlayerAnimationData.EasyHitParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
-        {
-            base.OnAnimationEnterEvent();
-            StopAnimation(PlayerAnimationData.EasyHitParameterHash);
-        }
-
         public override void Exit()
         {
             base.Exit();

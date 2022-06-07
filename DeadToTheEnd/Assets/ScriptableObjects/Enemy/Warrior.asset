@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f849e7ebd54e3e95c8f72272bd8535, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  <EnemyRunData>k__BackingField:
-    <RunSpeedModifer>k__BackingField: 7
+  <EnemyRollData>k__BackingField:
+    <RollSpeedModifer>k__BackingField: 10
   <EnemyWalkData>k__BackingField:
     <WalkSpeedModifer>k__BackingField: 1.7
     <WalkMinTime>k__BackingField: 3
     <WalkMaxTime>k__BackingField: 5
+    <StoppingDistance>k__BackingField: 3
   <EnemyIdleData>k__BackingField:
     <TimeOfIdlePositioning>k__BackingField: 3
     <IdleSpeedModifer>k__BackingField: 0
     <RotationSpeedModifer>k__BackingField: 15
     <DistanceToFindTarget>k__BackingField: 10
+  <EnemyRunData>k__BackingField:
+    <RunSpeedModifer>k__BackingField: 7
   <EnemyPatrolData>k__BackingField:
     <RadiusToPatrol>k__BackingField: 5
     <DistanceToFindTarget>k__BackingField: 10
@@ -34,20 +37,20 @@ MonoBehaviour:
     <DistanceToStartComboSecondAttack>k__BackingField: 3
     <MinTimeToAttack>k__BackingField: 0.5
     <MaxTimeToAttack>k__BackingField: 2
-  <EnemyRollData>k__BackingField:
-    <RollSpeedModifer>k__BackingField: 10
   <EnemyDashData>k__BackingField:
     <TimeBeforeAttack>k__BackingField: 0.4
     <DashSpeedModifier>k__BackingField: 22
-    <DashAttackCooldown>k__BackingField: 5
+    <DashAttackCooldown>k__BackingField: 16
     <DashSecondSpeedModifierFirstPhase>k__BackingField: 20
     <DashSecondSpeedModifierSecondPhase>k__BackingField: 5
-    <DashSecondAttackCooldown>k__BackingField: 15
+    <DashSecondAttackCooldown>k__BackingField: 10
   <EnemyComboData>k__BackingField:
-    <ComboFirstAttackCooldown>k__BackingField: 10
+    <ComboFirstAttackCooldown>k__BackingField: 8
     <ComboFirstAttackSpeed>k__BackingField: 1.5
-    <ComboSecondAttackCooldown>k__BackingField: 15
+    <ComboSecondAttackCooldown>k__BackingField: 14
     <ComboSecondAttackSpeed>k__BackingField: 5
+    <ComboFirstAttackDamage>k__BackingField: 100
+    <ComboSecondAttackDamage>k__BackingField: 100
   <EnemyStrafeData>k__BackingField:
     <StrafeSpeedModifer>k__BackingField: 1
     <StrafeMinTime>k__BackingField: 4

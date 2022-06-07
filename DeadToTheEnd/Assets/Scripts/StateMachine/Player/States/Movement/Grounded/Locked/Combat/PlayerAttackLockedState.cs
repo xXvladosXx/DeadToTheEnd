@@ -45,17 +45,14 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         public override void OnAnimationEnterEvent()
         {
             base.OnAnimationEnterEvent();
-
-            //MainPlayer.AttackColliderActivator.enabled = true;
-            //MainPlayer.AttackColliderActivator.ActivateCollider(.2f, new AttackData());
+            
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
         }
 
         public override void OnAnimationExitEvent()
         {
             base.OnAnimationExitEvent();
-           // MainPlayer.AttackColliderActivator.enabled = false;
-           // MainPlayer.AttackColliderActivator.DeactivateCollider();
+          
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
         }
         protected override void OnLockedPerformed(InputAction.CallbackContext obj)

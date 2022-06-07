@@ -33,7 +33,7 @@ namespace Entities
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
         public PlayerStateReusableData PlayerStateReusable { get; private set; }
-        public ShortSwordAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
+        public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
 
         public override Health Health { get; protected set; }
@@ -56,7 +56,7 @@ namespace Entities
             MainCamera = UnityEngine.Camera.main.transform;
 
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
-            ShortSwordColliderActivators = GetComponentsInChildren<ShortSwordAttackColliderActivator>();
+            ShortSwordColliderActivators = GetComponentsInChildren<ShortAttackColliderActivator>();
 
             _cameraShaker = new CameraShaker(PlayerData);
             
@@ -73,7 +73,7 @@ namespace Entities
 
         private void OnEnable()
         {
-            SwordAttackColliderActivator.OnTargetHit += _cameraShaker.ShakeCameraOnAttackHit;
+            AttackColliderActivator.OnTargetHit += _cameraShaker.ShakeCameraOnAttackHit;
             Health.OnDamageTaken += _cameraShaker.ShakeCameraOnDamageTaken;
         }
 
@@ -96,8 +96,39 @@ namespace Entities
 
         private void OnDisable()
         {
-            SwordAttackColliderActivator.OnTargetHit -= _cameraShaker.ShakeCameraOnAttackHit;
+            AttackColliderActivator.OnTargetHit -= _cameraShaker.ShakeCameraOnAttackHit;
             Health.OnDamageTaken -= _cameraShaker.ShakeCameraOnAttackHit;
+        }
+
+        public void ActivateRightSword(float time, AttackType attackType)
+        {
+            AttackData attackData = new AttackData
+            {
+                AttackType = AttackType.Easy
+            };
+            
+            foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
+            {
+                if (!shortSwordColliderActivator.RightSword) continue;
+                
+                shortSwordColliderActivator.enabled = true;
+                shortSwordColliderActivator.ActivateCollider(time, attackData);
+            }
+        }
+        public void ActivateLeftSword(float time, AttackType attackType)
+        {
+            AttackData attackData = new AttackData
+            {
+                AttackType = AttackType.Easy
+            };
+            
+            foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
+            {
+                if (shortSwordColliderActivator.RightSword) continue;
+                
+                shortSwordColliderActivator.enabled = true;
+                shortSwordColliderActivator.ActivateCollider(time, attackData);
+            }
         }
     }
 }

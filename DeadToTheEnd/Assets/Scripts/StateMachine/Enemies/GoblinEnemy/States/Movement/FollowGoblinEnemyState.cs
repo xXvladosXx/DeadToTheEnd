@@ -18,36 +18,25 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
             base.Enter();
             _curTime = 0;
             _timeToWaitMovement = TimeToWaitMovement();
-          
-           // _timeToWaitAttack = TimeToWaitAttack();
         }
 
         public override void Exit()
         {
             base.Exit();
-           
+
             GoblinEnemy.Animator.SetFloat(GoblinEnemyAnimationData.VerticalParameterHash, 0, .1f, Time.deltaTime);
         }
         
         public override void Update()
         {
-           // if(GoblinEnemy.GoblinStateReusableData.IsPerformingAction) return;
             _curTime += Time.deltaTime;
             base.Update();
             
             if (_curTime > _timeToWaitMovement)
             {
                 DecideWhatToDo();
-                return;
-            }
-
-            if (_curTime > _timeToWaitAttack)
-            {
-               // DecideAttackToDo();
             }
         }
-        
-       
         
         private float TimeToWaitMovement()
         {
@@ -63,23 +52,17 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
                 {
                     case 0:
                         GoblinStateMachine.ChangeState(GoblinStateMachine.ForwardMoveGoblinEnemyState);
-                        GoblinEnemy.GoblinStateReusableData.CanStrafe = true;
                         break;
                     case 2:
-                        if (IsEnoughDistance(5, GoblinStateMachine.AliveEntity.transform, 
-                                GoblinEnemy.Target.transform))
-                        {
-                            GoblinStateMachine.ChangeState(GoblinStateMachine.LightAttackGoblinEnemyState);
-                            break;
-                        }
+                        DecideAttackToDo();
+                        break;
 
-                        continue;
                     case 1:
                         if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinFollowData.DistanceToRoll,
                                 GoblinStateMachine.AliveEntity.transform, 
                                 GoblinEnemy.Target.transform))
                         {
-                            GoblinStateMachine.ChangeState(GoblinStateMachine.RollGoblinEnemyState);
+                            GoblinStateMachine.ChangeState(GoblinStateMachine.BaseRollEnemyState);
                             break;
                         }
 
@@ -89,5 +72,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
                 break;
             }
         }
+
+        
     }
 }

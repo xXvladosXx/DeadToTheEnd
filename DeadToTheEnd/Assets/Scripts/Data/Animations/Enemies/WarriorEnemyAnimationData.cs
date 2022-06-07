@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Data.Animations
 {
-    [Serializable]
+    [CreateAssetMenu (menuName = "AnimationData/WarriorAnimationData")]
+
     public class WarriorEnemyAnimationData : EnemyAnimationData
     {
         [SerializeField] private string _comboFirstParameterName = "ComboAttack1";

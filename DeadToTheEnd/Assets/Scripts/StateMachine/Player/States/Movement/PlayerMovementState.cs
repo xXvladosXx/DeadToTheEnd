@@ -50,7 +50,7 @@ namespace StateMachine.Player.States.Movement
         }
 
         public virtual void Update()
-        {           
+        {     
         }
 
         public virtual void FixedUpdate()
@@ -98,9 +98,11 @@ namespace StateMachine.Player.States.Movement
         {
             if (MainPlayer.GetComponent<EnemyLockOn>().FindTarget())
             {
+                MainPlayer.PlayerStateReusable.LockedState = true;
                 MainPlayer.PlayerStateReusable.Target = MainPlayer.GetComponent<EnemyLockOn>().ScanNearBy();
-                PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
                 MainPlayer.LongSwordActivator.ActivateSword();
+                
+                PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
                 
                 foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
                     shortSwordActivator.DeactivateSword();
@@ -129,7 +131,7 @@ namespace StateMachine.Player.States.Movement
         
         protected virtual void OnAttackPerformed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerAttackState);
+            MainPlayer.PlayerStateReusable.ShouldAttack = true;
         }
 
         protected virtual void OnMovementCanceled(InputAction.CallbackContext obj)
@@ -205,9 +207,10 @@ namespace StateMachine.Player.States.Movement
 
         private float GetSmoothMovementSpeed()
         {
-            CalculateTime += UnityEngine.Time.deltaTime * PlayerGroundData.SmoothSpeedModifier;
+            CalculateTime += UnityEngine.Time.deltaTime ;
 
             float movementSpeed = GetMaxMovementSpeed();
+            
             if (MainPlayer.PlayerStateReusable.IsMovingAfterStop)
             {
                 movementSpeed = Mathf.Lerp(0, GetMaxMovementSpeed(), CalculateTime);
@@ -219,6 +222,12 @@ namespace StateMachine.Player.States.Movement
             }
 
             return movementSpeed;
+        }
+
+        protected void ResetAnimatorSpeed()
+        {
+            CalculateTime = 0;
+            MainPlayer.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, 0);
         }
 
         protected float GetMaxMovementSpeed(bool shouldConsiderSlopes = true)

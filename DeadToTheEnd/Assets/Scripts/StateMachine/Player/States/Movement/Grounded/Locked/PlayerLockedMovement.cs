@@ -42,11 +42,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
             base.RemoveInputCallbacks();
             MainPlayer.InputAction.PlayerActions.Roll.performed -= OnRollPerformed;
         }
-        private void OnRollPerformed(InputAction.CallbackContext obj)
-        {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerRollState);
-        }
-        
 
         /*protected override void OnLockedPerformed(InputAction.CallbackContext obj)
         {
@@ -59,8 +54,5 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
             
             MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
         }*/
-
-       
-        
     }
 }

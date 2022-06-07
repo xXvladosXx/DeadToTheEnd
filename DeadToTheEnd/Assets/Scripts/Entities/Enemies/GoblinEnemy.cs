@@ -1,5 +1,7 @@
 ﻿using Combat.ColliderActivators;
+using Combat.SwordActivators;
 using Data.Animations;
+using Data.Combat;
 using Data.ScriptableObjects;
 using Data.States;
 using Data.Stats;
@@ -12,37 +14,49 @@ namespace Entities.Enemies
     public class GoblinEnemy : Enemy
     {
         [field: SerializeField] public GoblinEnemyData GoblinEnemyData { get; private set; }
-        [field: SerializeField] public GoblinEnemyAnimationData GoblinEnemyAnimationData { get; private set; }
         
         public GoblinStateReusableData GoblinStateReusableData { get; private set; }
+        
+        public ShieldAttackColliderActivator ShieldAttackColliderActivator { get; private set; }
+        public LegAttackColliderActivator LegAttackColliderActivator { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
 
+            ShieldAttackColliderActivator = GetComponentInChildren<ShieldAttackColliderActivator>();
+            LegAttackColliderActivator = GetComponentInChildren<LegAttackColliderActivator>();
+            
             Reusable = new GoblinStateReusableData();
             GoblinStateReusableData = (GoblinStateReusableData) Reusable;
             
             Health = new Health(GoblinStateReusableData);
-            GoblinEnemyAnimationData.Init();
             
             StateMachine = new GoblinStateMachine(this);
         }
         
-        private void OnAnimatorMove()
+        public void ApplyShieldAttack(float time, AttackType attackType)
         {
-            //if (GoblinStateReusableData.IsRotatingWithRootMotion)
-           // {
-           //     transform.rotation *= Animator.deltaRotation;
-          //      Rigidbody.velocity = Vector3.zero;
-          //      return;
-           // }
+            ShieldAttackColliderActivator.enabled = true;
+
+            AttackData attackData = new AttackData
+            {
+                AttackType = attackType
+            };
             
-            float delta = Time.deltaTime;
-            Rigidbody.drag = 0;
-            Vector3 deltaPosition = Animator.deltaPosition;
-            deltaPosition.y = 0;
-            Vector3 velocity = deltaPosition / delta;
+            ShieldAttackColliderActivator.ActivateCollider(time, attackData);
+        }
+
+        public void ApplyLegAttack(float time, AttackType attackType)
+        {
+            LegAttackColliderActivator.enabled = true;
+            
+            AttackData attackData = new AttackData
+            {
+                AttackType = attackType
+            };
+            
+            LegAttackColliderActivator.ActivateCollider(time, attackData);
         }
     }
 }

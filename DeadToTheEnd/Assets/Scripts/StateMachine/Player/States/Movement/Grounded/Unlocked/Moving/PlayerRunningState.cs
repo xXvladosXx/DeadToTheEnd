@@ -13,14 +13,12 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
         public override void Enter()
         {
-            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.PlayerRunData.SpeedModifier;
-
-            CalculateTime = 0;
             base.Enter();
+            ResetAnimatorSpeed();
 
+            MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.PlayerRunData.SpeedModifier;
+            
             StartAnimation(PlayerAnimationData.RunParameterHash);
-
-            _startTime = UnityEngine.Time.time;
         }
 
         public override void Exit()
@@ -29,36 +27,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Moving
 
             StopAnimation(PlayerAnimationData.RunParameterHash);
         }
-
-        public override void Update()
-        {
-            base.Update();
-
-            if (!MainPlayer.PlayerStateReusable.ShouldWalk)
-            {
-                return;
-            }
-
-            if (UnityEngine.Time.time < _startTime + PlayerGroundData.SprintData.RunToWalkTime)
-            {
-                return;
-            }
-
-            StopRunning();
-        }
-
-        private void StopRunning()
-        {
-            if (MainPlayer.PlayerStateReusable.MovementInputWithNormalization == Vector2.zero)
-            {
-                PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
-
-                return;
-            }
-
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerWalkingState);
-        }
-
+       
         protected override void OnMovementCanceled(InputAction.CallbackContext context)
         {
             PlayerStateMachine.ChangeState(PlayerStateMachine.MediumStoppingState);

@@ -66,12 +66,13 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         {
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
             StopAnimation(PlayerAnimationData.LockedParameterHash);
+            
             MainPlayer.LongSwordActivator.DeactivateSword();
+            MainPlayer.PlayerStateReusable.LockedState = false;
+            MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
             
             foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
                 shortSwordActivator.ActivateSword();
-            
-            MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
         }
 
         private void TargetLocked()

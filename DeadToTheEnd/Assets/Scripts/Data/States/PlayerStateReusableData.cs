@@ -19,7 +19,6 @@ namespace Data.States
         public float MovementSpeedModifier { get; set; } = 1f;
         public float MovementSlopeSpeedModifier { get; set; } = 1f;
         public float MovementDecelerationForce { get; set; } = 1f;
-        public bool ShouldWalk { get; set; }
         public bool ShouldSprint { get; set; }
         public bool ShouldBlock { get; set; }
         public bool ShouldCombo { get; set; }
@@ -45,5 +44,10 @@ namespace Data.States
         public bool IsBlocking { get; set; }
         public bool IsRolling { get; set; }
         public bool IsTargetBehind { get; set; }
+        public bool IsPerformingAction { get; set; }
+        public bool IsRotatingWithRootMotion { get; set; }
+        public float MovementSpeed { get; set; }
+        public bool ShouldAttack { get; set; }
+        public bool LockedState { get; set; }
     }
 }

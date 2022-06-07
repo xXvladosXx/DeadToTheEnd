@@ -12,13 +12,6 @@
             StartAnimation(PlayerAnimationData.MediumHitParameterHash);
         }
         
-        public override void OnAnimationEnterEvent()
-        {
-            base.OnAnimationEnterEvent();
-            StopAnimation(PlayerAnimationData.MediumHitParameterHash);
-        }
-
-
         public override void Exit()
         {
             base.Exit();

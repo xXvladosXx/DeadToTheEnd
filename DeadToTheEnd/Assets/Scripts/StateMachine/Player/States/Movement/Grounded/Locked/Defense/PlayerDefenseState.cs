@@ -13,7 +13,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
         public override void Enter()
         {
             base.Enter();
-            //MainPlayer.AttackColliderActivator.enabled = false;
+            MainPlayer.AttackColliderActivator.enabled = false;
             MainPlayer.DefenseColliderActivator.ActivateCollider();
             
             StartAnimation(PlayerAnimationData.DefenseParameterHash);
@@ -27,7 +27,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             
             MainPlayer.DefenseColliderActivator.DeactivateCollider();
             MainPlayer.PlayerStateReusable.IsBlocking = false;
-            
+            MainPlayer.AttackColliderActivator.enabled = true;
+
             StopAnimation(PlayerAnimationData.DefenseParameterHash);
         }
 

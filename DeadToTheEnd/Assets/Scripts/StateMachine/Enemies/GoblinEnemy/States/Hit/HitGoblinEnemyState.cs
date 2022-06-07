@@ -11,6 +11,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement.Hit
         public override void Enter()
         {
             base.Enter();
+            
             StartAnimation(GoblinEnemyAnimationData.HitParameterHash);
         }
 

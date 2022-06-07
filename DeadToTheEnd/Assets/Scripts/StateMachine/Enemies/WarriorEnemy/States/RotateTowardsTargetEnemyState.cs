@@ -5,41 +5,41 @@ using UnityEngine;
 
 namespace StateMachine.WarriorEnemy.States.Movement
 {
-    public class RotateTowardsTargetEnemyState : BaseWarriorEnemyState
+    public class RotateTowardsTargetEnemyState : BaseEnemyState
     {
         
-        public RotateTowardsTargetEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
+        public RotateTowardsTargetEnemyState(StateMachine warriorStateMachine) : base(warriorStateMachine)
         {
             
         }
-        
+
         public override void Exit()
         {
-            BossEnemy.EnemyStateReusableData.IsPerformingAction = false;
-            BossEnemy.EnemyStateReusableData.IsRotatingWithRootMotion = false;
-            BossEnemy.Animator.SetBool(WarriorEnemyAnimationData.RotateLeftParameterHash, false);
-            BossEnemy.Animator.SetBool(WarriorEnemyAnimationData.RotateRightParameterHash, false);
-            BossEnemy.Animator.SetBool(WarriorEnemyAnimationData.RotateBehindParameterHash, false);
+            base.Exit();
+            Enemy.Reusable.IsRotatingWithRootMotion = false;
+            Enemy.Animator.SetBool(Enemy.EnemyAnimationData.RotateLeftParameterHash, false);
+            Enemy.Animator.SetBool(Enemy.EnemyAnimationData.RotateRightParameterHash, false);
+            Enemy.Animator.SetBool(Enemy.EnemyAnimationData.RotateBehindParameterHash, false);
         }
 
         public override void Update()
         {
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.VerticalParameterHash, 0);
-            BossEnemy.Animator.SetFloat(WarriorEnemyAnimationData.HorizontalParameterHash, 0);
-            float viewableAngle = GetViewAngle(BossEnemy.transform,
-                BossEnemy.Target.transform);
+            Enemy.Animator.SetFloat(Enemy.EnemyAnimationData.VerticalParameterHash, 0);
+            Enemy.Animator.SetFloat(Enemy.EnemyAnimationData.HorizontalParameterHash, 0);
+            float viewableAngle = GetViewAngle(Enemy.transform,
+                Enemy.Target.transform);
 
             switch (viewableAngle)
             {
-                case >= 100 and <= 180 when !BossEnemy.EnemyStateReusableData.IsPerformingAction:
-                case <= -101 and >= -180 when !BossEnemy.EnemyStateReusableData.IsPerformingAction:
-                    RotateWithRootMotion(WarriorEnemyAnimationData.RotateBehindParameterHash);
+                case >= 100 and <= 180:
+                case <= -101 and >= -180:
+                    RotateWithRootMotion(Enemy.EnemyAnimationData.RotateBehindParameterHash);
                     break;
-                case <= -45 and >= -100 when !BossEnemy.EnemyStateReusableData.IsPerformingAction:
-                    RotateWithRootMotion(WarriorEnemyAnimationData.RotateRightParameterHash);
+                case <= -45 and >= -100:
+                    RotateWithRootMotion(Enemy.EnemyAnimationData.RotateRightParameterHash);
                     break;
-                case >= 45 and <= 100 when !BossEnemy.EnemyStateReusableData.IsPerformingAction:
-                    RotateWithRootMotion(WarriorEnemyAnimationData.RotateLeftParameterHash);
+                case >= 45 and <= 100:
+                    RotateWithRootMotion(Enemy.EnemyAnimationData.RotateLeftParameterHash);
                     break;
                 default:
                     break;
@@ -48,14 +48,13 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         public override void OnAnimationExitEvent()
         {
-            WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
+            StateMachine.ChangeState(StateMachine.StartState());
         }
         
         private void RotateWithRootMotion(int rotateLeftParameterHash)
         {
-            BossEnemy.EnemyStateReusableData.IsPerformingAction = true;
-            BossEnemy.EnemyStateReusableData.IsRotatingWithRootMotion = true;
-            BossEnemy.Animator.SetBool(rotateLeftParameterHash, true);
+            Enemy.Reusable.IsRotatingWithRootMotion = true;
+            Enemy.Animator.SetBool(rotateLeftParameterHash, true);
         }
     }
 }

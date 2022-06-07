@@ -115,13 +115,6 @@ namespace StateMachine.Player.States.Movement.Grounded
                 return;
             }
 
-            if (MainPlayer.PlayerStateReusable.ShouldWalk)
-            {
-                PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerWalkingState);
-
-                return;
-            }
-
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerRunningState);
         }
 

@@ -4,6 +4,7 @@ using Data.Combat;
 using Data.ScriptableObjects;
 using Entities;
 using Entities.Enemies;
+using StateMachine.Enemies;
 using StateMachine.Enemies.WarriorEnemy;
 using StateMachine.WarriorEnemy.States.Combat;
 using UnityEngine;
@@ -12,70 +13,50 @@ namespace StateMachine.WarriorEnemy.States.Movement
 {
     public class BaseWarriorEnemyState : BaseEnemyState
     {
-        protected WarriorEnemyAnimationData WarriorEnemyAnimationData;
-        protected WarriorStateMachine WarriorStateMachine;
-        protected BossEnemyData bossEnemyData;
+        protected readonly WarriorEnemyAnimationData WarriorEnemyAnimationData;
+        protected readonly WarriorStateMachine WarriorStateMachine;
+        protected readonly WarriorEnemyData WarriorEnemyData;
 
-        protected BossEnemy BossEnemy;
-        private float _curTime;
+        protected readonly Entities.Enemies.WarriorEnemy WarriorEnemy;
         private float _timeToWait;
         
         protected BaseWarriorEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
         {
             WarriorStateMachine = warriorStateMachine;
 
-            BossEnemy = warriorStateMachine.AliveEntity as BossEnemy;
-            bossEnemyData = BossEnemy.BossEnemyData;
-            WarriorEnemyAnimationData = BossEnemy.WarriorEnemyAnimationData;
+            WarriorEnemy = warriorStateMachine.AliveEntity as Entities.Enemies.WarriorEnemy;
+            WarriorEnemyData = WarriorEnemy.WarriorEnemyData;
+            WarriorEnemyAnimationData = WarriorEnemy.EnemyAnimationData as WarriorEnemyAnimationData;
         }
 
-        public override void Exit()
+        protected override void Rotate()
         {
-            base.Exit();
-            _curTime = 0;
-        }
-
-        public override void Update()
-        {
-            base.Update();
-            _curTime += Time.deltaTime;
-            float viewAngle = GetViewAngle(BossEnemy.transform,
-                BossEnemy.Target.transform);
+            float viewAngle = GetViewAngle(WarriorEnemy.transform,
+                WarriorEnemy.Target.transform);
 
             if (viewAngle is > 45 or < -45)
             {
-                BossEnemy.NavMeshAgent.isStopped = true;
+                WarriorEnemy.NavMeshAgent.isStopped = true;
                 WarriorStateMachine.ChangeState(WarriorStateMachine.RotateTowardsEnemyState);
             }
         }
 
-        protected override void AddEventCallbacks()
-        {
-            base.AddEventCallbacks();
-            WarriorStateMachine.AliveEntity.Health.OnDamageTaken += HealthOnOnAttackApplied;
-        }
-        protected override void RemoveEventCallbacks()
-        {
-            base.RemoveEventCallbacks();
-            WarriorStateMachine.AliveEntity.Health.OnDamageTaken -= HealthOnOnAttackApplied;
-        }
-        
-        private void HealthOnOnAttackApplied(AttackData attackData)
+        protected override void HealthOnAttackApplied(AttackData attackData)
         {
             CinemachineShake.Instance.ShakeCamera(.3f, .3f);
         }
 
         protected bool MakeDashAttack()
         {
-            if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartDashAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform) &&
-                !IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashFirstAttackWarriorEnemyState)))
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartDashAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashFirstAttackWarriorWarriorEnemyState)))
             {
-                WarriorStateMachine.ChangeState(WarriorStateMachine.DashFirstAttackWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.DashFirstAttackWarriorWarriorEnemyState);
                 return true;
             }
 
@@ -84,15 +65,15 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         protected bool MakeSecondDashAttack()
         {
-            if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartSecondDashAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform) &&
-                !IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashSecondAttackWarriorEnemy)))
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartSecondDashAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashSecondAttackWarriorWarriorEnemy)))
             {
-                WarriorStateMachine.ChangeState(WarriorStateMachine.DashSecondAttackWarriorEnemy);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.DashSecondAttackWarriorWarriorEnemy);
                 return true;
             }
 
@@ -101,13 +82,13 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         protected bool MakeComboSecondAttack()
         {
-            if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboSecondWarriorEnemyState))
-                && !BossEnemy.EnemyStateReusableData.IsPerformingAction)
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboSecondWarriorWarriorEnemyState))
+                && !WarriorEnemy.WarriorStateReusableData.IsPerformingAction)
             {
-                WarriorStateMachine.ChangeState(WarriorStateMachine.ComboSecondWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.ComboSecondWarriorWarriorEnemyState);
                 return true;
             }
 
@@ -115,11 +96,13 @@ namespace StateMachine.WarriorEnemy.States.Movement
         }
         protected bool MakeOrdinaryAttack()
         {
-            if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform))
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(LightAttackWarriorWarriorEnemyState))
+                && !WarriorEnemy.WarriorStateReusableData.IsPerformingAction)
             {
-                WarriorStateMachine.ChangeState(WarriorStateMachine.LightAttackWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.LightAttackWarriorWarriorEnemyState);
                 return true;
             }
 
@@ -128,54 +111,48 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         protected bool MakeComboFirstAttack()
         {
-            if (IsEnoughDistance(bossEnemyData.EnemyAttackData.DistanceToStartComboFirstAttack,
-                    BossEnemy.transform,
-                    BossEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboFirstWarriorEnemyState))
-                && !BossEnemy.EnemyStateReusableData.IsPerformingAction)
+            if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboFirstAttack,
+                    WarriorEnemy.transform,
+                    WarriorEnemy.Target.transform) &&
+                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboFirstWarriorWarriorEnemyState))
+                && !WarriorEnemy.WarriorStateReusableData.IsPerformingAction)
             {
-                WarriorStateMachine.ChangeState(WarriorStateMachine.ComboFirstWarriorEnemyState);
+                WarriorStateMachine.ChangeState(WarriorStateMachine.ComboFirstWarriorWarriorEnemyState);
                 return true;
             }
 
             return false;
         }
         
-        protected void DecideAttackToDo()
+        protected override void DecideAttackToDo()
         {
-            var result = false;
             while (true)
             {
                 int attack = Random.Range(0, 6);
                 switch (attack)
                 {
                     case 0:
-                        result = MakeOrdinaryAttack();
-                        if (result)
+                        if (MakeOrdinaryAttack())
                             break;
 
                         continue;
                     case 1:
-                        result = MakeDashAttack();
-                        if (result)
+                        if (MakeDashAttack())
                             break;
                         
                         continue;
                     case 2:
-                        result = MakeComboFirstAttack();
-                        if (result)
+                        if (MakeComboFirstAttack())
                             break;
                         
                         continue;
                     case 3:
-                        result = MakeSecondDashAttack();
-                        if (result)
+                        if (MakeSecondDashAttack())
                             break;
                         
                         continue;
                     case 4:
-                        result = MakeComboSecondAttack();
-                        if (result)
+                        if (MakeComboSecondAttack())
                             break;
                         
                         continue;

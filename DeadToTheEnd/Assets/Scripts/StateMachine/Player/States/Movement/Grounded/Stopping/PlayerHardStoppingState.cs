@@ -26,11 +26,6 @@
         
         protected override void OnMove()
         {
-            if (MainPlayer.PlayerStateReusable.ShouldWalk)
-            {
-                return;
-            }
-
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerRunningState);
         }
     }

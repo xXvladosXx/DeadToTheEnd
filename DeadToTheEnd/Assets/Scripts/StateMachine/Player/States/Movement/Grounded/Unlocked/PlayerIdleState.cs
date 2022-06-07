@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace StateMachine.Player.States.Movement.Grounded
 {
@@ -10,15 +11,14 @@ namespace StateMachine.Player.States.Movement.Grounded
 
         public override void Enter()
         {
-            MainPlayer.PlayerStateReusable.MovementSpeedModifier = 0f;
+            base.Enter();
+            
+            ResetAnimatorSpeed();
 
             MainPlayer.PlayerStateReusable.BackCameraRecenteringDatas = PlayerGroundData.IdleData.BackCameraRecenteringDatas;
 
-            base.Enter();
-            
-            StartAnimation(PlayerAnimationData.IdleParameterHash);
-
             ResetVelocity();
+            StartAnimation(PlayerAnimationData.IdleParameterHash);
         }
         
         public override void Exit()
@@ -37,6 +37,12 @@ namespace StateMachine.Player.States.Movement.Grounded
             }
 
             OnMove();
+        }
+        
+        protected override void OnAttackPerformed(InputAction.CallbackContext obj)
+        {
+            base.OnAttackPerformed(obj);
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerAttackState);
         }
         
         public override void FixedUpdate()

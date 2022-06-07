@@ -14,8 +14,13 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         public override void Enter()
         {
             base.Enter();
+
+            ResetAnimatorSpeed();
+            MainPlayer.PlayerStateReusable.ShouldAttack = false;
+            MainPlayer.PlayerStateReusable.IsMovingAfterStop = true;
             
             StartAnimation(PlayerAnimationData.Attack1ParameterHash);
+            
             MainPlayer.Animator.applyRootMotion = true;
             _stopRotating = false;
         }

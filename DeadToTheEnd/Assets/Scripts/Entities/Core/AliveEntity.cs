@@ -1,8 +1,10 @@
 ﻿using Combat.ColliderActivators;
 using Combat.SwordActivators;
 using Data.Combat;
+using Data.States;
 using Data.States.StateData;
 using Data.Stats;
+using Entities.Enemies;
 using StateMachine.WarriorEnemy;
 using UnityEngine;
 
@@ -12,9 +14,8 @@ namespace Entities.Core
     public abstract class AliveEntity : MonoBehaviour
     {
         public abstract Health Health { get; protected set; }
-        public LongSwordAttackColliderActivator SwordAttackColliderActivator { get; private set; }
+        public LongAttackColliderActivator AttackColliderActivator { get; private set; }
         public AliveEntity Target { get; protected set; }
-
         
         protected StateMachine.StateMachine StateMachine;
         
@@ -22,16 +23,18 @@ namespace Entities.Core
         
         protected virtual void Awake()
         {
-            SwordAttackColliderActivator = GetComponentInChildren<LongSwordAttackColliderActivator>();
+            AttackColliderActivator = GetComponentInChildren<LongAttackColliderActivator>();
         }
         public void OnAttackMake(float time, AttackType attackType)
         {
+            AttackColliderActivator.enabled = true;
+            
             AttackData attackData = new AttackData
             {
                 AttackType = attackType
             };
             
-            SwordAttackColliderActivator.ActivateCollider(time, attackData);
+            AttackColliderActivator.ActivateCollider(time, attackData);
         }
         public void OnMovementStateAnimationEnterEvent()
         {

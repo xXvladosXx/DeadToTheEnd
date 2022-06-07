@@ -13,8 +13,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Stopping
             base.Enter();
             ResetVelocity();
             
-            Debug.Log("Enter");
-
             MainPlayer.PlayerStateReusable.MovementDecelerationForce = 0;
             MainPlayer.PlayerStateReusable.MovementSpeedModifier = 0;
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);

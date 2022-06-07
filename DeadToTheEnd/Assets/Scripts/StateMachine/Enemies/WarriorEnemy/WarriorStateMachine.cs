@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities;
 using Entities.Core;
 using Entities.Enemies;
+using StateMachine.Enemies.GoblinEnemy.States.Movement;
 using StateMachine.WarriorEnemy.Components;
 using StateMachine.WarriorEnemy.States.Combat;
 using StateMachine.WarriorEnemy.States.Movement;
@@ -15,60 +16,35 @@ namespace StateMachine.Enemies.WarriorEnemy
         public IdleWarriorEnemyState IdleWarriorEnemyState { get; }
         public FollowWarriorEnemyState FollowWarriorEnemyState { get; }
         public PatrolWarriorEnemyState PatrolWarriorEnemyState { get; }
-        public LightAttackWarriorEnemyState LightAttackWarriorEnemyState { get; }
-        public DashFirstAttackWarriorEnemyState DashFirstAttackWarriorEnemyState { get; }
-        public DashSecondAttackWarriorEnemy DashSecondAttackWarriorEnemy { get; }
+        public LightAttackWarriorWarriorEnemyState LightAttackWarriorWarriorEnemyState { get; }
+        public DashFirstAttackWarriorWarriorEnemyState DashFirstAttackWarriorWarriorEnemyState { get; }
+        public DashSecondAttackWarriorWarriorEnemy DashSecondAttackWarriorWarriorEnemy { get; }
         public RotateTowardsTargetEnemyState RotateTowardsEnemyState { get; }
-        public ForwardMoveWarriorEnemyState ForwardMoveWarriorEnemyState { get; }
+        public ForwardMoveWarriorEnemyState BaseForwardMoveEnemyState { get; }
         public StrafeMoveWarriorEnemyState StrafeMoveWarriorEnemyState { get; }
-        public RollBackWarriorEnemyState RollBackWarriorEnemyState { get; }
-        public ComboFirstWarriorEnemyState ComboFirstWarriorEnemyState { get; }
-        public ComboSecondWarriorEnemyState ComboSecondWarriorEnemyState { get; }
-
-        public Dictionary<Type, float> StatesCooldown { get; private set; }
-        private Dictionary<Type, float> CurrentStatesCooldown { get; set; }
-
-        private readonly AttackCooldownTimer _attackCooldownTimer;
-
-        public WarriorStateMachine(BossEnemy aliveEntity)
+        public BaseRollEnemyState BaseRollBackWarriorEnemyState { get; }
+        public ComboFirstWarriorWarriorEnemyState ComboFirstWarriorWarriorEnemyState { get; }
+        public ComboSecondWarriorWarriorEnemyState ComboSecondWarriorWarriorEnemyState { get; }
+        
+        public WarriorStateMachine(Entities.Enemies.WarriorEnemy aliveEntity)
         {
             AliveEntity = aliveEntity;
-            StatesCooldown = new Dictionary<Type, float>();
             
             IdleWarriorEnemyState = new IdleWarriorEnemyState(this);
             FollowWarriorEnemyState = new FollowWarriorEnemyState(this);
             PatrolWarriorEnemyState = new PatrolWarriorEnemyState(this);
-            LightAttackWarriorEnemyState = new LightAttackWarriorEnemyState(this);
-            DashFirstAttackWarriorEnemyState = new DashFirstAttackWarriorEnemyState(this);
+            LightAttackWarriorWarriorEnemyState = new LightAttackWarriorWarriorEnemyState(this);
+            DashFirstAttackWarriorWarriorEnemyState = new DashFirstAttackWarriorWarriorEnemyState(this);
             RotateTowardsEnemyState = new RotateTowardsTargetEnemyState(this);
-            ForwardMoveWarriorEnemyState = new ForwardMoveWarriorEnemyState(this);
+            BaseForwardMoveEnemyState = new ForwardMoveWarriorEnemyState(this);
             StrafeMoveWarriorEnemyState = new StrafeMoveWarriorEnemyState(this);
-            RollBackWarriorEnemyState = new RollBackWarriorEnemyState(this);
-            RollBackWarriorEnemyState = new RollBackWarriorEnemyState(this);
-            ComboFirstWarriorEnemyState = new ComboFirstWarriorEnemyState(this);
-            DashSecondAttackWarriorEnemy = new DashSecondAttackWarriorEnemy(this);
-            ComboSecondWarriorEnemyState = new ComboSecondWarriorEnemyState(this);
-
-            _attackCooldownTimer = new AttackCooldownTimer();
-            _attackCooldownTimer.Init(StatesCooldown);
+            BaseRollBackWarriorEnemyState = new BaseRollEnemyState(this);
+            ComboFirstWarriorWarriorEnemyState = new ComboFirstWarriorWarriorEnemyState(this);
+            DashSecondAttackWarriorWarriorEnemy = new DashSecondAttackWarriorWarriorEnemy(this);
+            ComboSecondWarriorWarriorEnemyState = new ComboSecondWarriorWarriorEnemyState(this);
         }
 
-        public override IState StartState() => IdleWarriorEnemyState;
-
-        public override void Update()
-        {
-            _attackCooldownTimer.Update(Time.deltaTime, CurrentStatesCooldown);
-            StatesCooldown = _attackCooldownTimer.StatesCooldown;
-            base.Update();
-        }
-
-        public void StartCooldown(Type state, float time)
-        {
-            if(!typeof(IState).IsAssignableFrom(state)) return;
-            if(StatesCooldown.ContainsKey(state)) return;
-
-            StatesCooldown.Add(state, time);
-            CurrentStatesCooldown = new Dictionary<Type, float>(StatesCooldown);
-        }
+        public override IState StartState() => FollowWarriorEnemyState;
+        
     }
 }

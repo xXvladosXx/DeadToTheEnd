@@ -1,4 +1,6 @@
-﻿namespace StateMachine.Enemies.GoblinEnemy.States.Combat
+﻿using Data.Combat;
+
+namespace StateMachine.Enemies.GoblinEnemy.States.Combat
 {
     public class LightAttackGoblinEnemyState : BaseCombatGoblinEnemyState
     {
@@ -10,8 +12,10 @@
         {
             base.Enter();
             
-            GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.WalkSpeedModiferFirstAttack;
-
+            GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.WalkSpeedModifer;
+            GoblinStateMachine.StartCooldown(typeof(LightAttackGoblinEnemyState),
+                GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.AttackCooldown);
+            
             StartAnimation(GoblinEnemyAnimationData.LightAttackParameterHash);
         }
 
@@ -26,7 +30,7 @@
         {
             base.OnAnimationHandleEvent();
             
-            GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.WalkSpeedModiferSecondAttack;
+            GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.WalkSpeedModiferSecond;
         }
 
         public override void OnAnimationExitEvent()

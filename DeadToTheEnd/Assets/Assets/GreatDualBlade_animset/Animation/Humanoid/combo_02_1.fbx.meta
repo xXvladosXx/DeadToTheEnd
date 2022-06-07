@@ -67,25 +67,25 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.64570713
-        functionName: TriggerOnStateAnimationExitEvent
+      - time: 0.20075758
+        functionName: OnRightSwordColliderActivate
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
+        floatParameter: 0.2
         intParameter: 0
         messageOptions: 0
-      - time: 0.8892542
+      - time: 0.6353275
         functionName: TriggerOnStateAnimationHandleEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.20075758
-        functionName: OnRightSwordColliderActivate
+      - time: 0.83942443
+        functionName: TriggerOnStateAnimationExitEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.2
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask: []
