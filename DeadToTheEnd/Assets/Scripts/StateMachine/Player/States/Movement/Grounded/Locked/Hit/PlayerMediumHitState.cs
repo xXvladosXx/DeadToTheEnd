@@ -1,4 +1,6 @@
-﻿namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
+﻿using CameraManage;
+
+namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
     public class PlayerMediumHitState : PlayerHitState
     {
@@ -9,6 +11,8 @@
         public override void Enter()
         {
             base.Enter();
+            CinemachineCameraSwitcher.Instance.ShakeCamera(.6f, .3f);
+
             StartAnimation(PlayerAnimationData.MediumHitParameterHash);
         }
         

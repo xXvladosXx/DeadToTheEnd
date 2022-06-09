@@ -44,7 +44,7 @@ namespace Combat.ColliderActivators
                 _attackData ??= new AttackData();
                 
                 _attackData.User = GetComponentInParent<AliveEntity>();
-                aliveEntity.Health.TakeDamage(_attackData);
+                aliveEntity.AttackCalculator.TryToTakeDamage(_attackData);
                 OnTargetHit?.Invoke(_attackData);
             }
         }

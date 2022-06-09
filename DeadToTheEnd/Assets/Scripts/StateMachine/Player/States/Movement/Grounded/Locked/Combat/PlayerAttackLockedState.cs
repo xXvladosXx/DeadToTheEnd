@@ -30,14 +30,14 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
 
         protected override void AddInputCallbacks()
         {
-            MainPlayer.Health.OnDamageTaken += OnDamageTaken;
+            MainPlayer.AttackCalculator.OnDamageTaken += OnDamageTaken;
             MainPlayer.InputAction.PlayerActions.Dash.canceled += OnDashStarted;
             MainPlayer.InputAction.PlayerActions.Dash.performed += OnDefensePerformed;
         }
 
         protected override void RemoveInputCallbacks()
         {
-            MainPlayer.Health.OnDamageTaken -= OnDamageTaken;
+            MainPlayer.AttackCalculator.OnDamageTaken -= OnDamageTaken;
             MainPlayer.InputAction.PlayerActions.Dash.canceled -= OnDashStarted;
             MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDefensePerformed;
         }

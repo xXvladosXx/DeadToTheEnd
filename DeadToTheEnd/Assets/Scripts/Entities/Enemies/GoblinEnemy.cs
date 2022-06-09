@@ -30,7 +30,7 @@ namespace Entities.Enemies
             Reusable = new GoblinStateReusableData();
             GoblinStateReusableData = (GoblinStateReusableData) Reusable;
             
-            Health = new Health(GoblinStateReusableData);
+            AttackCalculator = new AttackCalculator(GoblinStateReusableData);
             
             StateMachine = new GoblinStateMachine(this);
         }

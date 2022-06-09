@@ -1,4 +1,6 @@
-﻿using CameraManage;
+﻿using System;
+using System.Linq;
+using CameraManage;
 using Data.Animations;
 using Data.Combat;
 using Data.ScriptableObjects;
@@ -9,6 +11,7 @@ using StateMachine.Enemies.WarriorEnemy;
 using StateMachine.WarriorEnemy.States.Combat;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace StateMachine.WarriorEnemy.States.Movement
 {
@@ -17,7 +20,8 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected readonly Enemy Enemy;
 
         protected readonly StateMachine StateMachine;
-        
+        protected Func<bool>[] CanAttackFunctions;
+
         protected BaseEnemyState(StateMachine stateMachine)
         {
             Enemy = stateMachine.AliveEntity as Enemy;
@@ -70,12 +74,12 @@ namespace StateMachine.WarriorEnemy.States.Movement
         
         protected virtual void AddEventCallbacks()
         {
-            Enemy.Health.OnDamageTaken += HealthOnAttackApplied;
+            Enemy.AttackCalculator.OnDamageTaken += HealthOnAttackApplied;
         }
 
         protected virtual void RemoveEventCallbacks()
         {
-            Enemy.Health.OnDamageTaken -= HealthOnAttackApplied;
+            Enemy.AttackCalculator.OnDamageTaken -= HealthOnAttackApplied;
         }
         
         protected virtual void HealthOnAttackApplied(AttackData obj)
@@ -99,6 +103,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
       
         protected void Stop()
         {
+            Enemy.NavMeshAgent.speed = 0;
             Enemy.NavMeshAgent.ResetPath();
             Enemy.NavMeshAgent.isStopped = true;
         }
@@ -151,7 +156,15 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         protected virtual void DecideAttackToDo()
         {
-           
+            while (true)
+            {
+                var any = CanAttackFunctions.Any(f => f());
+
+                if (!any)
+                {
+                    break;
+                }
+            }
         }
         
         private void HandleRotateTowardsTarget()

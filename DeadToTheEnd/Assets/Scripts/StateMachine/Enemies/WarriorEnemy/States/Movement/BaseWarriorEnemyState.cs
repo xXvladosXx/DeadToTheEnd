@@ -43,7 +43,6 @@ namespace StateMachine.WarriorEnemy.States.Movement
 
         protected override void HealthOnAttackApplied(AttackData attackData)
         {
-            CinemachineShake.Instance.ShakeCamera(.3f, .3f);
         }
 
         protected bool MakeDashAttack()

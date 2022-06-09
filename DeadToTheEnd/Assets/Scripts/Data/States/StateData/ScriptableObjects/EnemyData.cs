@@ -10,5 +10,6 @@ namespace Data.ScriptableObjects
         [field: SerializeField] public EnemyIdleData EnemyIdleData { get; private set; }
         [field: SerializeField] public EnemyHeavyAttackData EnemyHeavyAttackData { get; private set; }
         [field: SerializeField] public EnemyOrdinaryAttackData EnemyOrdinaryAttackData { get; private set; }
+        [field: SerializeField] public EnemyRangeAttackData EnemyRangeAttackData { get; private set; }
     }
 }

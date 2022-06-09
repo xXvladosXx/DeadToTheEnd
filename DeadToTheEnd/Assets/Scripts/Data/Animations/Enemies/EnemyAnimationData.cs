@@ -12,10 +12,12 @@ namespace Data.Animations
         [SerializeField] private string _ordinaryAttackParameterName = "OrdinaryAttack";
         [SerializeField] private string _attackParameterName = "Attack";
         [SerializeField] private string _heavyAttackParameterName = "HeavyAttack";
+        [SerializeField] private string _rangeAttackParameterName = "RangeAttack";
 
         public int OrdinaryAttackParameterHash { get; private set; }
         public int AttackParameterHash { get; private set; }
         public int HeavyAttackParameterHash { get; private set; }
+        public int RangeAttackParameterHash { get; private set; }
 
         public int ContinueComboAttackParameterHash { get; private set; }
 
@@ -26,6 +28,7 @@ namespace Data.Animations
             OrdinaryAttackParameterHash = Animator.StringToHash(_ordinaryAttackParameterName);
             AttackParameterHash = Animator.StringToHash(_attackParameterName);
             HeavyAttackParameterHash = Animator.StringToHash(_heavyAttackParameterName);
+            RangeAttackParameterHash = Animator.StringToHash(_rangeAttackParameterName);
         }
     }
 }

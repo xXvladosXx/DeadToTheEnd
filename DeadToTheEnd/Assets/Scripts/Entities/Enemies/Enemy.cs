@@ -9,7 +9,8 @@ using UnityEngine.AI;
 
 namespace Entities.Enemies
 {
-    [RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent),
+    [RequireComponent(typeof(Rigidbody), 
+        typeof(NavMeshAgent),
         typeof(Animator))]
     public abstract class Enemy : AliveEntity, ILockable
     {
@@ -21,8 +22,6 @@ namespace Entities.Enemies
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
-
-        public override Health Health { get; protected set; }
 
         protected override void Awake()
         {

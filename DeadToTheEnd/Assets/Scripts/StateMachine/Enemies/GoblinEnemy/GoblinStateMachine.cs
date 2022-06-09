@@ -19,7 +19,7 @@ namespace StateMachine.Enemies.GoblinEnemy
         
         public LightAttackGoblinEnemyState LightAttackGoblinEnemyState { get; }
         public BaseOrdinaryAttackEnemyState OrdinaryAttackGoblinEnemyState { get; }
-        public HeavyAttackGoblinEnemyState HeavyAttackGoblinEnemyState { get; }
+        public BaseHeavyAttackEnemyState HeavyAttackGoblinEnemyState { get; }
         public RangeAttackGoblinEnemyState RangeAttackGoblinEnemyState { get; }
         public FirstComboAttackGoblinEnemyState FirstComboAttackGoblinEnemyState { get; }
         public SecondComboAttackGoblinEnemyState SecondComboAttackGoblinEnemyState { get; }
@@ -37,7 +37,7 @@ namespace StateMachine.Enemies.GoblinEnemy
 
             LightAttackGoblinEnemyState = new LightAttackGoblinEnemyState(this);
             OrdinaryAttackGoblinEnemyState = new BaseOrdinaryAttackEnemyState(this);
-            HeavyAttackGoblinEnemyState = new HeavyAttackGoblinEnemyState(this);
+            HeavyAttackGoblinEnemyState = new BaseHeavyAttackEnemyState(this);
             RangeAttackGoblinEnemyState = new RangeAttackGoblinEnemyState(this);
             FirstComboAttackGoblinEnemyState = new FirstComboAttackGoblinEnemyState(this);
             SecondComboAttackGoblinEnemyState = new SecondComboAttackGoblinEnemyState(this);

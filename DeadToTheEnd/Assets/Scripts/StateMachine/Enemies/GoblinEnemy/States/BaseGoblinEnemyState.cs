@@ -22,7 +22,6 @@ namespace StateMachine.Enemies.GoblinEnemy.States
         private float _curTime;
         private float _timeToWait;
         
-        private readonly Func<bool>[] _canAttackFunctions;
         
         protected BaseGoblinEnemyState(GoblinStateMachine stateMachine) : base(stateMachine)
         {
@@ -32,7 +31,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             GoblinEnemyAnimationData = GoblinEnemy.EnemyAnimationData as GoblinEnemyAnimationData;
             //GoblinEnemyAnimationData = GoblinEnemy.GoblinEnemyAnimationData;
 
-            _canAttackFunctions = new Func<bool>[]
+            CanAttackFunctions = new Func<bool>[]
             {
                 CanMakeHeavyAttack,
                 CanMakeLightAttack,
@@ -94,20 +93,18 @@ namespace StateMachine.Enemies.GoblinEnemy.States
         protected override void AddEventCallbacks()
         {
             base.AddEventCallbacks();
-            GoblinStateMachine.AliveEntity.Health.OnDamageTaken += HealthOnAttackApplied;
-            Enemy.Health.OnAttackApplied += OnDefenseImpact;
+            GoblinStateMachine.AliveEntity.AttackCalculator.OnDamageTaken += HealthOnAttackApplied;
+            Enemy.AttackCalculator.OnAttackApplied += OnDefenseImpact;
         }
         protected override void RemoveEventCallbacks()
         {
             base.RemoveEventCallbacks();
-            GoblinStateMachine.AliveEntity.Health.OnDamageTaken -= HealthOnAttackApplied;
-            Enemy.Health.OnAttackApplied -= OnDefenseImpact;
+            GoblinStateMachine.AliveEntity.AttackCalculator.OnDamageTaken -= HealthOnAttackApplied;
+            Enemy.AttackCalculator.OnAttackApplied -= OnDefenseImpact;
         }
         
         protected override void HealthOnAttackApplied(AttackData attackData)
         {
-            CinemachineShake.Instance.ShakeCamera(.3f, .3f);
-            
             switch (attackData.AttackType)
             {
                 case AttackType.Knock:
@@ -155,7 +152,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
         {
             while (true)
             {
-                var any = _canAttackFunctions.Any(f => f());
+                var any = CanAttackFunctions.Any(f => f());
 
                 if (!any)
                 {
@@ -194,10 +191,10 @@ namespace StateMachine.Enemies.GoblinEnemy.States
         
         protected bool CanMakeHeavyAttack()
         {
-            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinHeavyAttackData.DistanceToStartAttack,
+            if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.EnemyHeavyAttackData.DistanceToStartAttack,
                     GoblinStateMachine.AliveEntity.transform,
                     GoblinEnemy.Target.transform) && 
-                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(BaseHeavyAttackEnemyState)))
+                !StateMachine.StatesCooldown.ContainsKey(typeof(BaseHeavyAttackEnemyState)))
             {
                 GoblinStateMachine.ChangeState(GoblinStateMachine.HeavyAttackGoblinEnemyState);
                 return true;

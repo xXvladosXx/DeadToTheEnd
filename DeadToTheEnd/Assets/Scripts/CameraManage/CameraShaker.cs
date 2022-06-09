@@ -15,7 +15,7 @@ namespace CameraManage
 
         public void ShakeCameraOnAttackHit(AttackData attackData)
         {
-            CinemachineShake.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.MediumAttackHitIntensity,
+            CinemachineCameraSwitcher.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.MediumAttackHitIntensity,
                 _playerData.PlayerShakeCameraData.MediumAttackHitTime);
         }
         
@@ -24,15 +24,15 @@ namespace CameraManage
             switch (attackData.AttackType)
             {
                 case AttackType.Knock:
-                    CinemachineShake.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.KnockDamageTakenIntensity,
+                    CinemachineCameraSwitcher.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.KnockDamageTakenIntensity,
                         _playerData.PlayerShakeCameraData.KnockDamageTakenTime);
                     break;
                 case AttackType.Medium:
-                    CinemachineShake.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.DamageTakenIntensity,
+                    CinemachineCameraSwitcher.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.DamageTakenIntensity,
                         _playerData.PlayerShakeCameraData.DamageTakenTime);
                     break;
                 case AttackType.Easy:
-                    CinemachineShake.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.DamageTakenIntensity,
+                    CinemachineCameraSwitcher.Instance.ShakeCamera(_playerData.PlayerShakeCameraData.DamageTakenIntensity,
                         _playerData.PlayerShakeCameraData.DamageTakenTime);
                     break;
                 default:

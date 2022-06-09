@@ -19,8 +19,8 @@ namespace StateMachine.Player.States.Movement
 
         protected readonly MainPlayer MainPlayer;
         protected readonly PlayerGroundData PlayerGroundData;
-        protected float CalculateTime;
-
+        private float _calculateTime;
+        
         public PlayerMovementState(PlayerStateMachine playerStateMachine)
         {
             PlayerStateMachine = playerStateMachine;
@@ -90,7 +90,7 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed += OnLockedPerformed;
-            MainPlayer.Health.OnDamageTaken += OnDamageTaken;
+            MainPlayer.AttackCalculator.OnDamageTaken += OnDamageTaken;
         }
 
         
@@ -106,6 +106,8 @@ namespace StateMachine.Player.States.Movement
                 
                 foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
                     shortSwordActivator.DeactivateSword();
+                
+                CinemachineCameraSwitcher.Instance.ChangeCamera();
             }
         }
 
@@ -113,6 +115,7 @@ namespace StateMachine.Player.States.Movement
         {
             if(MainPlayer.PlayerStateReusable.IsKnocked) return;
 
+            MainPlayer.PlayerStateReusable.LastHitFromTarget = attackData.User.transform;
             switch (attackData.AttackType)
             {
                 case AttackType.Knock:
@@ -149,7 +152,7 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled -= OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed -= OnLockedPerformed;
-            MainPlayer.Health.OnDamageTaken -= OnDamageTaken;
+            MainPlayer.AttackCalculator.OnDamageTaken -= OnDamageTaken;
         }
 
         protected void SetBaseCameraRecenteringData()
@@ -204,16 +207,21 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity,
                 ForceMode.VelocityChange);
         }
-
+        protected void LookAtHitDirection()
+        {
+            Transform transform;
+            (transform = MainPlayer.transform).LookAt(MainPlayer.PlayerStateReusable.LastHitFromTarget);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
         private float GetSmoothMovementSpeed()
         {
-            CalculateTime += UnityEngine.Time.deltaTime ;
+            _calculateTime += UnityEngine.Time.deltaTime ;
 
             float movementSpeed = GetMaxMovementSpeed();
             
             if (MainPlayer.PlayerStateReusable.IsMovingAfterStop)
             {
-                movementSpeed = Mathf.Lerp(0, GetMaxMovementSpeed(), CalculateTime);
+                movementSpeed = Mathf.Lerp(0, GetMaxMovementSpeed(), _calculateTime);
             }
 
             if (GetMaxMovementSpeed() == movementSpeed)
@@ -226,7 +234,7 @@ namespace StateMachine.Player.States.Movement
 
         protected void ResetAnimatorSpeed()
         {
-            CalculateTime = 0;
+            _calculateTime = 0;
             MainPlayer.Animator.SetFloat(PlayerAnimationData.SpeedParameterHash, 0);
         }
 

@@ -1,5 +1,4 @@
-﻿using Data.States.StateData.BlueDragon;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Data.ScriptableObjects
 {
@@ -7,6 +6,5 @@ namespace Data.ScriptableObjects
 
     public class BlueDragonEnemyData : EnemyData
     {
-        [field: SerializeField] public BlueDragonOrdinaryAttackData BlueDragonOrdinaryAttackData { get; private set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CameraManage;
+using UnityEngine;
 
 namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
@@ -10,9 +11,11 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
         
         public override void Enter()
         {
+            LookAtHitDirection();
             MainPlayer.PlayerStateReusable.IsKnocked = true;
             base.Enter();
            
+            CinemachineCameraSwitcher.Instance.ShakeCamera(1f, .3f);
             StartAnimation(PlayerAnimationData.KnockdownParameterHash);
         }
 

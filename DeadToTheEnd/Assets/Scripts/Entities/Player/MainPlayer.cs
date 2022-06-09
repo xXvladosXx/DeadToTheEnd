@@ -36,10 +36,6 @@ namespace Entities
         public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
 
-        public override Health Health { get; protected set; }
-
-        private CameraShaker _cameraShaker;
-
         protected override void Awake()
         {
             base.Awake();
@@ -58,11 +54,9 @@ namespace Entities
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
             ShortSwordColliderActivators = GetComponentsInChildren<ShortAttackColliderActivator>();
 
-            _cameraShaker = new CameraShaker(PlayerData);
-            
             Reusable = new PlayerStateReusableData();
             PlayerStateReusable = (PlayerStateReusableData) Reusable;
-            Health = new Health(PlayerStateReusable);
+            AttackCalculator = new AttackCalculator(PlayerStateReusable);
             StateMachine = new PlayerStateMachine(this, gameObject);
         }
 
@@ -71,11 +65,6 @@ namespace Entities
             StateMachine.ChangeState(StateMachine.StartState());
         }
 
-        private void OnEnable()
-        {
-            AttackColliderActivator.OnTargetHit += _cameraShaker.ShakeCameraOnAttackHit;
-            Health.OnDamageTaken += _cameraShaker.ShakeCameraOnDamageTaken;
-        }
 
         private void OnValidate()
         {
@@ -94,17 +83,13 @@ namespace Entities
             StateMachine.FixedUpdate();
         }
 
-        private void OnDisable()
-        {
-            AttackColliderActivator.OnTargetHit -= _cameraShaker.ShakeCameraOnAttackHit;
-            Health.OnDamageTaken -= _cameraShaker.ShakeCameraOnAttackHit;
-        }
-
         public void ActivateRightSword(float time, AttackType attackType)
         {
             AttackData attackData = new AttackData
             {
-                AttackType = AttackType.Easy
+                AttackType = attackType,
+                User = this,
+                Damage = Damage
             };
             
             foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
@@ -119,7 +104,9 @@ namespace Entities
         {
             AttackData attackData = new AttackData
             {
-                AttackType = AttackType.Easy
+                AttackType = attackType,
+                User = this,
+                Damage = Damage
             };
             
             foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using StateMachine.Enemies.BaseStates;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace StateMachine.Enemies.BlueGragon.Movement
 {
@@ -6,6 +10,7 @@ namespace StateMachine.Enemies.BlueGragon.Movement
     {
         public FollowBlueDragonEnemyState(BlueDragonStateMachine stateMachine) : base(stateMachine)
         {
+            
         }
         
         private float _curTime;
@@ -16,6 +21,9 @@ namespace StateMachine.Enemies.BlueGragon.Movement
             base.Enter();
 
             Enemy.NavMeshAgent.isStopped = true;
+            _timeToWait = DecideTime(BlueDragonEnemyData.EnemyWalkData.WalkMinTime,
+                BlueDragonEnemyData.EnemyWalkData.WalkMaxTime);
+            
             _curTime = 0;
         }
 
@@ -25,7 +33,7 @@ namespace StateMachine.Enemies.BlueGragon.Movement
             
             _curTime += Time.deltaTime;
 
-            if (_curTime > 2)
+            if (_curTime > _timeToWait)
             {
                 DecideWhatToDo();
             }
@@ -42,36 +50,12 @@ namespace StateMachine.Enemies.BlueGragon.Movement
                         BlueDragonStateMachine.ChangeState(BlueDragonStateMachine.ForwardBlueDragonEnemyState);
                         break;
                     case 1:
-                        BlueDragonStateMachine.ChangeState(BlueDragonStateMachine.OrdinaryAttackBlueDragonEnemyState);
+                        DecideAttackToDo();
                         break;
                 }
                 
                 break;
             }
-        }
-
-        protected override void DecideAttackToDo()
-        {
-            base.DecideAttackToDo();
-            while (true)
-            {
-                int attackType = Random.Range(0, 1);
-
-                switch (attackType)
-                {
-                    case 0:
-                        if (CanMakeOrdinaryAttack())
-                            break;
-                        continue;
-                }
-
-                break;
-            }
-        }
-
-        private bool CanMakeOrdinaryAttack()
-        {
-            return true;
         }
     }
 }

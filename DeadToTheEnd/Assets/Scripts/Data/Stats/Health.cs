@@ -1,53 +1,28 @@
 ﻿using System;
 using Data.Combat;
-using Data.States;
-using Data.States.StateData;
 using UnityEngine;
 
 namespace Data.Stats
 {
+    [Serializable]
     public class Health
     {
-        private readonly IReusable _reusableData;
-        
-        public event Action OnAttackApplied;
-        public event Action<AttackData> OnDamageTaken;
+        [field: SerializeField] public float HealthValue { get; private set; }
 
-        public Health(IReusable reusableData)
+        public Health(float value)
         {
-            _reusableData = reusableData;
+            HealthValue = value;
         }
         
-        public void TakeDamage(AttackData attackData)
+        public void DecreaseDamage(AttackData attackData)
         {
-            if(attackData == null) return;
-            
-            if(_reusableData.IsRolling) 
-                return;
+            HealthValue -= attackData.Damage;
+            Debug.Log(attackData.Damage);
 
-            if (_reusableData.IsTargetBehind)
+            if (HealthValue <= 0)
             {
-                OnDamageTaken?.Invoke(attackData);
-                Debug.Log("Damaged " + attackData.User);
-
-                return;
+                Debug.Log("HealthValue");
             }
-
-            if (attackData.AttackType == AttackType.Knock)
-            {
-                OnDamageTaken?.Invoke(attackData);
-                return;
-            }
-            
-            if (_reusableData.IsBlocking)
-            {
-                Debug.Log("From blocking");
-                OnAttackApplied?.Invoke();
-                return;
-            }
-            
-            
-            OnDamageTaken?.Invoke(attackData);
         }
     }
 }

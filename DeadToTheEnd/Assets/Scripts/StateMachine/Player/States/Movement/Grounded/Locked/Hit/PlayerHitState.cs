@@ -1,10 +1,12 @@
-﻿using Data.Combat;
+﻿using System;
+using Data.Combat;
 using UnityEngine.InputSystem;
 
 namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
     public abstract class PlayerHitState : PlayerLockedState
     {
+
         public PlayerHitState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
@@ -12,7 +14,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
         public override void Enter()
         {
             base.Enter();
+
             MainPlayer.Animator.applyRootMotion = true;
+            MainPlayer.PlayerStateReusable.ShouldBlock = false;
         }
 
         public override void FixedUpdate()

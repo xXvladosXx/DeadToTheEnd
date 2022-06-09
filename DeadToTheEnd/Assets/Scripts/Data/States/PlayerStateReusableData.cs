@@ -39,6 +39,7 @@ namespace Data.States
         public bool IsMovingAfterStop { get; set; }
         
         public Transform Target { get; set; }
+        public Transform LastHitFromTarget { get; set; }
         public bool IsKnocked { get; set; }
 
         public bool IsBlocking { get; set; }

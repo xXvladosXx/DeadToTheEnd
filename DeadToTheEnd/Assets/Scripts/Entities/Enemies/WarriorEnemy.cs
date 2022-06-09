@@ -19,7 +19,7 @@ namespace Entities.Enemies
             WarriorStateReusableData.Initialize(this);
             Reusable = WarriorStateReusableData;
 
-            Health = new Health(WarriorStateReusableData);
+            AttackCalculator = new AttackCalculator(WarriorStateReusableData);
             
             StateMachine = new WarriorStateMachine(this);
         }

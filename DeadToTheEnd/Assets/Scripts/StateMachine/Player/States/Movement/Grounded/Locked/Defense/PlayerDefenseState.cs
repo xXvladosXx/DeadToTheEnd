@@ -42,7 +42,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             base.AddInputCallbacks();
             MainPlayer.InputAction.PlayerActions.Dash.canceled += OnBlockCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
-            MainPlayer.Health.OnAttackApplied += OnDefenseImpact;
+            MainPlayer.AttackCalculator.OnAttackApplied += OnDefenseImpact;
         }
 
         protected override void RemoveInputCallbacks()
@@ -50,12 +50,12 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             base.RemoveInputCallbacks();
             MainPlayer.InputAction.PlayerActions.Dash.canceled -= OnBlockCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
-            MainPlayer.Health.OnAttackApplied -= OnDefenseImpact;
+            MainPlayer.AttackCalculator.OnAttackApplied -= OnDefenseImpact;
         }
         
         private void OnDefenseImpact()
         {
-            CinemachineShake.Instance.ShakeCamera(1, .5f);
+            CinemachineCameraSwitcher.Instance.ShakeCamera(1, .5f);
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDefenseImpactState);
         }
         private void OnBlockCanceled(InputAction.CallbackContext obj)

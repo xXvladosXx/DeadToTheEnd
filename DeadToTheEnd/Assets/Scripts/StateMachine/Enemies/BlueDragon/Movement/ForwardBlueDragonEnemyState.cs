@@ -14,11 +14,18 @@ namespace StateMachine.Enemies.BlueGragon.Movement
             BlueDragonEnemy.NavMeshAgent.speed = BlueDragonEnemyData.EnemyWalkData.WalkSpeedModifer;
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            BlueDragonEnemy.Animator.SetFloat(BlueDragonAnimationData.VerticalParameterHash, 0);
+        }
+
         public override void Update()
         {
             base.Update();
             
             HandleMoveToTarget();
+            DecideAttackToDo();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace StateMachine.Enemies.BaseStates
             Enemy.NavMeshAgent.updateRotation = true;
             Enemy.NavMeshAgent.speed = 0;
 
-            Enemy.NavMeshAgent.SetDestination(Enemy.Target.transform.position);
+            Enemy.NavMeshAgent.ResetPath();
             StartAnimation(Enemy.EnemyAnimationData.AttackParameterHash);
         }
 

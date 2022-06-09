@@ -20,6 +20,8 @@
             base.OnAnimationEnterEvent();
             
             TargetLocked();
+            
+            Enemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyOrdinaryAttackData.WalkSpeedModifer;
             Enemy.NavMeshAgent.SetDestination(Enemy.Target.transform.position);
             Enemy.NavMeshAgent.isStopped = false;
         }

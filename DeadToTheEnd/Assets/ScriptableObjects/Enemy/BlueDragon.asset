@@ -16,15 +16,23 @@ MonoBehaviour:
     <RollSpeedModifer>k__BackingField: 10
   <EnemyWalkData>k__BackingField:
     <WalkSpeedModifer>k__BackingField: 3
-    <WalkMinTime>k__BackingField: 3
-    <WalkMaxTime>k__BackingField: 5
+    <WalkMinTime>k__BackingField: 0.5
+    <WalkMaxTime>k__BackingField: 1
     <StoppingDistance>k__BackingField: 3
   <EnemyIdleData>k__BackingField:
     <TimeOfIdlePositioning>k__BackingField: 1
     <IdleSpeedModifer>k__BackingField: 0
     <RotationSpeedModifer>k__BackingField: 2
     <DistanceToFindTarget>k__BackingField: 10
-  <BlueDragonOrdinaryAttackData>k__BackingField:
+  <EnemyHeavyAttackData>k__BackingField:
     <WalkSpeedModifer>k__BackingField: 0
-    <DistanceToStartAttack>k__BackingField: 0
-    <AttackCooldown>k__BackingField: 0
+    <DistanceToStartAttack>k__BackingField: 3
+    <AttackCooldown>k__BackingField: 9
+  <EnemyOrdinaryAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 0
+    <DistanceToStartAttack>k__BackingField: 3
+    <AttackCooldown>k__BackingField: 5
+  <EnemyRangeAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 25
+    <DistanceToStartAttack>k__BackingField: 10
+    <AttackCooldown>k__BackingField: 15
