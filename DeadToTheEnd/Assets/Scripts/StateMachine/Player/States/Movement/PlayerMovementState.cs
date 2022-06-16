@@ -8,6 +8,7 @@ using Data.States;
 using Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities.Layer;
 
 namespace StateMachine.Player.States.Movement
 {
@@ -50,7 +51,20 @@ namespace StateMachine.Player.States.Movement
         }
 
         public virtual void Update()
-        {     
+        {
+            RaycastHit hit;
+            Vector3 fwd = MainPlayer.transform.TransformDirection(Vector3.forward);
+            Debug.DrawRay(MainPlayer.transform.position+ Vector3.up, fwd * 3, Color.green);
+            if (Physics.Raycast(MainPlayer.transform.position + Vector3.up, fwd, out hit, 3))
+            {
+                if (LayerChecker.IsInLayerMask(hit.collider.gameObject, MainPlayer.PlayerLayerData.EnemyLayer))
+                {
+                    Debug.Log(hit.collider.gameObject.layer);
+                }
+                if(hit.collider.gameObject.layer == MainPlayer.PlayerLayerData.EnemyLayer){
+                    Debug.Log("Close to enemy");
+                }
+            }
         }
 
         public virtual void FixedUpdate()
@@ -58,15 +72,15 @@ namespace StateMachine.Player.States.Movement
             Move();
         }
 
-        public virtual void OnAnimationEnterEvent()
+        public virtual void TriggerOnStateAnimationEnterEvent()
         {
         }
 
-        public virtual void OnAnimationExitEvent()
+        public virtual void TriggerOnStateAnimationExitEvent()
         {
         }
 
-        public virtual void OnAnimationHandleEvent()
+        public virtual void TriggerOnStateAnimationHandleEvent()
         {
         }
 
@@ -90,10 +104,34 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed += OnLockedPerformed;
+            
+            MainPlayer.InputAction.PlayerActions.FirstSkillCast.performed += OnFirstSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed += OnSecondSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.ThirdSkillCast.performed += OnThirdSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.FourthSkillCast.performed += OnFourthSkillPerformed;
+
             MainPlayer.AttackCalculator.OnDamageTaken += OnDamageTaken;
         }
 
-        
+        protected virtual void OnThirdSkillPerformed(InputAction.CallbackContext obj)
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerThirdSkillCastState);
+        }
+        protected virtual void OnFourthSkillPerformed(InputAction.CallbackContext obj)
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerFourthSkillCastState);
+        }
+        protected virtual void OnSecondSkillPerformed(InputAction.CallbackContext obj)
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerSecondSkillCastState);
+        }
+
+        protected virtual void OnFirstSkillPerformed(InputAction.CallbackContext obj)
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerSkillCastState);
+        }
+
+
         protected virtual void OnLockedPerformed(InputAction.CallbackContext obj)
         {
             if (MainPlayer.GetComponent<EnemyLockOn>().FindTarget())
@@ -152,6 +190,12 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled -= OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed -= OnLockedPerformed;
+            
+            MainPlayer.InputAction.PlayerActions.FirstSkillCast.performed -= OnFirstSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed -= OnFirstSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.ThirdSkillCast.performed -= OnThirdSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.FourthSkillCast.performed -= OnFourthSkillPerformed;
+            
             MainPlayer.AttackCalculator.OnDamageTaken -= OnDamageTaken;
         }
 
@@ -334,6 +378,22 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.Rigidbody.MoveRotation(targetRotation);
         }
 
+        protected void RotateToPoint()
+        {
+            Vector3 mouseWorldPosition = Vector3.zero;
+            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
+            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, MainPlayer.PlayerLayerData.AimLayer))
+            {
+                mouseWorldPosition = raycastHit.point;
+            }
+            
+            Vector3 worldAimTarget = mouseWorldPosition;
+            worldAimTarget.y = MainPlayer.transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - MainPlayer.transform.position).normalized;
+
+            MainPlayer.transform.forward = Vector3.Lerp(MainPlayer.transform.forward, aimDirection, Time.deltaTime * 20f);
+        }
         protected Vector3 GetTargetRotationDirection(float targetRotationAngle)
         {
             return Quaternion.Euler(0f, targetRotationAngle, 0f) * Vector3.forward;

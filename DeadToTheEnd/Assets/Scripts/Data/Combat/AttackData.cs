@@ -14,7 +14,7 @@ namespace Data.Combat
     {
         public float Damage { get; set; }
         public AttackType AttackType { get; set; }
-        public bool Attack { get; set; }
         public AliveEntity User { get; set; }
+        public float Speed { get; set; }
     }
 }

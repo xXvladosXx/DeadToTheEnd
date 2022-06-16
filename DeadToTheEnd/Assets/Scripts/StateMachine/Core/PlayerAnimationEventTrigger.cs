@@ -1,5 +1,6 @@
 ﻿using Data.Combat;
 using Entities;
+using SkillsSystem;
 using StateMachine.WarriorEnemy;
 using UnityEngine;
 
@@ -23,6 +24,11 @@ namespace StateMachine.Player
         public void OnLeftSwordColliderActivate(float time)
         {
             _mainPlayer.ActivateLeftSword(time, AttackType.Easy);
+        }
+
+        public void OnPrefabSpawn()
+        {
+            _mainPlayer.GetComponent<SkillManager>().SpawnPrefab();
         }
     }
 }

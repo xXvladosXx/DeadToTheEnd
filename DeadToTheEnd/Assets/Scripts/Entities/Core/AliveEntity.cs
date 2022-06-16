@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Combat.ColliderActivators;
 using Combat.SwordActivators;
 using Data.Combat;
@@ -6,72 +7,105 @@ using Data.States;
 using Data.States.StateData;
 using Data.Stats;
 using Entities.Enemies;
+using SkillsSystem;
 using StateMachine.WarriorEnemy;
 using UnityEngine;
 
 namespace Entities.Core
 {
-    public abstract class AliveEntity : MonoBehaviour
+    [RequireComponent(typeof(Animator), typeof(Rigidbody),
+        typeof(Collider))]
+    public abstract class AliveEntity : MonoBehaviour, ISkillUser
     {
         [SerializeField] private AliveEntityStatsModifierData _aliveEntityStatsModifierData;
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public AliveEntityStatsData AliveEntityStatsData { get; private set; } 
+        [field: SerializeField] public LevelCalculator LevelCalculator { get; private set; }
 
         protected StateMachine.StateMachine StateMachine;
-        protected Health Health { get; private set; }
+        public Health Health { get; private set; }
         
         public AttackCalculator AttackCalculator { get; protected set; }
         public LongAttackColliderActivator AttackColliderActivator { get; private set; }
         public AliveEntity Target { get; protected set; }
         public IReusable Reusable { get; set; }
+        public Rigidbody Rigidbody { get; private set; }
+        public Animator Animator { get; private set; }
+        public StatsFinder StatsFinder { get; private set; }
 
-        private StatsFinder _statsFinder;
-        
+        private List<IStatsable> _statsables = new List<IStatsable>();
+
         protected virtual void Awake()
         {
+            Rigidbody = GetComponent<Rigidbody>();
+            Animator = GetComponent<Animator>();
+            
             AttackColliderActivator = GetComponentInChildren<LongAttackColliderActivator>();
-            _statsFinder = new StatsFinder(AliveEntityStatsData, _aliveEntityStatsModifierData);
-
-            _statsFinder.GetStat(Stat.Health);
+            LevelCalculator.Init(AliveEntityStatsData);
+            StatsFinder = new StatsFinder(AliveEntityStatsData, _aliveEntityStatsModifierData, LevelCalculator);
+            Health = new Health(StatsFinder);
+            
+            _statsables.Add(Health);
         }
 
         private void OnEnable()
         {
-            Debug.Log("Damaged " );
-
-//            AttackCalculator.OnDamageTaken += Health.DecreaseDamage;
+            LevelCalculator.OnLevelUp += RecalculateStats;
+            AttackCalculator.OnDamageTaken += Health.DecreaseHealth;
+            Health.OnDied += OnDied;
+        }
+        
+        private void RecalculateStats(int level)
+        {
+            foreach (var statsable in _statsables)
+            {
+                statsable.RecalculateStat();
+            }
         }
 
         private void OnDisable()
         {
- //           AttackCalculator.OnDamageTaken -= Health.DecreaseDamage;
+            LevelCalculator.OnLevelUp -= RecalculateStats;
+            AttackCalculator.OnDamageTaken -= Health.DecreaseHealth;
+            Health.OnDied -= OnDied;
         }
 
         public void OnAttackMake(float time, AttackType attackType)
         {
             AttackColliderActivator.enabled = true;
-            
-            AttackData attackData = new AttackData
-            {
-                AttackType = attackType,
-                User = this,
-                Damage = Damage
-            };
+            var attackData = CreateAttackData(attackType);
             
             AttackColliderActivator.ActivateCollider(time, attackData);
         }
         public void OnMovementStateAnimationEnterEvent()
         {
-            StateMachine.OnAnimationEnterEvent();
+            StateMachine.TriggerOnStateAnimationEnterEvent();
         }
 
         public void OnMovementStateAnimationExitEvent()
         {
-            StateMachine.OnAnimationExitEvent();
+            StateMachine.TriggerOnStateAnimationExitEvent();
         }
         public void OnMovementStateAnimationHandleEvent()
         {
-            StateMachine.OnAnimationHandleEvent();
+            StateMachine.TriggerOnStateAnimationHandleEvent();
+        }
+
+        protected AttackData CreateAttackData(AttackType attackType)
+        {
+            var attackData = new AttackData
+            {
+                AttackType = attackType,
+                User = this,
+                Damage = StatsFinder.GetStat(Stat.Damage)
+            };
+
+            return attackData;
+        }
+        
+        private void OnDied()
+        {
+            GetComponent<Collider>().enabled = false;
         }
     }
 }

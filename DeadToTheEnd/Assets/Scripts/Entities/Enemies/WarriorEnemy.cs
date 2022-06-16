@@ -1,4 +1,5 @@
-﻿using Data.Animations;
+﻿using System;
+using Data.Animations;
 using Data.ScriptableObjects;
 using Data.States;
 using Data.Stats;
@@ -11,6 +12,7 @@ namespace Entities.Enemies
     {
         [field: SerializeField] public WarriorEnemyData WarriorEnemyData { get; private set; }
         [field: SerializeField] public WarriorStateReusableData WarriorStateReusableData { get; private set; }
+
 
         protected override void Awake()
         {

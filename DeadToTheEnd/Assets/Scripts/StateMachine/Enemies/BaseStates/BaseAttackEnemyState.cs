@@ -1,11 +1,12 @@
 ﻿using Data.Animations;
 using Data.Combat;
 using Entities.Enemies;
+using StateMachine.Core;
 using StateMachine.WarriorEnemy.States.Movement;
 
 namespace StateMachine.Enemies.BaseStates
 {
-    public class BaseAttackEnemyState : BaseEnemyState
+    public class BaseAttackEnemyState : BaseEnemyState, ITimeable
     {
         public BaseAttackEnemyState(StateMachine stateMachine) : base(stateMachine)
         {

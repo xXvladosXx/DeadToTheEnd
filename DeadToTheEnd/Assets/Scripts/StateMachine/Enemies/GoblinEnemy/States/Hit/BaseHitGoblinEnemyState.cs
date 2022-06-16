@@ -15,9 +15,9 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Hit
             GoblinEnemy.GoblinStateReusableData.CurrentAmountOfBackHits++;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             if (GoblinEnemy.GoblinStateReusableData.CurrentAmountOfBackHits >
                 GoblinEnemy.GoblinStateReusableData.MaxAmountOfBackHits)
             {

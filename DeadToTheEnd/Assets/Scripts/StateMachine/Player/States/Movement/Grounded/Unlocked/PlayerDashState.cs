@@ -8,8 +8,6 @@ namespace StateMachine.Player.States.Movement.Grounded
         private float _startTime;
         private int _consecutiveDashesUsed;
         private bool _shouldKeepRotating;
-        private bool _shouldKeepAttacking;
-
         public PlayerDashState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
@@ -36,7 +34,7 @@ namespace StateMachine.Player.States.Movement.Grounded
         public override void Exit()
         {
             base.Exit();
-            _shouldKeepAttacking = false;
+            MainPlayer.PlayerStateReusable.ShouldAttack = false;
 
             StopAnimation(PlayerAnimationData.DashParameterHash);
             ResetVelocity();
@@ -55,9 +53,9 @@ namespace StateMachine.Player.States.Movement.Grounded
             RotateTowardsTargetRotation();
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            if (_shouldKeepAttacking)
+            if (MainPlayer.PlayerStateReusable.ShouldAttack)
             {
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerAttackState);
                 return;
@@ -81,11 +79,7 @@ namespace StateMachine.Player.States.Movement.Grounded
         protected override void OnLockedPerformed(InputAction.CallbackContext obj)
         {
         }
-
-        protected override void OnAttackPerformed(InputAction.CallbackContext obj)
-        {
-            _shouldKeepAttacking = true;
-        }
+        
 
         protected override void RemoveInputCallbacks()
         {

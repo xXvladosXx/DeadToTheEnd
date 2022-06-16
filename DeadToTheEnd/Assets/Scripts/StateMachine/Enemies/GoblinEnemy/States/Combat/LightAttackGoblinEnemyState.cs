@@ -19,23 +19,23 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             StartAnimation(GoblinEnemyAnimationData.LightAttackParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             
             GoblinEnemy.NavMeshAgent.isStopped = false;
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             
             GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.WalkSpeedModiferSecond;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             GoblinStateMachine.ChangeState(GoblinStateMachine.FollowGoblinEnemyState);
         }
 

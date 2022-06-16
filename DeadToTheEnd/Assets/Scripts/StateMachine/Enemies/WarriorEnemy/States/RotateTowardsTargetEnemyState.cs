@@ -46,7 +46,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             }
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
             StateMachine.ChangeState(StateMachine.StartState());
         }

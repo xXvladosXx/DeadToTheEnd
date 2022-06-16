@@ -12,7 +12,6 @@ namespace CameraManage
         [SerializeField] private bool _zeroVertLook;
         [SerializeField] private float _noticeZone = 10;
         [SerializeField] private float _maxNoticeAngle = 60;
-        [SerializeField] private Transform _lockOnCanvas;
 
         private Transform _currentTarget;
         private Animator _anim;
@@ -32,7 +31,6 @@ namespace CameraManage
         void Start()
         {
             _cam = UnityEngine.Camera.main.transform;
-            _lockOnCanvas.gameObject.SetActive(false);
         }
 
         void Update()
@@ -68,7 +66,6 @@ namespace CameraManage
 
 
         public void FoundTarget(){
-            _lockOnCanvas.gameObject.SetActive(true);
             _anim.SetLayerWeight(1, 1);
             _cinemachineAnimator.Play("LockOn");
             _enemyLocked = true;

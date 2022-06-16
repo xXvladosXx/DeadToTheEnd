@@ -1,4 +1,5 @@
-﻿using Combat.ColliderActivators;
+﻿using System;
+using Combat.ColliderActivators;
 using Combat.SwordActivators;
 using Data.Animations;
 using Data.Combat;
@@ -20,6 +21,7 @@ namespace Entities.Enemies
         public ShieldAttackColliderActivator ShieldAttackColliderActivator { get; private set; }
         public LegAttackColliderActivator LegAttackColliderActivator { get; private set; }
 
+
         protected override void Awake()
         {
             base.Awake();
@@ -38,11 +40,8 @@ namespace Entities.Enemies
         public void ApplyShieldAttack(float time, AttackType attackType)
         {
             ShieldAttackColliderActivator.enabled = true;
+            var attackData = CreateAttackData(attackType);
 
-            AttackData attackData = new AttackData
-            {
-                AttackType = attackType
-            };
             
             ShieldAttackColliderActivator.ActivateCollider(time, attackData);
         }
@@ -50,11 +49,8 @@ namespace Entities.Enemies
         public void ApplyLegAttack(float time, AttackType attackType)
         {
             LegAttackColliderActivator.enabled = true;
-            
-            AttackData attackData = new AttackData
-            {
-                AttackType = attackType
-            };
+            var attackData = CreateAttackData(attackType);
+
             
             LegAttackColliderActivator.ActivateCollider(time, attackData);
         }

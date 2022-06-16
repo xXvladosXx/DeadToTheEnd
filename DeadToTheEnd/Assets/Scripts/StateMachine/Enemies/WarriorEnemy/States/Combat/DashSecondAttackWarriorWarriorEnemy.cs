@@ -49,7 +49,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
                 WarriorEnemyAnimationData.DashSecondAttackParameterHash, false);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             TargetLocked();
             
@@ -58,12 +58,12 @@ namespace StateMachine.WarriorEnemy.States.Combat
                 .transform.position + WarriorStateMachine.AliveEntity.transform.forward*2);
         }
         
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
             _startAttack = true;
         }
         
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
            
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);

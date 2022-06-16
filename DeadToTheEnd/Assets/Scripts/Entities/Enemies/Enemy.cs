@@ -9,9 +9,7 @@ using UnityEngine.AI;
 
 namespace Entities.Enemies
 {
-    [RequireComponent(typeof(Rigidbody), 
-        typeof(NavMeshAgent),
-        typeof(Animator))]
+    [RequireComponent(typeof(NavMeshAgent))]
     public abstract class Enemy : AliveEntity, ILockable
     {
         [field: SerializeField] public EnemyAnimationData EnemyAnimationData { get; protected set; }
@@ -19,8 +17,7 @@ namespace Entities.Enemies
         
         [SerializeField] private Transform _lockAim;
         public NavMeshAgent NavMeshAgent { get; private set; }
-        public Rigidbody Rigidbody { get; private set; }
-        public Animator Animator { get; private set; }
+      
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
 
         protected override void Awake()
@@ -29,9 +26,7 @@ namespace Entities.Enemies
 
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
             NavMeshAgent = GetComponent<NavMeshAgent>();
-            Rigidbody = GetComponent<Rigidbody>();
-            Animator = GetComponent<Animator>();
-            
+         
             EnemyAnimationData.Init();
             
             Target = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();

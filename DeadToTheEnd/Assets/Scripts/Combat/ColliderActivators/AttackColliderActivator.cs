@@ -1,6 +1,8 @@
 ﻿using System;
 using CameraManage;
 using Data.Combat;
+using Data.Stats;
+using Data.TransformChange;
 using Entities;
 using Entities.Core;
 using UnityEngine;
@@ -10,11 +12,11 @@ namespace Combat.ColliderActivators
     public class AttackColliderActivator : ColliderActivator
     {
         private float _time = -1;
-        private AttackData _attackData;
-        
-        public event Action<AttackData> OnTargetHit;
+        protected AttackData AttackData;
 
-        private void Update()
+        public event Action<AttackData> OnTargetHit;
+        
+        protected virtual void Update()
         {
             if (_time < 0 )
             {
@@ -29,7 +31,7 @@ namespace Combat.ColliderActivators
         public override void ActivateCollider(float time, AttackData attackData = null)
         {
             base.ActivateCollider(time, attackData);
-            _attackData = attackData;
+            AttackData = attackData;
             _time = time;
         }
 
@@ -40,12 +42,10 @@ namespace Combat.ColliderActivators
             if (other.TryGetComponent(out AliveEntity aliveEntity))
             {
                 if(aliveEntity == GetComponentInParent<AliveEntity>()) return;
-
-                _attackData ??= new AttackData();
-                
-                _attackData.User = GetComponentInParent<AliveEntity>();
-                aliveEntity.AttackCalculator.TryToTakeDamage(_attackData);
-                OnTargetHit?.Invoke(_attackData);
+                if(aliveEntity == AttackData.User) return;
+               
+                aliveEntity.AttackCalculator.TryToTakeDamage(AttackData);
+                OnTargetHit?.Invoke(AttackData);
             }
         }
     }

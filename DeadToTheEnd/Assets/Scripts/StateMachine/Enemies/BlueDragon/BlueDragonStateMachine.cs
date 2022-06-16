@@ -13,6 +13,8 @@ namespace StateMachine.Enemies.BlueGragon
         public BaseOrdinaryAttackEnemyState BaseOrdinaryAttackEnemyState { get; }
         public BaseHeavyAttackEnemyState BaseHeavyAttackEnemyState { get; }
         public BaseRangeAttackEnemyState BaseRangeAttackEnemyState { get; }
+        public BaseDieEnemyState BaseDieEnemyState { get; }
+        
         public BlueDragonStateMachine(BlueDragonEnemy blueDragonEnemy)
         {
             AliveEntity = blueDragonEnemy;
@@ -24,6 +26,8 @@ namespace StateMachine.Enemies.BlueGragon
             BaseOrdinaryAttackEnemyState = new BaseOrdinaryAttackEnemyState(this);
             BaseHeavyAttackEnemyState = new BaseHeavyAttackEnemyState(this);
             BaseRangeAttackEnemyState = new BaseRangeAttackEnemyState(this);
+
+            BaseDieEnemyState = new BaseDieEnemyState(this);
         }
 
         public override IState StartState() => FollowBlueDragonEnemyState;

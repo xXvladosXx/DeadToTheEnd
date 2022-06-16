@@ -1,8 +1,9 @@
-﻿using StateMachine.WarriorEnemy.States.Movement;
+﻿using StateMachine.Core;
+using StateMachine.WarriorEnemy.States.Movement;
 
 namespace StateMachine.Enemies.WarriorEnemy.States.Combat
 {
-    public class BaseAttackWarriorEnemyState : BaseWarriorEnemyState, IState
+    public class BaseAttackWarriorEnemyState : BaseWarriorEnemyState, ITimeable
     {
         public BaseAttackWarriorEnemyState(WarriorStateMachine warriorStateMachine) : base(warriorStateMachine)
         {

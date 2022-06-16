@@ -12,9 +12,9 @@
             StartAnimation(PlayerAnimationData.ComboParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             StopAnimation(PlayerAnimationData.ComboParameterHash);
         }
 

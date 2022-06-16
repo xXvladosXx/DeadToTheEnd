@@ -19,27 +19,27 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             StartAnimation(GoblinEnemyAnimationData.FirstComboAttackParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             
             TargetLocked();
             GoblinEnemy.NavMeshAgent.SetDestination(GoblinEnemy.Target.transform.position);
             GoblinEnemy.NavMeshAgent.isStopped = !GoblinEnemy.NavMeshAgent.isStopped;
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             
             GoblinEnemy.NavMeshAgent.isStopped = true;
 
             GoblinStateMachine.ChangeState(GoblinStateMachine.FollowGoblinEnemyState);
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
 
             int shouldContinueCombo = Random.Range(0,2);
             if (shouldContinueCombo == 1)

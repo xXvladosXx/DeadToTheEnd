@@ -18,7 +18,7 @@ using Utilities.Collider;
 
 namespace Entities
 {
-    [RequireComponent(typeof(PlayerInput), typeof(Rigidbody))]
+    [RequireComponent(typeof(PlayerInput))]
     public sealed class MainPlayer : AliveEntity
     {
         [field:SerializeField] public SwordActivator LongSwordActivator { get; private set; }
@@ -30,19 +30,18 @@ namespace Entities
         [field: SerializeField] public PlayerAnimationData PlayerAnimationData { get; private set; }
         public Transform MainCamera { get; private set; }
         public PlayerInput InputAction { get; private set; }
-        public Rigidbody Rigidbody { get; private set; }
-        public Animator Animator { get; private set; }
+        
         public PlayerStateReusableData PlayerStateReusable { get; private set; }
         public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
+
+
 
         protected override void Awake()
         {
             base.Awake();
 
             InputAction = GetComponent<PlayerInput>();
-            Rigidbody = GetComponent<Rigidbody>();
-            Animator = GetComponent<Animator>();
             
             ColliderUtility.Init(gameObject);
             ColliderUtility.CalculateCapsuleColliderDimensions();
@@ -58,13 +57,13 @@ namespace Entities
             PlayerStateReusable = (PlayerStateReusableData) Reusable;
             AttackCalculator = new AttackCalculator(PlayerStateReusable);
             StateMachine = new PlayerStateMachine(this, gameObject);
+
         }
 
         private void Start()
         {
             StateMachine.ChangeState(StateMachine.StartState());
         }
-
 
         private void OnValidate()
         {
@@ -85,12 +84,7 @@ namespace Entities
 
         public void ActivateRightSword(float time, AttackType attackType)
         {
-            AttackData attackData = new AttackData
-            {
-                AttackType = attackType,
-                User = this,
-                Damage = Damage
-            };
+            var attackData = CreateAttackData(attackType);
             
             foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
             {
@@ -102,12 +96,7 @@ namespace Entities
         }
         public void ActivateLeftSword(float time, AttackType attackType)
         {
-            AttackData attackData = new AttackData
-            {
-                AttackType = attackType,
-                User = this,
-                Damage = Damage
-            };
+            var attackData = CreateAttackData(attackType);
             
             foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
             {
@@ -117,5 +106,6 @@ namespace Entities
                 shortSwordColliderActivator.ActivateCollider(time, attackData);
             }
         }
+
     }
 }

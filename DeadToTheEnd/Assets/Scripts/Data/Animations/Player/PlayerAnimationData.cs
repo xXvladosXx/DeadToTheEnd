@@ -38,6 +38,11 @@ namespace Data.Animations
         [SerializeField] private string _easyHitParameterName = "EasyHit";
         [SerializeField] private string _mediumHitParameterName = "MediumHit";
         [SerializeField] private string _knockdownParameterName = "Knockdown";
+        
+        [SerializeField] private string _skillCastParameterName = "SkillCast";
+        [SerializeField] private string _secondSkillCastParameterName = "SecondSkill";
+        [SerializeField] private string _thirdSkillCastParameterName = "ThirdSkill";
+        [SerializeField] private string _fourthSkillCastParameterName = "FourthSkill";
         public int GroundedParameterHash { get; private set; }
         public int MovingParameterHash { get; private set; }
         public int WasMovingParameterHash { get; private set; }
@@ -68,6 +73,10 @@ namespace Data.Animations
         public int DefenseImpactParameterHash { get; private set; }
         public int VerticalParameterHash { get; private set; }
         public int HorizontalParameterHash { get; private set; }
+        public int SkillParameterHash { get; private set; }
+        public int SecondSkillParameterHash { get; private set; }
+        public int ThirdSkillParameterHash { get; private set; }
+        public int FourthSkillParameterHash { get; private set; }
 
         public void Init()
         {
@@ -103,6 +112,11 @@ namespace Data.Animations
             EasyHitParameterHash = Animator.StringToHash(_easyHitParameterName);
             MediumHitParameterHash = Animator.StringToHash(_mediumHitParameterName);
             KnockdownParameterHash = Animator.StringToHash(_knockdownParameterName);
+
+            SkillParameterHash = Animator.StringToHash(_skillCastParameterName);
+            SecondSkillParameterHash = Animator.StringToHash(_secondSkillCastParameterName);
+            FourthSkillParameterHash = Animator.StringToHash(_fourthSkillCastParameterName);
+            ThirdSkillParameterHash = Animator.StringToHash(_thirdSkillCastParameterName);
         }
     }
 }

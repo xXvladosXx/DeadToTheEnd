@@ -8,9 +8,9 @@ public interface IState
     public void Exit();
     public void Update();
     public void FixedUpdate();
-    public void OnAnimationEnterEvent();
-    public void OnAnimationExitEvent();
-    public void OnAnimationHandleEvent();
+    public void TriggerOnStateAnimationEnterEvent();
+    public void TriggerOnStateAnimationExitEvent();
+    public void TriggerOnStateAnimationHandleEvent();
 
     public void HandleInput();
 }

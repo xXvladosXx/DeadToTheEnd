@@ -20,9 +20,9 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             StartAnimation(GoblinEnemyAnimationData.SecondComboAttackParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             
             GoblinEnemy.NavMeshAgent.speed = 
                 GoblinEnemy.GoblinEnemyData.GoblinSecondComboAttackData.WalkSpeedModifer;
@@ -32,16 +32,16 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             GoblinEnemy.NavMeshAgent.isStopped = false;
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             
             GoblinStateMachine.ChangeState(GoblinStateMachine.FollowGoblinEnemyState);
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             GoblinEnemy.NavMeshAgent.SetDestination(GoblinEnemy.Target.transform.position);
 
             GoblinEnemy.NavMeshAgent.speed = 

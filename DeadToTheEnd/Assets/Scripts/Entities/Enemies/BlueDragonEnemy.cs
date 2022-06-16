@@ -1,4 +1,5 @@
-﻿using Combat.ColliderActivators;
+﻿using System;
+using Combat.ColliderActivators;
 using Data.Combat;
 using Data.ScriptableObjects;
 using Data.States.StateData;
@@ -14,7 +15,8 @@ namespace Entities.Enemies
         [field: SerializeField] public BlueDragonStateReusableData BlueDragonStateReusableData { get; private set; }
 
         public RadiusAttackColliderActivator RadiusAttackColliderActivator { get; private set; }
-        
+
+
         protected override void Awake()
         {
             base.Awake();
@@ -48,12 +50,7 @@ namespace Entities.Enemies
         public void OnRadiusAttack(float time, AttackType knock)
         {
             RadiusAttackColliderActivator.enabled = true;
-            AttackData attackData = new AttackData
-            {
-                AttackType = knock,
-                User = this,
-                Damage = Damage
-            };
+            var attackData = CreateAttackData(knock);
             
             RadiusAttackColliderActivator.ActivateCollider(time, attackData);
         }

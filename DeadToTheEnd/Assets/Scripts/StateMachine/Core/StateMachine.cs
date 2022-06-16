@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Entities;
 using Entities.Core;
+using StateMachine.Core;
 using StateMachine.WarriorEnemy.Components;
 using UnityEngine;
 
@@ -9,22 +10,21 @@ namespace StateMachine
 {
     public abstract class StateMachine
     {
-        
         public Dictionary<Type, float> StatesCooldown { get; private set; }
-        protected Dictionary<Type, float> CurrentStatesCooldown { get; private set; }
-        public StateCooldownTimer StateCooldownTimer { get; private set; }
+        private Dictionary<Type, float> CurrentStatesCooldown { get; set; }
+        private CooldownTimer CooldownTimer { get; }
         
-        private IState _currentState;
+        protected IState _currentState;
+        public AliveEntity AliveEntity { get; protected set; }
 
         protected StateMachine()
         {
             StatesCooldown = new Dictionary<Type, float>();
 
-            StateCooldownTimer = new StateCooldownTimer();
-            StateCooldownTimer.Init(StatesCooldown);
+            CooldownTimer = new CooldownTimer();
+            CooldownTimer.Init(StatesCooldown);
         }
 
-        public AliveEntity AliveEntity { get; protected set; }
 
         public abstract IState StartState();
         public void ChangeState(IState newState)
@@ -36,10 +36,9 @@ namespace StateMachine
 
         public virtual void Update()
         {
-       Debug.Log(_currentState);
             _currentState?.Update();
-            StateCooldownTimer.Update(Time.deltaTime, CurrentStatesCooldown);
-            StatesCooldown = StateCooldownTimer.StatesCooldown;
+            CooldownTimer.Update(Time.deltaTime, CurrentStatesCooldown);
+            StatesCooldown = CooldownTimer.StatesCooldown;
         }
 
         public void HandleInput()
@@ -52,27 +51,24 @@ namespace StateMachine
             _currentState?.FixedUpdate();
         }
         
-        public void OnAnimationEnterEvent()
+        public void TriggerOnStateAnimationEnterEvent()
         {
-            _currentState?.OnAnimationEnterEvent();
+            _currentState?.TriggerOnStateAnimationEnterEvent();
         }
 
-        public void OnAnimationExitEvent()
+        public void TriggerOnStateAnimationExitEvent()
         {
-            _currentState?.OnAnimationExitEvent();
+            _currentState?.TriggerOnStateAnimationExitEvent();
         }
 
-        public void OnAnimationHandleEvent()
+        public void TriggerOnStateAnimationHandleEvent()
         {
-            _currentState?.OnAnimationHandleEvent();
+            _currentState?.TriggerOnStateAnimationHandleEvent();
         }
         
         public void StartCooldown(Type state, float time)
         {
-            if(!typeof(IState).IsAssignableFrom(state)) return;
-            if(StatesCooldown.ContainsKey(state)) return;
-
-            StatesCooldown.Add(state, time);
+            CooldownTimer.StartCooldown(state, time);
             CurrentStatesCooldown = new Dictionary<Type, float>(StatesCooldown);
         }
     }

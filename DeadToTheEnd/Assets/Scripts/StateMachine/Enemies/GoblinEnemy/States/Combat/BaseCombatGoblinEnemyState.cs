@@ -1,10 +1,11 @@
 ﻿using System;
 using Data.Combat;
+using StateMachine.Core;
 using Random = UnityEngine.Random;
 
 namespace StateMachine.Enemies.GoblinEnemy.States.Combat
 {
-    public class BaseCombatGoblinEnemyState : BaseGoblinEnemyState
+    public class BaseCombatGoblinEnemyState : BaseGoblinEnemyState, ITimeable
     {
         private bool _timeToWait;
         

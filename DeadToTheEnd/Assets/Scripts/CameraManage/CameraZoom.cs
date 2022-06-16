@@ -1,4 +1,5 @@
 using Cinemachine;
+using Entities;
 using UnityEngine;
 
 namespace CameraManage
@@ -18,13 +19,17 @@ namespace CameraManage
         [Range(0f,10f)]
         [SerializeField] private float _zoomSensitivity = 1f;
 
+        [SerializeField] private MainPlayer _mainPlayer;
+
+        private CinemachineVirtualCamera _cinemachineVirtualCamera;
         private CinemachineFramingTransposer _cinemachineFramingTransposer;
         private CinemachineInputProvider _inputProvider;
 
         private float _currentTargetDistance;
         private void Awake()
         {
-            _cinemachineFramingTransposer = GetComponent<CinemachineVirtualCamera>()
+            _cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+            _cinemachineFramingTransposer = _cinemachineVirtualCamera
                 .GetCinemachineComponent<CinemachineFramingTransposer>();
 
             _inputProvider = GetComponent<CinemachineInputProvider>();
@@ -33,6 +38,8 @@ namespace CameraManage
 
         private void Update()
         {
+            _cinemachineVirtualCamera.enabled = _mainPlayer.InputAction.enabled;
+
             Zoom();
         }
 

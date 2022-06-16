@@ -28,12 +28,12 @@ namespace StateMachine.WarriorEnemy.States.Combat
             WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.ComboFirstParameterHash, false);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             WarriorEnemy.NavMeshAgent.isStopped = false;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
         }

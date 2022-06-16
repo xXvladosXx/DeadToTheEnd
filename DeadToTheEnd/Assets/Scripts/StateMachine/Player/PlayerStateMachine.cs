@@ -35,6 +35,11 @@ namespace StateMachine
         public PlayerMediumHitState PlayerMediumHitState { get; }
         public PlayerLightHitState PlayerLightHitState { get; }
         public PlayerKnockHitState PlayerKnockHitState { get; }
+        
+        public PlayerSkillCastState PlayerSkillCastState { get; }
+        public PlayerSecondSkillCastState PlayerSecondSkillCastState { get; }
+        public PlayerFourthSkillCastState PlayerFourthSkillCastState { get; }
+        public PlayerThirdSkillCastState PlayerThirdSkillCastState { get; }
 
 
         public PlayerStateMachine(MainPlayer player, GameObject gameObject)
@@ -66,6 +71,11 @@ namespace StateMachine
             HardStoppingState = new PlayerHardStoppingState(this);
             PlayerDefenseImpactState = new PlayerDefenseImpactState(this);
             //PlayerLockedStoppingState = new PlayerLockedStoppingState(this);
+
+            PlayerSkillCastState = new PlayerSkillCastState(this);
+            PlayerSecondSkillCastState = new PlayerSecondSkillCastState(this);
+            PlayerThirdSkillCastState = new PlayerThirdSkillCastState(this);
+            PlayerFourthSkillCastState = new PlayerFourthSkillCastState(this);
         }
 
         public override IState StartState() => PlayerIdleState;

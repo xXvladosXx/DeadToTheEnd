@@ -36,9 +36,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
         {
         }
         
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             
             if (MainPlayer.PlayerStateReusable.LockedState)
             {

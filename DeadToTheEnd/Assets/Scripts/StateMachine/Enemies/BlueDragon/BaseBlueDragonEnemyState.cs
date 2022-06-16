@@ -76,6 +76,12 @@ namespace StateMachine.Enemies.BlueGragon
         {
             BlueDragonStateMachine.ChangeState(BlueDragonStateMachine.RotateTowardsTargetEnemyState);
         }
+
+        protected override void OnDied()
+        {
+            base.OnDied();
+            BlueDragonStateMachine.ChangeState(BlueDragonStateMachine.BaseDieEnemyState);
+        }
     }
 
     

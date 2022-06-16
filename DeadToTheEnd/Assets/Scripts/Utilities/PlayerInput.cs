@@ -9,12 +9,14 @@ namespace Utilities
     {
         public PlayerInputAction InputAction { get; private set; }
         public PlayerInputAction.PlayerActions PlayerActions { get; private set; }
+        public PlayerInputAction.BarActions BarActions { get; private set; }
 
         private void Awake()
         {
             InputAction = new PlayerInputAction();
             
             PlayerActions = InputAction.Player;
+            BarActions = InputAction.Bar;
         }
 
         private void OnEnable()

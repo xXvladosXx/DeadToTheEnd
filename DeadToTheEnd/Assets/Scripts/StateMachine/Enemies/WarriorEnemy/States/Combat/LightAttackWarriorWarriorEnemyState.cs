@@ -29,7 +29,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
             Enemy.Animator.SetBool(WarriorEnemyAnimationData.LightAttackParameterHash, false);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             Enemy.NavMeshAgent.isStopped = false;
         }
@@ -39,7 +39,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
             TargetLocked();
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);
         }

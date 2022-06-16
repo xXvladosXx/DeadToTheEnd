@@ -42,16 +42,16 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDefensePerformed;
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
           
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
         }
@@ -59,9 +59,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         {
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
         }
         protected override void OnAttackPerformed(InputAction.CallbackContext obj)

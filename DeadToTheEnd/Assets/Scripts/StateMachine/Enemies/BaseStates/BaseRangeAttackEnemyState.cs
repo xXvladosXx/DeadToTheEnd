@@ -19,23 +19,23 @@ namespace StateMachine.Enemies.BaseStates
             StartAnimation(Enemy.EnemyAnimationData.RangeAttackParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             TargetLocked();
             Enemy.NavMeshAgent.SetDestination(Enemy.Target.transform.position);
             Enemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyRangeAttackData.WalkSpeedModifer;
 
             Enemy.NavMeshAgent.isStopped = false;
         }
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             Enemy.NavMeshAgent.isStopped = true;
         }
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             StateMachine.ChangeState(StateMachine.StartState());
         }
         public override void Exit()

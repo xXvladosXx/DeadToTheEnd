@@ -49,7 +49,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Stopping
             DecelerateHorizontally();
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             if(MainPlayer.PlayerStateReusable.ShouldAttack) return;
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);

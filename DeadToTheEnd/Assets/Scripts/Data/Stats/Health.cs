@@ -5,24 +5,42 @@ using UnityEngine;
 namespace Data.Stats
 {
     [Serializable]
-    public class Health
+    public class Health : IStatsable
     {
         [field: SerializeField] public float HealthValue { get; private set; }
 
-        public Health(float value)
+        private StatsFinder _statsFinder;
+        private bool _isDead;
+
+        public event Action OnDied;
+        public Health(StatsFinder statsFinder)
         {
-            HealthValue = value;
+            _statsFinder = statsFinder;
+            HealthValue = _statsFinder.GetStat(Stat.Health);
+            
+            Debug.Log(HealthValue);
         }
         
-        public void DecreaseDamage(AttackData attackData)
+        public void DecreaseHealth(AttackData attackData)
         {
+            if(_isDead) return;
+            
             HealthValue -= attackData.Damage;
             Debug.Log(attackData.Damage);
 
             if (HealthValue <= 0)
             {
-                Debug.Log("HealthValue");
+                _isDead = true;
+                OnDied?.Invoke();
+                Debug.Log("Died");
+                attackData.User.LevelCalculator.ExperienceReward(_statsFinder.GetExperienceReward());
             }
+        }
+
+        public void RecalculateStat()
+        {
+            HealthValue = _statsFinder.GetStat(Stat.Health);
+            Debug.Log(HealthValue);
         }
     }
 }

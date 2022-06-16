@@ -15,15 +15,15 @@
             
             StartAnimation(Enemy.EnemyAnimationData.HeavyAttackParameterHash);
         }
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             TargetLocked();
         }
         
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             StateMachine.ChangeState(StateMachine.StartState());
         }
         public override void Exit()

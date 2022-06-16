@@ -15,9 +15,9 @@
                 Enemy.EnemyData.EnemyOrdinaryAttackData.AttackCooldown);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             
             TargetLocked();
             
@@ -26,14 +26,9 @@
             Enemy.NavMeshAgent.isStopped = false;
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationHandleEvent();
-        }
-
-        public override void OnAnimationExitEvent()
-        {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
 
             StateMachine.ChangeState(StateMachine.StartState());
         }

@@ -45,7 +45,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             MainPlayer.InputAction.PlayerActions.Dash.performed -= OnDefensePerformed;
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
             if (MainPlayer.PlayerStateReusable.ShouldBlock)
             {

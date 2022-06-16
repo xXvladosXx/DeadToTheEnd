@@ -62,12 +62,12 @@ namespace StateMachine.Player.States.Movement.Grounded
             MainPlayer.PlayerStateReusable.ShouldBlock = true;
         }
         
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             MainPlayer.PlayerStateReusable.StopReading = true;
         }
         
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
             if (MainPlayer.PlayerStateReusable.ShouldBlock)
             {
@@ -78,7 +78,7 @@ namespace StateMachine.Player.States.Movement.Grounded
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
             if (MainPlayer.PlayerStateReusable.ShouldBlock)
             {

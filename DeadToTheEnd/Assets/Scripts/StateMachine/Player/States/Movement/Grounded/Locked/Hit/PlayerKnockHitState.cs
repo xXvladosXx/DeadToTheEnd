@@ -19,15 +19,15 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
             StartAnimation(PlayerAnimationData.KnockdownParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             StopAnimation(PlayerAnimationData.KnockdownParameterHash);
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             MainPlayer.PlayerStateReusable.IsKnocked = false;
         }
     }

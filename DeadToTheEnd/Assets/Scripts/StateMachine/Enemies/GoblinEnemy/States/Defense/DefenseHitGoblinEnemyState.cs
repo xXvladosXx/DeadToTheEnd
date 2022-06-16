@@ -34,9 +34,9 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Defense
             StopAnimation(GoblinEnemyAnimationData.BlockHitParameterHash);
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             GoblinStateMachine.ChangeState(GoblinStateMachine.FollowGoblinEnemyState);
         }
     }

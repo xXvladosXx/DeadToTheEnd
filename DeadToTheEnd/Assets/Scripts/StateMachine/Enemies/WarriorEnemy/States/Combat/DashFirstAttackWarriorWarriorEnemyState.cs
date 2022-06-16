@@ -56,17 +56,17 @@ namespace StateMachine.WarriorEnemy.States.Combat
             WarriorStateMachine.AliveEntity.AttackColliderActivator.OnTargetHit -= Stop;
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             _hasStopped = true;
         }
         
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
             _startAttack = true;
         }
         
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
            
             WarriorStateMachine.ChangeState(WarriorStateMachine.FollowWarriorEnemyState);

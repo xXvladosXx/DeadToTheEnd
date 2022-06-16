@@ -7,7 +7,7 @@ namespace Combat.ColliderActivators
     {
         protected Collider _collider;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _collider = GetComponent<Collider>();
             _collider.enabled = false;

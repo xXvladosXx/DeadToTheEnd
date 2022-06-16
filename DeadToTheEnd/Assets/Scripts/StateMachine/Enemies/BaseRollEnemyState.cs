@@ -43,12 +43,12 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
         {
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
             Enemy.NavMeshAgent.isStopped = false;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
             StateMachine.ChangeState(StateMachine.StartState());
         }

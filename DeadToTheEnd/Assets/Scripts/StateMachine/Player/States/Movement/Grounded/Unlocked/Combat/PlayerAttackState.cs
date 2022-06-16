@@ -52,23 +52,23 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         }
 
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
 
             _stopRotating = true;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
         }
         
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
         }
         protected override void OnAttackPerformed(InputAction.CallbackContext obj)
@@ -78,21 +78,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerComboAttackState);
         }
 
-        private void RotateToPoint()
-        {
-            Vector3 mouseWorldPosition = Vector3.zero;
-            Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, Mathf.Infinity, MainPlayer.PlayerLayerData.AimLayer))
-            {
-                mouseWorldPosition = raycastHit.point;
-            }
-            
-            Vector3 worldAimTarget = mouseWorldPosition;
-            worldAimTarget.y = MainPlayer.transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - MainPlayer.transform.position).normalized;
-
-            MainPlayer.transform.forward = Vector3.Lerp(MainPlayer.transform.forward, aimDirection, Time.deltaTime * 20f);
-        }
+       
     }
 }

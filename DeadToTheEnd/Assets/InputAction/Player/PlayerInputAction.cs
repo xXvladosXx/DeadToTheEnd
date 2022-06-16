@@ -91,7 +91,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack1"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""ada52c91-9c55-4c6d-ba6b-71b724617f11"",
                     ""expectedControlType"": ""Button"",
@@ -130,6 +130,42 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""name"": ""Locked"",
                     ""type"": ""Button"",
                     ""id"": ""0dc6a6f7-d84f-42ce-b8cc-c35e232c344e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FirstSkillCast"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8885f21-b3f7-4b63-bb2c-ac0149ec5b1a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondSkillCast"",
+                    ""type"": ""Button"",
+                    ""id"": ""2688a63a-24f3-4808-af5d-574e16afa54f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThirdSkillCast"",
+                    ""type"": ""Button"",
+                    ""id"": ""6281eeb6-b47f-4fa7-a0b8-128a51a02503"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FourthSkillCast"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1642e9c-57eb-40ba-a170-867310d5104d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -287,7 +323,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack1"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -378,6 +414,158 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Locked"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""813023a6-7159-47f3-a9dc-431254f4b54f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FirstSkillCast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c5e448b-7da9-4ff8-8bab-44578f85350d"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondSkillCast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee80abf2-725b-4a6f-9074-0f8bcff9a01c"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThirdSkillCast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5116ea5-9774-4f8e-aa92-d57d90328ee5"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FourthSkillCast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Bar"",
+            ""id"": ""e22bdeea-72b8-4ed2-bb37-475478284c53"",
+            ""actions"": [
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""fbddf2a9-ec46-4130-8990-1ec70801f6ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shop"",
+                    ""type"": ""Button"",
+                    ""id"": ""11b86e5a-0ab1-43f2-8ae1-313d83fc2afa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skills"",
+                    ""type"": ""Button"",
+                    ""id"": ""463aa9d4-811e-42d0-a6a3-839ac31f0d46"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quests"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d3d0727-049e-4ef4-9f12-c4d4b44ac6e9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fight"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f42d823-2df4-4fb1-84f6-7e14da53e08a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""086e130c-5d24-4e55-ac1c-4d41125ad2e2"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3f4f228-53df-4686-b808-e895204f4c1a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd031f1a-146c-4665-a311-92e402d3c17b"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skills"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""904095fb-838e-4b7e-9efe-1ac06d2cdb5a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quests"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""967c7b8f-71e3-4e36-86a3-efbf13f59df5"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -393,11 +581,22 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Attack1 = m_Player.FindAction("Attack1", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Combo = m_Player.FindAction("Combo", throwIfNotFound: true);
         m_Player_MovementWithoutNormalization = m_Player.FindAction("MovementWithoutNormalization", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_Locked = m_Player.FindAction("Locked", throwIfNotFound: true);
+        m_Player_FirstSkillCast = m_Player.FindAction("FirstSkillCast", throwIfNotFound: true);
+        m_Player_SecondSkillCast = m_Player.FindAction("SecondSkillCast", throwIfNotFound: true);
+        m_Player_ThirdSkillCast = m_Player.FindAction("ThirdSkillCast", throwIfNotFound: true);
+        m_Player_FourthSkillCast = m_Player.FindAction("FourthSkillCast", throwIfNotFound: true);
+        // Bar
+        m_Bar = asset.FindActionMap("Bar", throwIfNotFound: true);
+        m_Bar_Inventory = m_Bar.FindAction("Inventory", throwIfNotFound: true);
+        m_Bar_Shop = m_Bar.FindAction("Shop", throwIfNotFound: true);
+        m_Bar_Skills = m_Bar.FindAction("Skills", throwIfNotFound: true);
+        m_Bar_Quests = m_Bar.FindAction("Quests", throwIfNotFound: true);
+        m_Bar_Fight = m_Bar.FindAction("Fight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -464,11 +663,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Attack1;
+    private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Combo;
     private readonly InputAction m_Player_MovementWithoutNormalization;
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_Locked;
+    private readonly InputAction m_Player_FirstSkillCast;
+    private readonly InputAction m_Player_SecondSkillCast;
+    private readonly InputAction m_Player_ThirdSkillCast;
+    private readonly InputAction m_Player_FourthSkillCast;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -480,11 +683,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction Attack => m_Wrapper.m_Player_Attack1;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Combo => m_Wrapper.m_Player_Combo;
         public InputAction @MovementWithoutNormalization => m_Wrapper.m_Player_MovementWithoutNormalization;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputAction @Locked => m_Wrapper.m_Player_Locked;
+        public InputAction @FirstSkillCast => m_Wrapper.m_Player_FirstSkillCast;
+        public InputAction @SecondSkillCast => m_Wrapper.m_Player_SecondSkillCast;
+        public InputAction @ThirdSkillCast => m_Wrapper.m_Player_ThirdSkillCast;
+        public InputAction @FourthSkillCast => m_Wrapper.m_Player_FourthSkillCast;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -515,9 +722,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
-                Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
-                Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack1;
+                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Combo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
                 @Combo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
                 @Combo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCombo;
@@ -530,6 +737,18 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Locked.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLocked;
                 @Locked.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLocked;
                 @Locked.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLocked;
+                @FirstSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstSkillCast;
+                @FirstSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstSkillCast;
+                @FirstSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstSkillCast;
+                @SecondSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondSkillCast;
+                @SecondSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondSkillCast;
+                @SecondSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondSkillCast;
+                @ThirdSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThirdSkillCast;
+                @ThirdSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThirdSkillCast;
+                @ThirdSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThirdSkillCast;
+                @FourthSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
+                @FourthSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
+                @FourthSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -555,9 +774,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                Attack.started += instance.OnAttack1;
-                Attack.performed += instance.OnAttack1;
-                Attack.canceled += instance.OnAttack1;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
                 @Combo.started += instance.OnCombo;
                 @Combo.performed += instance.OnCombo;
                 @Combo.canceled += instance.OnCombo;
@@ -570,10 +789,87 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Locked.started += instance.OnLocked;
                 @Locked.performed += instance.OnLocked;
                 @Locked.canceled += instance.OnLocked;
+                @FirstSkillCast.started += instance.OnFirstSkillCast;
+                @FirstSkillCast.performed += instance.OnFirstSkillCast;
+                @FirstSkillCast.canceled += instance.OnFirstSkillCast;
+                @SecondSkillCast.started += instance.OnSecondSkillCast;
+                @SecondSkillCast.performed += instance.OnSecondSkillCast;
+                @SecondSkillCast.canceled += instance.OnSecondSkillCast;
+                @ThirdSkillCast.started += instance.OnThirdSkillCast;
+                @ThirdSkillCast.performed += instance.OnThirdSkillCast;
+                @ThirdSkillCast.canceled += instance.OnThirdSkillCast;
+                @FourthSkillCast.started += instance.OnFourthSkillCast;
+                @FourthSkillCast.performed += instance.OnFourthSkillCast;
+                @FourthSkillCast.canceled += instance.OnFourthSkillCast;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Bar
+    private readonly InputActionMap m_Bar;
+    private IBarActions m_BarActionsCallbackInterface;
+    private readonly InputAction m_Bar_Inventory;
+    private readonly InputAction m_Bar_Shop;
+    private readonly InputAction m_Bar_Skills;
+    private readonly InputAction m_Bar_Quests;
+    private readonly InputAction m_Bar_Fight;
+    public struct BarActions
+    {
+        private @PlayerInputAction m_Wrapper;
+        public BarActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Inventory => m_Wrapper.m_Bar_Inventory;
+        public InputAction @Shop => m_Wrapper.m_Bar_Shop;
+        public InputAction @Skills => m_Wrapper.m_Bar_Skills;
+        public InputAction @Quests => m_Wrapper.m_Bar_Quests;
+        public InputAction @Fight => m_Wrapper.m_Bar_Fight;
+        public InputActionMap Get() { return m_Wrapper.m_Bar; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BarActions set) { return set.Get(); }
+        public void SetCallbacks(IBarActions instance)
+        {
+            if (m_Wrapper.m_BarActionsCallbackInterface != null)
+            {
+                @Inventory.started -= m_Wrapper.m_BarActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnInventory;
+                @Shop.started -= m_Wrapper.m_BarActionsCallbackInterface.OnShop;
+                @Shop.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnShop;
+                @Shop.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnShop;
+                @Skills.started -= m_Wrapper.m_BarActionsCallbackInterface.OnSkills;
+                @Skills.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnSkills;
+                @Skills.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnSkills;
+                @Quests.started -= m_Wrapper.m_BarActionsCallbackInterface.OnQuests;
+                @Quests.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnQuests;
+                @Quests.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnQuests;
+                @Fight.started -= m_Wrapper.m_BarActionsCallbackInterface.OnFight;
+                @Fight.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnFight;
+                @Fight.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnFight;
+            }
+            m_Wrapper.m_BarActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
+                @Shop.started += instance.OnShop;
+                @Shop.performed += instance.OnShop;
+                @Shop.canceled += instance.OnShop;
+                @Skills.started += instance.OnSkills;
+                @Skills.performed += instance.OnSkills;
+                @Skills.canceled += instance.OnSkills;
+                @Quests.started += instance.OnQuests;
+                @Quests.performed += instance.OnQuests;
+                @Quests.canceled += instance.OnQuests;
+                @Fight.started += instance.OnFight;
+                @Fight.performed += instance.OnFight;
+                @Fight.canceled += instance.OnFight;
+            }
+        }
+    }
+    public BarActions @Bar => new BarActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -583,10 +879,22 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnAttack1(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
         void OnCombo(InputAction.CallbackContext context);
         void OnMovementWithoutNormalization(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnLocked(InputAction.CallbackContext context);
+        void OnFirstSkillCast(InputAction.CallbackContext context);
+        void OnSecondSkillCast(InputAction.CallbackContext context);
+        void OnThirdSkillCast(InputAction.CallbackContext context);
+        void OnFourthSkillCast(InputAction.CallbackContext context);
+    }
+    public interface IBarActions
+    {
+        void OnInventory(InputAction.CallbackContext context);
+        void OnShop(InputAction.CallbackContext context);
+        void OnSkills(InputAction.CallbackContext context);
+        void OnQuests(InputAction.CallbackContext context);
+        void OnFight(InputAction.CallbackContext context);
     }
 }

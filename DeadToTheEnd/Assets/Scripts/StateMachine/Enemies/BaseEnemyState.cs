@@ -55,15 +55,15 @@ namespace StateMachine.WarriorEnemy.States.Movement
         {
         }
 
-        public virtual void OnAnimationEnterEvent()
+        public virtual void TriggerOnStateAnimationEnterEvent()
         {
         }
 
-        public virtual void OnAnimationExitEvent()
+        public virtual void TriggerOnStateAnimationExitEvent()
         {
         }
 
-        public virtual void OnAnimationHandleEvent()
+        public virtual void TriggerOnStateAnimationHandleEvent()
         {
         }
 
@@ -75,7 +75,10 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected virtual void AddEventCallbacks()
         {
             Enemy.AttackCalculator.OnDamageTaken += HealthOnAttackApplied;
+            Enemy.Health.OnDied += OnDied;
         }
+
+        
 
         protected virtual void RemoveEventCallbacks()
         {
@@ -85,7 +88,10 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected virtual void HealthOnAttackApplied(AttackData obj)
         {
         }
-        
+        protected virtual void OnDied()
+        {
+            
+        }
         protected virtual void Rotate()
         {
             

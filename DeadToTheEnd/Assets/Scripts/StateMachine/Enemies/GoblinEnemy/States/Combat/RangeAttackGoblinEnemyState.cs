@@ -19,24 +19,24 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             StartAnimation(GoblinEnemyAnimationData.RangeAttackParameterHash);
         }
 
-        public override void OnAnimationEnterEvent()
+        public override void TriggerOnStateAnimationEnterEvent()
         {
-            base.OnAnimationEnterEvent();
+            base.TriggerOnStateAnimationEnterEvent();
             
             GoblinEnemy.NavMeshAgent.SetDestination(GoblinEnemy.Target.transform.position);
             GoblinEnemy.NavMeshAgent.isStopped = false;
         }
 
-        public override void OnAnimationHandleEvent()
+        public override void TriggerOnStateAnimationHandleEvent()
         {
-            base.OnAnimationHandleEvent();
+            base.TriggerOnStateAnimationHandleEvent();
             TargetLocked();
             GoblinEnemy.NavMeshAgent.isStopped = true;
         }
 
-        public override void OnAnimationExitEvent()
+        public override void TriggerOnStateAnimationExitEvent()
         {
-            base.OnAnimationExitEvent();
+            base.TriggerOnStateAnimationExitEvent();
             GoblinStateMachine.ChangeState(GoblinStateMachine.FollowGoblinEnemyState);
         }
 
