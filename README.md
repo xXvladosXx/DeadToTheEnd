@@ -1,2 +1,2 @@
-# DeadToTheEnd
-This project shows a game a simple architecture with lots of activity to do.
+# Dead to the end
+This project represents a game with lots of activities to do.
