@@ -655,11 +655,32 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.302583
+        functionName: OnLeftSwordColliderActivate
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.8
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.30309543
+        functionName: OnRightSwordColliderActivate
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.8
+        intParameter: 0
+        messageOptions: 0
       - time: 0.86375844
         functionName: TriggerOnStateAnimationExitEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.57933575
+        functionName: KnockAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.2
         intParameter: 0
         messageOptions: 0
       transformMask: []

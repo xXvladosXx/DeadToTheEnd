@@ -4,7 +4,9 @@ using CameraManage;
 using Data.Animations;
 using Data.Camera;
 using Data.Combat;
+using Data.ScriptableObjects;
 using Data.States;
+using Data.States.StateData.Player;
 using Entities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,7 +29,8 @@ namespace StateMachine.Player.States.Movement
             PlayerStateMachine = playerStateMachine;
 
             MainPlayer = PlayerStateMachine.MainPlayer;
-            PlayerGroundData = PlayerStateMachine.MainPlayer.PlayerData.GroundData;
+            var data = PlayerStateMachine.MainPlayer.EntityData as PlayerData;
+            PlayerGroundData = data.GroundData;
             PlayerAnimationData = MainPlayer.PlayerAnimationData;
 
             InitializeData();
@@ -52,19 +55,7 @@ namespace StateMachine.Player.States.Movement
 
         public virtual void Update()
         {
-            RaycastHit hit;
-            Vector3 fwd = MainPlayer.transform.TransformDirection(Vector3.forward);
-            Debug.DrawRay(MainPlayer.transform.position+ Vector3.up, fwd * 3, Color.green);
-            if (Physics.Raycast(MainPlayer.transform.position + Vector3.up, fwd, out hit, 3))
-            {
-                if (LayerChecker.IsInLayerMask(hit.collider.gameObject, MainPlayer.PlayerLayerData.EnemyLayer))
-                {
-                    Debug.Log(hit.collider.gameObject.layer);
-                }
-                if(hit.collider.gameObject.layer == MainPlayer.PlayerLayerData.EnemyLayer){
-                    Debug.Log("Close to enemy");
-                }
-            }
+            
         }
 
         public virtual void FixedUpdate()
@@ -163,7 +154,6 @@ namespace StateMachine.Player.States.Movement
                     PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerMediumHitState);
                     break;
                 case AttackType.Easy:
-                    PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLightHitState);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -251,10 +241,10 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity,
                 ForceMode.VelocityChange);
         }
-        protected void LookAtHitDirection()
+        protected void LookAt(Transform target)
         {
             Transform transform;
-            (transform = MainPlayer.transform).LookAt(MainPlayer.PlayerStateReusable.LastHitFromTarget);
+            (transform = MainPlayer.transform).LookAt(target);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
         private float GetSmoothMovementSpeed()

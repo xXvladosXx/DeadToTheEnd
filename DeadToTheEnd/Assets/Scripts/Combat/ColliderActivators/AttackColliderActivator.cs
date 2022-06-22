@@ -13,9 +13,16 @@ namespace Combat.ColliderActivators
     {
         private float _time = -1;
         protected AttackData AttackData;
+        protected CameraShaker CameraShaker;
 
         public event Action<AttackData> OnTargetHit;
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            CameraShaker = new CameraShaker();
+        }
+
         protected virtual void Update()
         {
             if (_time < 0 )
@@ -35,7 +42,7 @@ namespace Combat.ColliderActivators
             _time = time;
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             if(!enabled) return;
            
@@ -43,8 +50,12 @@ namespace Combat.ColliderActivators
             {
                 if(aliveEntity == GetComponentInParent<AliveEntity>()) return;
                 if(aliveEntity == AttackData.User) return;
+                if(aliveEntity.gameObject.layer == AttackData.User.gameObject.layer) return;
                
                 aliveEntity.AttackCalculator.TryToTakeDamage(AttackData);
+                CameraShaker.ShakeCameraOnAttackHit(AttackData);
+
+                Debug.Log("Hit");
                 OnTargetHit?.Invoke(AttackData);
             }
         }

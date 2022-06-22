@@ -33,7 +33,6 @@ namespace StateMachine
         public PlayerAttackState PlayerAttackState { get; set; }
         
         public PlayerMediumHitState PlayerMediumHitState { get; }
-        public PlayerLightHitState PlayerLightHitState { get; }
         public PlayerKnockHitState PlayerKnockHitState { get; }
         
         public PlayerSkillCastState PlayerSkillCastState { get; }
@@ -42,7 +41,7 @@ namespace StateMachine
         public PlayerThirdSkillCastState PlayerThirdSkillCastState { get; }
 
 
-        public PlayerStateMachine(MainPlayer player, GameObject gameObject)
+        public PlayerStateMachine(MainPlayer player)
         {
             MainPlayer = player;
             
@@ -54,7 +53,6 @@ namespace StateMachine
 
             PlayerLockedMovementState = new PlayerLockedMovement(this);
             
-            PlayerLightHitState = new PlayerLightHitState(this);
             PlayerMediumHitState = new PlayerMediumHitState(this);
             PlayerKnockHitState = new PlayerKnockHitState(this);
             

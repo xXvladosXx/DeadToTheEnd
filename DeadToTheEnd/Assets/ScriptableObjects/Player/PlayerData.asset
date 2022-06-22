@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a612724f38840f4a1b5a742dc095790, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  <PlayerShakeCameraData>k__BackingField:
-    <MediumAttackHitIntensity>k__BackingField: 0.7
-    <MediumAttackHitTime>k__BackingField: 0.2
-    <DamageTakenIntensity>k__BackingField: 0.4
-    <DamageTakenTime>k__BackingField: 0.4
-    <KnockDamageTakenIntensity>k__BackingField: 0.8
-    <KnockDamageTakenTime>k__BackingField: 0.4
+  <ShakeCameraData>k__BackingField:
+    <MediumAttackHitIntensity>k__BackingField: 0.8
+    <MediumAttackHitTime>k__BackingField: 0.3
+    <EasyAttackHitIntensity>k__BackingField: 0.5
+    <EasyAttackHitTime>k__BackingField: 0.3
+    <KnockAttackHitIntensity>k__BackingField: 1
+    <KnockAttackHitTime>k__BackingField: 0.4
+    <DamageTakenIntensity>k__BackingField: 0
+    <DamageTakenTime>k__BackingField: 0
+    <KnockDamageTakenIntensity>k__BackingField: 0
+    <KnockDamageTakenTime>k__BackingField: 0
   <GroundData>k__BackingField:
     <BaseSpeed>k__BackingField: 4
     <SmoothSpeedModifier>k__BackingField: 1.5
@@ -111,6 +115,10 @@ MonoBehaviour:
       <HardDeceleration>k__BackingField: 4.46
     <RollData>k__BackingField:
       <SpeedModifier>k__BackingField: 2
+    <AttackData>k__BackingField:
+      <DistanceOfRaycast>k__BackingField: 10
+      <DistanceToStopMoving>k__BackingField: 3
+      <Force>k__BackingField: 200
     <SideCameraRecenteringDatas>k__BackingField:
     - <MinimumAngle>k__BackingField: 0
       <MaximumAngle>k__BackingField: 80

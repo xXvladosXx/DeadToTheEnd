@@ -11,7 +11,7 @@
             base.Enter();
             
             StateMachine.StartCooldown(typeof(BaseHeavyAttackEnemyState),
-                Enemy.EnemyData.EnemyHeavyAttackData.AttackCooldown);
+                EnemyData.EnemyHeavyAttackData.AttackCooldown);
             
             StartAnimation(Enemy.EnemyAnimationData.HeavyAttackParameterHash);
         }

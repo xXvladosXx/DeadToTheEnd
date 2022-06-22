@@ -13,7 +13,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
         public override void Enter()
         {
             base.Enter();
-            MainPlayer.AttackColliderActivator.enabled = false;
+            MainPlayer.OrdinaryAttackColliderActivator.enabled = false;
             MainPlayer.DefenseColliderActivator.ActivateCollider();
             
             StartAnimation(PlayerAnimationData.DefenseParameterHash);
@@ -27,7 +27,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
             
             MainPlayer.DefenseColliderActivator.DeactivateCollider();
             MainPlayer.PlayerStateReusable.IsBlocking = false;
-            MainPlayer.AttackColliderActivator.enabled = true;
+            MainPlayer.OrdinaryAttackColliderActivator.enabled = true;
 
             StopAnimation(PlayerAnimationData.DefenseParameterHash);
         }
@@ -55,7 +55,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Defense
         
         private void OnDefenseImpact()
         {
-            CinemachineCameraSwitcher.Instance.ShakeCamera(1, .5f);
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDefenseImpactState);
         }
         private void OnBlockCanceled(InputAction.CallbackContext obj)

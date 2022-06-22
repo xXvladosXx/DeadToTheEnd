@@ -11,19 +11,20 @@ namespace Utilities.Camera
         [field: SerializeField] public float DefaultHorizontalWaitTime { get; private set; } = 0f;
         [field: SerializeField] public float DefaultHorizontalRecenteringTime { get; private set; } = 4f;
 
-        private CinemachinePOV cinemachinePOV;
+        private CinemachinePOV _cinemachinePov;
 
         public void Init()
         {
-            cinemachinePOV = VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
+            if(VirtualCamera != null)
+                _cinemachinePov = VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
         }
 
         public void EnableRecentering(float waitTime = -1f, float recenteringTime = -1f, 
             float baseMovementSpeed = 1f, float movementSpeed = 1f)
         {
-            cinemachinePOV.m_HorizontalRecentering.m_enabled = true;
+            _cinemachinePov.m_HorizontalRecentering.m_enabled = true;
 
-            cinemachinePOV.m_HorizontalRecentering.CancelRecentering();
+            _cinemachinePov.m_HorizontalRecentering.CancelRecentering();
 
             if (waitTime == -1f)
             {
@@ -37,13 +38,13 @@ namespace Utilities.Camera
 
             recenteringTime = recenteringTime * baseMovementSpeed / movementSpeed;
 
-            cinemachinePOV.m_HorizontalRecentering.m_WaitTime = waitTime;
-            cinemachinePOV.m_HorizontalRecentering.m_RecenteringTime = recenteringTime;
+            _cinemachinePov.m_HorizontalRecentering.m_WaitTime = waitTime;
+            _cinemachinePov.m_HorizontalRecentering.m_RecenteringTime = recenteringTime;
         }
 
         public void DisableRecentering()
         {
-            cinemachinePOV.m_HorizontalRecentering.m_enabled = false;
+            _cinemachinePov.m_HorizontalRecentering.m_enabled = false;
         }
     }
 }

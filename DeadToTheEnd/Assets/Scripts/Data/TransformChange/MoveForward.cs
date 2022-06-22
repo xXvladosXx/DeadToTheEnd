@@ -12,17 +12,17 @@ namespace SkillsSystem.SkillPrefab
 
         public override void Change(GameObject gameObject)
         {
-            Move(gameObject, _direction, Speed);
+            Move(gameObject, Speed);
         }
 
-        public override void SetData(AttackData attackData)
+        public override void SetData(AttackData attackData, GameObject gameObject)
         {
             _direction = attackData.User.transform.forward;
         }
 
-        public void Move(GameObject gameObject, Vector3 direction, float speed)
+        public void Move(GameObject gameObject, float speed)
         {
-            gameObject.transform.position += direction * Time.deltaTime * speed;
+            gameObject.transform.position += _direction * Time.deltaTime * speed;
         }
     }
 }

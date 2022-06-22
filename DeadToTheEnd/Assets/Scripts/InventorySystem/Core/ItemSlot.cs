@@ -9,6 +9,7 @@ namespace InventorySystem
     {
         public Item Item;
         public int ID;
+        public int Index;
         [Min(0)] 
         public int Quantity;
 
@@ -25,15 +26,15 @@ namespace InventorySystem
             Item = item;
             Quantity = quantity;
             ID = id;
-        }
-
-        public ItemSlot(Item item, int quantity)
+        } 
+        public ItemSlot(Item item, int quantity, int id, int index)
         {
             Item = item;
             Quantity = quantity;
-            ID = item.ItemData.Id;
+            ID = id;
+            Index = index;
         }
-
+       
         public void RemoveItem()
         {
             Item = null;
@@ -53,14 +54,12 @@ namespace InventorySystem
             if (item == null)
                 return true;
             
-            Debug.Log(ItemTypes.Length);
             if (ItemTypes.Length <= 0  || item.ItemData.Id < 0)
             {
                 return true;
             }
 
             var anyItem = ItemTypes.Any(t => (t & item.ItemType) == t);
-            Debug.Log(anyItem);
 
             return anyItem;  
         }

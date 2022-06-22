@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace InventorySystem
@@ -9,7 +10,7 @@ namespace InventorySystem
         [SerializeField] private ItemSlot[] _itemSlots;
         [SerializeField] private ItemDatabase _database;
 
-        public ItemSlot[] GetItemsSlots => _itemSlots;
+        public ItemSlot[] GetItemSlots => _itemSlots;
         public ItemDatabase GetDatabase => _database;
 
         public event Action OnItemUpdate;
@@ -19,12 +20,38 @@ namespace InventorySystem
         {
             _itemSlots = new ItemSlot[size];
         }
+        
+        public void Init()
+        {
+            for (int i = 0; i < _itemSlots.Length; i++)
+            {
+                if (_itemSlots[i].Item == null)
+                {
+                    _itemSlots[i].RemoveItem();
+                }
+                else
+                {
+                    if (_itemSlots[i].Quantity == 0)
+                    {
+                        _itemSlots[i].Quantity = 1;
+                    }
+                }
+                
+                _itemSlots[i].Index = i;
+            }
+        }
 
-        public ItemSlot AddItem(ItemSlot itemSlot)
+        public void AddItem(ItemSlot itemSlot, int itemSlotIndex)
+        {
+            _itemSlots[itemSlotIndex].UpdateSlot(itemSlot);
+            OnItemUpdate?.Invoke();
+        }
+        
+        public void AddItem(ItemSlot itemSlot)
         {
             foreach (var slot in _itemSlots)
             {
-                if (slot.Item == itemSlot.Item)
+                if (slot.Item == itemSlot.Item && itemSlot.Item != null)
                 {
                     int slotRemainingSpace = slot.Item.MaxItemsInInventorySlot - slot.Quantity;
                     if (itemSlot.Quantity <= slotRemainingSpace)
@@ -32,7 +59,7 @@ namespace InventorySystem
                         slot.Quantity += itemSlot.Quantity;
                         itemSlot.RemoveItem();
                         OnItemUpdate?.Invoke();
-                        return itemSlot;
+                        return ;
                     }
 
                     if (slotRemainingSpace > 0)
@@ -46,13 +73,13 @@ namespace InventorySystem
 
             for (int i = 0; i < _itemSlots.Length; i++)
             {
-                if (_itemSlots[i].Item == null)
+                if (_itemSlots[i].Item == null && itemSlot.Item != null)
                 {
                     if (itemSlot.Quantity <= itemSlot.Item.MaxItemsInInventorySlot)
                     {
                         SetSlot(itemSlot);
                         OnItemUpdate?.Invoke();
-                        return itemSlot;
+                        return ;
                     }
 
                     _itemSlots[i] = new ItemSlot(itemSlot.Item, itemSlot.Item.MaxItemsInInventorySlot, itemSlot.ID);
@@ -61,7 +88,6 @@ namespace InventorySystem
             }
 
             OnItemUpdate?.Invoke();
-            return itemSlot;
         }
 
         private void SetSlot(ItemSlot itemSlot)
@@ -75,21 +101,29 @@ namespace InventorySystem
             }
         }
         
-        public void RemoveItem(ItemSlot itemSlot)
+        public void RemoveItem(ItemSlot itemSlot, int quantity)
         {
             for (int i = 0; i < _itemSlots.Length; i++)
             {
                 if (_itemSlots[i].Item == null) continue;
                 if (_itemSlots[i] == itemSlot)
                 {
-                    _itemSlots[i].RemoveItem();
+                    if (quantity == itemSlot.Quantity)
+                    {
+                        _itemSlots[i].RemoveItem();
+                    }
+                    else
+                    {
+                        _itemSlots[i].Quantity -= quantity;
+                    }
+                    
                     OnItemUpdate?.Invoke();
                     OnItemContainerUpdate?.Invoke();
                     return;
                 }
             }
         }
-
+       
         public void RemoveAt(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex > _itemSlots.Length - 1)
@@ -140,7 +174,7 @@ namespace InventorySystem
 
             if (amountLeft <= 0)
             {
-                RemoveItem(draggedItem);
+                RemoveItem(draggedItem, draggedItem.Quantity);
                 OnItemUpdate?.Invoke();
 
                 return true;
@@ -150,6 +184,13 @@ namespace InventorySystem
             OnItemUpdate?.Invoke();
 
             return true;
+        }
+
+        public bool HasEnoughSpace()
+        {
+            int freeSlots = _itemSlots.Count(itemSlot => itemSlot.Item == null || itemSlot.ID < 0);
+
+            return freeSlots > 0;
         }
 
         public bool HasItem(Item item)
@@ -200,7 +241,7 @@ namespace InventorySystem
         }
 
         public ItemSlot GetSlotByIndex(int index) => _itemSlots[index];
-
+        
         public void AddSlots(int newSlots)
         {
             var oldLenght = _itemSlots.Length;
@@ -213,5 +254,15 @@ namespace InventorySystem
             
             OnItemContainerUpdate?.Invoke();
         }
+
+        public void Clear()
+        {
+            foreach (var itemsSlot in _itemSlots)
+            {
+                itemsSlot.RemoveItem();
+            }
+        }
+
+        
     }
 }

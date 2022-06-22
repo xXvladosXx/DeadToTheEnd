@@ -11,7 +11,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
         public override void Enter()
         {
             base.Enter();
-            CinemachineCameraSwitcher.Instance.ShakeCamera(.6f, .3f);
 
             StartAnimation(PlayerAnimationData.MediumHitParameterHash);
         }

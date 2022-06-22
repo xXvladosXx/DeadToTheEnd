@@ -1,4 +1,4 @@
-﻿using CameraManage;
+﻿/*using CameraManage;
 
 namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
@@ -11,7 +11,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
         public override void Enter()
         {
             base.Enter();
-            CinemachineCameraSwitcher.Instance.ShakeCamera(.3f, .3f);
 
             StartAnimation(PlayerAnimationData.EasyHitParameterHash);
         }
@@ -22,4 +21,4 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
             StopAnimation(PlayerAnimationData.EasyHitParameterHash);
         }
     }
-}
+}*/

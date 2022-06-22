@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data.Camera;
-using Data.States.StateData.Player;
 using UnityEngine;
 
-namespace Data.States
+namespace Data.States.StateData.Player
 {
     [Serializable]
     public sealed class PlayerGroundData
@@ -21,6 +20,7 @@ namespace Data.States
         [field: SerializeField] public PlayerDashData DashData { get; private set; }
         [field: SerializeField] public PlayerStopData StopData { get; private set; }
         [field: SerializeField] public PlayerRollData RollData { get; private set; }
+        [field: SerializeField] public PlayerAttackData AttackData { get; private set; }
         [field: SerializeField] public List<PlayerCameraRecenteringData> SideCameraRecenteringDatas { get; private set; }
         [field: SerializeField] public List<PlayerCameraRecenteringData> BackCameraRecenteringDatas { get; private set; }
     }

@@ -12,7 +12,7 @@ namespace Data.TransformChange
             gameObject.transform.localScale +=  Vector3.one * Time.deltaTime * Speed;
         }
 
-        public override void SetData(AttackData attackData)
+        public override void SetData(AttackData attackData, GameObject gameObject)
         {
             
         }

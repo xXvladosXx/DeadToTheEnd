@@ -12,7 +12,7 @@ namespace Combat.ColliderActivators
         {
             foreach (var transformChanger in _transformChangers)
             {
-                transformChanger.SetData(AttackData);
+                transformChanger.SetData(AttackData, gameObject);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using GameCore;
 using UnityEngine;
 
 namespace UI
@@ -25,7 +26,7 @@ namespace UI
             OnElementHide?.Invoke();   
         }
 
-        public abstract void OnCreate();
+        public abstract void OnCreate(InteractorsBase interactorsBase);
         public abstract void OnInitialize();
         public abstract void OnStart();
     }

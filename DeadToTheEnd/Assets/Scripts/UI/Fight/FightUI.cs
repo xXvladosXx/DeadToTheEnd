@@ -1,8 +1,10 @@
+using GameCore;
+
 namespace UI
 {
     public class FightUI : UIElement
     {
-        public override void OnCreate()
+        public override void OnCreate(InteractorsBase interactorsBase)
         {
         }
 

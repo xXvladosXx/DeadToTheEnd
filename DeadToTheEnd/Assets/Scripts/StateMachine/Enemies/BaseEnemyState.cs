@@ -18,14 +18,18 @@ namespace StateMachine.WarriorEnemy.States.Movement
     public abstract class BaseEnemyState : IState
     {
         protected readonly Enemy Enemy;
-
+        protected readonly EnemyData EnemyData;
+        
         protected readonly StateMachine StateMachine;
         protected Func<bool>[] CanAttackFunctions;
 
         protected BaseEnemyState(StateMachine stateMachine)
         {
             Enemy = stateMachine.AliveEntity as Enemy;
+            EnemyData = Enemy.EntityData as EnemyData;
+
             StateMachine = stateMachine;
+            
         }
 
         public virtual void Enter()
@@ -136,7 +140,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected void HandleMoveToTarget()
         {
            
-            if (IsEnoughDistance(Enemy.EnemyData.EnemyWalkData.StoppingDistance,
+            if (IsEnoughDistance(EnemyData.EnemyWalkData.StoppingDistance,
                     Enemy.transform,
                     Enemy.Target.transform))
             {
@@ -148,7 +152,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
                 return;
             }
             
-            if (!IsEnoughDistance(Enemy.EnemyData.EnemyWalkData.StoppingDistance,
+            if (!IsEnoughDistance(EnemyData.EnemyWalkData.StoppingDistance,
                     Enemy.transform,
                     Enemy.Target.transform))
             {
@@ -191,7 +195,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 Enemy.transform.rotation = Quaternion.Slerp(
                     Enemy.transform.rotation, targetRotation,
-                    Enemy.EnemyData.EnemyIdleData.RotationSpeedModifer / Time.deltaTime);
+                    EnemyData.EnemyIdleData.RotationSpeedModifer / Time.deltaTime);
             }
             else
             {

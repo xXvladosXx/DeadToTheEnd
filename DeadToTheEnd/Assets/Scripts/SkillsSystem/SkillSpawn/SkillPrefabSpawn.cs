@@ -13,6 +13,7 @@ namespace SkillsSystem
     {
         [field: SerializeField] public AttackColliderActivator AttackColliderActivator { get; private set; }
         [field: SerializeField] public Vector3 Offset { get; private set; }
+        [field: SerializeField] public Vector3 Rotation { get; private set; }
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public float TimeToDestroy { get; private set; }
         public override void SpawnPrefab(SkillData skillData)
@@ -20,7 +21,7 @@ namespace SkillsSystem
             skillData.AttackData.Speed = Speed;
             
             var attackColliderActivator = Instantiate(AttackColliderActivator,
-                skillData.AttackData.User.transform.position + Offset, quaternion.identity);
+                skillData.AttackData.User.transform.position + Offset, Quaternion.Euler(Rotation));
             
             attackColliderActivator.ActivateCollider(10f, skillData.AttackData);
             

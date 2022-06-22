@@ -5,11 +5,13 @@ namespace InventorySystem
     [CreateAssetMenu (menuName = "InventorySystem/Inventory")]
     public class Inventory : ScriptableObject
     {
-        public ItemContainer ItemContainer = new ItemContainer(20);
+        public ItemContainer ItemContainer = new ItemContainer(40);
 
         private void OnEnable()
         {
-            foreach (var itemSlot in ItemContainer.GetItemsSlots)
+            ItemContainer.Init();
+            
+            foreach (var itemSlot in ItemContainer.GetItemSlots)
             {
                 if (itemSlot.Item != null)
                 {

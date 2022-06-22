@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bb4ba90fea4116aa07ae15e17a2c07, type: 3}
+  m_Name: SecondSkill
+  m_EditorClassIdentifier: 
+  _skillForm: {fileID: 11400000, guid: a7f65bd7c3ed0224b82f0225880c54ff, type: 2}
+  <SkillRequirements>k__BackingField:
+  - {fileID: 11400000, guid: 0677cf3403dbb2d4cbde8f49e3678699, type: 2}
+  <SkillEffects>k__BackingField:
+  - {fileID: 11400000, guid: 0dc58f01ca708364abb60d5761427b0f, type: 2}
+  - {fileID: 11400000, guid: edbbbe1dbbfc495428fe178b47002c42, type: 2}
+  <SkillBonuses>k__BackingField:
+  - {fileID: 11400000, guid: 6d0cd14b8fc54644c98f9e98e3858ebb, type: 2}
+  <SkillPrefabSpawns>k__BackingField:
+  - {fileID: 11400000, guid: f4a396f7772e2d84e9be7d9d2e4eb1a2, type: 2}

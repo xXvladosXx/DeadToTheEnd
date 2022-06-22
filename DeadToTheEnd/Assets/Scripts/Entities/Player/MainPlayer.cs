@@ -7,9 +7,11 @@ using Data.Camera;
 using Data.Combat;
 using Data.Layers;
 using Data.ScriptableObjects;
+using Data.Shop;
 using Data.States;
 using Data.Stats;
 using Entities.Core;
+using InventorySystem;
 using StateMachine;
 using UnityEngine;
 using Utilities;
@@ -18,24 +20,26 @@ using Utilities.Collider;
 
 namespace Entities
 {
-    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerInput), typeof(ItemEquipper))]
     public sealed class MainPlayer : AliveEntity
     {
         [field:SerializeField] public SwordActivator LongSwordActivator { get; private set; }
         [field:SerializeField] public ShortSwordActivator[] ShortSwordsActivator { get; private set; }
-        [field: SerializeField] public PlayerData PlayerData { get; private set; }
         [field: SerializeField] public PlayerColliderUtility ColliderUtility { get; private set; }
         [field: SerializeField] public PlayerLayerData PlayerLayerData { get; private set; }
         [field: SerializeField] public PlayerCameraUtility CameraUtility { get; private set; }
         [field: SerializeField] public PlayerAnimationData PlayerAnimationData { get; private set; }
+        [field: SerializeField] public Gold Gold { get; private set; }
+        
         public Transform MainCamera { get; private set; }
         public PlayerInput InputAction { get; private set; }
+        public ItemEquipper ItemEquipper { get; private set; }
         
         public PlayerStateReusableData PlayerStateReusable { get; private set; }
         public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
 
-
+        
 
         protected override void Awake()
         {
@@ -52,11 +56,12 @@ namespace Entities
 
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
             ShortSwordColliderActivators = GetComponentsInChildren<ShortAttackColliderActivator>();
+            ItemEquipper = GetComponent<ItemEquipper>();
 
             Reusable = new PlayerStateReusableData();
             PlayerStateReusable = (PlayerStateReusableData) Reusable;
             AttackCalculator = new AttackCalculator(PlayerStateReusable);
-            StateMachine = new PlayerStateMachine(this, gameObject);
+            StateMachine = new PlayerStateMachine(this);
 
         }
 

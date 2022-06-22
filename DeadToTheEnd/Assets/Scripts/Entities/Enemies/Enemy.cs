@@ -13,7 +13,6 @@ namespace Entities.Enemies
     public abstract class Enemy : AliveEntity, ILockable
     {
         [field: SerializeField] public EnemyAnimationData EnemyAnimationData { get; protected set; }
-        [field: SerializeField] public EnemyData EnemyData { get; protected set; }
         
         [SerializeField] private Transform _lockAim;
         public NavMeshAgent NavMeshAgent { get; private set; }

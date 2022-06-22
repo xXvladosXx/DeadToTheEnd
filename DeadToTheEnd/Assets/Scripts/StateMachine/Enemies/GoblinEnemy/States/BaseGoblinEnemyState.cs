@@ -102,7 +102,13 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             GoblinStateMachine.AliveEntity.AttackCalculator.OnDamageTaken -= HealthOnAttackApplied;
             Enemy.AttackCalculator.OnAttackApplied -= OnDefenseImpact;
         }
-        
+
+        protected override void OnDied()
+        {
+            base.OnDied();
+            GoblinStateMachine.ChangeState(GoblinStateMachine.BaseDieEnemyState);
+        }
+
         protected override void HealthOnAttackApplied(AttackData attackData)
         {
             switch (attackData.AttackType)

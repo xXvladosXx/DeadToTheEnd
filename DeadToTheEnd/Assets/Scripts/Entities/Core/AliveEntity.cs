@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Combat.ColliderActivators;
 using Combat.SwordActivators;
 using Data.Combat;
+using Data.ScriptableObjects;
 using Data.States;
 using Data.States.StateData;
 using Data.Stats;
@@ -13,20 +14,24 @@ using UnityEngine;
 
 namespace Entities.Core
 {
-    [RequireComponent(typeof(Animator), typeof(Rigidbody),
+    [RequireComponent(typeof(Animator), 
+        typeof(Rigidbody),
         typeof(Collider))]
+    
+    [RequireComponent(typeof(AnimationEventTrigger))]
     public abstract class AliveEntity : MonoBehaviour, ISkillUser
     {
         [SerializeField] private AliveEntityStatsModifierData _aliveEntityStatsModifierData;
-        [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public AliveEntityStatsData AliveEntityStatsData { get; private set; } 
         [field: SerializeField] public LevelCalculator LevelCalculator { get; private set; }
+        [field: SerializeField] public EntityData EntityData { get; protected set; }
+
 
         protected StateMachine.StateMachine StateMachine;
         public Health Health { get; private set; }
         
         public AttackCalculator AttackCalculator { get; protected set; }
-        public LongAttackColliderActivator AttackColliderActivator { get; private set; }
+        public OrdinaryAttackColliderActivator OrdinaryAttackColliderActivator { get; private set; }
         public AliveEntity Target { get; protected set; }
         public IReusable Reusable { get; set; }
         public Rigidbody Rigidbody { get; private set; }
@@ -40,7 +45,7 @@ namespace Entities.Core
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
             
-            AttackColliderActivator = GetComponentInChildren<LongAttackColliderActivator>();
+            OrdinaryAttackColliderActivator = GetComponentInChildren<OrdinaryAttackColliderActivator>();
             LevelCalculator.Init(AliveEntityStatsData);
             StatsFinder = new StatsFinder(AliveEntityStatsData, _aliveEntityStatsModifierData, LevelCalculator);
             Health = new Health(StatsFinder);
@@ -72,10 +77,10 @@ namespace Entities.Core
 
         public void OnAttackMake(float time, AttackType attackType)
         {
-            AttackColliderActivator.enabled = true;
+            OrdinaryAttackColliderActivator.enabled = true;
             var attackData = CreateAttackData(attackType);
             
-            AttackColliderActivator.ActivateCollider(time, attackData);
+            OrdinaryAttackColliderActivator.ActivateCollider(time, attackData);
         }
         public void OnMovementStateAnimationEnterEvent()
         {
@@ -97,7 +102,8 @@ namespace Entities.Core
             {
                 AttackType = attackType,
                 User = this,
-                Damage = StatsFinder.GetStat(Stat.Damage)
+                Damage = StatsFinder.GetStat(Stat.Damage),
+                ShakeCameraData = EntityData.ShakeCameraData
             };
 
             return attackData;

@@ -8,6 +8,6 @@ namespace Data.TransformChange
         [SerializeField] protected float Speed;
 
         public abstract void Change(GameObject gameObject);
-        public abstract void SetData(AttackData attackData);
+        public abstract void SetData(AttackData attackData, GameObject gameObject);
     }
 }

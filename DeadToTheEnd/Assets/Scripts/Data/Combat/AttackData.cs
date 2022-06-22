@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using Data.Camera;
+using Entities;
 using Entities.Core;
 
 namespace Data.Combat
@@ -16,5 +17,6 @@ namespace Data.Combat
         public AttackType AttackType { get; set; }
         public AliveEntity User { get; set; }
         public float Speed { get; set; }
+        public ShakeCameraData ShakeCameraData { get; set; }
     }
 }

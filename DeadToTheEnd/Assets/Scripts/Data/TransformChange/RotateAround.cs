@@ -17,7 +17,7 @@ namespace Data.TransformChange
             Rotate(gameObject, gameObject.transform.up, Speed);
         }
 
-        public override void SetData(AttackData attackData)
+        public override void SetData(AttackData attackData, GameObject gameObject)
         {
             
         }

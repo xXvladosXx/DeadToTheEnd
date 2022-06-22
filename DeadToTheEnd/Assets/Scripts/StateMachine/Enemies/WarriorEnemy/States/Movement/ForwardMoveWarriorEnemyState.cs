@@ -13,7 +13,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             base.Enter();
             
             WarriorEnemy.NavMeshAgent.isStopped = false;
-            WarriorEnemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyWalkData.WalkSpeedModifer;
+            WarriorEnemy.NavMeshAgent.speed = EnemyData.EnemyWalkData.WalkSpeedModifer;
         }
 
         public override void Update()

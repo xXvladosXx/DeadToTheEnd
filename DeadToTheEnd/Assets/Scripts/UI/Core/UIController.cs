@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Entities;
+using GameCore;
+using GameCore.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +11,6 @@ namespace UI
 {
     public class UIController : MonoBehaviour
     {
-        [SerializeField] private MainPlayer _mainPlayer;
 
         [SerializeField] private Button _inventory;
         [SerializeField] private Button _shop;
@@ -19,9 +20,22 @@ namespace UI
 
         private List<UIElement> _uiElements;
         private UIElement _currentUIElement;
+        private MainPlayer _mainPlayer;
 
-        private void Awake()
+        private Dictionary<Type, IUIElement> _createdUIElements;
+        
+        public void Init()
         {
+            gameObject.SetActive(true);
+            _createdUIElements = new Dictionary<Type, IUIElement>();
+            foreach (Transform child in transform)
+            {
+                if(child.TryGetComponent(out IUIElement uiElement))
+                {
+                    _createdUIElements.Add(uiElement.GetType(), uiElement);
+                }
+            }
+            
             _uiElements = GetComponentsInChildren<UIElement>().ToList();
             foreach (var uiElement in _uiElements)
             {
@@ -30,9 +44,12 @@ namespace UI
 
             _inventory.onClick.AddListener(SwitchUIElement<CharacterContainerUI>);
             _shop.onClick.AddListener(SwitchUIElement<ShopUI>);
+            _skills.onClick.AddListener(SwitchUIElement<SkillsUI>);
+            _quests.onClick.AddListener(SwitchUIElement<QuestsUI>);
+            _fight.onClick.AddListener(SwitchUIElement<FightUI>);
         }
 
-        private void Start()
+        private void CreateInputs()
         {
             ReadInventoryInput();
             ReadShopInput();
@@ -43,45 +60,29 @@ namespace UI
 
         private void ReadFightInput()
         {
-            _mainPlayer.InputAction.BarActions.Fight.performed += context =>
-            {
-                SwitchUIElement<FightUI>();
-
-            };
+            _mainPlayer.InputAction.BarActions.Fight.performed += context => { SwitchUIElement<FightUI>(); };
         }
 
         private void ReadQuestsInput()
         {
-            _mainPlayer.InputAction.BarActions.Quests.performed += context =>
-            {
-                SwitchUIElement<QuestsUI>();
-
-            };
+            _mainPlayer.InputAction.BarActions.Quests.performed += context => { SwitchUIElement<QuestsUI>(); };
         }
 
         private void ReadSkillsInput()
         {
-            _mainPlayer.InputAction.BarActions.Skills.performed += context =>
-            {
-                SwitchUIElement<SkillsUI>();
-
-            };
+            _mainPlayer.InputAction.BarActions.Skills.performed += context => { SwitchUIElement<SkillsUI>(); };
         }
 
         private void ReadShopInput()
         {
-            _mainPlayer.InputAction.BarActions.Shop.performed += context =>
-            {
-                SwitchUIElement<ShopUI>();
-
-            };
+            _mainPlayer.InputAction.BarActions.Shop.performed += context => { SwitchUIElement<ShopUI>(); };
         }
 
         private void ReadInventoryInput()
         {
             _mainPlayer.InputAction.BarActions.Inventory.performed += context =>
             {
-                    SwitchUIElement<CharacterContainerUI>();
+                SwitchUIElement<CharacterContainerUI>();
             };
         }
 
@@ -124,5 +125,51 @@ namespace UI
             var type = typeof(T);
             return (T) _uiElements[type];
         }*/
+        public void SendMessageOnCreate(InteractorsBase interactorsBase)
+        {
+            _mainPlayer = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer;
+        }
+
+        public void SendMessageOnInitialize(InteractorsBase interactorsBase)
+        {
+            Init();
+            CreateInputs();
+            
+            foreach (var uiElement in _uiElements)
+            {
+                uiElement.OnCreate(interactorsBase);
+            }
+        }
+        
+        public void SendMessageOnStart(InteractorsBase interactorsBase)
+        {
+           
+        }
+        
+        private T CreateAndShowElement<T>(UIElement prefab) where T : UIElement {
+            _createdUIElements[typeof(T)] = prefab;
+            prefab.Show();
+            return (T) prefab;
+        }
+        
+        public T GetUIElement<T>() where T : UIElement {
+            
+            var type = typeof(T);
+            _createdUIElements.TryGetValue(type, out var uiElement);
+            return (T) uiElement;
+        }
+        
+        public void Clear() {
+            if (_createdUIElements == null)
+                return;
+
+            var allCreatedUIElements = _createdUIElements.Values.ToArray();
+            foreach (var uiElement in allCreatedUIElements)
+                Destroy(uiElement.GameObject);
+
+            _createdUIElements.Clear();
+        }
+
+       
     }
 }

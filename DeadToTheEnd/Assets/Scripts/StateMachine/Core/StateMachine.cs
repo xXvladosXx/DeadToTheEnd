@@ -36,9 +36,10 @@ namespace StateMachine
 
         public virtual void Update()
         {
+            Debug.Log(_currentState);
             _currentState?.Update();
             CooldownTimer.Update(Time.deltaTime, CurrentStatesCooldown);
-            StatesCooldown = CooldownTimer.StatesCooldown;
+            StatesCooldown = CooldownTimer.Cooldowns;
         }
 
         public void HandleInput()

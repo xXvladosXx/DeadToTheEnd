@@ -1,0 +1,22 @@
+﻿using Entities;
+using GameCore.Save;
+using SaveSystem;
+using UnityEngine;
+
+namespace GameCore.Player
+{
+    public class PlayerInteractor : Interactor
+    {
+        public MainPlayer MainPlayer { get; private set; }
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            
+            var player = Object.Instantiate(Resources.Load ("Characters/Player") as GameObject);
+            Game.GetInteractor<SaveInteractor>().AddEntity(player.GetComponent<SavableEntity>());
+
+            MainPlayer = player.GetComponent<MainPlayer>();
+            Debug.Log(MainPlayer);
+        }
+    }
+}

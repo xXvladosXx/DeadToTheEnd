@@ -16,7 +16,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
             StartAnimation(Enemy.EnemyAnimationData.RollParameterHash);
 
             Enemy.NavMeshAgent.updateRotation = false;
-            Enemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyRollData.RollSpeedModifer;
+            Enemy.NavMeshAgent.speed = EnemyData.EnemyRollData.RollSpeedModifer;
         }
 
         public override void Update()

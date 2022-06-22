@@ -2,16 +2,18 @@
 using Data.Combat;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities.Layer;
 
 namespace StateMachine.Player.States.Movement.Grounded.Combat
 {
     public class PlayerAttackState : PlayerGroundedState
     {
         private bool _stopRotating;
+
         public PlayerAttackState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
-        
+
         public override void Enter()
         {
             base.Enter();
@@ -19,17 +21,20 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             ResetAnimatorSpeed();
             MainPlayer.PlayerStateReusable.ShouldAttack = false;
             MainPlayer.PlayerStateReusable.IsMovingAfterStop = true;
-            
+
             StartAnimation(PlayerAnimationData.Attack1ParameterHash);
-            
+
             MainPlayer.Animator.applyRootMotion = true;
             _stopRotating = false;
+
+            MoveToTarget();
         }
+
         
         public override void Exit()
         {
             base.Exit();
-            
+
             StopAnimation(PlayerAnimationData.Attack1ParameterHash);
             MainPlayer.Animator.applyRootMotion = false;
         }
@@ -37,8 +42,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         public override void Update()
         {
             base.Update();
-            
-            if(_stopRotating) return;
+
+            if (_stopRotating) return;
             RotateToPoint();
         }
 
@@ -65,19 +70,36 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             _stopRotating = true;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
         }
-        
+
         public override void TriggerOnStateAnimationHandleEvent()
         {
             base.TriggerOnStateAnimationHandleEvent();
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
         }
+
         protected override void OnAttackPerformed(InputAction.CallbackContext obj)
         {
             MainPlayer.PlayerStateReusable.ShouldCombo = true;
 
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerComboAttackState);
         }
+        
+        private void MoveToTarget()
+        {
+            GameObject target = null;
 
-       
+            RaycastHit raycastHit;
+            if (Physics.Raycast(MainPlayer.MainCamera.position, MainPlayer.MainCamera.forward, out raycastHit,
+                    PlayerGroundData.AttackData.DistanceOfRaycast, MainPlayer.PlayerLayerData.EnemyLayer))
+            {
+                target = raycastHit.collider.gameObject;
+                LookAt(target.transform);
+                if (Vector3.Distance(target.transform.position, MainPlayer.transform.position) > PlayerGroundData.AttackData.DistanceToStopMoving)
+                {
+                    MainPlayer.Rigidbody.AddForce(MainPlayer.transform.forward * PlayerGroundData.AttackData.Force, ForceMode.Impulse);
+                }
+            }
+        }
+
     }
 }

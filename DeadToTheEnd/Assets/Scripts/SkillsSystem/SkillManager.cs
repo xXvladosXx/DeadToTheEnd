@@ -30,6 +30,13 @@ namespace SkillsSystem
         {
             _cooldownTimer.Update(Time.deltaTime, CurrentSkillsCooldown);
 
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _skill.ApplySkill(GetComponent<AliveEntity>());
+                var activeSkill = _skill as ActiveSkill;
+                _lastAppliedSkill = activeSkill;
+            }
+            
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 _skill.ApplySkill(GetComponent<AliveEntity>());

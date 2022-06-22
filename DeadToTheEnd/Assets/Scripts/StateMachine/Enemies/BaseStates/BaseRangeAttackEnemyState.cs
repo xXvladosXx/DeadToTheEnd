@@ -14,7 +14,7 @@ namespace StateMachine.Enemies.BaseStates
             base.Enter();
 
             StateMachine.StartCooldown(typeof(BaseRangeAttackEnemyState),
-                Enemy.EnemyData.EnemyRangeAttackData.AttackCooldown);
+                EnemyData.EnemyRangeAttackData.AttackCooldown);
 
             StartAnimation(Enemy.EnemyAnimationData.RangeAttackParameterHash);
         }
@@ -24,7 +24,7 @@ namespace StateMachine.Enemies.BaseStates
             base.TriggerOnStateAnimationEnterEvent();
             TargetLocked();
             Enemy.NavMeshAgent.SetDestination(Enemy.Target.transform.position);
-            Enemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyRangeAttackData.WalkSpeedModifer;
+            Enemy.NavMeshAgent.speed = EnemyData.EnemyRangeAttackData.WalkSpeedModifer;
 
             Enemy.NavMeshAgent.isStopped = false;
         }

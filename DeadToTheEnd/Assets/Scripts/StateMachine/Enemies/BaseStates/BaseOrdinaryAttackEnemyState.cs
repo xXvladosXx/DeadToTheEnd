@@ -10,9 +10,9 @@
         {
             base.Enter();
             
-            Enemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyOrdinaryAttackData.WalkSpeedModifer;
+            Enemy.NavMeshAgent.speed = EnemyData.EnemyOrdinaryAttackData.WalkSpeedModifer;
             StateMachine.StartCooldown(typeof(BaseOrdinaryAttackEnemyState),
-                Enemy.EnemyData.EnemyOrdinaryAttackData.AttackCooldown);
+                EnemyData.EnemyOrdinaryAttackData.AttackCooldown);
         }
 
         public override void TriggerOnStateAnimationEnterEvent()
@@ -21,7 +21,7 @@
             
             TargetLocked();
             
-            Enemy.NavMeshAgent.speed = Enemy.EnemyData.EnemyOrdinaryAttackData.WalkSpeedModifer;
+            Enemy.NavMeshAgent.speed = EnemyData.EnemyOrdinaryAttackData.WalkSpeedModifer;
             Enemy.NavMeshAgent.SetDestination(Enemy.Target.transform.position);
             Enemy.NavMeshAgent.isStopped = false;
         }

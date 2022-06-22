@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class RFX4_PhysicsMotion : MonoBehaviour
 {
+    [SerializeField] private LayerMask _layerMask;
+    
     public bool UseCollisionDetect = true;
     public float MaxDistnace = -1;
     public float Mass = 1;

@@ -9,17 +9,14 @@ namespace AnimatorStateMachine.States
     public class SpawnEffectAnimatorState : BaseAnimatorState
     {
         [SerializeField] private GameObject _particle;
-        [SerializeField] private Vector3 _position;
+        [SerializeField] private Vector3 _offset;
         [SerializeField] private Vector3 _rotation;
         [SerializeField] private float _timeToSpawn;
         [SerializeField] private float _lifeTime;
-        [SerializeField] private ActiveSkill _activeSkill;
 
         private bool _wasSpawned;
-        private Skill _currentSkill;
         public override void OnEnter(AnimatorMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            _currentSkill = animator.GetComponent<SkillManager>().Skill;
         }
 
         public override void OnUpdate(AnimatorMachine characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -29,7 +26,8 @@ namespace AnimatorStateMachine.States
             if (stateInfo.normalizedTime > _timeToSpawn)
             {
                 _wasSpawned = true;
-                GameObject particle = Instantiate(_particle, animator.transform);
+                GameObject particle = Instantiate(_particle, animator.transform.forward + animator.transform.position + _offset, 
+                    Quaternion.Euler(_rotation));
                 
                 Destroy(particle, _lifeTime);
             }

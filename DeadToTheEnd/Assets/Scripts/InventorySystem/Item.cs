@@ -10,7 +10,7 @@ namespace InventorySystem
         [SerializeField] private string _title;
         [SerializeField] private string _description;
         [SerializeField] private int _maxItemsInInventory;
-        [SerializeField] private float _sellPrice;
+        [SerializeField] private int _sellPrice;
         [SerializeField] private ItemType _itemType;
 
         [SerializeField] private ItemData _itemData = new ItemData();
@@ -25,7 +25,7 @@ namespace InventorySystem
         public string Title => _title;
         public string Description => _description;
         public int MaxItemsInInventorySlot => _maxItemsInInventory;
-        public float SellPrice => _sellPrice;
+        public int SellPrice => _sellPrice;
         
         public abstract string GetInfoDisplayText();
     }
