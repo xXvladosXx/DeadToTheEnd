@@ -75,11 +75,9 @@ namespace GameCore.Save
                 return new Dictionary<string, object>();
             }
 
-            using (FileStream fileStream = File.Open(path, FileMode.Open))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                return (Dictionary<string, object>) formatter.Deserialize(fileStream);
-            }
+            using FileStream fileStream = File.Open(path, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+            return (Dictionary<string, object>) formatter.Deserialize(fileStream);
         }
 
         private void RestoreState(Dictionary<string, object> state)

@@ -1,8 +1,10 @@
-﻿namespace StateMachine.Enemies.BaseStates
+﻿using StateMachine.Core;
+
+namespace StateMachine.Enemies.BaseStates
 {
     public class BaseHeavyAttackEnemyState : BaseAttackEnemyState
     {
-        public BaseHeavyAttackEnemyState(StateMachine stateMachine) : base(stateMachine)
+        public BaseHeavyAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
         {
         }
         

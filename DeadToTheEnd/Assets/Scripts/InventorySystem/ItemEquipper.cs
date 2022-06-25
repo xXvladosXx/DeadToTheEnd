@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data.States.StateData.Player;
+using Entities;
+using LootSystem;
 using SaveSystem;
 using UnityEngine;
+using Utilities.Raycast;
 
 namespace InventorySystem
 {
@@ -9,6 +13,8 @@ namespace InventorySystem
     {   
         [field: SerializeField] public Inventory Inventory { get; private set; }
         [field: SerializeField] public Inventory Equipment { get; private set; }
+
+
         public object CaptureState()
         {
             var savedInventories = new SavableInventories

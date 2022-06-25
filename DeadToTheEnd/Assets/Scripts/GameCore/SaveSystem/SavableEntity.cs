@@ -8,7 +8,7 @@ namespace SaveSystem
     public class SavableEntity : MonoBehaviour
    {
       [SerializeField] private string _uniqueIdentifier = System.Guid.NewGuid().ToString();
-      private static Dictionary<string, SavableEntity> globalLookThrough = new Dictionary<string, SavableEntity>();
+      private static readonly Dictionary<string, SavableEntity> GlobalLookThrough = new Dictionary<string, SavableEntity>();
       
       public string GetUniqueIdentifier()
       {
@@ -58,30 +58,30 @@ namespace SaveSystem
             serializedObject.ApplyModifiedProperties();
          }
 
-         globalLookThrough[serializedProperty.stringValue] = this;
+         GlobalLookThrough[serializedProperty.stringValue] = this;
       }
 
       private bool IsUnique(string candidate)
       { 
-         if(!globalLookThrough.ContainsKey(candidate))
+         if(!GlobalLookThrough.ContainsKey(candidate))
          {
             return true;
          }
 
-         if (globalLookThrough[candidate] == this)
+         if (GlobalLookThrough[candidate] == this)
          {
             return true;
          }
 
-         if (globalLookThrough[candidate] == null)
+         if (GlobalLookThrough[candidate] == null)
          {
-            globalLookThrough.Remove(candidate);
+            GlobalLookThrough.Remove(candidate);
             return true;
          }
 
-         if (globalLookThrough[candidate].GetUniqueIdentifier() != candidate)
+         if (GlobalLookThrough[candidate].GetUniqueIdentifier() != candidate)
          {
-            globalLookThrough.Remove(candidate);
+            GlobalLookThrough.Remove(candidate);
             return true;
          }
       

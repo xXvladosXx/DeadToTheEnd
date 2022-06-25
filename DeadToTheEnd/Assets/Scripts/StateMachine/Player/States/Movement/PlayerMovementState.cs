@@ -8,9 +8,11 @@ using Data.ScriptableObjects;
 using Data.States;
 using Data.States.StateData.Player;
 using Entities;
+using LootSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities.Layer;
+using Utilities.Raycast;
 
 namespace StateMachine.Player.States.Movement
 {

@@ -1,4 +1,5 @@
 ﻿using Entities;
+using StateMachine.Core;
 using StateMachine.Enemies.BaseStates;
 using StateMachine.Enemies.GoblinEnemy.States.Combat;
 using StateMachine.Enemies.GoblinEnemy.States.Defense;
@@ -7,7 +8,7 @@ using StateMachine.Enemies.GoblinEnemy.States.Movement.Hit;
 
 namespace StateMachine.Enemies.GoblinEnemy
 {
-    public class GoblinStateMachine : StateMachine
+    public class GoblinStateMachine : EntityStateMachine
     {
         public FollowGoblinEnemyState FollowGoblinEnemyState { get; }
         public ForwardMoveGoblinEnemyState ForwardMoveGoblinEnemyState { get; }

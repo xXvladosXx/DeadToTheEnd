@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameCore.LevelSystem;
 using GameCore.Player;
 using GameCore.Save;
 using GameCore.ShopSystem;
 
 namespace GameCore.SceneSystem
 {
-    public class SceneExample : SceneConfig
+    public class SceneStartConfig : SceneConfig
     {
         public const string SCENE_NAME = "StartScene";
+
         public override Dictionary<Type, Repository> CreateAllRepositories()
         {
             var repositories = new Dictionary<Type, Repository>();
@@ -24,6 +26,7 @@ namespace GameCore.SceneSystem
             CreateInteractor<SaveInteractor>(interactors);
             CreateInteractor<PlayerInteractor>(interactors);
             CreateInteractor<ShopInteractor>(interactors);
+            CreateInteractor<LevelLoaderInteractor>(interactors);
 
             return interactors;
         }

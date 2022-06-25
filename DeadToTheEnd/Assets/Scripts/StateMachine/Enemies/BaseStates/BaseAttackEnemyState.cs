@@ -8,7 +8,7 @@ namespace StateMachine.Enemies.BaseStates
 {
     public class BaseAttackEnemyState : BaseEnemyState, ITimeable
     {
-        public BaseAttackEnemyState(StateMachine stateMachine) : base(stateMachine)
+        public BaseAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
         {
         }
         

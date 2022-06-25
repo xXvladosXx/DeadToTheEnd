@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameCore.Player
 {
-    public class PlayerInteractor : Interactor
+    public class PlayerInteractor : Interactor, ISavableInteractor
     {
         public MainPlayer MainPlayer { get; private set; }
         public override void OnCreate()
@@ -13,10 +13,15 @@ namespace GameCore.Player
             base.OnCreate();
             
             var player = Object.Instantiate(Resources.Load ("Characters/Player") as GameObject);
-            Game.GetInteractor<SaveInteractor>().AddEntity(player.GetComponent<SavableEntity>());
+            //Game.GetInteractor<SaveInteractor>().AddEntity(player.GetComponent<SavableEntity>());
 
-            MainPlayer = player.GetComponent<MainPlayer>();
+            MainPlayer = player.GetComponentInChildren<MainPlayer>();
             Debug.Log(MainPlayer);
+        }
+
+        public SavableEntity GetSavableEntity()
+        {
+            return MainPlayer.GetComponent<SavableEntity>();
         }
     }
 }

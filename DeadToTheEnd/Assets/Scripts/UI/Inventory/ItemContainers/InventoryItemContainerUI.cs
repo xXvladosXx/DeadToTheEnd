@@ -27,7 +27,8 @@ namespace UI
         {
             var mouseHoverSlot = GetSlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
 
-            Inventory.ItemContainer.SwapItem(MouseData.UI.Inventory.ItemContainer,  SlotOnUI[itemSlotUI], mouseHoverSlot);
+            Inventory.ItemContainer.SwapItem(MouseData.UI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
+            UpdateSlots();
         }
 
         public override void Visit(SellerItemSlotUI sellerItemSlotUI)

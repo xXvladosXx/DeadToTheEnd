@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Entities;
 using GameCore;
+using GameCore.GameSystem;
 using GameCore.Player;
+using GameCore.Save;
+using LootSystem;
+using UI.Tip;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,82 +15,46 @@ namespace UI
 {
     public class UIController : MonoBehaviour
     {
+        [SerializeField] private TextTipUI _textTipUI;
+        
+        protected MainPlayer MainPlayer;
 
-        [SerializeField] private Button _inventory;
-        [SerializeField] private Button _shop;
-        [SerializeField] private Button _skills;
-        [SerializeField] private Button _quests;
-        [SerializeField] private Button _fight;
-
-        private List<UIElement> _uiElements;
+        protected List<UIElement> UIElements;
         private UIElement _currentUIElement;
-        private MainPlayer _mainPlayer;
 
         private Dictionary<Type, IUIElement> _createdUIElements;
         
-        public void Init()
+        public virtual void SendMessageOnCreate(InteractorsBase interactorsBase)
+        {
+            MainPlayer = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer;
+            MainPlayer.GetComponent<InteractableChecker>().OnInteractableRequest += ActivateInteractableUI;
+            MainPlayer.GetComponent<InteractableChecker>().OnInteractableHide += DeactivateInteractableUI;
+        }
+        public virtual void SendMessageOnInitialize(InteractorsBase interactorsBase)
+        {
+            Init(interactorsBase);
+        }
+
+        public virtual void SendMessageOnStart(InteractorsBase interactorsBase)
+        {
+           
+        }
+        
+        protected virtual void Init(InteractorsBase interactorsBase)
         {
             gameObject.SetActive(true);
-            _createdUIElements = new Dictionary<Type, IUIElement>();
-            foreach (Transform child in transform)
-            {
-                if(child.TryGetComponent(out IUIElement uiElement))
-                {
-                    _createdUIElements.Add(uiElement.GetType(), uiElement);
-                }
-            }
             
-            _uiElements = GetComponentsInChildren<UIElement>().ToList();
-            foreach (var uiElement in _uiElements)
+            UIElements = GetComponentsInChildren<UIElement>().ToList();
+            foreach (var uiElement in UIElements)
             {
+                uiElement.OnElementShow += element => _currentUIElement = (UIElement) element;
                 uiElement.Hide();
+                uiElement.OnCreate(interactorsBase);
             }
-
-            _inventory.onClick.AddListener(SwitchUIElement<CharacterContainerUI>);
-            _shop.onClick.AddListener(SwitchUIElement<ShopUI>);
-            _skills.onClick.AddListener(SwitchUIElement<SkillsUI>);
-            _quests.onClick.AddListener(SwitchUIElement<QuestsUI>);
-            _fight.onClick.AddListener(SwitchUIElement<FightUI>);
         }
 
-        private void CreateInputs()
-        {
-            ReadInventoryInput();
-            ReadShopInput();
-            ReadSkillsInput();
-            ReadQuestsInput();
-            ReadFightInput();
-        }
-
-        private void ReadFightInput()
-        {
-            _mainPlayer.InputAction.BarActions.Fight.performed += context => { SwitchUIElement<FightUI>(); };
-        }
-
-        private void ReadQuestsInput()
-        {
-            _mainPlayer.InputAction.BarActions.Quests.performed += context => { SwitchUIElement<QuestsUI>(); };
-        }
-
-        private void ReadSkillsInput()
-        {
-            _mainPlayer.InputAction.BarActions.Skills.performed += context => { SwitchUIElement<SkillsUI>(); };
-        }
-
-        private void ReadShopInput()
-        {
-            _mainPlayer.InputAction.BarActions.Shop.performed += context => { SwitchUIElement<ShopUI>(); };
-        }
-
-        private void ReadInventoryInput()
-        {
-            _mainPlayer.InputAction.BarActions.Inventory.performed += context =>
-            {
-                SwitchUIElement<CharacterContainerUI>();
-            };
-        }
-
-        private void SwitchUIElement<T>() where T : UIElement
+      
+        protected void SwitchUIElement<T>() where T : UIElement
         {
             if (_currentUIElement != null)
             {
@@ -104,7 +72,7 @@ namespace UI
 
         private void ShowUIElement<T>() where T : UIElement
         {
-            var uiElement = _uiElements.FirstOrDefault(e => e.GetType() == typeof(T));
+            var uiElement = UIElements.FirstOrDefault(e => e.GetType() == typeof(T));
             if (uiElement != null)
             {
                 uiElement.Show();
@@ -119,57 +87,29 @@ namespace UI
             _currentUIElement.Hide();
             _currentUIElement = null;
         }
-
-        /*public T GetUIElement<T>() where T : UIElement
+        
+        public void Refresh()
         {
-            var type = typeof(T);
-            return (T) _uiElements[type];
-        }*/
-        public void SendMessageOnCreate(InteractorsBase interactorsBase)
-        {
-            _mainPlayer = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer;
-        }
-
-        public void SendMessageOnInitialize(InteractorsBase interactorsBase)
-        {
-            Init();
-            CreateInputs();
-            
-            foreach (var uiElement in _uiElements)
+            foreach (var refreshable in GetComponentsInChildren<IRefreshable>())
             {
-                uiElement.OnCreate(interactorsBase);
+                refreshable.Refresh();
             }
         }
         
-        public void SendMessageOnStart(InteractorsBase interactorsBase)
+        private void ActivateInteractableUI(IInteractable obj)
         {
-           
+            _textTipUI.SetText(obj.TextOfInteraction());
+            _textTipUI.gameObject.SetActive(true);
         }
-        
-        private T CreateAndShowElement<T>(UIElement prefab) where T : UIElement {
-            _createdUIElements[typeof(T)] = prefab;
-            prefab.Show();
-            return (T) prefab;
+        private void DeactivateInteractableUI()
+        {
+            _textTipUI.gameObject.SetActive(false);
+            _textTipUI.SetText("");
         }
-        
-        public T GetUIElement<T>() where T : UIElement {
+
+        protected virtual void OnDisable()
+        {
             
-            var type = typeof(T);
-            _createdUIElements.TryGetValue(type, out var uiElement);
-            return (T) uiElement;
         }
-        
-        public void Clear() {
-            if (_createdUIElements == null)
-                return;
-
-            var allCreatedUIElements = _createdUIElements.Values.ToArray();
-            foreach (var uiElement in allCreatedUIElements)
-                Destroy(uiElement.GameObject);
-
-            _createdUIElements.Clear();
-        }
-
-       
     }
 }

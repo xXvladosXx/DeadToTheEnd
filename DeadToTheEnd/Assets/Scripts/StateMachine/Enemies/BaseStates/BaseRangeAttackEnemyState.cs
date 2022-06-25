@@ -1,11 +1,12 @@
 ﻿using Data.Combat;
+using StateMachine.Core;
 using UnityEngine;
 
 namespace StateMachine.Enemies.BaseStates
 {
     public class BaseRangeAttackEnemyState : BaseAttackEnemyState
     {
-        public BaseRangeAttackEnemyState(StateMachine stateMachine) : base(stateMachine)
+        public BaseRangeAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
         {
         }
         

@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace UI
 {
-    public class ShopUI: UIElement
+    public class ShopUI: ItemContainerManagerUI, IRefreshable
     {
-        [SerializeField] private SellerItemContainerUI _inventoryItemContainerUI;
+        [SerializeField] private SellerItemContainerUI _sellerInventoryItemContainerUI;
         [SerializeField] private InventoryItemContainerUI _playerInventoryItemContainerUI;
         [SerializeField] private TransitionRequest _transitionRequest;
 
@@ -17,19 +17,18 @@ namespace UI
         public override void OnCreate(InteractorsBase interactorsBase)
         {
             _shopInteractor = interactorsBase.GetInteractor<ShopInteractor>();
-            _inventoryItemContainerUI.Inventory = _shopInteractor.ShopItemContainer;
-            _inventoryItemContainerUI.RefreshInventory();
+            _sellerInventoryItemContainerUI.Inventory = _shopInteractor.ShopItemContainer;
+            _sellerInventoryItemContainerUI.RefreshInventory();
         }
 
         private void TryToBuy(ItemSlot obj)
         {
-            _shopInteractor.StartTransition(obj, true, obj.Quantity);
-            //_transitionRequest.Init(_shopInteractor, obj);
+            _transitionRequest.Init(_shopInteractor, obj, true);
         }
 
         private void TryToSell(ItemSlot obj)
         {
-            _transitionRequest.Init(_shopInteractor, obj);
+            _transitionRequest.Init(_shopInteractor, obj, false);
         }
 
         public override void OnInitialize()
@@ -40,16 +39,24 @@ namespace UI
         {
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            _inventoryItemContainerUI.OnSell += TryToSell;
+            base.OnEnable();
+            _sellerInventoryItemContainerUI.OnSell += TryToSell;
             _playerInventoryItemContainerUI.OnBuy += TryToBuy;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
-            _inventoryItemContainerUI.OnSell -= TryToSell;
+            base.OnDisable();
+            _sellerInventoryItemContainerUI.OnSell -= TryToSell;
             _playerInventoryItemContainerUI.OnBuy -= TryToBuy;
+        }
+
+        public void Refresh()
+        {
+            _playerInventoryItemContainerUI.RefreshInventory();
+            _sellerInventoryItemContainerUI.RefreshInventory();
         }
     }
 }

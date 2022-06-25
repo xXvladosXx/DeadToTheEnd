@@ -1574,7 +1574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7651909019695785510
 Transform:
   m_ObjectHideFlags: 0
@@ -1667,6 +1667,8 @@ MonoBehaviour:
   <EnemyAnimationData>k__BackingField: {fileID: 11400000, guid: 5a250fd4ad690d94a9b5c171ad348cda,
     type: 2}
   _lockAim: {fileID: 0}
+  _rightHand: {fileID: 0}
+  _leftHand: {fileID: 0}
   <StandardEnemyData>k__BackingField: {fileID: 11400000, guid: 5d140507215d5464c92798ba12f3fc49,
     type: 2}
 --- !u!195 &7651909019695946332

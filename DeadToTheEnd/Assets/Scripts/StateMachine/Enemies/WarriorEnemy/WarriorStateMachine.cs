@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities;
 using Entities.Core;
 using Entities.Enemies;
+using StateMachine.Core;
 using StateMachine.Enemies.GoblinEnemy.States.Movement;
 using StateMachine.WarriorEnemy.Components;
 using StateMachine.WarriorEnemy.States.Combat;
@@ -11,7 +12,7 @@ using UnityEngine;
 
 namespace StateMachine.Enemies.WarriorEnemy
 {
-    public class WarriorStateMachine : StateMachine
+    public class WarriorStateMachine : EntityStateMachine
     {
         public IdleWarriorEnemyState IdleWarriorEnemyState { get; }
         public FollowWarriorEnemyState FollowWarriorEnemyState { get; }

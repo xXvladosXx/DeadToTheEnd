@@ -38,7 +38,8 @@ namespace UI
 
         protected abstract void CreateSlots();
         protected abstract void Init();
-        protected void UpdateSlots()
+
+        public void UpdateSlots()
         {
             foreach (var slot in SlotOnUI)
             {

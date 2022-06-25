@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace GameCore
 {
-    public class GameTester : MonoBehaviour
+    public class GameStart : MonoBehaviour
     {
         [SerializeField] private UIController _uiController;
         
@@ -17,7 +17,7 @@ namespace GameCore
         
         private void Start()
         {
-            var sceneManager = new SceneManagerExample();
+            var sceneManager = new SceneManagerStart();
 
             Game.Run(sceneManager, _uiController);
 
@@ -39,8 +39,26 @@ namespace GameCore
 
         private void OnGameInit()
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
+            var saveInteractor = Game.GetInteractor<SaveInteractor>();
+            foreach (var interactor in Game.GetInteractors.Values)
+            {
+                if (interactor is ISavableInteractor savableInteractor)
+                {
+                    saveInteractor.AddEntity(savableInteractor.GetSavableEntity());
+                }
+            }
+
+            saveInteractor.OnGameReloaded += RefreshUI;
+            
             Game.OnGameInitialized -= OnGameInit;
         }
 
+        private void RefreshUI()
+        {
+            _uiController.Refresh();
+        }
     }
 }

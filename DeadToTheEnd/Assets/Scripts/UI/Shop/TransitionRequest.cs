@@ -13,11 +13,16 @@ namespace UI.Inventory
         [SerializeField] private Button _accept;
         [SerializeField] private Button _reject;
         [SerializeField] private TextMeshProUGUI _amountText;
+        [SerializeField] private TextMeshProUGUI _infoText;
+        [SerializeField] private TextMeshProUGUI _priceText;
 
         private ShopInteractor _shopInteractor;
         private ItemSlot _itemSlot;
+        
         private int _currentQuantity;
-        public void Init(ShopInteractor shopInteractor, ItemSlot itemSlot)
+        private bool _isBuying;
+        
+        public void Init(ShopInteractor shopInteractor, ItemSlot itemSlot, bool buy)
         {
             _shopInteractor = shopInteractor;
             _itemSlot = itemSlot;
@@ -26,33 +31,42 @@ namespace UI.Inventory
             
             _slider.minValue = 1;
             _slider.maxValue = itemSlot.Quantity;
+            _slider.value = 1;
+            
             _amountText.text = 1.ToString();
             _currentQuantity = 1;
+            _isBuying = buy;
 
-            _slider.onValueChanged.AddListener(SetAmountText);
+            _infoText.text = buy ? $"You want to buy {itemSlot.Item.name}" : $"You want to sell {itemSlot.Item.name}";
             
-            _accept.interactable = _shopInteractor.HasAllRequirements(_itemSlot, _currentQuantity);
+            _priceText.text = (itemSlot.Item.SellPrice * _currentQuantity).ToString();
+
+            if(_isBuying)
+                _accept.interactable = _shopInteractor.HasAllRequirements(_itemSlot, _currentQuantity);
         }
 
         private void SetAmountText(float arg0)
         {
             _currentQuantity = Mathf.RoundToInt(arg0);
             _amountText.text = _currentQuantity.ToString();
+            _priceText.text = (_itemSlot.Item.SellPrice * _currentQuantity).ToString();
             
-            _accept.interactable = _shopInteractor.HasAllRequirements(_itemSlot, _currentQuantity);
+            if(_isBuying)
+                _accept.interactable = _shopInteractor.HasAllRequirements(_itemSlot, _currentQuantity);
         }
 
         private void OnEnable()
         {
             _accept.onClick.AddListener(AcceptTransition);
             _reject.onClick.AddListener(RejectTransition);
+            _slider.onValueChanged.AddListener(SetAmountText);
         }
 
         private void AcceptTransition()
         {
             gameObject.SetActive(false);
-            
-            _shopInteractor.StartTransition(_itemSlot, false, _currentQuantity);
+
+            _shopInteractor.StartTransition(_itemSlot, _isBuying, _currentQuantity);
         }
 
         private void RejectTransition()
@@ -64,6 +78,7 @@ namespace UI.Inventory
         {
             _accept.onClick.RemoveAllListeners();
             _reject.onClick.RemoveAllListeners();
+            _slider.onValueChanged.RemoveAllListeners();
         }
     }
 }

@@ -117,7 +117,7 @@ MonoBehaviour:
       <SpeedModifier>k__BackingField: 2
     <AttackData>k__BackingField:
       <DistanceOfRaycast>k__BackingField: 10
-      <DistanceToStopMoving>k__BackingField: 3
+      <DistanceToStopMoving>k__BackingField: 2
       <Force>k__BackingField: 200
     <SideCameraRecenteringDatas>k__BackingField:
     - <MinimumAngle>k__BackingField: 0

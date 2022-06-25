@@ -1356,7 +1356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7956543796528116789
 Transform:
   m_ObjectHideFlags: 0
@@ -1364,7 +1364,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7956543796527949909}
-  m_LocalRotation: {x: -0, y: 0.9973704, z: -0, w: 0.072473235}
+  m_LocalRotation: {x: 0, y: 0.9973704, z: 0, w: 0.07247234}
   m_LocalPosition: {x: 18.449205, y: -0.00000047683716, z: 9.590221}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
@@ -1471,6 +1471,8 @@ MonoBehaviour:
   <EnemyAnimationData>k__BackingField: {fileID: 11400000, guid: 5a250fd4ad690d94a9b5c171ad348cda,
     type: 2}
   _lockAim: {fileID: 0}
+  _rightHand: {fileID: 0}
+  _leftHand: {fileID: 0}
   <StandardEnemyData>k__BackingField: {fileID: 11400000, guid: 276968eec4ca9a6499519891f7844ca9,
     type: 2}
 --- !u!114 &7956543796528116797

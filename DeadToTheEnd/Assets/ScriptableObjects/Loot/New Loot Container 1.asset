@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38dcae1c2e94438389136c51967de980, type: 3}
+  m_Name: New Loot Container 1
+  m_EditorClassIdentifier: 
+  <Items>k__BackingField:
+  - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
+    Quantity: 3
+  - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+    Quantity: 1

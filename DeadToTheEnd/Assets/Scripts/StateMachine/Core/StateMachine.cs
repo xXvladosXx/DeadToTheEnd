@@ -15,7 +15,6 @@ namespace StateMachine
         private CooldownTimer CooldownTimer { get; }
         
         protected IState _currentState;
-        public AliveEntity AliveEntity { get; protected set; }
 
         protected StateMachine()
         {

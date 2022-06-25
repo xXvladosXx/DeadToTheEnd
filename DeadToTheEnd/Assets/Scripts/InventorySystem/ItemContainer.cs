@@ -103,6 +103,7 @@ namespace InventorySystem
         
         public void RemoveItem(ItemSlot itemSlot, int quantity)
         {
+            Debug.Log(this + " " + _itemSlots.Length);
             for (int i = 0; i < _itemSlots.Length; i++)
             {
                 if (_itemSlots[i].Item == null) continue;
@@ -144,6 +145,7 @@ namespace InventorySystem
             {
                 if (replacedItem.Quantity != replacedItem.Item.MaxItemsInInventorySlot)
                 {            
+                    //not fully works
                     return AddToSlot(draggedItem, replacedItem);
                 }
             }

@@ -3,6 +3,7 @@ using Data.Combat;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities.Layer;
+using Utilities.Raycast;
 
 namespace StateMachine.Player.States.Movement.Grounded.Combat
 {
@@ -30,7 +31,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             MoveToTarget();
         }
 
-        
+
         public override void Exit()
         {
             base.Exit();
@@ -83,23 +84,22 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
 
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerComboAttackState);
         }
-        
+
         private void MoveToTarget()
         {
-            GameObject target = null;
-
-            RaycastHit raycastHit;
-            if (Physics.Raycast(MainPlayer.MainCamera.position, MainPlayer.MainCamera.forward, out raycastHit,
-                    PlayerGroundData.AttackData.DistanceOfRaycast, MainPlayer.PlayerLayerData.EnemyLayer))
+            Transform target = RaycastChecker.CheckRaycast(MainPlayer.MainCamera.position,
+                MainPlayer.MainCamera.forward,
+                PlayerGroundData.AttackData.DistanceOfRaycast, MainPlayer.PlayerLayerData.EnemyLayer);
+            if(target == null) return;
+            
+            LookAt(target);
+            
+            if (Vector3.Distance(target.position, MainPlayer.transform.position) >
+                PlayerGroundData.AttackData.DistanceToStopMoving)
             {
-                target = raycastHit.collider.gameObject;
-                LookAt(target.transform);
-                if (Vector3.Distance(target.transform.position, MainPlayer.transform.position) > PlayerGroundData.AttackData.DistanceToStopMoving)
-                {
-                    MainPlayer.Rigidbody.AddForce(MainPlayer.transform.forward * PlayerGroundData.AttackData.Force, ForceMode.Impulse);
-                }
+                MainPlayer.Rigidbody.AddForce(MainPlayer.transform.forward * PlayerGroundData.AttackData.Force,
+                    ForceMode.Impulse);
             }
         }
-
     }
 }

@@ -24,10 +24,10 @@ MonoBehaviour:
       Index: 1
       Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
+      ID: 0
       Index: 2
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
     - Item: {fileID: 0}
       ID: -1

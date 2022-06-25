@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using GameCore.Player;
 using UI;
 using UnityEngine;
@@ -19,7 +21,12 @@ namespace GameCore.SceneSystem
             _repositoriesBase = new RepositoriesBase(config);
         }
 
+        public Coroutine InitializeAsync(UIController uiController) => Coroutines.StartRoutine(InitializeRoutine(uiController));
+        public T GetRepository<T>() where T : Repository => _repositoriesBase.GetRepository<T>();
 
+        public T GetInteractor<T>() where T : Interactor => _interactorsBase.GetInteractor<T>();
+        public Dictionary<Type, Interactor> GetInteractors => _interactorsBase.GetInteractors();
+        
         private IEnumerator InitializeRoutine(UIController uiController)
         {
             _repositoriesBase.CreateAllRepositories();
@@ -40,12 +47,5 @@ namespace GameCore.SceneSystem
             _interactorsBase.SendOnStartInteractors();
             uiController.SendMessageOnStart(_interactorsBase);
         }
-
-        public T GetRepository<T>() where T : Repository => _repositoriesBase.GetRepository<T>();
-
-        public T GetInteractor<T>() where T : Interactor => _interactorsBase.GetInteractor<T>();
-        
-        public Coroutine InitializeAsync(UIController uiController) => Coroutines.StartRoutine(InitializeRoutine(uiController));
-
     }
 }

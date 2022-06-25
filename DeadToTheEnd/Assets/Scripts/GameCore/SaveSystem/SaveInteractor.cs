@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using SaveSystem;
@@ -13,6 +14,8 @@ namespace GameCore.Save
         private const string _defaultSaveFile = "QuickSave";
 
         private SaveRepository _repository;
+
+        public event Action OnGameReloaded;
 
         public override void OnCreate()
         {
@@ -61,6 +64,8 @@ namespace GameCore.Save
         public void Load(string saveFile = _defaultSaveFile)
         {
             _repository.Load(saveFile);
+            
+            OnGameReloaded?.Invoke();
         }
 
         public void Save(string saveFile = _defaultSaveFile)
@@ -68,15 +73,6 @@ namespace GameCore.Save
             _repository.Save(saveFile);
         }
 
-        public IEnumerable<string> SaveList()
-        {
-            return _repository.SavesList();
-        }
-
-        
-        public bool CanSave()
-        {
-            return true;
-        }
+        public IEnumerable<string> SaveList() => _repository.SavesList();
     }
 }

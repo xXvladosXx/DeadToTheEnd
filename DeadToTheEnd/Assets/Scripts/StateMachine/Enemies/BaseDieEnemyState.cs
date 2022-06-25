@@ -1,11 +1,12 @@
-﻿using StateMachine.WarriorEnemy.States.Movement;
+﻿using StateMachine.Core;
+using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
 
 namespace StateMachine.Enemies
 {
     public class BaseDieEnemyState : BaseEnemyState
     {
-        public BaseDieEnemyState(StateMachine stateMachine) : base(stateMachine)
+        public BaseDieEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
         {
         }
 

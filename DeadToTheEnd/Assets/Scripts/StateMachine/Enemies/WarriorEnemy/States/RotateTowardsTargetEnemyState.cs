@@ -1,5 +1,6 @@
 ﻿using Data.Animations;
 using Data.ScriptableObjects;
+using StateMachine.Core;
 using StateMachine.Enemies.WarriorEnemy;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
     public class RotateTowardsTargetEnemyState : BaseEnemyState
     {
         
-        public RotateTowardsTargetEnemyState(StateMachine warriorStateMachine) : base(warriorStateMachine)
+        public RotateTowardsTargetEnemyState(EntityStateMachine warriorStateMachine) : base(warriorStateMachine)
         {
             
         }

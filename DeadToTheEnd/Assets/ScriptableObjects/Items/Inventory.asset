@@ -17,22 +17,22 @@ MonoBehaviour:
     - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
       ID: 0
       Index: 0
-      Quantity: 2
+      Quantity: 3
       ItemTypes: 
     - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
       ID: 1
       Index: 1
-      Quantity: 1
-      ItemTypes: 
-    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
-      ID: 0
-      Index: 2
-      Quantity: 5
+      Quantity: 2
       ItemTypes: 
     - Item: {fileID: 0}
       ID: -1
-      Index: 3
+      Index: 2
       Quantity: 0
+      ItemTypes: 
+    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      ID: 1
+      Index: 3
+      Quantity: 1
       ItemTypes: 
     - Item: {fileID: 0}
       ID: -1
@@ -112,106 +112,6 @@ MonoBehaviour:
     - Item: {fileID: 0}
       ID: -1
       Index: 19
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 20
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 21
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 22
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 23
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 24
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 25
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 26
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 27
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 28
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 29
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 30
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 31
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 32
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 33
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 34
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 35
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 36
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 37
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 38
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 39
       Quantity: 0
       ItemTypes: 
     _database: {fileID: 11400000, guid: faaead4ed8ead09488b3d825304e4fe0, type: 2}

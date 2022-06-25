@@ -12,11 +12,13 @@ using Data.States;
 using Data.Stats;
 using Entities.Core;
 using InventorySystem;
+using LootSystem;
 using StateMachine;
 using UnityEngine;
 using Utilities;
 using Utilities.Camera;
 using Utilities.Collider;
+using Utilities.Raycast;
 
 namespace Entities
 {
@@ -30,7 +32,8 @@ namespace Entities
         [field: SerializeField] public PlayerCameraUtility CameraUtility { get; private set; }
         [field: SerializeField] public PlayerAnimationData PlayerAnimationData { get; private set; }
         [field: SerializeField] public Gold Gold { get; private set; }
-        
+
+        [field: SerializeField] private float _distanceToPickObject;
         public Transform MainCamera { get; private set; }
         public PlayerInput InputAction { get; private set; }
         public ItemEquipper ItemEquipper { get; private set; }
@@ -38,9 +41,7 @@ namespace Entities
         public PlayerStateReusableData PlayerStateReusable { get; private set; }
         public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
-
         
-
         protected override void Awake()
         {
             base.Awake();
@@ -62,7 +63,6 @@ namespace Entities
             PlayerStateReusable = (PlayerStateReusableData) Reusable;
             AttackCalculator = new AttackCalculator(PlayerStateReusable);
             StateMachine = new PlayerStateMachine(this);
-
         }
 
         private void Start()

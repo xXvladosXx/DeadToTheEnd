@@ -7,6 +7,7 @@ using Data.ScriptableObjects;
 using Data.States.StateData;
 using Entities;
 using Entities.Enemies;
+using StateMachine.Core;
 using StateMachine.Enemies.WarriorEnemy;
 using StateMachine.WarriorEnemy.States.Combat;
 using UnityEngine;
@@ -20,10 +21,10 @@ namespace StateMachine.WarriorEnemy.States.Movement
         protected readonly Enemy Enemy;
         protected readonly EnemyData EnemyData;
         
-        protected readonly StateMachine StateMachine;
+        protected readonly EntityStateMachine StateMachine;
         protected Func<bool>[] CanAttackFunctions;
 
-        protected BaseEnemyState(StateMachine stateMachine)
+        protected BaseEnemyState(EntityStateMachine stateMachine)
         {
             Enemy = stateMachine.AliveEntity as Enemy;
             EnemyData = Enemy.EntityData as EnemyData;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using GameCore.SceneSystem;
 using UI;
 using Utilities;
@@ -17,7 +18,6 @@ namespace GameCore
             SceneManagerBase = sceneManagerBase;
             Coroutines.StartRoutine(InitializeGameRoutine(uiController));
         }
-
         private static IEnumerator InitializeGameRoutine(UIController uiController)
         {
             SceneManagerBase.InitScenesConfig();
@@ -28,5 +28,8 @@ namespace GameCore
 
         public static T GetInteractor<T>() where T : Interactor => SceneManagerBase.GetInteractor<T>();
         public static T GetRepository<T>() where T : Repository => SceneManagerBase.GetRepository<T>();
+        public static Dictionary<Type, Interactor> GetInteractors => SceneManagerBase.GetInteractors;
+
+       
     }
 }

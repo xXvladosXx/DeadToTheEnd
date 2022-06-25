@@ -52,5 +52,9 @@ namespace GameCore
             var type = typeof(T);
             return (T) _interactors[type];
         }
+        public Dictionary<Type, Interactor> GetInteractors() 
+        {
+            return _interactors;
+        }
     }
 }

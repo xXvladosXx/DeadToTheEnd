@@ -1,11 +1,12 @@
 ﻿using Entities.Enemies;
+using StateMachine.Core;
 using StateMachine.Enemies.BaseStates;
 using StateMachine.Enemies.BlueGragon.Movement;
 using StateMachine.WarriorEnemy.States.Movement;
 
 namespace StateMachine.Enemies.BlueGragon
 {
-    public class StandardEnemyStateMachine : StateMachine
+    public class StandardEnemyStateMachine : EntityStateMachine
     {
         public FollowStandardEnemyState FollowStandardEnemyState { get; }
         public RotateTowardsTargetEnemyState RotateTowardsTargetEnemyState { get; }
