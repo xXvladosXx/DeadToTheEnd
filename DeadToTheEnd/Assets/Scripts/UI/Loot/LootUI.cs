@@ -4,6 +4,8 @@ using GameCore;
 using GameCore.Player;
 using InventorySystem;
 using LootSystem;
+using UI.Inventory.ItemContainers;
+using UI.Inventory.ItemContainers.Core;
 using UnityEngine;
 
 namespace UI.Loot
@@ -31,19 +33,11 @@ namespace UI.Loot
                 _lootItemContainer.Inventory.ItemContainer.AddItem(itemSlot);
             }
             
+            obj.Items.Clear();
             gameObject.SetActive(true);
         }
 
-        public override void OnInitialize()
-        {
-            
-        }
-
-        public override void OnStart()
-        {
-            
-        }
-        
+     
         
     }
 }

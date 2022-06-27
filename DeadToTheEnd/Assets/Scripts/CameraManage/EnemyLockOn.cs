@@ -1,5 +1,8 @@
 using System;
+using Cinemachine;
 using Entities;
+using Entities.Core;
+using Entities.Enemies;
 using UnityEngine;
 
 namespace CameraManage
@@ -13,7 +16,9 @@ namespace CameraManage
         [SerializeField] private float _noticeZone = 10;
         [SerializeField] private float _maxNoticeAngle = 60;
 
-        private Transform _currentTarget;
+        [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
+
+        private Enemy _currentTarget;
         private Animator _anim;
 
         private Transform _cam;
@@ -21,6 +26,8 @@ namespace CameraManage
         private float _currentYOffset;
         private Vector3 _pos;
         private MainPlayer _mainPlayer;
+        public event Action<Enemy> OnPlayerLocked;
+        public event Action OnPlayerUnlocked;
 
         private void Awake()
         {
@@ -65,8 +72,11 @@ namespace CameraManage
         }
 
 
-        public void FoundTarget(){
-            _anim.SetLayerWeight(1, 1);
+        private void FoundTarget()
+        {
+            _currentTarget = ScanNearBy() as Enemy;
+            _cinemachineVirtualCamera.LookAt = _currentTarget.transform;
+            OnPlayerLocked?.Invoke(_currentTarget);
             _cinemachineAnimator.Play("LockOn");
             _enemyLocked = true;
         }
@@ -75,12 +85,12 @@ namespace CameraManage
         {
             _currentTarget = null;
             _enemyLocked = false;
-            _anim.SetLayerWeight(1, 0);
+            OnPlayerUnlocked?.Invoke();
             _cinemachineAnimator.Play("PlayerCamera");
         }
 
 
-        public Transform ScanNearBy()
+        public AliveEntity ScanNearBy()
         {
             Collider[] nearbyTargets = Physics.OverlapSphere(transform.position, _noticeZone, targetLayers);
             float closestAngle = _maxNoticeAngle;
@@ -108,8 +118,9 @@ namespace CameraManage
             _currentYOffset = h - half_h;
             if(_zeroVertLook && _currentYOffset > 1.6f && _currentYOffset < 1.6f * 3) _currentYOffset = 1.6f;
             Vector3 tarPos = closestTarget.position + new Vector3(0, _currentYOffset, 0);
-            //if(Blocked(tarPos)) return null;
-            return closestTarget;
+            if(Blocked(tarPos)) return null;
+            
+            return closestTarget.GetComponent<AliveEntity>();
         }
 
         bool Blocked(Vector3 t){

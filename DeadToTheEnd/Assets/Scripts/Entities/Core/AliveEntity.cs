@@ -32,7 +32,7 @@ namespace Entities.Core
         
         public AttackCalculator AttackCalculator { get; protected set; }
         public OrdinaryAttackColliderActivator OrdinaryAttackColliderActivator { get; private set; }
-        public AliveEntity Target { get; protected set; }
+        public AliveEntity Target { get; set; }
         public IReusable Reusable { get; set; }
         public Rigidbody Rigidbody { get; private set; }
         public Animator Animator { get; private set; }
@@ -109,7 +109,7 @@ namespace Entities.Core
             return attackData;
         }
         
-        private void OnDied()
+        protected virtual void OnDied()
         {
             GetComponent<Collider>().enabled = false;
         }

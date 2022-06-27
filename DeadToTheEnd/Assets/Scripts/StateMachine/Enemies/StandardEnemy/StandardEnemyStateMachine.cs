@@ -15,6 +15,8 @@ namespace StateMachine.Enemies.BlueGragon
         public BaseHeavyAttackEnemyState BaseHeavyAttackEnemyState { get; }
         public BaseRangeAttackEnemyState BaseRangeAttackEnemyState { get; }
         public BaseDieEnemyState BaseDieEnemyState { get; }
+
+        public BaseDistanceToAggroState BaseDistanceToAggroState { get; }
         
         public StandardEnemyStateMachine(Enemy blueDragonEnemy)
         {
@@ -29,8 +31,10 @@ namespace StateMachine.Enemies.BlueGragon
             BaseRangeAttackEnemyState = new BaseRangeAttackEnemyState(this);
 
             BaseDieEnemyState = new BaseDieEnemyState(this);
+
+            BaseDistanceToAggroState = new BaseDistanceToAggroState(this);
         }
 
-        public override IState StartState() => FollowStandardEnemyState;
+        public override IState StartState() => BaseDistanceToAggroState;
     }
 }

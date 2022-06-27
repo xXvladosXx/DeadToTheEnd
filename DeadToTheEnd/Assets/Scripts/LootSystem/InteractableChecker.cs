@@ -40,6 +40,8 @@ namespace LootSystem
                 
                 _lastInteractableObject = interactable;
                 OnInteractableRequest?.Invoke(interactable);
+                Debug.Log(interactable);
+
             }
             else
             {

@@ -8,7 +8,9 @@ namespace Data.Stats
     public class Health : IStatsable
     {
         [field: SerializeField] public float HealthValue { get; private set; }
-
+        public float GetMaxHealth => _statsFinder.GetStat(Stat.Health);
+        public event Action<float> OnHealthPctChanged = delegate{ };
+        
         private StatsFinder _statsFinder;
         private bool _isDead;
 
@@ -17,8 +19,6 @@ namespace Data.Stats
         {
             _statsFinder = statsFinder;
             HealthValue = _statsFinder.GetStat(Stat.Health);
-            
-            Debug.Log(HealthValue);
         }
         
         public void DecreaseHealth(AttackData attackData)
@@ -26,8 +26,6 @@ namespace Data.Stats
             if(_isDead) return;
             
             HealthValue -= attackData.Damage;
-            Debug.Log(attackData.Damage);
-
             if (HealthValue <= 0)
             {
                 _isDead = true;
@@ -35,6 +33,9 @@ namespace Data.Stats
                 Debug.Log("Died");
                 attackData.User.LevelCalculator.ExperienceReward(_statsFinder.GetExperienceReward());
             }
+            
+            float currentHealthPct = HealthValue / _statsFinder.GetStat(Stat.Health);
+            OnHealthPctChanged?.Invoke(currentHealthPct);
         }
 
         public void RecalculateStat()

@@ -986,6 +986,7 @@ MonoBehaviour:
   _zeroVertLook: 0
   _noticeZone: 10
   _maxNoticeAngle: 60
+  _cinemachineVirtualCamera: {fileID: 8170309916874342654}
 --- !u!114 &1698595886350557138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,10 +1015,6 @@ MonoBehaviour:
     type: 2}
   <Equipment>k__BackingField: {fileID: 11400000, guid: e4e261f5ed668594fa09d546051729ea,
     type: 2}
-  _distanceOfRaycast: 0
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1698595886350557143
 MonoBehaviour:
   m_ObjectHideFlags: 0

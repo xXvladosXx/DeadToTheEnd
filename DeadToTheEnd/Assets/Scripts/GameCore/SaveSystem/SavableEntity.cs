@@ -18,7 +18,7 @@ namespace SaveSystem
       public object CaptureState()
       {
          Dictionary<string, object> state = new Dictionary<string, object>();
-      
+
          foreach (var savable in GetComponents<ISavable>())
          {
             state[savable.GetType().ToString()] = savable.CaptureState();

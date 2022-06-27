@@ -32,12 +32,5 @@ namespace UI
             _levelLoaderInteractor.LoadLevel(index);
         }
 
-        public override void OnInitialize()
-        {
-        }
-
-        public override void OnStart()
-        {
-        }
     }
 }

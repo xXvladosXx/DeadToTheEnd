@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 {
-    public abstract class PlayerHitState : PlayerLockedState
+    public abstract class PlayerHitState : PlayerGroundedState
     {
 
         public PlayerHitState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
@@ -21,7 +21,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
 
         public override void FixedUpdate()
         {
-            UnmovableLocked();
+            Float();
         }
 
         protected override void OnDamageTaken(AttackData attackData)

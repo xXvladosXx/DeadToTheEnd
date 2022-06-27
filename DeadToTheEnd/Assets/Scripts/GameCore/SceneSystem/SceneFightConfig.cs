@@ -27,6 +27,7 @@ namespace GameCore.SceneSystem
             CreateInteractor<PlayerInteractor>(interactors);
             CreateInteractor<LevelLoaderInteractor>(interactors);
             CreateInteractor<GameStateInteractor>(interactors);
+            CreateInteractor<EntitySpawnerInteractor>(interactors);
 
             return interactors;
         }

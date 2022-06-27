@@ -8,13 +8,16 @@ namespace Data.Stats
     public class LevelCalculator
     {
         [field: SerializeField] public int Level { get; private set; } = 1;
-
+        public float GetExpPct => _currentXP/_aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
+    
         private float _currentXP;
         private float _maxXP;
 
         private AliveEntityStatsData _aliveEntityStatsData;
         
         public event Action<int> OnLevelUp;
+        public event Action<float> OnExperiencePctChanged = delegate{ };
+
 
         public void Init(AliveEntityStatsData aliveEntityStatsData)
         {
@@ -26,11 +29,17 @@ namespace Data.Stats
         {
             _currentXP += experience;
             _maxXP = _aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
+            float currentXpPct = _currentXP / _maxXP;
+            OnExperiencePctChanged?.Invoke(currentXpPct);
             
             if (CalculateLevel() > Level)
             {
                 Level = CalculateLevel();
                 OnLevelUp?.Invoke(Level);
+                
+                _maxXP = _aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
+                currentXpPct = _currentXP / _maxXP;
+                OnExperiencePctChanged?.Invoke(currentXpPct);
             }
         }
         

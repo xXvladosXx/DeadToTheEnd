@@ -16,7 +16,7 @@ MonoBehaviour:
     AliveEntityStats:
     - characteristic: 0
       Value:
-      - 4
+      - 10
     - characteristic: 1
       Value:
       - 1

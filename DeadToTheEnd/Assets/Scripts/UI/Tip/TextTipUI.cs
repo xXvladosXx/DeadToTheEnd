@@ -12,15 +12,6 @@ namespace UI.Tip
             
         }
 
-        public override void OnInitialize()
-        {
-            
-        }
-
-        public override void OnStart()
-        {
-            
-        }
 
         public void SetText(string text)
         {

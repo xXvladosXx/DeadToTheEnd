@@ -8,12 +8,6 @@ namespace UI
         {
         }
 
-        public override void OnInitialize()
-        {
-        }
-
-        public override void OnStart()
-        {
-        }
+    
     }
 }

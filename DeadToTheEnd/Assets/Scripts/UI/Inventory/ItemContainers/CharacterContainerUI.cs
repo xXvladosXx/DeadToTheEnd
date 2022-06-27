@@ -1,5 +1,6 @@
 ﻿using System;
 using GameCore;
+using UI.Inventory.ItemContainers;
 using UnityEngine;
 
 namespace UI
@@ -14,17 +15,7 @@ namespace UI
             
         }
 
-        
-
-        public override void OnInitialize()
-        {
-            
-        }
-
-        public override void OnStart()
-        {
-            
-        }
+      
        
     }
 }

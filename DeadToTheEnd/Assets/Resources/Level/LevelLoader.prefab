@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 2973211607639924968}
   _progressBar: {fileID: 5197139913669312427}
+  <TimeToWait>k__BackingField: 2
 --- !u!1 &5225524814381420387
 GameObject:
   m_ObjectHideFlags: 0

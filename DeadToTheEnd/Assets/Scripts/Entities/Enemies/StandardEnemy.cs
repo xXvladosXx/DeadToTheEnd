@@ -73,6 +73,9 @@ namespace Entities.Enemies
 
         public void OnHandRangeAttack(AttackType medium, GameObject projectile)
         {
+            Vector3 target = new Vector3(Target.transform.position.x, transform.position.y,
+                Target.transform.position.z);
+            transform.LookAt(target);
             var spawnedProjectile = Instantiate(projectile,
                 _rightHand.position,
                 Quaternion.identity);

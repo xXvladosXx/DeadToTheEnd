@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameCore.SceneSystem;
 using UI;
+using UI.Controllers;
 using Utilities;
 
 namespace GameCore

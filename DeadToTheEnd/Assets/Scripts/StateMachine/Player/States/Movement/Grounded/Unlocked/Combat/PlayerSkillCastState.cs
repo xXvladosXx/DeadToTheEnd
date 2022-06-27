@@ -2,7 +2,7 @@
 
 namespace StateMachine.Player.States.Movement.Grounded.Combat
 {
-    public class PlayerSkillCastState : PlayerGroundedState
+    public abstract class PlayerSkillCastState : PlayerGroundedState
     {
         public PlayerSkillCastState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {

@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System;
+using Entities;
 using InventorySystem;
 using UnityEngine;
 
@@ -13,6 +14,12 @@ namespace LootSystem
             Debug.Log("Picking");
 
             return _lootContainer;
+        }
+
+        private void Update()
+        {
+            if(_lootContainer.Items.Count == 0)
+                Destroy(gameObject);
         }
 
         public string TextOfInteraction()

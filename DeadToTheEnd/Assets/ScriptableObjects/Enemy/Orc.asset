@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a916c6fade4336bca50d48fbdfe211, type: 3}
+  m_Name: Orc
+  m_EditorClassIdentifier: 
+  <ShakeCameraData>k__BackingField:
+    <MediumAttackHitIntensity>k__BackingField: 1
+    <MediumAttackHitTime>k__BackingField: 0.3
+    <EasyAttackHitIntensity>k__BackingField: 0.5
+    <EasyAttackHitTime>k__BackingField: 0.3
+    <KnockAttackHitIntensity>k__BackingField: 2
+    <KnockAttackHitTime>k__BackingField: 0.3
+    <DamageTakenIntensity>k__BackingField: 0
+    <DamageTakenTime>k__BackingField: 0
+    <KnockDamageTakenIntensity>k__BackingField: 0
+    <KnockDamageTakenTime>k__BackingField: 0
+  <EnemyRollData>k__BackingField:
+    <RollSpeedModifer>k__BackingField: 10
+  <EnemyWalkData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 2
+    <WalkMinTime>k__BackingField: 0.5
+    <WalkMaxTime>k__BackingField: 1
+    <StoppingDistance>k__BackingField: 1.5
+  <EnemyIdleData>k__BackingField:
+    <TimeOfIdlePositioning>k__BackingField: 1
+    <IdleSpeedModifer>k__BackingField: 0
+    <RotationSpeedModifer>k__BackingField: 2
+    <DistanceToFindTarget>k__BackingField: 10
+  <EnemyHeavyAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 3
+    <DistanceToStartAttack>k__BackingField: 1.5
+    <AttackCooldown>k__BackingField: 9
+  <EnemyOrdinaryAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 0
+    <DistanceToStartAttack>k__BackingField: 1.5
+    <AttackCooldown>k__BackingField: 1
+  <EnemyRangeAttackData>k__BackingField:
+    <WalkSpeedModifer>k__BackingField: 15
+    <DistanceToStartAttack>k__BackingField: 4
+    <AttackCooldown>k__BackingField: 15

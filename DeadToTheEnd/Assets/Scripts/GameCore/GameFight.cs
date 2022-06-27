@@ -1,7 +1,9 @@
-﻿using GameCore.Player;
+﻿using System;
+using GameCore.Player;
 using GameCore.Save;
 using GameCore.SceneSystem;
 using UI;
+using UI.Controllers;
 using UnityEngine;
 
 namespace GameCore
@@ -9,7 +11,8 @@ namespace GameCore
     public class GameFight : MonoBehaviour
     {
         [SerializeField] private UIController _uiController;
-
+        [SerializeField] private Camera _secondCamera;
+        
         private UIController _currentUIController;
 
         private void Start()
@@ -48,16 +51,26 @@ namespace GameCore
                 }
             }
 
+            saveInteractor.Save();
             saveInteractor.OnGameReloaded += RefreshUI;
 
             Game.OnGameInitialized -= OnGameInit;
-
+            Destroy(_secondCamera.gameObject);
+            
             var playerInteractor = Game.GetInteractor<PlayerInteractor>();
             playerInteractor.MainPlayer.InputAction.enabled = true;
         }
 
+        private void OnDestroy()
+        {
+            var saveInteractor = Game.GetInteractor<SaveInteractor>();
+
+            saveInteractor.OnGameReloaded -= RefreshUI;
+        }
+
         private void RefreshUI()
         {
+            if(_uiController == null) return;
             _uiController.Refresh();
         }
     }

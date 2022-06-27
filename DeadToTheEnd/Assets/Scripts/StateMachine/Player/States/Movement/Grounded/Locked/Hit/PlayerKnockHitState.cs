@@ -18,6 +18,12 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked.Hit
             StartAnimation(PlayerAnimationData.KnockdownParameterHash);
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            StopAnimation(PlayerAnimationData.KnockdownParameterHash);
+        }
+
         public override void TriggerOnStateAnimationEnterEvent()
         {
             base.TriggerOnStateAnimationEnterEvent();

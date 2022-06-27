@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,8 @@ namespace GameCore.Save
         private SaveRepository _repository;
 
         public event Action OnGameReloaded;
+        public event Action<int> OnSceneLoadRequest;
+        public event Action<int> OnStartSceneLoadRequest;
 
         public override void OnCreate()
         {
@@ -35,7 +38,7 @@ namespace GameCore.Save
         
         public void StartNewGame(string saveFile)
         {
-            Coroutines.StartRoutine(LoadStartScene(saveFile));
+          LoadStartScene(saveFile);
         }
 
         public void ContinueGame(string saveFile = _defaultSaveFile)
@@ -52,12 +55,16 @@ namespace GameCore.Save
         
         private IEnumerator LoadScene(string saveFile)
         {
+            var sceneIndex = _repository.GetSceneIndex(saveFile);
+            OnSceneLoadRequest?.Invoke(sceneIndex);
+            
             yield return _repository.LoadScene(saveFile);
         }
 
-        private IEnumerator LoadStartScene(string saveFile)
+        private void LoadStartScene(string saveFile)
         {
-            yield return SceneManager.LoadSceneAsync(sceneBuildIndex: 3);
+            OnStartSceneLoadRequest?.Invoke(1);
+
             Save(saveFile);
         }
         
@@ -74,5 +81,13 @@ namespace GameCore.Save
         }
 
         public IEnumerable<string> SaveList() => _repository.SavesList();
+
+        public int GetSceneIndex(string saveFile) => _repository.GetSceneIndex(saveFile);
+        public string GetLastSave => Directory.GetFiles(Path.Combine(Application.persistentDataPath))
+            .Select(x => new FileInfo(x))
+            .OrderByDescending(x => x.LastWriteTime)
+            .FirstOrDefault()
+            ?.ToString();
+
     }
 }

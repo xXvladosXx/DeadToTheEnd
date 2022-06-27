@@ -4,15 +4,17 @@ using Data.Animations;
 using Data.ScriptableObjects;
 using Data.Stats;
 using Entities.Core;
+using LootSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Entities.Enemies
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public abstract class Enemy : AliveEntity, ILockable
+    public abstract class Enemy : AliveEntity, ILockable, IInteractable
     {
         [field: SerializeField] public EnemyAnimationData EnemyAnimationData { get; protected set; }
+        [field: SerializeField] public PickableObject PickableObject { get; private set; }
         
         [SerializeField] private Transform _lockAim;
         public NavMeshAgent NavMeshAgent { get; private set; }
@@ -27,8 +29,6 @@ namespace Entities.Enemies
             NavMeshAgent = GetComponent<NavMeshAgent>();
          
             EnemyAnimationData.Init();
-            
-            Target = GameObject.FindWithTag("Player").GetComponent<MainPlayer>();
         }
 
         private void Start()
@@ -49,6 +49,22 @@ namespace Entities.Enemies
         public Transform Lock()
         {
             return _lockAim;
+        }
+
+        public object ObjectOfInteraction()
+        {
+            return this;
+        }
+
+        public string TextOfInteraction()
+        {
+            return "";
+        }
+
+        protected override void OnDied()
+        {
+            base.OnDied();
+            Instantiate(PickableObject, transform.position, Quaternion.identity);
         }
     }
 }

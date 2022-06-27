@@ -121,25 +121,46 @@ namespace StateMachine.Player.States.Movement
 
         protected virtual void OnFirstSkillPerformed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerSkillCastState);
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerFirstSkillCastState);
         }
 
 
         protected virtual void OnLockedPerformed(InputAction.CallbackContext obj)
         {
-            if (MainPlayer.GetComponent<EnemyLockOn>().FindTarget())
+            if (MainPlayer.TryGetComponent(out EnemyLockOn enemyLockOn))
             {
+                if(!enemyLockOn.FindTarget()) return;
+                
                 MainPlayer.PlayerStateReusable.LockedState = true;
-                MainPlayer.PlayerStateReusable.Target = MainPlayer.GetComponent<EnemyLockOn>().ScanNearBy();
+                MainPlayer.PlayerStateReusable.Target = enemyLockOn.ScanNearBy();
+                MainPlayer.PlayerStateReusable.Target.Health.OnDied += ResetTarget;
                 MainPlayer.LongSwordActivator.ActivateSword();
                 
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
-                
+                MainPlayer.Animator.SetLayerWeight(1, 1);
+
                 foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
                     shortSwordActivator.DeactivateSword();
                 
                 CinemachineCameraSwitcher.Instance.ChangeCamera();
             }
+        }
+
+        protected void ResetTarget()
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
+            StopAnimation(PlayerAnimationData.LockedParameterHash);
+            
+            MainPlayer.LongSwordActivator.DeactivateSword();
+            MainPlayer.PlayerStateReusable.LockedState = false;
+            MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
+            MainPlayer.PlayerStateReusable.Target = null;
+            MainPlayer.Animator.SetLayerWeight(1, 0);
+
+            foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
+                shortSwordActivator.ActivateSword();
+
+            CinemachineCameraSwitcher.Instance.ChangeCamera();
         }
 
         protected virtual void OnDamageTaken(AttackData attackData)
@@ -153,7 +174,7 @@ namespace StateMachine.Player.States.Movement
                     PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerKnockHitState);
                     break;
                 case AttackType.Medium:
-                    PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerMediumHitState);
+                   // PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerMediumHitState);
                     break;
                 case AttackType.Easy:
                     break;

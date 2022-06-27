@@ -28,29 +28,22 @@ namespace Data.Stats
             if (_reusableData.IsTargetBehind)
             {
                 OnDamageTaken?.Invoke(attackData);
-                Debug.Log("Damaged " + attackData.User);
 
                 return;
             }
 
             if (attackData.AttackType == AttackType.Knock)
             {
-                Debug.Log("Damaged " + attackData.User);
-                Debug.Log("Damaged " + attackData.Damage);
-
                 OnDamageTaken?.Invoke(attackData);
                 return;
             }
             
             if (_reusableData.IsBlocking)
             {
-                Debug.Log("From blocking");
                 OnAttackApplied?.Invoke();
                 return;
             }
             
-            Debug.Log("Damaged " + attackData.User);
-
             OnDamageTaken?.Invoke(attackData);
         }
     }

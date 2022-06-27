@@ -2,6 +2,7 @@
 using InventorySystem;
 using TMPro;
 using UI.Inventory;
+using UI.Inventory.ItemContainers.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;

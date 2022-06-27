@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data.Camera;
 using Data.States.StateData;
+using Entities.Core;
 using UnityEngine;
 using Utilities;
 
@@ -38,7 +39,7 @@ namespace Data.States
         public PlayerRotationData RotationData { get; set; }
         public bool IsMovingAfterStop { get; set; }
         
-        public Transform Target { get; set; }
+        public AliveEntity Target { get; set; }
         public Transform LastHitFromTarget { get; set; }
         public bool IsKnocked { get; set; }
 

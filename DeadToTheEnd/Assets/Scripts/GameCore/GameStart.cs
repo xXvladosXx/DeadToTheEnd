@@ -4,6 +4,7 @@ using GameCore.Player;
 using GameCore.Save;
 using GameCore.SceneSystem;
 using UI;
+using UI.Controllers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,7 @@ namespace GameCore
     public class GameStart : MonoBehaviour
     {
         [SerializeField] private UIController _uiController;
+        [SerializeField] private Camera _secondCamera;
         
         private UIController _currentUIController;
         
@@ -52,7 +54,9 @@ namespace GameCore
             }
 
             saveInteractor.OnGameReloaded += RefreshUI;
+            saveInteractor.Load();
             
+            Destroy(_secondCamera.gameObject);
             Game.OnGameInitialized -= OnGameInit;
         }
 

@@ -17,7 +17,7 @@ namespace GameCore.LevelSystem
         {
             if (other.TryGetComponent(out MainPlayer mainPlayer))
             {
-                _levelLoader.LoadLevel(_defaultSceneIndex);
+                _levelLoader.LoadLevelWithSave(_defaultSceneIndex);
             }
         }
     }

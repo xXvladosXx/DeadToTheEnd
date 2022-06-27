@@ -15,7 +15,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         {
             MainPlayer.PlayerStateReusable.IsMovingAfterStop = true;
             MainPlayer.PlayerStateReusable.MovementSpeedModifier = PlayerGroundData.PlayerRunData.StrafeSpeedModifier;
-            MainPlayer.GetComponent<EnemyLockOn>().FoundTarget();
                 
             base.Enter();
             StartAnimation(PlayerAnimationData.LockedParameterHash);

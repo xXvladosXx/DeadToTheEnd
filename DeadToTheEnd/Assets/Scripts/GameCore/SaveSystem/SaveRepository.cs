@@ -38,10 +38,13 @@ namespace GameCore.Save
         {
             foreach (var savableEntity in SavableEntities)
             {
+                if(savableEntity == null) continue;
+                
                 capturedStates[savableEntity.GetUniqueIdentifier()] = savableEntity.CaptureState();
             }
 
             capturedStates["SceneIndexToLoad"] = SceneManager.GetActiveScene().buildIndex;
+            Debug.Log(capturedStates["SceneIndexToLoad"]);
         }
 
         private void SaveFile(string saveFile, object captureState)
@@ -84,6 +87,7 @@ namespace GameCore.Save
         {
             foreach (var savableEntity in SavableEntities)
             {
+                if(savableEntity == null) continue;
                 string uniqueID = savableEntity.GetUniqueIdentifier();
 
                 if (state.ContainsKey(uniqueID))
@@ -115,6 +119,19 @@ namespace GameCore.Save
         private string GetPathFromSaveFile(string saveFile)
         {
             return Path.Combine(Application.persistentDataPath, saveFile + ".sav");
+        }
+        
+        public int GetSceneIndex(string saveFile)
+        {
+            Dictionary<string, object> state = LoadFile(saveFile);
+            if (state.ContainsKey("SceneIndexToLoad"))
+            {
+                int buildIndex = (int) state["SceneIndexToLoad"];
+
+                return buildIndex;
+            }
+
+            return -1;
         }
     }
 }

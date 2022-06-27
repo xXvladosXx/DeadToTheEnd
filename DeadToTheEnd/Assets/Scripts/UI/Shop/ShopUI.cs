@@ -3,6 +3,7 @@ using GameCore;
 using GameCore.ShopSystem;
 using InventorySystem;
 using UI.Inventory;
+using UI.Inventory.ItemContainers;
 using UnityEngine;
 
 namespace UI
@@ -31,14 +32,7 @@ namespace UI
             _transitionRequest.Init(_shopInteractor, obj, false);
         }
 
-        public override void OnInitialize()
-        {
-        }
-
-        public override void OnStart()
-        {
-        }
-
+  
         protected override void OnEnable()
         {
             base.OnEnable();

@@ -64,23 +64,13 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         
         protected override void OnLockedPerformed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
-            StopAnimation(PlayerAnimationData.LockedParameterHash);
-            
-            MainPlayer.LongSwordActivator.DeactivateSword();
-            MainPlayer.PlayerStateReusable.LockedState = false;
-            MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
-            
-            foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
-                shortSwordActivator.ActivateSword();
-
-            CinemachineCameraSwitcher.Instance.ChangeCamera();
+            ResetTarget();
         }
 
         protected void TargetLocked()
         {
             Transform transform;
-            (transform = MainPlayer.transform).LookAt(MainPlayer.PlayerStateReusable.Target);
+            (transform = MainPlayer.transform).LookAt(MainPlayer.PlayerStateReusable.Target.transform);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
 

@@ -32,10 +32,10 @@ namespace StateMachine
         public PlayerComboAttackState PlayerComboAttackState { get; set; }
         public PlayerAttackState PlayerAttackState { get; set; }
         
-        public PlayerMediumHitState PlayerMediumHitState { get; }
+        //public PlayerMediumHitState PlayerMediumHitState { get; }
         public PlayerKnockHitState PlayerKnockHitState { get; }
         
-        public PlayerSkillCastState PlayerSkillCastState { get; }
+        public PlayerFirstSkillCastState PlayerFirstSkillCastState { get; }
         public PlayerSecondSkillCastState PlayerSecondSkillCastState { get; }
         public PlayerFourthSkillCastState PlayerFourthSkillCastState { get; }
         public PlayerThirdSkillCastState PlayerThirdSkillCastState { get; }
@@ -53,7 +53,7 @@ namespace StateMachine
 
             PlayerLockedMovementState = new PlayerLockedMovement(this);
             
-            PlayerMediumHitState = new PlayerMediumHitState(this);
+           // PlayerMediumHitState = new PlayerMediumHitState(this);
             PlayerKnockHitState = new PlayerKnockHitState(this);
             
             PlayerAttackLockedState = new PlayerAttackLockedState(this);
@@ -70,12 +70,12 @@ namespace StateMachine
             PlayerDefenseImpactState = new PlayerDefenseImpactState(this);
             //PlayerLockedStoppingState = new PlayerLockedStoppingState(this);
 
-            PlayerSkillCastState = new PlayerSkillCastState(this);
+            PlayerFirstSkillCastState = new PlayerFirstSkillCastState(this);
             PlayerSecondSkillCastState = new PlayerSecondSkillCastState(this);
             PlayerThirdSkillCastState = new PlayerThirdSkillCastState(this);
             PlayerFourthSkillCastState = new PlayerFourthSkillCastState(this);
         }
 
-        public override IState StartState() => PlayerIdleState;
+        public override IState StartState() => MediumStoppingState;
     }
 }

@@ -34,7 +34,7 @@ MonoBehaviour:
     <TimeOfIdlePositioning>k__BackingField: 1
     <IdleSpeedModifer>k__BackingField: 0
     <RotationSpeedModifer>k__BackingField: 2
-    <DistanceToFindTarget>k__BackingField: 10
+    <DistanceToFindTarget>k__BackingField: 15
   <EnemyHeavyAttackData>k__BackingField:
     <WalkSpeedModifer>k__BackingField: 0
     <DistanceToStartAttack>k__BackingField: 25

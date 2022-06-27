@@ -32,17 +32,17 @@ MonoBehaviour:
     - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
       ID: 1
       Index: 3
-      Quantity: 1
+      Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      ID: 1
       Index: 4
-      Quantity: 0
+      Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      ID: 1
       Index: 5
-      Quantity: 0
+      Quantity: 2
       ItemTypes: 
     - Item: {fileID: 0}
       ID: -1
@@ -54,10 +54,10 @@ MonoBehaviour:
       Index: 7
       Quantity: 0
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      ID: 1
       Index: 8
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
     - Item: {fileID: 0}
       ID: -1
