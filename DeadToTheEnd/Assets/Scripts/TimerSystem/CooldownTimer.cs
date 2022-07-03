@@ -38,5 +38,15 @@ namespace StateMachine.WarriorEnemy.Components
 
             Cooldowns = new Dictionary<Type, float>(currentCooldowns);
         }
+
+        public float GetCooldownValue(Type type)
+        {
+            if (Cooldowns.TryGetValue(type, out float pct))
+            {
+                return pct;
+            }
+
+            return 0;
+        }
     }
 }

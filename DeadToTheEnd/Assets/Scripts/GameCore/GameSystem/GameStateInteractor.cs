@@ -8,6 +8,9 @@ namespace GameCore.GameSystem
     public class GameStateInteractor : Interactor
     {
         private MainPlayer _mainPlayer;
+
+        public event Action OnUIActivated;
+        public event Action OnUIDeactivated;
         public override void OnCreate()
         {
             base.OnCreate();
@@ -19,9 +22,11 @@ namespace GameCore.GameSystem
             switch (gameState)
             {
                 case GameStates.UI:
+                    OnUIActivated?.Invoke();
                     ActivateCursor();
                     break;
                 case GameStates.Battle:
+                    OnUIDeactivated?.Invoke();
                     DeactivateCursor();
                     break;
                 default:

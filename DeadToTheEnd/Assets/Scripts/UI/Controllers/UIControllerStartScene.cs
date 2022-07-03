@@ -1,4 +1,6 @@
 ﻿using GameCore;
+using UI.Inventory.ItemContainers;
+using UI.Inventory.ItemContainers.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ namespace UI.Controllers
         protected override void Init(InteractorsBase interactorsBase)
         {
             base.Init(interactorsBase);
+            
             _inventory.onClick.AddListener(SwitchUIElement<CharacterContainerUI>);
             _shop.onClick.AddListener(SwitchUIElement<ShopUI>);
             _skills.onClick.AddListener(SwitchUIElement<SkillsUI>);

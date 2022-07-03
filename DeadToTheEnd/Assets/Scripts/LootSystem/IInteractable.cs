@@ -6,5 +6,7 @@ namespace LootSystem
     {
         object ObjectOfInteraction();
         string TextOfInteraction();
+
+        float GetDistanceOfRaycast { get; }
     }
 }

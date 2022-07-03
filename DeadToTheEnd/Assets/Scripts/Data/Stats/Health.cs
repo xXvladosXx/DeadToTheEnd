@@ -18,7 +18,19 @@ namespace Data.Stats
         public Health(StatsFinder statsFinder)
         {
             _statsFinder = statsFinder;
-            HealthValue = _statsFinder.GetStat(Stat.Health);
+            HealthValue = GetMaxHealth;
+        }
+
+        public void IncreaseHealth(float value)
+        {
+            HealthValue += value;
+            
+            if (HealthValue > GetMaxHealth)
+            {
+                HealthValue = GetMaxHealth;
+            }
+
+            InvokeHealthChange();
         }
         
         public void DecreaseHealth(AttackData attackData)
@@ -30,18 +42,22 @@ namespace Data.Stats
             {
                 _isDead = true;
                 OnDied?.Invoke();
-                Debug.Log("Died");
                 attackData.User.LevelCalculator.ExperienceReward(_statsFinder.GetExperienceReward());
             }
             
-            float currentHealthPct = HealthValue / _statsFinder.GetStat(Stat.Health);
+            InvokeHealthChange();
+        }
+        public void RecalculateStat()
+        {
+            HealthValue = GetMaxHealth;
+            InvokeHealthChange();
+        }
+        private void InvokeHealthChange()
+        {
+            float currentHealthPct = HealthValue / GetMaxHealth;
             OnHealthPctChanged?.Invoke(currentHealthPct);
         }
 
-        public void RecalculateStat()
-        {
-            HealthValue = _statsFinder.GetStat(Stat.Health);
-            Debug.Log(HealthValue);
-        }
+       
     }
 }

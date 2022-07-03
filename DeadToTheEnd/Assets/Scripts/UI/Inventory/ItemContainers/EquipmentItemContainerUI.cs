@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore;
 using InventorySystem;
 using UI.Inventory.ItemContainers.Core;
 using UnityEngine;
@@ -9,14 +10,14 @@ namespace UI
     {
         [SerializeField] private ItemSlotUI[] _slots;
 
-        protected override void Init()
+        public override void Init(InteractorsBase interactorsBase)
         {
             CreateSlots();
             UpdateSlots();
         }
         
 
-        protected override void CreateSlots()
+        public override void CreateSlots()
         {
             SlotOnUI = new Dictionary<ItemDragHandler, ItemSlot>();
             Index = 0;
@@ -31,12 +32,17 @@ namespace UI
                 Index++;
             }
         }
-        
+        private void Update()
+        {
+            UpdateSlots();
+        }
         public override void Visit(ItemSlotUI itemSlotUI)
         {
-            var mouseHoverSlot = GetSlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
+            var mouseHoverSlot = SlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
 
             Inventory.ItemContainer.SwapItem(MouseData.UI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
+            Debug.Log("VE");
+            UpdateSlots();
         }
 
         public override void Visit(SellerItemSlotUI sellerItemSlotUI)

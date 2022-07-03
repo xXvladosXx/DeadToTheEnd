@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d126242b885491380f331bce02cdee7, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 47d89f1962a4d3e469075e2276b2ed51,
+    type: 2}
   _sprite: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}
-  _id: 
-  _title: 
+  _name: Apple
   _description: 
   _maxItemsInInventory: 5
   _sellPrice: 12

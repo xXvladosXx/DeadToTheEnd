@@ -15,7 +15,9 @@ namespace Entities.Enemies
     {
         [field: SerializeField] public EnemyAnimationData EnemyAnimationData { get; protected set; }
         [field: SerializeField] public PickableObject PickableObject { get; private set; }
-        
+
+        [SerializeField] private float _distanceOfRaycast = 15;
+        [SerializeField] private float _distanceOfPickableRaycast = 3;
         [SerializeField] private Transform _lockAim;
         public NavMeshAgent NavMeshAgent { get; private set; }
       
@@ -61,10 +63,12 @@ namespace Entities.Enemies
             return "";
         }
 
+        public float GetDistanceOfRaycast => _distanceOfRaycast;
+
         protected override void OnDied()
         {
             base.OnDied();
-            Instantiate(PickableObject, transform.position, Quaternion.identity);
+            PickableObject.SpawnLoot(transform.position, _distanceOfPickableRaycast);
         }
     }
 }

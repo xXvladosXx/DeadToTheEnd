@@ -51,21 +51,14 @@ namespace GameCore
                 }
             }
 
-            saveInteractor.Save();
-            saveInteractor.OnGameReloaded += RefreshUI;
+            saveInteractor.Load();
+            RefreshUI();
 
             Game.OnGameInitialized -= OnGameInit;
             Destroy(_secondCamera.gameObject);
             
             var playerInteractor = Game.GetInteractor<PlayerInteractor>();
             playerInteractor.MainPlayer.InputAction.enabled = true;
-        }
-
-        private void OnDestroy()
-        {
-            var saveInteractor = Game.GetInteractor<SaveInteractor>();
-
-            saveInteractor.OnGameReloaded -= RefreshUI;
         }
 
         private void RefreshUI()

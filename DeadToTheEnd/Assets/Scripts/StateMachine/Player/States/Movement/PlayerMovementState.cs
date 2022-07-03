@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CameraManage;
 using Data.Animations;
 using Data.Camera;
@@ -8,7 +9,10 @@ using Data.ScriptableObjects;
 using Data.States;
 using Data.States.StateData.Player;
 using Entities;
+using InventorySystem;
 using LootSystem;
+using SkillsSystem;
+using StateMachine.Player.States.Movement.Grounded.Combat;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities.Layer;
@@ -24,8 +28,10 @@ namespace StateMachine.Player.States.Movement
 
         protected readonly MainPlayer MainPlayer;
         protected readonly PlayerGroundData PlayerGroundData;
+
         private float _calculateTime;
-        
+        private SkillManager _skillManager;
+
         public PlayerMovementState(PlayerStateMachine playerStateMachine)
         {
             PlayerStateMachine = playerStateMachine;
@@ -34,6 +40,7 @@ namespace StateMachine.Player.States.Movement
             var data = PlayerStateMachine.MainPlayer.EntityData as PlayerData;
             PlayerGroundData = data.GroundData;
             PlayerAnimationData = MainPlayer.PlayerAnimationData;
+            _skillManager = MainPlayer.GetComponent<SkillManager>();
 
             InitializeData();
         }
@@ -57,7 +64,6 @@ namespace StateMachine.Player.States.Movement
 
         public virtual void Update()
         {
-            
         }
 
         public virtual void FixedUpdate()
@@ -79,7 +85,7 @@ namespace StateMachine.Player.States.Movement
 
         public virtual void HandleInput()
         {
-            if(!MainPlayer.PlayerStateReusable.StopReading)
+            if (!MainPlayer.PlayerStateReusable.StopReading)
                 ReadMovementInput();
         }
 
@@ -97,60 +103,92 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed += OnLockedPerformed;
-            
+
             MainPlayer.InputAction.PlayerActions.FirstSkillCast.performed += OnFirstSkillPerformed;
             MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed += OnSecondSkillPerformed;
             MainPlayer.InputAction.PlayerActions.ThirdSkillCast.performed += OnThirdSkillPerformed;
             MainPlayer.InputAction.PlayerActions.FourthSkillCast.performed += OnFourthSkillPerformed;
 
             MainPlayer.AttackCalculator.OnDamageTaken += OnDamageTaken;
+
+            MainPlayer.InputAction.PlayerActions.FirstItem.performed += OnFirstItemUsed;
+            MainPlayer.InputAction.PlayerActions.SecondItem.performed += OnSecondItemUsed;
+            MainPlayer.InputAction.PlayerActions.ThirdItem.performed += OnThirdItemUsed;
+            MainPlayer.InputAction.PlayerActions.FourthItem.performed += OnFourthItemUsed;
         }
 
-        protected virtual void OnThirdSkillPerformed(InputAction.CallbackContext obj)
+
+        private void OnFirstItemUsed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerThirdSkillCastState);
+            MainPlayer.ItemEquipper.TryToUseItem(MainPlayer, 0);
         }
-        protected virtual void OnFourthSkillPerformed(InputAction.CallbackContext obj)
+
+        private void OnSecondItemUsed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerFourthSkillCastState);
+            MainPlayer.ItemEquipper.TryToUseItem(MainPlayer, 1);
         }
-        protected virtual void OnSecondSkillPerformed(InputAction.CallbackContext obj)
+
+        private void OnThirdItemUsed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerSecondSkillCastState);
+            MainPlayer.ItemEquipper.TryToUseItem(MainPlayer, 2);
+        }
+
+        private void OnFourthItemUsed(InputAction.CallbackContext obj)
+        {
+            MainPlayer.ItemEquipper.TryToUseItem(MainPlayer, 3);
         }
 
         protected virtual void OnFirstSkillPerformed(InputAction.CallbackContext obj)
         {
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerFirstSkillCastState);
+            TryToApplySkill(0);
         }
 
+        protected virtual void OnSecondSkillPerformed(InputAction.CallbackContext obj)
+        {
+            TryToApplySkill(1);
+        }
+
+        protected virtual void OnThirdSkillPerformed(InputAction.CallbackContext obj)
+        {
+            TryToApplySkill(2);
+        }
+
+        protected virtual void OnFourthSkillPerformed(InputAction.CallbackContext obj)
+        {
+            TryToApplySkill(3);
+        }
 
         protected virtual void OnLockedPerformed(InputAction.CallbackContext obj)
         {
+            if (!TryToChangeWeapon(false)) return;
+
             if (MainPlayer.TryGetComponent(out EnemyLockOn enemyLockOn))
             {
-                if(!enemyLockOn.FindTarget()) return;
-                
+                if (!enemyLockOn.FindTarget()) return;
+
                 MainPlayer.PlayerStateReusable.LockedState = true;
                 MainPlayer.PlayerStateReusable.Target = enemyLockOn.ScanNearBy();
                 MainPlayer.PlayerStateReusable.Target.Health.OnDied += ResetTarget;
+
                 MainPlayer.LongSwordActivator.ActivateSword();
-                
+
                 PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerLockedMovementState);
                 MainPlayer.Animator.SetLayerWeight(1, 1);
 
                 foreach (var shortSwordActivator in MainPlayer.ShortSwordsActivator)
                     shortSwordActivator.DeactivateSword();
-                
+
                 CinemachineCameraSwitcher.Instance.ChangeCamera();
             }
         }
 
+
         protected void ResetTarget()
         {
+            TryToChangeWeapon(true);
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
             StopAnimation(PlayerAnimationData.LockedParameterHash);
-            
+
             MainPlayer.LongSwordActivator.DeactivateSword();
             MainPlayer.PlayerStateReusable.LockedState = false;
             MainPlayer.GetComponent<EnemyLockOn>().ResetTarget();
@@ -165,7 +203,7 @@ namespace StateMachine.Player.States.Movement
 
         protected virtual void OnDamageTaken(AttackData attackData)
         {
-            if(MainPlayer.PlayerStateReusable.IsKnocked) return;
+            if (MainPlayer.PlayerStateReusable.IsKnocked) return;
 
             MainPlayer.PlayerStateReusable.LastHitFromTarget = attackData.User.transform;
             switch (attackData.AttackType)
@@ -174,15 +212,15 @@ namespace StateMachine.Player.States.Movement
                     PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerKnockHitState);
                     break;
                 case AttackType.Medium:
-                   // PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerMediumHitState);
+                    // PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerMediumHitState);
                     break;
                 case AttackType.Easy:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
-            }    
+            }
         }
-        
+
         protected virtual void OnAttackPerformed(InputAction.CallbackContext obj)
         {
             MainPlayer.PlayerStateReusable.ShouldAttack = true;
@@ -203,13 +241,18 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Movement.canceled -= OnMovementCanceled;
             MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
             MainPlayer.InputAction.PlayerActions.Locked.performed -= OnLockedPerformed;
-            
+
             MainPlayer.InputAction.PlayerActions.FirstSkillCast.performed -= OnFirstSkillPerformed;
             MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed -= OnFirstSkillPerformed;
             MainPlayer.InputAction.PlayerActions.ThirdSkillCast.performed -= OnThirdSkillPerformed;
             MainPlayer.InputAction.PlayerActions.FourthSkillCast.performed -= OnFourthSkillPerformed;
-            
+
             MainPlayer.AttackCalculator.OnDamageTaken -= OnDamageTaken;
+
+            MainPlayer.InputAction.PlayerActions.FirstItem.performed -= OnFirstItemUsed;
+            MainPlayer.InputAction.PlayerActions.SecondItem.performed -= OnSecondItemUsed;
+            MainPlayer.InputAction.PlayerActions.ThirdItem.performed -= OnThirdItemUsed;
+            MainPlayer.InputAction.PlayerActions.FourthItem.performed -= OnFourthItemUsed;
         }
 
         protected void SetBaseCameraRecenteringData()
@@ -264,18 +307,20 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.Rigidbody.AddForce(targetRotationDirection * movementSpeed - currentPlayerHorizontalVelocity,
                 ForceMode.VelocityChange);
         }
+
         protected void LookAt(Transform target)
         {
             Transform transform;
             (transform = MainPlayer.transform).LookAt(target);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         }
+
         private float GetSmoothMovementSpeed()
         {
-            _calculateTime += UnityEngine.Time.deltaTime ;
+            _calculateTime += UnityEngine.Time.deltaTime;
 
             float movementSpeed = GetMaxMovementSpeed();
-            
+
             if (MainPlayer.PlayerStateReusable.IsMovingAfterStop)
             {
                 movementSpeed = Mathf.Lerp(0, GetMaxMovementSpeed(), _calculateTime);
@@ -379,7 +424,8 @@ namespace StateMachine.Player.States.Movement
                 return;
             }
 
-            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle, MainPlayer.PlayerStateReusable.CurrentTargetRotation.y,
+            float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle,
+                MainPlayer.PlayerStateReusable.CurrentTargetRotation.y,
                 ref MainPlayer.PlayerStateReusable.DampedTargetRotationCurrentVelocity.y,
                 MainPlayer.PlayerStateReusable.TimeToReachTargetRotation.y
                 - MainPlayer.PlayerStateReusable.DampedTargetRotationPassedTime.y);
@@ -400,13 +446,15 @@ namespace StateMachine.Player.States.Movement
             {
                 mouseWorldPosition = raycastHit.point;
             }
-            
+
             Vector3 worldAimTarget = mouseWorldPosition;
             worldAimTarget.y = MainPlayer.transform.position.y;
             Vector3 aimDirection = (worldAimTarget - MainPlayer.transform.position).normalized;
 
-            MainPlayer.transform.forward = Vector3.Lerp(MainPlayer.transform.forward, aimDirection, Time.deltaTime * 20f);
+            MainPlayer.transform.forward =
+                Vector3.Lerp(MainPlayer.transform.forward, aimDirection, Time.deltaTime * 20f);
         }
+
         protected Vector3 GetTargetRotationDirection(float targetRotationAngle)
         {
             return Quaternion.Euler(0f, targetRotationAngle, 0f) * Vector3.forward;
@@ -423,6 +471,7 @@ namespace StateMachine.Player.States.Movement
 
             return movementSpeed;
         }
+
 
         protected Vector3 GetPlayerHorizontalVelocity()
         {
@@ -459,15 +508,8 @@ namespace StateMachine.Player.States.Movement
         {
             Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
 
-            MainPlayer.Rigidbody.AddForce(-playerHorizontalVelocity * MainPlayer.PlayerStateReusable.MovementDecelerationForce,
-                ForceMode.Acceleration);
-        }
-
-        protected void DecelerateVertically()
-        {
-            Vector3 playerVerticalVelocity = GetPlayerVerticalVelocity();
-
-            MainPlayer.Rigidbody.AddForce(-playerVerticalVelocity * MainPlayer.PlayerStateReusable.MovementDecelerationForce,
+            MainPlayer.Rigidbody.AddForce(
+                -playerHorizontalVelocity * MainPlayer.PlayerStateReusable.MovementDecelerationForce,
                 ForceMode.Acceleration);
         }
 
@@ -480,14 +522,18 @@ namespace StateMachine.Player.States.Movement
             return playerHorizontalMovement.magnitude > minimumMagnitude;
         }
 
-        protected bool IsMovingUp(float minimumVelocity = 0.1f)
+        private void TryToApplySkill(int index)
         {
-            return GetPlayerVerticalVelocity().y > minimumVelocity;
+            if (!_skillManager.TryToApplySkill(index)) return;
+
+            MainPlayer.PlayerStateReusable.SkillAnimToPlay = _skillManager.LastAppliedSkill.Anim.AnimName;
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerThirdSkillCastState);
         }
 
-        protected bool IsMovingDown(float minimumVelocity = 0.1f)
+        private bool TryToChangeWeapon(bool toShortSword)
         {
-            return GetPlayerVerticalVelocity().y < -minimumVelocity;
+            return MainPlayer.ItemEquipper.TryToChangeWeapon(toShortSword);
+            Debug.Log("Changed");
         }
     }
 }

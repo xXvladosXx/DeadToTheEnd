@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entities;
 using GameCore;
 using GameCore.Player;
@@ -12,32 +13,57 @@ namespace UI.Loot
 {
     public class LootUI : ItemContainerManagerUI
     {
-        [SerializeField] private ItemContainerUI _lootItemContainer;
-        [SerializeField] private InventoryItemContainerUI _inventoryItemContainer;
+        [SerializeField] private InventoryItemContainerUI _lootItemContainer;
         
         private MainPlayer _mainPlayer;
+        private ItemContainer _lastDrop;
+        private InteractableChecker _interactableChecker;
 
+        public event Action OnLootClosed;
         public override void OnCreate(InteractorsBase interactorsBase)
         {
             _mainPlayer = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer;
-            _mainPlayer.GetComponent<InteractableChecker>().OnLootOpen += ShowLoot;
+            _interactableChecker = _mainPlayer.GetComponent<InteractableChecker>();
+            _interactableChecker.OnLootOpen += ShowLoot;
         }
 
-        private void ShowLoot(LootContainer obj)
+        private void RefreshLoot()
+        {
+            for (int i = 0; i < _lootItemContainer.Inventory.ItemContainer.GetItemSlots.Length; i++)
+            {
+                _lastDrop.GetItemSlots[i] = _lootItemContainer.Inventory.ItemContainer.GetItemSlots[i];
+            }
+        }
+
+        private void ShowLoot(ItemContainer drop)
         {
             Show();
-            _lootItemContainer.Inventory.ItemContainer.Clear();
-            foreach (var item in obj.Items)
+            _lootItemContainer.RefreshInventory();
+            _lastDrop = drop;
+
+            foreach (var item in drop.GetItemSlots)
             {
-                var itemSlot = new ItemSlot(item.Item, item.Quantity, item.Item.ItemData.Id);
-                _lootItemContainer.Inventory.ItemContainer.AddItem(itemSlot);
+                _lootItemContainer.Inventory.ItemContainer.AddItem(item);
             }
-            
-            obj.Items.Clear();
+
             gameObject.SetActive(true);
         }
 
-     
-        
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if(_interactableChecker == null) return;
+            _interactableChecker.CurrentInteractableObject = null;
+            if(_lastDrop == null) return;
+            
+            for (int i = 0; i < _lootItemContainer.Inventory.ItemContainer.GetItemSlots.Length; i++)
+            {
+                _lastDrop.GetItemSlots[i] = _lootItemContainer.Inventory.ItemContainer.GetItemSlots[i];
+            }
+            _lootItemContainer.Inventory.ItemContainer.Clear(ItemContainer.ClearingMode.ClearAndRemove);
+
+            _lastDrop = null;
+        }
     }
 }

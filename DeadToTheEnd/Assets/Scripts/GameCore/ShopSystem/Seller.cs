@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using InventorySystem;
+using InventorySystem.Core;
 using SaveSystem;
 using UnityEngine;
 
@@ -19,12 +20,12 @@ namespace GameCore.ShopSystem
         {
             var savedInventories = new SavableInventory
             {
-                Inventory = new List<ItemEquipper.SavableItemSlot>(),
+                Inventory = new List<SavableItemSlot>(),
             };
             
             foreach (var itemSlot in ItemContainer.GetItemSlots)
             {
-                var savableItemSlot = new ItemEquipper.SavableItemSlot(itemSlot.ID, itemSlot.Quantity, itemSlot.Index);
+                var savableItemSlot = new SavableItemSlot(itemSlot.ID, itemSlot.Quantity, itemSlot.Index);
                 savedInventories.Inventory.Add(savableItemSlot);
             }
 
@@ -48,7 +49,7 @@ namespace GameCore.ShopSystem
         [Serializable]
         public class SavableInventory
         {
-            public List<ItemEquipper.SavableItemSlot> Inventory;
+            public List<SavableItemSlot> Inventory;
         }
     }
 }

@@ -13,7 +13,6 @@ namespace SkillsSystem.SkillPrefab
             var rotation = new Vector3(gameObject.transform.eulerAngles.x, _user.transform.eulerAngles.y,
                 _user.transform.eulerAngles.z);
             
-            Debug.Log(rotation);
             gameObject.transform.eulerAngles = rotation;      
             Move(gameObject, Speed);
         }

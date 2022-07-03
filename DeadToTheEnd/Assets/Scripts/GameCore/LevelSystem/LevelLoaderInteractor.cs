@@ -20,12 +20,7 @@ namespace GameCore.LevelSystem
             _saveInteractor.OnSceneLoadRequest += LoadLevel;
             _saveInteractor.OnStartSceneLoadRequest += LoadLevelWithSave;
             
-            LevelLoader.OnLevelLoaded += () =>
-            {
-                _saveInteractor.Save();
-                _saveInteractor.Load();
-            };
-            
+            LevelLoader.Init(_saveInteractor);
             LevelExitor.Init(LevelLoader);
         }
 

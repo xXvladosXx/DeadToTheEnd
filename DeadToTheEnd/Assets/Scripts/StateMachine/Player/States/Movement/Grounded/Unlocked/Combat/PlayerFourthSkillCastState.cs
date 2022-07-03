@@ -10,20 +10,13 @@
         {
             base.Enter();
             
-            StartAnimation(PlayerAnimationData.FourthSkillParameterHash);
         }
 
         public override void Exit()
         {
             base.Exit();
             
-            StopAnimation(PlayerAnimationData.FourthSkillParameterHash);
         }
-
-        public override void TriggerOnStateAnimationExitEvent()
-        {
-            base.TriggerOnStateAnimationExitEvent();
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
-        }
+      
     }
 }

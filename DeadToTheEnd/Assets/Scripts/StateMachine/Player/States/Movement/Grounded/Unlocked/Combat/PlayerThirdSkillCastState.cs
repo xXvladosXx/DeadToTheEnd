@@ -8,8 +8,6 @@
         public override void Enter()
         {
             base.Enter();
-            
-            StartAnimation(PlayerAnimationData.ThirdSkillParameterHash);
         }
         public override void Update()
         {
@@ -20,14 +18,6 @@
         public override void Exit()
         {
             base.Exit();
-            
-            StopAnimation(PlayerAnimationData.ThirdSkillParameterHash);
-        }
-
-        public override void TriggerOnStateAnimationExitEvent()
-        {
-            base.TriggerOnStateAnimationExitEvent();
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
         }
     }
 }

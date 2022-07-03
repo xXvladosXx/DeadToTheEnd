@@ -41,12 +41,5 @@ namespace UI.Stats
                 text.text = levelCalculator.Level.ToString();
             }
         }
-
-        private void OnDisable()
-        {
-            _levelCalculator.OnLevelUp -= RefreshLevel;
-        }
-
-        
     }
 }

@@ -9,6 +9,7 @@ namespace UI
     public class InventoryItemContainerUI : StaticItemContainerUI
     {
         public event Action<ItemSlot> OnBuy;
+        
         protected override void AppendSlots()
         {
             for (int i = Index; i < Inventory.ItemContainer.GetItemSlots.Length; i++)
@@ -24,9 +25,11 @@ namespace UI
             base.AppendSlots();
         }
 
+        
+
         public override void Visit(ItemSlotUI itemSlotUI)
         {
-            var mouseHoverSlot = GetSlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
+            var mouseHoverSlot = SlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
 
             Inventory.ItemContainer.SwapItem(MouseData.UI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
             UpdateSlots();

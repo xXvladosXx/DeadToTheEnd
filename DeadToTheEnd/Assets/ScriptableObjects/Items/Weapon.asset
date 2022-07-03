@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d126242b885491380f331bce02cdee7, type: 3}
   m_Name: Weapon
   m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 6752180ef5b957742831fec26492f2cf,
+    type: 2}
   _sprite: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
-  _id: 
-  _title: 
+  _name: 
   _description: 
   _maxItemsInInventory: 1
   _sellPrice: 100

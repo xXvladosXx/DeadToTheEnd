@@ -148,6 +148,42 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FirstItem",
+                    "type": "Button",
+                    "id": "01ac6e7f-232a-4743-9f1c-021ea7e667df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondItem",
+                    "type": "Button",
+                    "id": "548ea7d7-4a89-4c3f-b4bd-77ceb57a9997",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ThirdItem",
+                    "type": "Button",
+                    "id": "2c2d09a0-8d56-4c7a-ac08-17fe24551e98",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FourthItem",
+                    "type": "Button",
+                    "id": "685e318b-4f64-4fb1-b285-a63cbc6c9cc9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -434,6 +470,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "FourthSkillCast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3118d8d0-a5da-44d0-b031-e66b0303de08",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FirstItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90814409-3a88-4ace-b630-608ea42be5bd",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c13a529-6a2d-4842-9452-2e5a9a8f37b7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThirdItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35bddf70-b293-4c28-a017-0b6a29088d85",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FourthItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

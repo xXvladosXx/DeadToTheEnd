@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CameraManage;
 using Combat.ColliderActivators;
 using Combat.SwordActivators;
@@ -11,8 +12,10 @@ using Data.Shop;
 using Data.States;
 using Data.Stats;
 using Entities.Core;
+using GameCore.SaveSystem;
 using InventorySystem;
 using LootSystem;
+using SaveSystem;
 using StateMachine;
 using UnityEngine;
 using Utilities;
@@ -23,7 +26,7 @@ using Utilities.Raycast;
 namespace Entities
 {
     [RequireComponent(typeof(PlayerInput), typeof(ItemEquipper))]
-    public sealed class MainPlayer : AliveEntity
+    public sealed class MainPlayer : AliveEntity, ISavable
     {
         [field:SerializeField] public SwordActivator LongSwordActivator { get; private set; }
         [field:SerializeField] public ShortSwordActivator[] ShortSwordsActivator { get; private set; }
@@ -41,7 +44,9 @@ namespace Entities
         public PlayerStateReusableData PlayerStateReusable { get; private set; }
         public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
-        
+
+        private List<IDataSavable> _savables;
+
         protected override void Awake()
         {
             base.Awake();
@@ -54,7 +59,8 @@ namespace Entities
             PlayerAnimationData.Init();
 
             MainCamera = UnityEngine.Camera.main.transform;
-
+            _savables = new List<IDataSavable>();
+            
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
             ShortSwordColliderActivators = GetComponentsInChildren<ShortAttackColliderActivator>();
             ItemEquipper = GetComponent<ItemEquipper>();
@@ -63,6 +69,9 @@ namespace Entities
             PlayerStateReusable = (PlayerStateReusableData) Reusable;
             AttackCalculator = new AttackCalculator(PlayerStateReusable);
             StateMachine = new PlayerStateMachine(this);
+            
+            _savables.Add(LevelCalculator);
+            _savables.Add(StatsValueStorage);
         }
 
         private void Start()
@@ -78,6 +87,7 @@ namespace Entities
 
         private void Update()
         {
+            Debug.Log(StatsFinder.GetStat(Stat.Damage));
             StateMachine.HandleInput();
             StateMachine.Update();
         }
@@ -112,5 +122,30 @@ namespace Entities
             }
         }
 
+        public object CaptureState()
+        {
+            List<ISerializable> serializables = new List<ISerializable>();
+            foreach (var savable in _savables)
+            {
+                serializables.Add(savable.SerializableData());
+            }
+
+            return serializables;
+        }
+
+        public void RestoreState(object state)
+        {
+            var serializables = (List<ISerializable>) state;
+
+            foreach (var savable in _savables)
+            {
+                foreach (var serializable in serializables)
+                {
+                    savable.RestoreSerializableData(serializable);
+                }
+            }
+            
+            RecalculateStats(LevelCalculator.Level);
+        }
     }
 }

@@ -6,6 +6,7 @@ using Entities.Enemies;
 using GameCore;
 using GameCore.Player;
 using LootSystem;
+using UI.Inventory.ItemContainers.Core;
 using UI.Tip;
 using UnityEngine;
 
@@ -15,13 +16,14 @@ namespace UI.Controllers
     {
         [SerializeField] private TextTipUI _textTipUI;
         
-        protected MainPlayer MainPlayer;
-
-        protected List<UIElement> UIElements;
         private UIElement _currentUIElement;
-
         private Dictionary<Type, IUIElement> _createdUIElements;
-        
+
+        protected List<ItemContainerUI> ItemContainersUi;
+        protected List<UIElement> UIElements;
+        protected MainPlayer MainPlayer;
+        protected IRefreshable[] RefreshableElements;
+
         public virtual void SendMessageOnCreate(InteractorsBase interactorsBase)
         {
                 MainPlayer = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer;
@@ -41,6 +43,13 @@ namespace UI.Controllers
         protected virtual void Init(InteractorsBase interactorsBase)
         {
             gameObject.SetActive(true);
+
+            RefreshableElements = GetComponentsInChildren<IRefreshable>();
+            ItemContainersUi = GetComponentsInChildren<ItemContainerUI>().ToList();
+            foreach (var itemContainerUI in ItemContainersUi)
+            {
+                itemContainerUI.Init(interactorsBase);
+            }
             
             UIElements = GetComponentsInChildren<UIElement>().ToList();
             foreach (var uiElement in UIElements)
@@ -51,7 +60,8 @@ namespace UI.Controllers
             }
         }
 
-      
+
+
         protected void SwitchUIElement<T>() where T : UIElement
         {
             if (_currentUIElement != null)
@@ -88,7 +98,7 @@ namespace UI.Controllers
         
         public void Refresh()
         {
-            foreach (var refreshable in GetComponentsInChildren<IRefreshable>())
+            foreach (var refreshable in RefreshableElements)
             {
                 refreshable.Refresh();
             }

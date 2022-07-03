@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entities.Core;
+using InventorySystem;
+using InventorySystem.Core;
+using SaveSystem;
+using StateMachine.Player.States.Movement.Grounded.Combat;
 using StateMachine.WarriorEnemy.Components;
+using TimerSystem;
 using UnityEngine;
 
 namespace SkillsSystem
 {
     [RequireComponent(typeof(ISkillUser))]
-    public class SkillManager : MonoBehaviour
+    public class SkillManager : MonoBehaviour, ISavable, ITimerController
     {
         [SerializeField] private Skill _skill;
         [field: SerializeField] public SkillsContainer SkillsContainer { get; private set; }
+        [field: SerializeField] public SkillsContainer QuickBarSkillsContainer { get; private set; }
         public Dictionary<Type, float> SkillsCooldown { get; private set; }
-        private Dictionary<Type, float> CurrentSkillsCooldown { get; set; }
+        public Dictionary<Type, float> CurrentSkillsCooldown { get; private set; }
 
         private CooldownTimer _cooldownTimer;
-        private ActiveSkill _lastAppliedSkill;
+        public Skill LastAppliedSkill { get; set; }
 
         public Skill Skill => _skill;
         private void Awake()
@@ -23,26 +29,15 @@ namespace SkillsSystem
             SkillsCooldown = new Dictionary<Type, float>();
             
             _cooldownTimer = new CooldownTimer();
+            
             _cooldownTimer.Init(SkillsCooldown);
+            CurrentSkillsCooldown = new Dictionary<Type, float>(SkillsCooldown);
         }
 
         private void Update()
         {
             _cooldownTimer.Update(Time.deltaTime, CurrentSkillsCooldown);
-
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                _skill.ApplySkill(GetComponent<AliveEntity>());
-                var activeSkill = _skill as ActiveSkill;
-                _lastAppliedSkill = activeSkill;
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                _skill.ApplySkill(GetComponent<AliveEntity>());
-                var activeSkill = _skill as ActiveSkill;
-                _lastAppliedSkill = activeSkill;
-            }
+            SkillsCooldown = _cooldownTimer.Cooldowns;
         }
 
         public void StartCooldown(Type skill, float time)
@@ -51,9 +46,10 @@ namespace SkillsSystem
             CurrentSkillsCooldown = new Dictionary<Type, float>(SkillsCooldown);
         }
 
-        public void SpawnPrefab()
+        public void SpawnPrefab(int index)
         {
-            _lastAppliedSkill.SpawnPrefab();
+             //_lastAppliedSkill.SpawnPrefab();
+             LastAppliedSkill.ApplySkill(GetComponent<AliveEntity>(), index);
         }
        
         void OnDrawGizmos()
@@ -62,5 +58,75 @@ namespace SkillsSystem
             Gizmos.color = new Color(1, 0, 0, 0.5f);
             Gizmos.DrawCube(transform.position, new Vector3(6, 4, 14));
         }
+
+        public CooldownTimer CooldownTimer => _cooldownTimer;
+        public object CaptureState()
+        {
+            var savedInventories = new SavableInventories
+            {
+                AllSkills = new List<SavableItemSlot>(),
+                QuickBarSkills = new List<SavableItemSlot>(),
+            };
+            
+            foreach (var itemSlot in SkillsContainer.ItemContainer.GetItemSlots)
+            {
+                var savableItemSlot = new SavableItemSlot(itemSlot.ID, itemSlot.Quantity, itemSlot.Index);
+                savedInventories.AllSkills.Add(savableItemSlot);
+            }
+            
+            foreach (var itemSlot in QuickBarSkillsContainer.ItemContainer.GetItemSlots)
+            {
+                var savableItemSlot = new SavableItemSlot(itemSlot.ID, itemSlot.Quantity, itemSlot.Index);
+                savedInventories.QuickBarSkills.Add(savableItemSlot);
+            }
+
+            return savedInventories;
+        }
+
+        public void RestoreState(object state)
+        {
+            SkillsContainer.ItemContainer.Clear();
+            QuickBarSkillsContainer.ItemContainer.Clear();
+            
+            var savedInventories = (SavableInventories) state;
+
+            foreach (var itemSlot in savedInventories.AllSkills)
+            {
+                var slot = new ItemSlot(SkillsContainer.ItemContainer.GetDatabase.GetItemByID(itemSlot.ItemId),
+                    itemSlot.Quantity, itemSlot.ItemId);
+                SkillsContainer.ItemContainer.AddItem(slot, itemSlot.Index);
+            }
+
+            foreach (var itemSlot in savedInventories.QuickBarSkills)
+            {
+                var slot = new ItemSlot(QuickBarSkillsContainer.ItemContainer.GetDatabase.GetItemByID(itemSlot.ItemId),
+                    itemSlot.Quantity, itemSlot.ItemId);
+                QuickBarSkillsContainer.ItemContainer.AddItem(slot, itemSlot.Index);
+            }
+        }
+        
+        public bool TryToApplySkill(int index)
+        {
+            var skill = QuickBarSkillsContainer.ItemContainer.GetItemSlots[index].Item as Skill;
+
+            if (skill != null)
+            {
+                if (SkillsCooldown.ContainsKey(skill.GetType())) return false;
+
+                LastAppliedSkill = skill;
+                StartCooldown(skill.GetType(), skill.GetTime());
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+    
+    [Serializable]
+    public class SavableInventories
+    {
+        public List<SavableItemSlot> AllSkills;
+        public List<SavableItemSlot> QuickBarSkills;
     }
 }

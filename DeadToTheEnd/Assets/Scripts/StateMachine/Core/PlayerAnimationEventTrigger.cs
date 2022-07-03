@@ -26,9 +26,9 @@ namespace StateMachine.Player
             _mainPlayer.ActivateLeftSword(time, AttackType.Easy);
         }
 
-        public void OnPrefabSpawn()
+        public void OnPrefabSpawn(int index)
         {
-            _mainPlayer.GetComponent<SkillManager>().SpawnPrefab();
+            _mainPlayer.GetComponent<SkillManager>().SpawnPrefab(index);
         }
     }
 }

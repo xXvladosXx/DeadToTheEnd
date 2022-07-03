@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acaf14bc74344daeb7654f9879480550, type: 3}
+  m_Name: PlayerKnownSkills
+  m_EditorClassIdentifier: 
+  ItemContainer:
+    _itemSlots:
+    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
+      ID: 3
+      Index: 0
+      Quantity: 1
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
+      ID: 3
+      Index: 1
+      Quantity: 1
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
+      ID: 3
+      Index: 2
+      Quantity: 1
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
+      ID: 3
+      Index: 3
+      Quantity: 1
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
+      ID: 3
+      Index: 4
+      Quantity: 1
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 5
+      Quantity: 0
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 6
+      Quantity: 0
+      ItemTypes: 
+      Changeable: 0
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 7
+      Quantity: 0
+      ItemTypes: 
+      Changeable: 0
+    _database: {fileID: 11400000, guid: faaead4ed8ead09488b3d825304e4fe0, type: 2}

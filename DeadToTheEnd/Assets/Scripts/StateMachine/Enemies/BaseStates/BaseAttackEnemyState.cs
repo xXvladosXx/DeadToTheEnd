@@ -43,5 +43,10 @@ namespace StateMachine.Enemies.BaseStates
             
             StopAnimation(Enemy.EnemyAnimationData.AttackParameterHash);
         }
+
+        public float GetTime()
+        {
+            return 0;
+        }
     }
 }

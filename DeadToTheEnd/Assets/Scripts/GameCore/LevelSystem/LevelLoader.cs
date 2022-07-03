@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
+using GameCore.Save;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ namespace GameCore.LevelSystem
         [SerializeField] private Image _progressBar;
 
         [field: SerializeField] public float TimeToWait { get; private set; } = 1;
+
+        private SaveInteractor _saveInteractor;
         public event Action OnLevelLoaded;
         public event Action OnFadeStarted;
         
@@ -22,6 +25,11 @@ namespace GameCore.LevelSystem
             DontDestroyOnLoad(gameObject);
         }
 
+        public void Init(SaveInteractor saveInteractor)
+        {
+            _saveInteractor = saveInteractor;
+        }
+        
         public void LoadLevelWithSave(int sceneIndex)
         {
             OnLevelLoaded?.Invoke();
@@ -34,9 +42,10 @@ namespace GameCore.LevelSystem
         
         public IEnumerator LoadLevel(int sceneIndex)
         {
-            Debug.Log("LevelLoaded");
+            _saveInteractor.Save();
             OnFadeStarted?.Invoke();
             yield return new WaitForSeconds(TimeToWait);
+            _saveInteractor.Load();
             
             var scene = SceneManager.LoadSceneAsync(sceneIndex);
             scene.allowSceneActivation = false;
@@ -49,15 +58,13 @@ namespace GameCore.LevelSystem
             } while (scene.progress < 0.9f);
             
             _canvas.gameObject.SetActive(false);
-            
             scene.allowSceneActivation = true;
-
             Destroy(gameObject);
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log("Current scene is "+SceneManager.GetActiveScene().buildIndex);
+            _saveInteractor.Save();
             OnLevelLoaded?.Invoke();
         }
     }

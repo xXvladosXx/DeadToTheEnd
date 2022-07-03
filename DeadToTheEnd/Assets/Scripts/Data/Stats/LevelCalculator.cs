@@ -1,11 +1,13 @@
 ﻿using System;
+using GameCore.SaveSystem;
+using SaveSystem;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Data.Stats
 {
     [Serializable]
-    public class LevelCalculator
+    public class LevelCalculator : IDataSavable
     {
         [field: SerializeField] public int Level { get; private set; } = 1;
         public float GetExpPct => _currentXP/_aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
@@ -35,8 +37,9 @@ namespace Data.Stats
             if (CalculateLevel() > Level)
             {
                 Level = CalculateLevel();
+                _currentXP = 0;
+
                 OnLevelUp?.Invoke(Level);
-                
                 _maxXP = _aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
                 currentXpPct = _currentXP / _maxXP;
                 OnExperiencePctChanged?.Invoke(currentXpPct);
@@ -58,6 +61,28 @@ namespace Data.Stats
             }
 
             return maxLevel + 1;
+        }
+
+        public ISerializable SerializableData() =>
+            new SavableLevel
+            {
+                Level = Level,
+                Experience = _currentXP
+            };
+
+        public void RestoreSerializableData(ISerializable serializable)
+        {
+            if(serializable is not SavableLevel serializableLevel) return;
+            Level = serializableLevel.Level;
+            _currentXP = serializableLevel.Experience;
+        }
+
+
+        [Serializable]
+        public class SavableLevel : ISerializable
+        {
+            public int Level;
+            public float Experience;
         }
     }
 }

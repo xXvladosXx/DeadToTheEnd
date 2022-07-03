@@ -9,7 +9,6 @@
         public override void Enter()
         {
             base.Enter();
-            StartAnimation(PlayerAnimationData.SecondSkillParameterHash);
         }
 
         public override void Update()
@@ -22,7 +21,6 @@
         public override void Exit()
         {
             base.Exit();
-            StopAnimation(PlayerAnimationData.SecondSkillParameterHash);
         }
     }
 }

@@ -170,6 +170,42 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FirstItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""01ac6e7f-232a-4743-9f1c-021ea7e667df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""548ea7d7-4a89-4c3f-b4bd-77ceb57a9997"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThirdItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c2d09a0-8d56-4c7a-ac08-17fe24551e98"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FourthItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""685e318b-4f64-4fb1-b285-a63cbc6c9cc9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -458,6 +494,50 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""FourthSkillCast"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3118d8d0-a5da-44d0-b031-e66b0303de08"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FirstItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""90814409-3a88-4ace-b630-608ea42be5bd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c13a529-6a2d-4842-9452-2e5a9a8f37b7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThirdItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35bddf70-b293-4c28-a017-0b6a29088d85"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FourthItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -590,6 +670,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_SecondSkillCast = m_Player.FindAction("SecondSkillCast", throwIfNotFound: true);
         m_Player_ThirdSkillCast = m_Player.FindAction("ThirdSkillCast", throwIfNotFound: true);
         m_Player_FourthSkillCast = m_Player.FindAction("FourthSkillCast", throwIfNotFound: true);
+        m_Player_FirstItem = m_Player.FindAction("FirstItem", throwIfNotFound: true);
+        m_Player_SecondItem = m_Player.FindAction("SecondItem", throwIfNotFound: true);
+        m_Player_ThirdItem = m_Player.FindAction("ThirdItem", throwIfNotFound: true);
+        m_Player_FourthItem = m_Player.FindAction("FourthItem", throwIfNotFound: true);
         // Bar
         m_Bar = asset.FindActionMap("Bar", throwIfNotFound: true);
         m_Bar_Inventory = m_Bar.FindAction("Inventory", throwIfNotFound: true);
@@ -672,6 +756,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SecondSkillCast;
     private readonly InputAction m_Player_ThirdSkillCast;
     private readonly InputAction m_Player_FourthSkillCast;
+    private readonly InputAction m_Player_FirstItem;
+    private readonly InputAction m_Player_SecondItem;
+    private readonly InputAction m_Player_ThirdItem;
+    private readonly InputAction m_Player_FourthItem;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -692,6 +780,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @SecondSkillCast => m_Wrapper.m_Player_SecondSkillCast;
         public InputAction @ThirdSkillCast => m_Wrapper.m_Player_ThirdSkillCast;
         public InputAction @FourthSkillCast => m_Wrapper.m_Player_FourthSkillCast;
+        public InputAction @FirstItem => m_Wrapper.m_Player_FirstItem;
+        public InputAction @SecondItem => m_Wrapper.m_Player_SecondItem;
+        public InputAction @ThirdItem => m_Wrapper.m_Player_ThirdItem;
+        public InputAction @FourthItem => m_Wrapper.m_Player_FourthItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -749,6 +841,18 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @FourthSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
                 @FourthSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
                 @FourthSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
+                @FirstItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
+                @FirstItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
+                @FirstItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
+                @SecondItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItem;
+                @SecondItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItem;
+                @SecondItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItem;
+                @ThirdItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThirdItem;
+                @ThirdItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThirdItem;
+                @ThirdItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThirdItem;
+                @FourthItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthItem;
+                @FourthItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthItem;
+                @FourthItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -801,6 +905,18 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @FourthSkillCast.started += instance.OnFourthSkillCast;
                 @FourthSkillCast.performed += instance.OnFourthSkillCast;
                 @FourthSkillCast.canceled += instance.OnFourthSkillCast;
+                @FirstItem.started += instance.OnFirstItem;
+                @FirstItem.performed += instance.OnFirstItem;
+                @FirstItem.canceled += instance.OnFirstItem;
+                @SecondItem.started += instance.OnSecondItem;
+                @SecondItem.performed += instance.OnSecondItem;
+                @SecondItem.canceled += instance.OnSecondItem;
+                @ThirdItem.started += instance.OnThirdItem;
+                @ThirdItem.performed += instance.OnThirdItem;
+                @ThirdItem.canceled += instance.OnThirdItem;
+                @FourthItem.started += instance.OnFourthItem;
+                @FourthItem.performed += instance.OnFourthItem;
+                @FourthItem.canceled += instance.OnFourthItem;
             }
         }
     }
@@ -888,6 +1004,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnSecondSkillCast(InputAction.CallbackContext context);
         void OnThirdSkillCast(InputAction.CallbackContext context);
         void OnFourthSkillCast(InputAction.CallbackContext context);
+        void OnFirstItem(InputAction.CallbackContext context);
+        void OnSecondItem(InputAction.CallbackContext context);
+        void OnThirdItem(InputAction.CallbackContext context);
+        void OnFourthItem(InputAction.CallbackContext context);
     }
     public interface IBarActions
     {

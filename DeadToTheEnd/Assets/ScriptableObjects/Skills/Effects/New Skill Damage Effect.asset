@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a41e2a17ee4299856f3e7ab9b57db0, type: 3}
   m_Name: New Skill Damage Effect
   m_EditorClassIdentifier: 
-  _damage: 114
+  _damage: 10
   _attackType: 0

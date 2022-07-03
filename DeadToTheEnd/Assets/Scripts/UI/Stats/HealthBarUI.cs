@@ -9,7 +9,6 @@ namespace UI.Stats
         public override void InitBarData(AliveEntity aliveEntity)
         {
             aliveEntity.Health.OnHealthPctChanged += ChangeHealth;
-            Debug.Log(aliveEntity.gameObject);
             Bar.fillAmount = aliveEntity.Health.HealthValue / aliveEntity.Health.GetMaxHealth;
             StartCoroutine(ChangeToPct(aliveEntity.Health.HealthValue / aliveEntity.Health.GetMaxHealth));
         }

@@ -92,6 +92,12 @@ namespace Data.Stats
         Mana,
         ManaRegeneration,
         Damage,
+        CriticalChance,
+        CriticalDamage,
+        AttackSpeed,
+        MovementSpeed,
+        Evasion,
+        Accuracy
     }
 
     public enum Experience

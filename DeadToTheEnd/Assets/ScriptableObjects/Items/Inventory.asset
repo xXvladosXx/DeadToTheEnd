@@ -14,104 +14,124 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemContainer:
     _itemSlots:
-    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
+    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
       ID: 0
       Index: 0
-      Quantity: 3
+      Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      Changeable: 1
+    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
       ID: 1
       Index: 1
       Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 2
-      Quantity: 0
-      ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      ID: 0
+      Index: 2
+      Quantity: 2
+      ItemTypes: 
+      Changeable: 1
+    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
       ID: 1
       Index: 3
       Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      Changeable: 1
+    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
       ID: 1
       Index: 4
       Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
+      Changeable: 1
+    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
       ID: 1
       Index: 5
-      Quantity: 2
+      Quantity: 1
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 6
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 7
       Quantity: 0
       ItemTypes: 
-    - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
-      ID: 1
+      Changeable: 1
+    - Item: {fileID: 0}
+      ID: -1
       Index: 8
-      Quantity: 1
+      Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 9
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 10
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 11
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 12
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 13
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 14
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 15
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 16
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 17
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 18
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
       Index: 19
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
     _database: {fileID: 11400000, guid: faaead4ed8ead09488b3d825304e4fe0, type: 2}

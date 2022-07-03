@@ -39,7 +39,8 @@ namespace CameraManage
         private void Update()
         {
             _cinemachineVirtualCamera.enabled = _mainPlayer.InputAction.enabled;
-
+            _inputProvider.enabled = _mainPlayer.InputAction.enabled;    
+            
             Zoom();
         }
 

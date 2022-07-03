@@ -30,6 +30,7 @@ namespace UI
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
+                MouseData.LastItemClicked = gameObject.GetComponent<ItemDragHandler>();
                 var mouseObj = new GameObject
                 {
                     transform =
@@ -56,8 +57,6 @@ namespace UI
             {
                 if (MouseData.TempItemDrag == null) return;
 
-                MouseData.LastItemClicked = MouseData.TempItemDrag;
-            
                 MouseData.TempItemDrag.GetComponent<RectTransform>().position = Mouse.current.position.ReadValue();
                 MouseData.TempItemDrag.GetComponent<RectTransform>().SetAsLastSibling();
             }
@@ -75,7 +74,7 @@ namespace UI
             _isHovering = false;
         }
         
-        public void SetItemData(Item item, Dictionary<ItemDragHandler, ItemSlot> slots, ItemContainer itemContainer,
+        public virtual void SetItemData(Item item, Dictionary<ItemDragHandler, ItemSlot> slots, ItemContainer itemContainer,
             ItemSlot itemSlot)
         {
             Item = item;
@@ -96,19 +95,19 @@ namespace UI
             if (itemSlot == null || itemSlot.ID < 0)
             {
                 Image.sprite = null;
-                Image.color = new Color (1, 0, 0, 0);;
+                Image.color = color;
                 Text.text = "";
             }
             else
             {
                 var greaterThanOne = itemSlot.Quantity > 1;
                 Image.sprite = itemSlot.Item.SpriteIcon;
-                Image.color = new Color (255, 255, 255, 1);;
+                Image.color = color;
 
                 Text.text = greaterThanOne ? itemSlot.Quantity.ToString() : "";
             }
         }
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (_isHovering)
             {
@@ -122,6 +121,6 @@ namespace UI
         public static ItemContainerUI UI { get; set; }
         public static GameObject TempItemDrag { get; set; }
         public static GameObject TempItemHover { get; set; }
-        public static GameObject LastItemClicked { get; set; }
+        public static ItemDragHandler LastItemClicked { get; set; }
     }
 }

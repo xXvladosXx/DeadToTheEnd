@@ -14,12 +14,15 @@ namespace InventorySystem
         public int Quantity;
 
         public ItemType[] ItemTypes;
+        public bool Changeable = true;
 
         public ItemSlot()
         {
             Item = null;
             ID = -1;
             Quantity = 1;
+            ItemTypes = new ItemType[]{};
+            Changeable = true;
         }
         public ItemSlot(Item item, int quantity, int id)
         {

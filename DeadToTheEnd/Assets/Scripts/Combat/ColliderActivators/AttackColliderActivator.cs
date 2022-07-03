@@ -55,7 +55,6 @@ namespace Combat.ColliderActivators
                 aliveEntity.AttackCalculator.TryToTakeDamage(AttackData);
                 CameraShaker.ShakeCameraOnAttackHit(AttackData);
 
-                Debug.Log("Hit");
                 OnTargetHit?.Invoke(AttackData);
             }
         }

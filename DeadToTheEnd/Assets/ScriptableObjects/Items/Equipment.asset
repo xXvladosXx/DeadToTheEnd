@@ -16,18 +16,50 @@ MonoBehaviour:
     _itemSlots:
     - Item: {fileID: 0}
       ID: -1
-      Quantity: 1
+      Index: 0
+      Quantity: 0
+      ItemTypes: 010a0000
+      Changeable: 1
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 1
+      Quantity: 0
       ItemTypes: 09000000
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
-      Quantity: 1
-      ItemTypes: 
+      Index: 2
+      Quantity: 0
+      ItemTypes: 01200000
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
-      Quantity: 1
-      ItemTypes: 
+      Index: 3
+      Quantity: 0
+      ItemTypes: 01800000
+      Changeable: 1
     - Item: {fileID: 0}
       ID: -1
-      Quantity: 1
-      ItemTypes: 
+      Index: 4
+      Quantity: 0
+      ItemTypes: 01120000
+      Changeable: 1
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 5
+      Quantity: 0
+      ItemTypes: 11000000
+      Changeable: 1
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 6
+      Quantity: 0
+      ItemTypes: 21000000
+      Changeable: 1
+    - Item: {fileID: 0}
+      ID: -1
+      Index: 7
+      Quantity: 0
+      ItemTypes: 01400000
+      Changeable: 1
     _database: {fileID: 11400000, guid: faaead4ed8ead09488b3d825304e4fe0, type: 2}

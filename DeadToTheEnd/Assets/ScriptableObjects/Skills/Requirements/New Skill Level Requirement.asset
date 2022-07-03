@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a18a195a8424a019279912ccefd7998, type: 3}
   m_Name: New Skill Level Requirement
   m_EditorClassIdentifier: 
-  _level: 0
+  _level: 1

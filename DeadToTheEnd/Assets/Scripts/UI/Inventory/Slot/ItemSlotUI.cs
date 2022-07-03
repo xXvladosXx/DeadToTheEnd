@@ -2,6 +2,7 @@
 using InventorySystem;
 using TMPro;
 using UI.Inventory;
+using UI.Tooltip;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -13,9 +14,22 @@ namespace UI
     {
         public override void Accept(IItemContainerVisitor itemContainerVisitor)
         {
+            Debug.Log(this.Item);
             itemContainerVisitor?.Visit(this);
         }
-        
+
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            base.OnPointerEnter(eventData);
+            TooltipPopup.Instance.DisplayInfo(ItemSlot.Item);
+        }
+
+        public override void OnPointerExit(PointerEventData eventData)
+        {
+            base.OnPointerExit(eventData);
+            TooltipPopup.Instance.HideInfo();
+        }
+
         public override void OnPointerUp(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
@@ -26,12 +40,15 @@ namespace UI
 
                 if (MouseData.UI == null)
                 {
-                    Slots[this].RemoveItem();
+                    //Slots[this].RemoveItem();
+                    ItemContainer.RemoveItem(Slots[this], Slots[this].Quantity);
                     return;
                 }
 
                 if (MouseData.TempItemHover)
                 {
+                    TooltipPopup.Instance.DisplayInfo(ItemSlot.Item);
+
                     Accept(MouseData.UI);
                 }
             }
@@ -48,7 +65,7 @@ namespace UI
             {
                 var img = MouseData.TempItemDrag.AddComponent<Image>();
                 rt.gameObject.AddComponent<ItemSlotUI>();
-                img.sprite = ItemContainer.GetDatabase.GetItemByID(Slots[this].ID).SpriteIcon;
+                img.sprite = Slots[this].Item.SpriteIcon;
                 img.raycastTarget = false;
             }
 

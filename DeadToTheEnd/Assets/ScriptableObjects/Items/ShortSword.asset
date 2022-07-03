@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabbe94cdfc6402a9678f1800710bc65, type: 3}
+  m_Name: ShortSword
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 47d89f1962a4d3e469075e2276b2ed51,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
+  _name: Short Sword
+  _description: 
+  _maxItemsInInventory: 1
+  _sellPrice: 1000
+  _itemType: 2561
+  _itemData:
+    Id: 5
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 10000
+  _healthBonus: 1
+  _criticalDamage: 1
+  _criticalChance: 1
+  _attackSpeedBonus: 1
+  _movementSpeedBonus: 1
+  _healthRegenerationBonus: 1
+  _manaBonus: 1
+  _manaRegenerationBonus: 1
+  _evasionBonus: 1
+  _accuracyBonus: 1

@@ -30,5 +30,10 @@ namespace StateMachine.Enemies.WarriorEnemy.States.Combat
         {
            
         }
+
+        public float GetTime()
+        {
+            return 0;
+        }
     }
 }

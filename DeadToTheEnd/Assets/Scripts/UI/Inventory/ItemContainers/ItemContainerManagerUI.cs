@@ -14,7 +14,7 @@ namespace UI.Inventory.ItemContainers
                 itemContainerUI.gameObject.SetActive(true);
             }
         }
-        private void Update()
+        protected virtual void Update()
         {
             foreach (var itemContainerUI in _itemContainers)
             {

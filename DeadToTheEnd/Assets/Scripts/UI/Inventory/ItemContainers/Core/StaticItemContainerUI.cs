@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore;
 using InventorySystem;
 using UnityEngine;
 
@@ -8,18 +9,32 @@ namespace UI.Inventory.ItemContainers.Core
     {
         [SerializeField] protected ItemDragHandler ItemSlot;
         [SerializeField] protected Transform Content;
+
+        protected InteractorsBase InteractorsBase;
         
-        protected override void Init()
+        public override void Init(InteractorsBase interactorsBase)
         {
+            InteractorsBase = interactorsBase;
+            
             CreateSlots();
             UpdateSlots();
         }
-        
-        protected override void CreateSlots()
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+        }
+
+        public override void CreateSlots()
         {
             SlotOnUI = new Dictionary<ItemDragHandler, ItemSlot>();
             Index = 0;
-            
+
             foreach (var itemSlot in Inventory.ItemContainer.GetItemSlots)
             {
                 var o = Instantiate(ItemSlot, Content);
@@ -38,7 +53,7 @@ namespace UI.Inventory.ItemContainers.Core
             }
             SlotOnUI.Clear();
             
-            Init();
+            Init(InteractorsBase);
         }
     }
 }

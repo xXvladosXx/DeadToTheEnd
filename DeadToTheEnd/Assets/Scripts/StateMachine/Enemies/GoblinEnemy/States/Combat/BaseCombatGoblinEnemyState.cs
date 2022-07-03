@@ -50,5 +50,10 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             
             StopAnimation(GoblinEnemyAnimationData.AttackParameterHash);
         }
+
+        public float GetTime()
+        {
+            return 0;
+        }
     }
 }

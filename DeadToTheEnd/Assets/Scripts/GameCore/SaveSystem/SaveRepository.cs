@@ -70,8 +70,6 @@ namespace GameCore.Save
 
         private Dictionary<string, object> LoadFile(string saveFile)
         {
-            Debug.Log("Load from " + saveFile);
-            
             string path = GetPathFromSaveFile(saveFile);
             if (!File.Exists(path))
             {

@@ -13,10 +13,7 @@ namespace Data.Stats
     }
 
     [Serializable]
-    public class StatModifierSerializableDictionary : SerializableDictionaryBase<Stat, StatCharacteristicModifier>
-    {
-        
-    }
+    public class StatModifierSerializableDictionary : SerializableDictionaryBase<Stat, StatCharacteristicModifier> { }
 
     [Serializable]
     public class StatCharacteristicModifier

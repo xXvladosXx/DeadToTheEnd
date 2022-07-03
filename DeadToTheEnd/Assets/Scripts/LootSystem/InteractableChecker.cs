@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entities;
+using InventorySystem;
 using UnityEngine;
 using Utilities.Raycast;
 
@@ -7,13 +9,12 @@ namespace LootSystem
 {
     public class InteractableChecker : MonoBehaviour
     {
-        [SerializeField] private float _distanceToPickObject;
-
         private MainPlayer _mainPlayer;
         private IInteractable _lastInteractableObject;
         
-        public event Action<LootContainer> OnLootOpen;
-
+        public IInteractable CurrentInteractableObject { get; set; }
+        
+        public event Action<ItemContainer> OnLootOpen;
         public event Action<IInteractable> OnInteractableRequest;
         public event Action OnInteractableHide;
 
@@ -24,15 +25,22 @@ namespace LootSystem
 
         private void Update()
         {
+            if(CurrentInteractableObject != null) return;
+            
             Transform target = RaycastChecker.CheckRaycastExcept(_mainPlayer.MainCamera.position,
-                _mainPlayer.MainCamera.forward, _distanceToPickObject, _mainPlayer.PlayerLayerData.PlayerLayer);
-
+                _mainPlayer.MainCamera.forward, Mathf.Infinity, _mainPlayer.PlayerLayerData.PlayerLayer);
+            
             if(target == null) return;
             
             if (target.TryGetComponent(out IInteractable interactable))
             {
+                if(Vector3.Distance(gameObject.transform.position, target.transform.position) 
+                   > interactable.GetDistanceOfRaycast)
+                    return;
+                
                 if (Input.GetKeyDown(KeyCode.Alpha6))
                 {
+                    CurrentInteractableObject = interactable;
                     TryToInteract(interactable);
                 }
                 
@@ -40,8 +48,6 @@ namespace LootSystem
                 
                 _lastInteractableObject = interactable;
                 OnInteractableRequest?.Invoke(interactable);
-                Debug.Log(interactable);
-
             }
             else
             {
@@ -55,8 +61,9 @@ namespace LootSystem
             switch (interactable)
             {
                 case PickableObject:
-                    var loot = (LootContainer)interactable.ObjectOfInteraction();
+                    var loot = (ItemContainer)interactable.ObjectOfInteraction();
                     OnLootOpen?.Invoke(loot);
+                    
                     break;
             }
         }

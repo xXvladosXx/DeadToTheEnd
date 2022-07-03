@@ -9,16 +9,17 @@ namespace SkillsSystem
     public class ActiveSkill : Skill
     {
         [SerializeField] private SkillForm _skillForm;
+        [SerializeField] private float _skillCooldown;
         
-        [field: SerializeField] public SkillRequirement[] SkillRequirements { get; private set; }
+        [field: SerializeField] public Requirement[] SkillRequirements { get; private set; }
         [field: SerializeField] public SkillEffect[] SkillEffects { get; private set; }
         [field: SerializeField] public SkillBonus[] SkillBonuses { get; private set; }
         [field: SerializeField] public SkillPrefabSpawn[] SkillPrefabSpawns { get; private set; }
 
         private SkillData _skillData;
-        public override void ApplySkill(ISkillUser skillUser)
+        public override void ApplySkill(ISkillUser skillUser, int index = 0)
         {
-            base.ApplySkill(skillUser);
+            base.ApplySkill(skillUser,index);
 
             _skillData = new SkillData
             {
@@ -26,7 +27,7 @@ namespace SkillsSystem
             };
 
             if (SkillRequirements.Any(
-                    skillRequirement => skillRequirement.IsChecked(_skillData) == false))
+                    skillRequirement => skillRequirement.IsChecked(_skillData.SkillUser) == false))
                         return;
             
             _skillForm.ApplyForm(_skillData);
@@ -40,15 +41,21 @@ namespace SkillsSystem
             {
                 skillBonus.ApplyBonus(_skillData);
             }
-        }
 
-
-        public void SpawnPrefab()
-        {
             foreach (var skillPrefabSpawn in SkillPrefabSpawns)
             {
                 skillPrefabSpawn.SpawnPrefab(_skillData);
             }
+        }
+
+        public override float GetTime()
+        {
+            return _skillCooldown;
+        }
+
+        public override string GetInfoDisplayText()
+        {
+            return Description;
         }
     }
 }

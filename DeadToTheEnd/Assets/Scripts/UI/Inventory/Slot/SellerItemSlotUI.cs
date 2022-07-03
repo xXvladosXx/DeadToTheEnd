@@ -1,4 +1,5 @@
 ﻿using UI.Inventory;
+using UI.Tooltip;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -11,6 +12,18 @@ namespace UI
         public override void Accept(IItemContainerVisitor itemContainerVisitor)
         {
             itemContainerVisitor?.Visit(this);
+        }
+        
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            base.OnPointerEnter(eventData);
+            TooltipPopup.Instance.DisplayInfo(ItemSlot.Item);
+        }
+
+        public override void OnPointerExit(PointerEventData eventData)
+        {
+            base.OnPointerExit(eventData);
+            TooltipPopup.Instance.HideInfo();
         }
         
         public override void OnPointerUp(PointerEventData eventData)
@@ -43,7 +56,7 @@ namespace UI
             {
                 var img = MouseData.TempItemDrag.AddComponent<Image>();
                 rt.gameObject.AddComponent<ItemSlotUI>();
-                img.sprite = ItemContainer.GetDatabase.GetItemByID(Slots[this].ID).SpriteIcon;
+                img.sprite = Slots[this].Item.SpriteIcon;
                 img.raycastTarget = false;
             }
 

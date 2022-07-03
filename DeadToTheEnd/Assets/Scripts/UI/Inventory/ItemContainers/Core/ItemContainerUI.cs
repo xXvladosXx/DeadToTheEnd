@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameCore;
 using InventorySystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,25 +8,19 @@ namespace UI.Inventory.ItemContainers.Core
 {
     public abstract class ItemContainerUI: MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IItemContainerVisitor
     {
-        public InventorySystem.Inventory Inventory;
+        [field: SerializeField] public InventorySystem.Inventory Inventory { get; set; }
         
         protected Dictionary<ItemDragHandler, ItemSlot> SlotOnUI = new Dictionary<ItemDragHandler, ItemSlot>();
         protected int Index;
 
-        public Dictionary<ItemDragHandler, ItemSlot> GetSlotOnUI => SlotOnUI;
         
-        private void Awake()
-        {
-            Init();
-        }
-
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             Inventory.ItemContainer.OnItemContainerUpdate += AppendSlots;
             Inventory.ItemContainer.OnItemUpdate += UpdateSlots;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             Inventory.ItemContainer.OnItemContainerUpdate -= AppendSlots;
             Inventory.ItemContainer.OnItemUpdate -= UpdateSlots;
@@ -35,8 +30,8 @@ namespace UI.Inventory.ItemContainers.Core
             UpdateSlots();
         }
 
-        protected abstract void CreateSlots();
-        protected abstract void Init();
+        public abstract void CreateSlots();
+        public abstract void Init(InteractorsBase interactorsBase);
 
         public void UpdateSlots()
         {

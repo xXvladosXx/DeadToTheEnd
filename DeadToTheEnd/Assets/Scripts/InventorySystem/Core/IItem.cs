@@ -5,8 +5,7 @@ namespace InventorySystem
 {
     public interface IItem
     {
-        string Id { get; }
-        string Title { get; }
+        string Name { get; }
         string Description { get; }
         int MaxItemsInInventorySlot { get; }
         bool IsEquipped { get; set; }

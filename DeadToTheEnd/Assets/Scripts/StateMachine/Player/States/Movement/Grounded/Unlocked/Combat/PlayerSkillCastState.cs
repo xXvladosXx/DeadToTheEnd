@@ -1,4 +1,6 @@
-﻿using UnityEngine.InputSystem;
+﻿using Data.Combat;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace StateMachine.Player.States.Movement.Grounded.Combat
 {
@@ -18,7 +20,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             MainPlayer.PlayerStateReusable.StopReading = true;
             
             MainPlayer.Animator.applyRootMotion = true;
+            
             StartAnimation(PlayerAnimationData.SkillParameterHash);
+            StartAnimation(Animator.StringToHash(MainPlayer.PlayerStateReusable.SkillAnimToPlay));
         }
 
         public override void Exit()
@@ -27,7 +31,9 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
             MainPlayer.PlayerStateReusable.StopReading = false;
 
             MainPlayer.Animator.applyRootMotion = false;
+            
             StopAnimation(PlayerAnimationData.SkillParameterHash);
+            StopAnimation(Animator.StringToHash(MainPlayer.PlayerStateReusable.SkillAnimToPlay));
         }
         public override void FixedUpdate()
         {
@@ -51,6 +57,10 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         {
         }
         protected override void OnThirdSkillPerformed(InputAction.CallbackContext obj)
+        {
+        }
+
+        protected override void OnDamageTaken(AttackData attackData)
         {
         }
 
