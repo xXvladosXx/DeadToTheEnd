@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 
 namespace SkillsSystem
 {
@@ -7,7 +8,7 @@ namespace SkillsSystem
     {
         [SerializeField] private ActiveSkill[] _activeSkill;
         [SerializeField] private float _skillChainCooldown;
-        
+
         public override void ApplySkill(ISkillUser skillUser, int index = 0)
         {
             base.ApplySkill(skillUser, index);
@@ -22,7 +23,23 @@ namespace SkillsSystem
 
         public override string GetInfoDisplayText()
         {
-            return "";
+            StringBuilder = new StringBuilder();
+            StringBuilder.AppendLine();
+            
+            foreach (var activeSkill in _activeSkill)
+            {
+                StringBuilder.Append(activeSkill.GetInfoDisplayText()).AppendLine();
+            }
+
+            foreach (var requirement in RequirementsToUpgrade)
+            {
+                StringBuilder.Append(requirement.Data()).AppendLine();
+            }
+            
+            StringBuilder.AppendLine();
+            StringBuilder.Append("Skill cooldown: <color=#A792DD>").Append(_skillChainCooldown).Append("</color=>").AppendLine();
+            
+            return StringBuilder.ToString();
         }
     }
 }

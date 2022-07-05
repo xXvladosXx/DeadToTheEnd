@@ -1,4 +1,5 @@
 ﻿using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Movement
     public class BaseRollEnemyState : BaseEnemyState
     {
         private Vector3 direction;
-        public BaseRollEnemyState(EntityStateMachine goblinStateMachine) : base(goblinStateMachine)
+        public BaseRollEnemyState(StandardEnemyStateMachine goblinStateMachine) : base(goblinStateMachine)
         {
         }
 

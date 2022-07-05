@@ -8,6 +8,15 @@ namespace SkillsSystem.SkillsRequirements
     public class LevelRequirement: Requirement
     {
         [SerializeField] private int _level;
-        public override bool IsChecked(AliveEntity skillData) => skillData.LevelCalculator.Level >= _level;
+        public override bool IsChecked(ISkillUser skillData) => skillData.LevelCalculator.Level >= _level;
+        public override void ApplyRequirement(ISkillUser skillUser)
+        {
+            
+        }
+
+        public override string Data()
+        {
+            return $"Requires level: {_level}";
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 using Entities.Core;
 using InventorySystem;
 using SkillsSystem.SkillPlayerState;
@@ -13,5 +14,7 @@ namespace SkillsSystem
         [field: SerializeField] public SkillAnimation Anim { get; private set; } 
         public virtual void ApplySkill(ISkillUser skillUser, int index = 0){}
         public abstract float GetTime();
+        
+        protected StringBuilder StringBuilder = new StringBuilder();
     }
 }

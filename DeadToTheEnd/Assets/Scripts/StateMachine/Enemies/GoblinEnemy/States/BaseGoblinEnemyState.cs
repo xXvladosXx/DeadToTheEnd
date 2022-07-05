@@ -172,7 +172,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinLightAttackData.DistanceToStartAttack,
                     GoblinStateMachine.AliveEntity.transform,
                     GoblinEnemy.Target.transform) && 
-                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(LightAttackGoblinEnemyState)))
+                !GoblinStateMachine.StatesCooldown.ContainsKey(GoblinStateMachine.LightAttackGoblinEnemyState))
             {
                 GoblinStateMachine.ChangeState(GoblinStateMachine.LightAttackGoblinEnemyState);
                 return true;
@@ -186,7 +186,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinRangeAttackData.DistanceToStartAttack,
                     GoblinStateMachine.AliveEntity.transform,
                     GoblinEnemy.Target.transform) && 
-                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(RangeAttackGoblinEnemyState)))
+                !GoblinStateMachine.StatesCooldown.ContainsKey(GoblinStateMachine.RangeAttackGoblinEnemyState))
             {
                 GoblinStateMachine.ChangeState(GoblinStateMachine.RangeAttackGoblinEnemyState);
                 return true;
@@ -200,7 +200,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.EnemyHeavyAttackData.DistanceToStartAttack,
                     GoblinStateMachine.AliveEntity.transform,
                     GoblinEnemy.Target.transform) && 
-                !StateMachine.StatesCooldown.ContainsKey(typeof(BaseHeavyAttackEnemyState)))
+                !StateMachine.StatesCooldown.ContainsKey(GoblinStateMachine.HeavyAttackGoblinEnemyState))
             {
                 GoblinStateMachine.ChangeState(GoblinStateMachine.HeavyAttackGoblinEnemyState);
                 return true;
@@ -214,7 +214,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinFirstComboAttackData.DistanceToStartAttack,
                     GoblinStateMachine.AliveEntity.transform,
                     GoblinEnemy.Target.transform) && 
-                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(FirstComboAttackGoblinEnemyState)))
+                !GoblinStateMachine.StatesCooldown.ContainsKey(GoblinStateMachine.FirstComboAttackGoblinEnemyState))
             {
                 GoblinStateMachine.ChangeState(GoblinStateMachine.FirstComboAttackGoblinEnemyState);
                 return true;
@@ -228,7 +228,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States
             if (IsEnoughDistance(GoblinEnemy.GoblinEnemyData.GoblinSecondComboAttackData.DistanceToStartAttack,
                     GoblinStateMachine.AliveEntity.transform,
                     GoblinEnemy.Target.transform) && 
-                !GoblinStateMachine.StatesCooldown.ContainsKey(typeof(SecondComboAttackGoblinEnemyState)))
+                !GoblinStateMachine.StatesCooldown.ContainsKey(GoblinStateMachine.SecondComboAttackGoblinEnemyState))
             {
                 GoblinStateMachine.ChangeState(GoblinStateMachine.SecondComboAttackGoblinEnemyState);
                 return true;

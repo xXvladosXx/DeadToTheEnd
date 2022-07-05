@@ -8,7 +8,7 @@ namespace InventorySystem.Potions
     {
         public override void UseItem(AliveEntity aliveEntity)
         {
-            aliveEntity.Health.IncreaseHealth(Value);
+            aliveEntity.Health.Increase(Value);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Data.TransformChange
             gameObject.transform.RotateAround(gameObject.transform.position, gameObject.transform.up, Time.deltaTime * speed);
         }
 
-        public override void Change(GameObject gameObject)
+        public override void Change(GameObject gameObject, AttackData attackData)
         {
             Rotate(gameObject, gameObject.transform.up, Speed);
         }

@@ -10,9 +10,19 @@ namespace SkillsSystem.SkillsRequirements
         [SerializeField] private Characteristic _characteristic;
         [SerializeField] private float _value;
         
-        public override bool IsChecked(AliveEntity skillData)
+        public override bool IsChecked(ISkillUser skillData)
         {
             return true;
+        }
+
+        public override void ApplyRequirement(ISkillUser skillUser)
+        {
+            
+        }
+
+        public override string Data()
+        {
+            return $"Requires: {_characteristic} {_value}";
         }
     }
 }

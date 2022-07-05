@@ -23,7 +23,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
             base.Enter();
             WarriorStateMachine.AliveEntity.OrdinaryAttackColliderActivator.OnTargetHit += Stop;
             
-            WarriorStateMachine.StartCooldown(typeof(DashFirstAttackWarriorWarriorEnemyState),
+            WarriorStateMachine.StartCooldown(WarriorStateMachine.DashFirstAttackWarriorWarriorEnemyState,
                 WarriorEnemyData.EnemyDashData.DashAttackCooldown);
             WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyDashData.DashSpeedModifier;
             WarriorEnemy.Animator.SetBool(

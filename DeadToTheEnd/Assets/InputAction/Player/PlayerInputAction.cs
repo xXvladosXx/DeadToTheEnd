@@ -172,6 +172,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""FifthSkillCast"",
+                    ""type"": ""Button"",
+                    ""id"": ""14dda366-8fb8-49ad-8bec-0a5eac3cc79a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""FirstItem"",
                     ""type"": ""Button"",
                     ""id"": ""01ac6e7f-232a-4743-9f1c-021ea7e667df"",
@@ -538,6 +547,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""FourthItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cf3a281-452e-4b69-a3e6-d9c58d8840ef"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FifthSkillCast"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -670,6 +690,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Player_SecondSkillCast = m_Player.FindAction("SecondSkillCast", throwIfNotFound: true);
         m_Player_ThirdSkillCast = m_Player.FindAction("ThirdSkillCast", throwIfNotFound: true);
         m_Player_FourthSkillCast = m_Player.FindAction("FourthSkillCast", throwIfNotFound: true);
+        m_Player_FifthSkillCast = m_Player.FindAction("FifthSkillCast", throwIfNotFound: true);
         m_Player_FirstItem = m_Player.FindAction("FirstItem", throwIfNotFound: true);
         m_Player_SecondItem = m_Player.FindAction("SecondItem", throwIfNotFound: true);
         m_Player_ThirdItem = m_Player.FindAction("ThirdItem", throwIfNotFound: true);
@@ -756,6 +777,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SecondSkillCast;
     private readonly InputAction m_Player_ThirdSkillCast;
     private readonly InputAction m_Player_FourthSkillCast;
+    private readonly InputAction m_Player_FifthSkillCast;
     private readonly InputAction m_Player_FirstItem;
     private readonly InputAction m_Player_SecondItem;
     private readonly InputAction m_Player_ThirdItem;
@@ -780,6 +802,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @SecondSkillCast => m_Wrapper.m_Player_SecondSkillCast;
         public InputAction @ThirdSkillCast => m_Wrapper.m_Player_ThirdSkillCast;
         public InputAction @FourthSkillCast => m_Wrapper.m_Player_FourthSkillCast;
+        public InputAction @FifthSkillCast => m_Wrapper.m_Player_FifthSkillCast;
         public InputAction @FirstItem => m_Wrapper.m_Player_FirstItem;
         public InputAction @SecondItem => m_Wrapper.m_Player_SecondItem;
         public InputAction @ThirdItem => m_Wrapper.m_Player_ThirdItem;
@@ -841,6 +864,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @FourthSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
                 @FourthSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
                 @FourthSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFourthSkillCast;
+                @FifthSkillCast.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFifthSkillCast;
+                @FifthSkillCast.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFifthSkillCast;
+                @FifthSkillCast.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFifthSkillCast;
                 @FirstItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
                 @FirstItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
                 @FirstItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
@@ -905,6 +931,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @FourthSkillCast.started += instance.OnFourthSkillCast;
                 @FourthSkillCast.performed += instance.OnFourthSkillCast;
                 @FourthSkillCast.canceled += instance.OnFourthSkillCast;
+                @FifthSkillCast.started += instance.OnFifthSkillCast;
+                @FifthSkillCast.performed += instance.OnFifthSkillCast;
+                @FifthSkillCast.canceled += instance.OnFifthSkillCast;
                 @FirstItem.started += instance.OnFirstItem;
                 @FirstItem.performed += instance.OnFirstItem;
                 @FirstItem.canceled += instance.OnFirstItem;
@@ -1004,6 +1033,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnSecondSkillCast(InputAction.CallbackContext context);
         void OnThirdSkillCast(InputAction.CallbackContext context);
         void OnFourthSkillCast(InputAction.CallbackContext context);
+        void OnFifthSkillCast(InputAction.CallbackContext context);
         void OnFirstItem(InputAction.CallbackContext context);
         void OnSecondItem(InputAction.CallbackContext context);
         void OnThirdItem(InputAction.CallbackContext context);

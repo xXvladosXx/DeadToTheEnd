@@ -14,32 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemContainer:
     _itemSlots:
-    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
-      ID: 3
+    - Item: {fileID: 11400000, guid: 64e1278829af3fc409b53f3b570ee4e0, type: 2}
+      ID: 6
       Index: 0
       Quantity: 1
       ItemTypes: 00010000
       Changeable: 1
-    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
-      ID: 3
+    - Item: {fileID: 11400000, guid: 776cdbca980416a44b6ccc1f21169481, type: 2}
+      ID: 8
       Index: 1
-      Quantity: 1
+      Quantity: 0
       ItemTypes: 00010000
       Changeable: 1
-    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
-      ID: 3
+    - Item: {fileID: 11400000, guid: 1cdeeb3886a50a844b5f5bd1fb28eeb5, type: 2}
+      ID: 12
       Index: 2
       Quantity: 1
       ItemTypes: 00010000
       Changeable: 1
-    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
-      ID: 3
+    - Item: {fileID: 11400000, guid: f3a5b1aabaa16a842a96d07ca68c825f, type: 2}
+      ID: 14
       Index: 3
       Quantity: 1
       ItemTypes: 00010000
       Changeable: 1
-    - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
-      ID: 3
+    - Item: {fileID: 11400000, guid: 5cc64909b2a0d724dbae369e870f7867, type: 2}
+      ID: 7
       Index: 4
       Quantity: 1
       ItemTypes: 00010000

@@ -1,6 +1,7 @@
 ﻿using Entities;
 using StateMachine.Core;
 using StateMachine.Enemies.BaseStates;
+using StateMachine.Enemies.BlueGragon;
 using StateMachine.Enemies.GoblinEnemy.States.Combat;
 using StateMachine.Enemies.GoblinEnemy.States.Defense;
 using StateMachine.Enemies.GoblinEnemy.States.Movement;
@@ -8,7 +9,7 @@ using StateMachine.Enemies.GoblinEnemy.States.Movement.Hit;
 
 namespace StateMachine.Enemies.GoblinEnemy
 {
-    public class GoblinStateMachine : EntityStateMachine
+    public class GoblinStateMachine : StandardEnemyStateMachine
     {
         public FollowGoblinEnemyState FollowGoblinEnemyState { get; }
         public ForwardMoveGoblinEnemyState ForwardMoveGoblinEnemyState { get; }
@@ -27,7 +28,7 @@ namespace StateMachine.Enemies.GoblinEnemy
 
         public BaseDieEnemyState BaseDieEnemyState { get; }
         
-        public GoblinStateMachine(Entities.Enemies.GoblinEnemy goblinEnemy)
+        public GoblinStateMachine(Entities.Enemies.GoblinEnemy goblinEnemy) : base(goblinEnemy)
         {
             AliveEntity = goblinEnemy;
 

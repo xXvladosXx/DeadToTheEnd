@@ -17,7 +17,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         {
             base.Enter();
             
-            WarriorStateMachine.StartCooldown(typeof(DashSecondAttackWarriorWarriorEnemy),
+            WarriorStateMachine.StartCooldown(WarriorStateMachine.DashSecondAttackWarriorWarriorEnemy,
                 WarriorEnemyData.EnemyDashData.DashSecondAttackCooldown);
             Enemy.NavMeshAgent.speed = WarriorEnemyData.EnemyDashData.DashSecondSpeedModifierFirstPhase;
             Enemy.Animator.SetBool(

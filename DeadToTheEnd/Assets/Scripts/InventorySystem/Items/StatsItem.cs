@@ -24,6 +24,8 @@ namespace InventorySystem
         [SerializeField] protected float _evasionBonus;
         [SerializeField] protected float _accuracyBonus;
 
+        public event Action OnStatModified;
+
         public IEnumerable<IBonus> AddBonus(Stat[] stat)
         {
             IBonus BonusTo(Stat stats)

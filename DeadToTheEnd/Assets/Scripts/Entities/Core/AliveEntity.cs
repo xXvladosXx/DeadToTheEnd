@@ -21,14 +21,18 @@ namespace Entities.Core
         typeof(Rigidbody),
         typeof(Collider))]
     
-    [RequireComponent(typeof(AnimationEventTrigger))]
+    [RequireComponent(typeof(AnimationEventTrigger),
+        typeof(BuffManager))]
     public abstract class AliveEntity : MonoBehaviour, IModifier, ISkillUser
     {
         [field: SerializeField] public AliveEntityStatsModifierData AliveEntityStatsModifierData { get; private set;}
         [field: SerializeField] public AliveEntityStatsData AliveEntityStatsData { get; private set; } 
         [field: SerializeField] public LevelCalculator LevelCalculator { get; private set; }
         [field: SerializeField] public EntityData EntityData { get; protected set; }
+        
         [field: SerializeField] public Health Health { get; private set; }
+        [field: SerializeField] public Mana Mana { get; private set; }
+        [field: SerializeField] public AttackSpeed AttackSpeed { get; private set; }
 
         protected StateMachine.StateMachine StateMachine;
         
@@ -40,14 +44,18 @@ namespace Entities.Core
         public Animator Animator { get; private set; }
         public StatsFinder StatsFinder { get; private set; }
         public StatsValueStorage StatsValueStorage { get; private set; } 
-
-        private List<IStatsable> _statsables = new List<IStatsable>();
+        public BuffManager BuffManager { get; private set; }
+        public List<IStatsable> Statsables { get; } = new();
+        
         private List<IModifier> _modifiers;
+        public event Action OnStatModified;
 
         protected virtual void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
+            BuffManager = GetComponent<BuffManager>();
+            
             StatsValueStorage = new StatsValueStorage(this);
 
             OrdinaryAttackColliderActivator = GetComponentInChildren<OrdinaryAttackColliderActivator>();
@@ -56,30 +64,67 @@ namespace Entities.Core
             LevelCalculator.Init(AliveEntityStatsData);
             StatsFinder = new StatsFinder(AliveEntityStatsData, AliveEntityStatsModifierData, LevelCalculator, _modifiers);
             Health = new Health(StatsFinder);
+            Mana = new Mana(StatsFinder);
+            AttackSpeed = new AttackSpeed(Animator, StatsFinder);
             
-            _statsables.Add(Health);
+            Statsables.Add(Health);
+            Statsables.Add(Mana);
+            Statsables.Add(AttackSpeed);
         }
 
         private void OnEnable()
         {
-            LevelCalculator.OnLevelUp += RecalculateStats;
+            LevelCalculator.OnLevelUp += RecalculateStatsWithMaxValue;
             AttackCalculator.OnDamageTaken += Health.DecreaseHealth;
             Health.OnDied += OnDied;
-        }
-        
-        protected void RecalculateStats(int level)
-        {
-            foreach (var statsable in _statsables)
+
+            foreach (var modifier in _modifiers)
             {
-                statsable.RecalculateStat();
+                modifier.OnStatModified += RecalculateStatsWithCurrentValue;
             }
         }
 
+        private void RecalculateStatsWithCurrentValue()
+        {
+            foreach (var statsable in Statsables)
+            {
+                statsable.RecalculateStatWithCurrentValue();
+            }
+        }
+
+        protected void RecalculateStatsWithMaxValue(int level)
+        {
+            foreach (var statsable in Statsables)
+            {
+                statsable.RecalculateStatWithMaxValue();
+            }
+        }
+        
+
+        public float TryToGetCurrentStatValue(Stat stat)
+        {
+            foreach (var statsable in Statsables)
+            {
+                if (statsable.GetStatValue(stat) != 0)
+                {
+                    float f = statsable.GetStatValue(stat);
+                    return f;
+                }
+            }
+
+            return 0;
+        }
+        
         private void OnDisable()
         {
-            LevelCalculator.OnLevelUp -= RecalculateStats;
+            LevelCalculator.OnLevelUp -= RecalculateStatsWithMaxValue;
             AttackCalculator.OnDamageTaken -= Health.DecreaseHealth;
             Health.OnDied -= OnDied;
+            
+            foreach (var modifier in _modifiers)
+            {
+                modifier.OnStatModified -= RecalculateStatsWithCurrentValue;
+            }
         }
 
         public void OnAttackMake(float time, AttackType attackType)
@@ -121,6 +166,7 @@ namespace Entities.Core
             GetComponent<Collider>().enabled = false;
         }
 
+
         public IEnumerable<IBonus> AddBonus(Stat[] stats)
         {
              IBonus BonusTo(Stat stats)
@@ -139,6 +185,7 @@ namespace Entities.Core
                         StatsValueStorage.GetCalculatedStat(Stat.ManaRegeneration)),
                     Stat.HealthRegeneration => new HealthRegenerationBonus(
                         StatsValueStorage.GetCalculatedStat(Stat.HealthRegeneration)),
+                    Stat.AttackSpeed => new AttackSpeedBonus(1),
                     Stat.Mana => new ManaBonus(
                         StatsValueStorage.GetCalculatedStat(Stat.Mana)),
                     Stat.Evasion => new EvasionBonus(
@@ -148,7 +195,6 @@ namespace Entities.Core
                     _ => throw new ArgumentOutOfRangeException(nameof(stats), stats, null)
                 };
             }
-
 
             return stats.Select(BonusTo);
         }

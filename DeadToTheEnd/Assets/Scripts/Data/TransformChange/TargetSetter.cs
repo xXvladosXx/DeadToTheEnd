@@ -6,7 +6,7 @@ namespace Data.TransformChange
     [CreateAssetMenu (menuName = "TransformChange/TargetSetter")]
     public class TargetSetter: TransformChanger
     {
-        public override void Change(GameObject gameObject)
+        public override void Change(GameObject gameObject, AttackData attackData)
         {
         }
 

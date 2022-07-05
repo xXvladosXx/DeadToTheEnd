@@ -25,5 +25,11 @@ namespace SkillsSystem.SkillEffects
                 target.AttackCalculator.TryToTakeDamage(attackData);
             }
         }
+
+        public override string Data()
+        {
+            return $"Damage: <color=#D21C1C>{_damage}</color> \n" +
+                   $"Example elemental damage: <color=#51AEF4>Ice</color> ";
+        }
     }
 }

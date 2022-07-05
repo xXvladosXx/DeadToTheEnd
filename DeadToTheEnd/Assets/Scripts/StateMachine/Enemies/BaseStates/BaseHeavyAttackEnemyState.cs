@@ -1,10 +1,11 @@
 ﻿using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 
 namespace StateMachine.Enemies.BaseStates
 {
     public class BaseHeavyAttackEnemyState : BaseAttackEnemyState
     {
-        public BaseHeavyAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
+        public BaseHeavyAttackEnemyState(StandardEnemyStateMachine stateMachine) : base(stateMachine)
         {
         }
         
@@ -12,7 +13,7 @@ namespace StateMachine.Enemies.BaseStates
         {
             base.Enter();
             
-            StateMachine.StartCooldown(typeof(BaseHeavyAttackEnemyState),
+            StateMachine.StartCooldown(StateMachine.BaseHeavyAttackEnemyState,
                 EnemyData.EnemyHeavyAttackData.AttackCooldown);
             
             StartAnimation(Enemy.EnemyAnimationData.HeavyAttackParameterHash);

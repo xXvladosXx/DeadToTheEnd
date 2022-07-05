@@ -1,12 +1,13 @@
 ﻿using Data.Combat;
 using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 using UnityEngine;
 
 namespace StateMachine.Enemies.BaseStates
 {
     public class BaseRangeAttackEnemyState : BaseAttackEnemyState
     {
-        public BaseRangeAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
+        public BaseRangeAttackEnemyState(StandardEnemyStateMachine stateMachine) : base(stateMachine)
         {
         }
         
@@ -14,7 +15,7 @@ namespace StateMachine.Enemies.BaseStates
         {
             base.Enter();
 
-            StateMachine.StartCooldown(typeof(BaseRangeAttackEnemyState),
+            StateMachine.StartCooldown(StateMachine.BaseRangeAttackEnemyState,
                 EnemyData.EnemyRangeAttackData.AttackCooldown);
 
             StartAnimation(Enemy.EnemyAnimationData.RangeAttackParameterHash);

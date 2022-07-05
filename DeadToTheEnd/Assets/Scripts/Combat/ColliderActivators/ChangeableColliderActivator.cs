@@ -22,7 +22,7 @@ namespace Combat.ColliderActivators
             
             foreach (var transformChanger in _transformChangers)
             {
-                transformChanger.Change(gameObject);
+                transformChanger.Change(gameObject, AttackData);
             }
         }
     }

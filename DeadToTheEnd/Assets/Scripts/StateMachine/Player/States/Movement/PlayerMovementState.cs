@@ -108,6 +108,7 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed += OnSecondSkillPerformed;
             MainPlayer.InputAction.PlayerActions.ThirdSkillCast.performed += OnThirdSkillPerformed;
             MainPlayer.InputAction.PlayerActions.FourthSkillCast.performed += OnFourthSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.FifthSkillCast.performed += OnFifthSkillPerformed;
 
             MainPlayer.AttackCalculator.OnDamageTaken += OnDamageTaken;
 
@@ -117,6 +118,7 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.FourthItem.performed += OnFourthItemUsed;
         }
 
+        
 
         private void OnFirstItemUsed(InputAction.CallbackContext obj)
         {
@@ -156,6 +158,11 @@ namespace StateMachine.Player.States.Movement
         protected virtual void OnFourthSkillPerformed(InputAction.CallbackContext obj)
         {
             TryToApplySkill(3);
+        }
+
+        protected virtual void OnFifthSkillPerformed(InputAction.CallbackContext obj)
+        {
+            TryToApplySkill(4);
         }
 
         protected virtual void OnLockedPerformed(InputAction.CallbackContext obj)
@@ -243,7 +250,7 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.Locked.performed -= OnLockedPerformed;
 
             MainPlayer.InputAction.PlayerActions.FirstSkillCast.performed -= OnFirstSkillPerformed;
-            MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed -= OnFirstSkillPerformed;
+            MainPlayer.InputAction.PlayerActions.SecondSkillCast.performed -= OnSecondSkillPerformed;
             MainPlayer.InputAction.PlayerActions.ThirdSkillCast.performed -= OnThirdSkillPerformed;
             MainPlayer.InputAction.PlayerActions.FourthSkillCast.performed -= OnFourthSkillPerformed;
 
@@ -524,7 +531,7 @@ namespace StateMachine.Player.States.Movement
 
         private void TryToApplySkill(int index)
         {
-            if (!_skillManager.TryToApplySkill(index)) return;
+            if (!_skillManager.TryToApplySkill(index, MainPlayer)) return;
 
             MainPlayer.PlayerStateReusable.SkillAnimToPlay = _skillManager.LastAppliedSkill.Anim.AnimName;
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerThirdSkillCastState);

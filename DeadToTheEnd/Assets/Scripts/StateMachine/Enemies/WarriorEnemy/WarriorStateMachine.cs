@@ -4,6 +4,7 @@ using Entities;
 using Entities.Core;
 using Entities.Enemies;
 using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 using StateMachine.Enemies.GoblinEnemy.States.Movement;
 using StateMachine.WarriorEnemy.Components;
 using StateMachine.WarriorEnemy.States.Combat;
@@ -12,7 +13,7 @@ using UnityEngine;
 
 namespace StateMachine.Enemies.WarriorEnemy
 {
-    public class WarriorStateMachine : EntityStateMachine
+    public class WarriorStateMachine : StandardEnemyStateMachine
     {
         public IdleWarriorEnemyState IdleWarriorEnemyState { get; }
         public FollowWarriorEnemyState FollowWarriorEnemyState { get; }
@@ -27,7 +28,7 @@ namespace StateMachine.Enemies.WarriorEnemy
         public ComboFirstWarriorWarriorEnemyState ComboFirstWarriorWarriorEnemyState { get; }
         public ComboSecondWarriorWarriorEnemyState ComboSecondWarriorWarriorEnemyState { get; }
         
-        public WarriorStateMachine(Entities.Enemies.WarriorEnemy aliveEntity)
+        public WarriorStateMachine(Entities.Enemies.WarriorEnemy aliveEntity) : base(aliveEntity)
         {
             AliveEntity = aliveEntity;
             

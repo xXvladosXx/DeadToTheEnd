@@ -15,15 +15,15 @@ MonoBehaviour:
   ItemContainer:
     _itemSlots:
     - Item: {fileID: 11400000, guid: c628154ba2549a34db04f16029983067, type: 2}
-      ID: 3
+      ID: 9
       Index: 0
       Quantity: 1
       ItemTypes: 
       Changeable: 0
-    - Item: {fileID: 0}
-      ID: -1
+    - Item: {fileID: 11400000, guid: 64e1278829af3fc409b53f3b570ee4e0, type: 2}
+      ID: 6
       Index: 1
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
       Changeable: 0
     - Item: {fileID: 0}

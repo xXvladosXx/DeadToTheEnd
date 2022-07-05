@@ -53,7 +53,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
                 !IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     WarriorEnemy.transform,
                     WarriorEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashFirstAttackWarriorWarriorEnemyState)))
+                !WarriorStateMachine.StatesCooldown.ContainsKey(WarriorStateMachine.DashFirstAttackWarriorWarriorEnemyState))
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.DashFirstAttackWarriorWarriorEnemyState);
                 return true;
@@ -70,7 +70,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
                 !IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartOrdinaryAttack,
                     WarriorEnemy.transform,
                     WarriorEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(DashSecondAttackWarriorWarriorEnemy)))
+                !WarriorStateMachine.StatesCooldown.ContainsKey(WarriorStateMachine.DashSecondAttackWarriorWarriorEnemy))
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.DashSecondAttackWarriorWarriorEnemy);
                 return true;
@@ -84,7 +84,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
                     WarriorEnemy.transform,
                     WarriorEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboSecondWarriorWarriorEnemyState))
+                !WarriorStateMachine.StatesCooldown.ContainsKey(WarriorStateMachine.ComboSecondWarriorWarriorEnemyState)
                 && !WarriorEnemy.WarriorStateReusableData.IsPerformingAction)
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.ComboSecondWarriorWarriorEnemyState);
@@ -98,7 +98,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboSecondAttack,
                     WarriorEnemy.transform,
                     WarriorEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(LightAttackWarriorWarriorEnemyState))
+                !WarriorStateMachine.StatesCooldown.ContainsKey(WarriorStateMachine.LightAttackWarriorWarriorEnemyState)
                 && !WarriorEnemy.WarriorStateReusableData.IsPerformingAction)
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.LightAttackWarriorWarriorEnemyState);
@@ -113,7 +113,7 @@ namespace StateMachine.WarriorEnemy.States.Movement
             if (IsEnoughDistance(WarriorEnemyData.EnemyAttackData.DistanceToStartComboFirstAttack,
                     WarriorEnemy.transform,
                     WarriorEnemy.Target.transform) &&
-                !WarriorStateMachine.StatesCooldown.ContainsKey(typeof(ComboFirstWarriorWarriorEnemyState))
+                !WarriorStateMachine.StatesCooldown.ContainsKey(WarriorStateMachine.ComboFirstWarriorWarriorEnemyState)
                 && !WarriorEnemy.WarriorStateReusableData.IsPerformingAction)
             {
                 WarriorStateMachine.ChangeState(WarriorStateMachine.ComboFirstWarriorWarriorEnemyState);

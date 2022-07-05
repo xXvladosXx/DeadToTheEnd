@@ -14,7 +14,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             base.Enter();
             
             GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinSecondComboAttackData.WalkSpeedModifer;
-            GoblinStateMachine.StartCooldown(typeof(SecondComboAttackGoblinEnemyState),
+            GoblinStateMachine.StartCooldown(GoblinStateMachine.SecondComboAttackGoblinEnemyState,
                 GoblinEnemy.GoblinEnemyData.GoblinSecondComboAttackData.AttackCooldown);
             
             StartAnimation(GoblinEnemyAnimationData.SecondComboAttackParameterHash);

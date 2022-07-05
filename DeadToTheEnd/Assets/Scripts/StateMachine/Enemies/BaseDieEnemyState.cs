@@ -1,4 +1,5 @@
 ﻿using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace StateMachine.Enemies
 {
     public class BaseDieEnemyState : BaseEnemyState
     {
-        public BaseDieEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
+        public BaseDieEnemyState(StandardEnemyStateMachine stateMachine) : base(stateMachine)
         {
         }
 

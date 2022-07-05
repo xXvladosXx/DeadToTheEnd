@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d26efe2826d42428fa201a7f5aea43c, type: 3}
+  m_Name: BersekerCallSkillBonus
+  m_EditorClassIdentifier: 
+  <StatBonuses>k__BackingField:
+  - {fileID: 11400000, guid: 6d0cd14b8fc54644c98f9e98e3858ebb, type: 2}
+  - {fileID: 11400000, guid: dbd81c6d56786504d97c875f8c69e021, type: 2}

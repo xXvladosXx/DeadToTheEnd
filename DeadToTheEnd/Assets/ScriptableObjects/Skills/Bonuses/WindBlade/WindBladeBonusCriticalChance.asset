@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a5a08a1c0c47f2bd860ab6c2cf5f49, type: 3}
+  m_Name: WindBladeBonusCriticalChance
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 38386c2ff28df804b84574c6eee3bf5f,
+    type: 3}
+  <Positive>k__BackingField: 1
+  <Stat>k__BackingField: 5
+  <Value>k__BackingField: 25
+  <Time>k__BackingField: 1

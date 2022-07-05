@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bb4ba90fea4116aa07ae15e17a2c07, type: 3}
+  m_Name: GroundShake
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 6752180ef5b957742831fec26492f2cf,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}
+  _name: Ground Shake
+  _description: 
+  _maxItemsInInventory: 1
+  _sellPrice: 0
+  _itemType: 256
+  _itemData:
+    Id: 8
+  <RequirementsToUpgrade>k__BackingField: []
+  <Anim>k__BackingField: {fileID: 11400000, guid: ba92c9ca788683a4291582d05f49d1a1,
+    type: 2}
+  _skillForm: {fileID: 11400000, guid: a7f65bd7c3ed0224b82f0225880c54ff, type: 2}
+  _skillCooldown: 0
+  <SkillRequirements>k__BackingField:
+  - {fileID: 11400000, guid: 541a2955b6ad92941a91df6b24051f7d, type: 2}
+  <SkillEffects>k__BackingField:
+  - {fileID: 11400000, guid: 0230a4a35c0e2174d8c70a82a1781e06, type: 2}
+  <SkillBonuses>k__BackingField: []
+  <SkillPrefabSpawns>k__BackingField:
+  - {fileID: 11400000, guid: a14250c8e6004b14dac55c9f0dfafbb6, type: 2}

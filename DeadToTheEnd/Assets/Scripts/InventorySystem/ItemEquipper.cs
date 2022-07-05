@@ -22,6 +22,7 @@ namespace InventorySystem
         [field: SerializeField] public Inventory QuickBarItems { get; private set; }
 
         public Item CurrentWeapon { get; private set; }
+        public event Action OnStatModified;
 
         private void Awake()
         {
@@ -68,13 +69,14 @@ namespace InventorySystem
 
         public void TryToUseItem(AliveEntity aliveEntity, int index)
         {
-            Debug.Log("used");
             var consumableItem = QuickBarItems.ItemContainer.GetItemSlots[index].Item as ConsumableItem;
             if (consumableItem != null)
             {
                 consumableItem.UseItem(aliveEntity);
                 QuickBarItems.ItemContainer.RemoveItem(QuickBarItems.ItemContainer.GetItemSlots[index], 1);
             }
+            
+            OnStatModified?.Invoke();
         }
 
         public object CaptureState()
@@ -136,6 +138,7 @@ namespace InventorySystem
                 QuickBarItems.ItemContainer.AddItem(slot, itemSlot.Index);
             }
         }
+
 
         public IEnumerable<IBonus> AddBonus(Stat[] stats)
         {

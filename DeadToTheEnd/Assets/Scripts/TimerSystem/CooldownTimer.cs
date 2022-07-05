@@ -9,21 +9,20 @@ namespace StateMachine.WarriorEnemy.Components
     [Serializable]
     public class CooldownTimer
     {
-        public Dictionary<Type, float> Cooldowns { get; private set; }
-        public void Init(Dictionary<Type, float> statesCooldown)
+        public Dictionary<ITimeable, float> Cooldowns { get; private set; }
+        public void Init(Dictionary<ITimeable, float> statesCooldown)
         {
             Cooldowns = statesCooldown;
         }
 
-        public void StartCooldown(Type type, float time)
+        public void StartCooldown(ITimeable type, float time)
         {
-            if(!typeof(ITimeable).IsAssignableFrom(type)) return;
             if(Cooldowns.ContainsKey(type)) return;
 
             Cooldowns.Add(type, time);
         }
         
-        public void Update(float time, Dictionary<Type, float> currentCooldowns)
+        public void Update(float time, Dictionary<ITimeable, float> currentCooldowns)
         {
             if (Cooldowns.Count == 0) return;
 
@@ -36,10 +35,10 @@ namespace StateMachine.WarriorEnemy.Components
                 }
             }
 
-            Cooldowns = new Dictionary<Type, float>(currentCooldowns);
+            Cooldowns = new Dictionary<ITimeable, float>(currentCooldowns);
         }
 
-        public float GetCooldownValue(Type type)
+        public float GetCooldownValue(ITimeable type)
         {
             if (Cooldowns.TryGetValue(type, out float pct))
             {

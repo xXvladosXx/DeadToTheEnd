@@ -10,15 +10,15 @@ namespace StateMachine
 {
     public abstract class StateMachine
     {
-        public Dictionary<Type, float> StatesCooldown { get; private set; }
-        private Dictionary<Type, float> CurrentStatesCooldown { get; set; }
+        public Dictionary<ITimeable, float> StatesCooldown { get; private set; }
+        private Dictionary<ITimeable, float> CurrentStatesCooldown { get; set; }
         private CooldownTimer CooldownTimer { get; }
         
         protected IState _currentState;
 
         protected StateMachine()
         {
-            StatesCooldown = new Dictionary<Type, float>();
+            StatesCooldown = new Dictionary<ITimeable, float>();
 
             CooldownTimer = new CooldownTimer();
             CooldownTimer.Init(StatesCooldown);
@@ -65,10 +65,10 @@ namespace StateMachine
             _currentState?.TriggerOnStateAnimationHandleEvent();
         }
         
-        public void StartCooldown(Type state, float time)
+        public void StartCooldown(ITimeable state, float time)
         {
             CooldownTimer.StartCooldown(state, time);
-            CurrentStatesCooldown = new Dictionary<Type, float>(StatesCooldown);
+            CurrentStatesCooldown = new Dictionary<ITimeable, float>(StatesCooldown);
         }
     }
 }

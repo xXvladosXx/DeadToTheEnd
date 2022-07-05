@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Text;
 using Entities.Core;
 using SkillsSystem.SkillForms;
 using UnityEngine;
@@ -17,35 +19,48 @@ namespace SkillsSystem
         [field: SerializeField] public SkillPrefabSpawn[] SkillPrefabSpawns { get; private set; }
 
         private SkillData _skillData;
+        
         public override void ApplySkill(ISkillUser skillUser, int index = 0)
         {
             base.ApplySkill(skillUser,index);
-
             _skillData = new SkillData
             {
                 SkillUser = skillUser as AliveEntity
             };
 
-            if (SkillRequirements.Any(
-                    skillRequirement => skillRequirement.IsChecked(_skillData.SkillUser) == false))
-                        return;
-            
             _skillForm.ApplyForm(_skillData);
+
+            foreach (var skillRequirement in SkillRequirements)
+            {
+                skillRequirement.ApplyRequirement(skillUser);
+            }
 
             foreach (var skillEffect in SkillEffects)
             {
                 skillEffect.ApplyEffect(_skillData);
             }
 
+            _skillData.SkillUser.BuffManager.SetBuff(SkillBonuses);
+
             foreach (var skillBonus in SkillBonuses)
             {
                 skillBonus.ApplyBonus(_skillData);
             }
-
+            
             foreach (var skillPrefabSpawn in SkillPrefabSpawns)
             {
                 skillPrefabSpawn.SpawnPrefab(_skillData);
             }
+        }
+
+        public bool CheckRequirementsToCast(ISkillUser skillUser)
+        {
+            if (SkillRequirements.Length == 0) return true;
+            
+            if (SkillRequirements.Any(skillRequirement => !skillRequirement.IsChecked(skillUser)))
+                return false;
+            
+            return true;
         }
 
         public override float GetTime()
@@ -55,7 +70,30 @@ namespace SkillsSystem
 
         public override string GetInfoDisplayText()
         {
-            return Description;
+            StringBuilder = new StringBuilder();
+           
+            
+            foreach (var skillEffect in SkillEffects)
+            {
+                if(skillEffect.Data() == string.Empty) continue;
+                StringBuilder.Append(skillEffect.Data()).AppendLine();
+            }
+
+            foreach (var skillBonus in SkillBonuses)
+            {
+                StringBuilder.Append(skillBonus.Data()).AppendLine();
+            }
+
+            foreach (var skillPrefabSpawn in SkillPrefabSpawns)
+            {
+                StringBuilder.Append(skillPrefabSpawn.Data()).AppendLine();
+            }
+            
+            foreach (var requirement in SkillRequirements)
+            {
+                StringBuilder.Append(requirement.Data()).AppendLine();
+            }
+            return StringBuilder.ToString();
         }
     }
 }

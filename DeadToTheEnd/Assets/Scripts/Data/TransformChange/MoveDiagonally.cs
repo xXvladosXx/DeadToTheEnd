@@ -8,7 +8,7 @@ namespace SkillsSystem.SkillPrefab
     public class MoveDiagonally : TransformChanger, IMovable
     {
         private Transform _user;
-        public override void Change(GameObject gameObject)
+        public override void Change(GameObject gameObject, AttackData attackData)
         {
             var rotation = new Vector3(gameObject.transform.eulerAngles.x, _user.transform.eulerAngles.y,
                 _user.transform.eulerAngles.z);

@@ -87,9 +87,11 @@ namespace Entities
 
         private void Update()
         {
-            Debug.Log(StatsFinder.GetStat(Stat.Damage));
             StateMachine.HandleInput();
             StateMachine.Update();
+            
+            Debug.Log(StatsFinder.GetStat(Stat.AttackSpeed));
+            Debug.Log(Mana.ManaValue);
         }
 
         private void FixedUpdate()
@@ -145,7 +147,7 @@ namespace Entities
                 }
             }
             
-            RecalculateStats(LevelCalculator.Level);
+            RecalculateStatsWithMaxValue(LevelCalculator.Level);
         }
     }
 }

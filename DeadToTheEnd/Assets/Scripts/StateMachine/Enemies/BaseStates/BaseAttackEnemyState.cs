@@ -2,13 +2,14 @@
 using Data.Combat;
 using Entities.Enemies;
 using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 using StateMachine.WarriorEnemy.States.Movement;
 
 namespace StateMachine.Enemies.BaseStates
 {
     public class BaseAttackEnemyState : BaseEnemyState, ITimeable
     {
-        public BaseAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
+        public BaseAttackEnemyState(StandardEnemyStateMachine stateMachine) : base(stateMachine)
         {
         }
         

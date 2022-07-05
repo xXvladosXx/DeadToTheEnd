@@ -6,11 +6,12 @@ namespace UI.Stats
     {
         public override void InitBarData(AliveEntity aliveEntity)
         {
-            aliveEntity.Health.OnHealthPctChanged += ChangeHealth;
-            StartCoroutine(ChangeToPct(aliveEntity.Health.HealthValue / aliveEntity.Health.GetMaxHealth));
+            aliveEntity.Mana.OnManaPctChanged += ChangeMana;
+            Bar.fillAmount = aliveEntity.Mana.ManaValue / aliveEntity.Mana.GetMaxMana;
+            StartCoroutine(ChangeToPct(aliveEntity.Mana.ManaValue / aliveEntity.Mana.GetMaxMana));
         }
         
-        private void ChangeHealth(float obj)
+        private void ChangeMana(float obj)
         {
             StartCoroutine(ChangeToPct(obj));
         }

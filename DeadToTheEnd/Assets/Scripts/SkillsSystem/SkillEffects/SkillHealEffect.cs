@@ -8,5 +8,10 @@ namespace SkillsSystem.SkillEffects
         {
             Debug.Log("Healed");
         }
+
+        public override string Data()
+        {
+            return "Healing for 100 hp";
+        }
     }
 }

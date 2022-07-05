@@ -4,6 +4,7 @@ using Entities.Core;
 using InventorySystem;
 using InventorySystem.Core;
 using SaveSystem;
+using StateMachine.Core;
 using StateMachine.Player.States.Movement.Grounded.Combat;
 using StateMachine.WarriorEnemy.Components;
 using TimerSystem;
@@ -17,8 +18,8 @@ namespace SkillsSystem
         [SerializeField] private Skill _skill;
         [field: SerializeField] public SkillsContainer SkillsContainer { get; private set; }
         [field: SerializeField] public SkillsContainer QuickBarSkillsContainer { get; private set; }
-        public Dictionary<Type, float> SkillsCooldown { get; private set; }
-        public Dictionary<Type, float> CurrentSkillsCooldown { get; private set; }
+        public Dictionary<ITimeable, float> SkillsCooldown { get; private set; }
+        public Dictionary<ITimeable, float> CurrentSkillsCooldown { get; private set; }
 
         private CooldownTimer _cooldownTimer;
         public Skill LastAppliedSkill { get; set; }
@@ -26,12 +27,12 @@ namespace SkillsSystem
         public Skill Skill => _skill;
         private void Awake()
         {
-            SkillsCooldown = new Dictionary<Type, float>();
+            SkillsCooldown = new Dictionary<ITimeable, float>();
             
             _cooldownTimer = new CooldownTimer();
             
             _cooldownTimer.Init(SkillsCooldown);
-            CurrentSkillsCooldown = new Dictionary<Type, float>(SkillsCooldown);
+            CurrentSkillsCooldown = new Dictionary<ITimeable, float>(SkillsCooldown);
         }
 
         private void Update()
@@ -40,16 +41,16 @@ namespace SkillsSystem
             SkillsCooldown = _cooldownTimer.Cooldowns;
         }
 
-        public void StartCooldown(Type skill, float time)
+        public void StartCooldown(ITimeable skill, float time)
         {
             _cooldownTimer.StartCooldown(skill, time);
-            CurrentSkillsCooldown = new Dictionary<Type, float>(SkillsCooldown);
+            CurrentSkillsCooldown = new Dictionary<ITimeable, float>(SkillsCooldown);
         }
 
         public void SpawnPrefab(int index)
         {
              //_lastAppliedSkill.SpawnPrefab();
-             LastAppliedSkill.ApplySkill(GetComponent<AliveEntity>(), index);
+             LastAppliedSkill.ApplySkill(GetComponent<ISkillUser>(), index);
         }
        
         void OnDrawGizmos()
@@ -105,16 +106,16 @@ namespace SkillsSystem
             }
         }
         
-        public bool TryToApplySkill(int index)
+        public bool TryToApplySkill(int index, ISkillUser skillUser)
         {
-            var skill = QuickBarSkillsContainer.ItemContainer.GetItemSlots[index].Item as Skill;
-
-            if (skill != null)
+            if (QuickBarSkillsContainer.ItemContainer.GetItemSlots[index].Item is ITimeable timeable)
             {
-                if (SkillsCooldown.ContainsKey(skill.GetType())) return false;
-
+                if (SkillsCooldown.ContainsKey(timeable)) return false;
+                var skill = QuickBarSkillsContainer.ItemContainer.GetItemSlots[index].Item as ActiveSkill;
+                if (!skill.CheckRequirementsToCast(skillUser)) return false;
+                
                 LastAppliedSkill = skill;
-                StartCooldown(skill.GetType(), skill.GetTime());
+                StartCooldown(timeable, timeable.GetTime());
 
                 return true;
             }

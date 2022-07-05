@@ -37,7 +37,7 @@ namespace StateMachine.Enemies.BlueGragon
             if (IsEnoughDistance(EnemyData.EnemyHeavyAttackData.DistanceToStartAttack,
                     StateMachine.AliveEntity.transform,
                     Enemy.Target.transform) && 
-                !StateMachine.StatesCooldown.ContainsKey(typeof(BaseHeavyAttackEnemyState)))
+                !StateMachine.StatesCooldown.ContainsKey(StandardEnemyStateMachine.BaseHeavyAttackEnemyState))
             {
                 StandardEnemyStateMachine.ChangeState(StandardEnemyStateMachine.BaseHeavyAttackEnemyState);
                 return true;
@@ -50,7 +50,7 @@ namespace StateMachine.Enemies.BlueGragon
             if (IsEnoughDistance(EnemyData.EnemyRangeAttackData.DistanceToStartAttack,
                     StateMachine.AliveEntity.transform,
                     Enemy.Target.transform) && 
-                !StateMachine.StatesCooldown.ContainsKey(typeof(BaseRangeAttackEnemyState)))
+                !StateMachine.StatesCooldown.ContainsKey(StandardEnemyStateMachine.BaseRangeAttackEnemyState))
             {
                 StandardEnemyStateMachine.ChangeState(StandardEnemyStateMachine.BaseRangeAttackEnemyState);
                 return true;
@@ -63,7 +63,7 @@ namespace StateMachine.Enemies.BlueGragon
             if (IsEnoughDistance(EnemyData.EnemyOrdinaryAttackData.DistanceToStartAttack,
                     StateMachine.AliveEntity.transform,
                     Enemy.Target.transform) && 
-                !StateMachine.StatesCooldown.ContainsKey(typeof(BaseOrdinaryAttackEnemyState)))
+                !StateMachine.StatesCooldown.ContainsKey(StandardEnemyStateMachine.BaseOrdinaryAttackEnemyState))
             {
                 StandardEnemyStateMachine.ChangeState(StandardEnemyStateMachine.BaseOrdinaryAttackEnemyState);
                 return true;

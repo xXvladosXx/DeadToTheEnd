@@ -1,4 +1,5 @@
-﻿using StateMachine.Enemies.WarriorEnemy;
+﻿using StateMachine.Core;
+using StateMachine.Enemies.WarriorEnemy;
 using StateMachine.Enemies.WarriorEnemy.States.Combat;
 using StateMachine.WarriorEnemy.States.Movement;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
         {
             base.Enter();
             
-            WarriorStateMachine.StartCooldown(typeof(ComboFirstWarriorWarriorEnemyState),
+            WarriorStateMachine.StartCooldown(WarriorStateMachine.ComboFirstWarriorWarriorEnemyState,
                 WarriorEnemyData.EnemyComboData.ComboFirstAttackCooldown);
             WarriorEnemy.NavMeshAgent.speed = WarriorEnemyData.EnemyComboData.ComboFirstAttackSpeed;
             WarriorEnemy.Animator.SetBool(WarriorEnemyAnimationData.ComboFirstParameterHash, true);

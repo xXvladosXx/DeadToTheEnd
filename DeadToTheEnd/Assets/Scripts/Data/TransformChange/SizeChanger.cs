@@ -7,7 +7,7 @@ namespace Data.TransformChange
     public class SizeChanger : TransformChanger
     {
 
-        public override void Change(GameObject gameObject)
+        public override void Change(GameObject gameObject, AttackData attackData)
         {
             gameObject.transform.localScale +=  Vector3.one * Time.deltaTime * Speed;
         }

@@ -1,10 +1,11 @@
 ﻿using StateMachine.Core;
+using StateMachine.Enemies.BlueGragon;
 
 namespace StateMachine.Enemies.BaseStates
 {
     public class BaseOrdinaryAttackEnemyState : BaseAttackEnemyState
     {
-        public BaseOrdinaryAttackEnemyState(EntityStateMachine stateMachine) : base(stateMachine)
+        public BaseOrdinaryAttackEnemyState(StandardEnemyStateMachine stateMachine) : base(stateMachine)
         {
         }
         
@@ -13,7 +14,7 @@ namespace StateMachine.Enemies.BaseStates
             base.Enter();
             
             Enemy.NavMeshAgent.speed = EnemyData.EnemyOrdinaryAttackData.WalkSpeedModifer;
-            StateMachine.StartCooldown(typeof(BaseOrdinaryAttackEnemyState),
+            StateMachine.StartCooldown(StateMachine.BaseOrdinaryAttackEnemyState,
                 EnemyData.EnemyOrdinaryAttackData.AttackCooldown);
         }
 

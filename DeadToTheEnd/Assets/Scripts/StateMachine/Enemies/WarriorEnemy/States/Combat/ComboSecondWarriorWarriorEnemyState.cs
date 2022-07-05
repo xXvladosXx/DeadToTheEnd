@@ -18,7 +18,7 @@ namespace StateMachine.WarriorEnemy.States.Combat
             Enemy.NavMeshAgent.SetDestination(WarriorStateMachine.AliveEntity
                 .transform.position + WarriorStateMachine.AliveEntity.transform.forward * 10); 
             
-            WarriorStateMachine.StartCooldown(typeof(ComboSecondWarriorWarriorEnemyState),
+            WarriorStateMachine.StartCooldown(WarriorStateMachine.ComboSecondWarriorWarriorEnemyState,
                 WarriorEnemyData.EnemyComboData.ComboSecondAttackCooldown);
             Enemy.NavMeshAgent.speed = WarriorEnemyData.EnemyComboData.ComboSecondAttackSpeed;
             Enemy.Animator.SetBool(WarriorEnemyAnimationData.ComboSecondParameterHash, true);

@@ -150,6 +150,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "FifthSkillCast",
+                    "type": "Button",
+                    "id": "14dda366-8fb8-49ad-8bec-0a5eac3cc79a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "FirstItem",
                     "type": "Button",
                     "id": "01ac6e7f-232a-4743-9f1c-021ea7e667df",
@@ -514,6 +523,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "FourthItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cf3a281-452e-4b69-a3e6-d9c58d8840ef",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FifthSkillCast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

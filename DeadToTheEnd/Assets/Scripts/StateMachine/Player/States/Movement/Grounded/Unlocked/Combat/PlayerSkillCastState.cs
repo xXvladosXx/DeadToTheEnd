@@ -60,6 +60,10 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         {
         }
 
+        protected override void OnFifthSkillPerformed(InputAction.CallbackContext obj)
+        {
+        }
+
         protected override void OnDamageTaken(AttackData attackData)
         {
         }

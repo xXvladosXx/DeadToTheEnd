@@ -13,7 +13,7 @@ namespace StateMachine.Enemies.GoblinEnemy.States.Combat
             base.Enter();
 
             GoblinEnemy.NavMeshAgent.speed = GoblinEnemy.GoblinEnemyData.GoblinRangeAttackData.WalkSpeedModifer;
-            GoblinStateMachine.StartCooldown(typeof(RangeAttackGoblinEnemyState),
+            GoblinStateMachine.StartCooldown(GoblinStateMachine.RangeAttackGoblinEnemyState,
                 GoblinEnemy.GoblinEnemyData.GoblinRangeAttackData.AttackCooldown);
             
             StartAnimation(GoblinEnemyAnimationData.RangeAttackParameterHash);

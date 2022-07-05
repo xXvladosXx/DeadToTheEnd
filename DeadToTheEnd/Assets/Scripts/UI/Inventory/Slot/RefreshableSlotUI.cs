@@ -34,9 +34,9 @@ namespace UI
             _timeableItem = _itemSlotUI.Item as ITimeable;
             foreach (var timerController in _timerControllers)
             {
-                if (timerController.CooldownTimer.GetCooldownValue(_item.GetType()) != 0)
+                if (timerController.CooldownTimer.GetCooldownValue(_timeableItem) != 0)
                 {
-                    var cooldownPct = timerController.CooldownTimer.GetCooldownValue(_item.GetType()) / _timeableItem.GetTime();
+                    var cooldownPct = timerController.CooldownTimer.GetCooldownValue(_timeableItem) / _timeableItem.GetTime();
                     _image.fillAmount = cooldownPct;
                 }
             }

@@ -10,7 +10,7 @@ namespace SkillsSystem.SkillPrefab
     {
         private Vector3 _direction;
 
-        public override void Change(GameObject gameObject)
+        public override void Change(GameObject gameObject, AttackData attackData)
         {
             Move(gameObject, Speed);
         }

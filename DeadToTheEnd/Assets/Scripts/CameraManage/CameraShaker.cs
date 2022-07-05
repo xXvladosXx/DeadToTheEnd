@@ -10,6 +10,8 @@ namespace CameraManage
 
         public void ShakeCameraOnAttackHit(AttackData attackData)
         {
+            if(attackData.ShakeCameraData == null) return;
+            
             switch (attackData.AttackType)
             {
                 case AttackType.Knock:

@@ -40,7 +40,7 @@ MonoBehaviour:
     _values:
     - Value: 1.6
       Characteristic: 0
-    - Value: 15
+    - Value: 1000
       Characteristic: 0
     - Value: 1
       Characteristic: 0

@@ -1,4 +1,5 @@
-﻿using Data.Camera;
+﻿using System;
+using Data.Camera;
 using UnityEngine;
 
 namespace SkillsSystem.SkillEffects
@@ -10,6 +11,11 @@ namespace SkillsSystem.SkillEffects
         public override void ApplyEffect(SkillData skillData)
         {
             skillData.AttackData.ShakeCameraData = ShakeCameraData;
+        }
+
+        public override string Data()
+        {
+            return string.Empty;
         }
     }
 }
