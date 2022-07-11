@@ -7,7 +7,6 @@ namespace UI
     {
         event Action OnElementHide;
         event Action<IUIElement> OnElementShow;
-        event Action OnCursorShow;
 
         bool IsActive { get; }
         string Name { get; }

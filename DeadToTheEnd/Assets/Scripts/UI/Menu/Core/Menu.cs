@@ -13,7 +13,7 @@ namespace UI.Menu.Core
         {
             SaveInteractor = saveInteractor;
         }
-        public virtual void Hide() => gameObject.SetActive(false);
-        public virtual void Show() => gameObject.SetActive(true);
+        public virtual void HideMenu() => gameObject.SetActive(false);
+        public virtual void ShowMenu() => gameObject.SetActive(true);
     }
 }

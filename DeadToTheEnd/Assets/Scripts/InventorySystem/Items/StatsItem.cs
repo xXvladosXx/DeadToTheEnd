@@ -56,6 +56,26 @@ namespace InventorySystem
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(Rarity.Name).AppendLine().AppendLine();
             
+            if (_healthBonus != 0)
+            {
+                stringBuilder.Append("Health: ").Append(_healthBonus).AppendLine();
+            }
+            
+            if (_healthRegenerationBonus != 0)
+            {
+                stringBuilder.Append("Health regeneration: ").Append(_healthRegenerationBonus).AppendLine();
+            }
+            
+            if (_manaBonus != 0)
+            {
+                stringBuilder.Append("Damage: ").Append(_manaBonus).AppendLine();
+            }
+            
+            if (_manaRegenerationBonus != 0)
+            {
+                stringBuilder.Append("Damage: ").Append(_manaRegenerationBonus).AppendLine();
+            }
+            
             if (_damageBonus != 0)
             {
                 stringBuilder.Append("Damage: ").Append(_damageBonus).AppendLine();
@@ -81,38 +101,17 @@ namespace InventorySystem
                 stringBuilder.Append("At. speed: ").Append(_attackSpeedBonus).AppendLine();
             }
             
-            stringBuilder.Append(Description).AppendLine();
+            var val = ItemType.ToString();
+            val = string.Concat(val.Select(x => Char.IsUpper(x) ? " " + x : x.ToString())).TrimStart(' ');
+            
+            stringBuilder.AppendLine();
+            stringBuilder.Append(val);
+            stringBuilder.AppendLine();
+            
+            stringBuilder.Append(Description).AppendLine().AppendLine();
             stringBuilder.Append("Sell price: ").Append(SellPrice).AppendLine();
             
             stringBuilder.AppendLine();
-            /*foreach (var damage in _additionalDamage)
-            {
-                switch (damage.Key)
-                {
-                    case DamageType.Fire:
-                        if (damage.Value != 0)
-                            stringBuilder.Append("<color=#FF8560>").Append("Fire: ").Append(damage.Value).Append("</color>").AppendLine();
-                        break;
-                    case DamageType.Ice:
-                        if (damage.Value != 0)
-                            stringBuilder.Append("<color=#B8F3FF>").Append("Ice: ").Append(damage.Value).Append("</color>").AppendLine();
-                        break;
-                    case DamageType.Physical:
-                        if (damage.Value != 0)
-                            stringBuilder.Append("<color=#C1C1C1>").Append("Physical: ").Append(damage.Value).Append("</color>").AppendLine();
-                        break;
-                    case DamageType.Ground:
-                        if (damage.Value != 0)
-                            stringBuilder.Append("<color=#7B432C>").Append("Ground: ").Append(damage.Value).Append("</color>").AppendLine();
-                        break;
-                    case DamageType.Thunder:
-                        if (damage.Value != 0)
-                            stringBuilder.Append("<color=#B8F3FF>").Append("Thunder: ").Append(damage.Value).Append("</color>").AppendLine();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }*/
             
             return stringBuilder.ToString();
         }

@@ -16,7 +16,6 @@ namespace InventorySystem
         [SerializeField] private ItemType _itemType;
         [SerializeField] private ItemData _itemData = new ItemData();
 
-        public bool IsEquipped { get; set; }
         public Sprite SpriteIcon => _sprite;
         public Type Type => GetType();
         public ItemData ItemData => _itemData;

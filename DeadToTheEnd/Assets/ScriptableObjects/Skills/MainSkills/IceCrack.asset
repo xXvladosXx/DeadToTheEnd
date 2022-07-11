@@ -20,9 +20,10 @@ MonoBehaviour:
   _sellPrice: 0
   _itemType: 0
   _itemData:
-    Id: 10
+    Id: 9
   <RequirementsToUpgrade>k__BackingField: []
-  <Anim>k__BackingField: {fileID: 0}
+  <Anim>k__BackingField: {fileID: 11400000, guid: f003c7821292c92499356c6bdd0ad48d,
+    type: 2}
   _skillForm: {fileID: 11400000, guid: a7f65bd7c3ed0224b82f0225880c54ff, type: 2}
   _skillCooldown: 0
   <SkillRequirements>k__BackingField: []

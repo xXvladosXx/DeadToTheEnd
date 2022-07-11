@@ -27,6 +27,7 @@ namespace GameCore
             OnGameInitialized?.Invoke();
         }
 
+
         public static T GetInteractor<T>() where T : Interactor => SceneManagerBase.GetInteractor<T>();
         public static T GetRepository<T>() where T : Repository => SceneManagerBase.GetRepository<T>();
         public static Dictionary<Type, Interactor> GetInteractors => SceneManagerBase.GetInteractors;

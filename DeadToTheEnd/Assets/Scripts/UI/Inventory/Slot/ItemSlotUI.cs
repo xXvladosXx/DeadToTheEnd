@@ -14,13 +14,13 @@ namespace UI
     {
         public override void Accept(IItemContainerVisitor itemContainerVisitor)
         {
-            Debug.Log(this.Item);
             itemContainerVisitor?.Visit(this);
         }
 
         public override void OnPointerEnter(PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);
+            if(ItemSlot == null) return;
             TooltipPopup.Instance.DisplayInfo(ItemSlot.Item);
         }
 
@@ -38,7 +38,7 @@ namespace UI
                 if (MouseData.TempItemDrag.GetComponent<ItemSlotUI>() == null)
                     return;
 
-                if (MouseData.UI == null)
+                if (MouseData.CurrentUI == null)
                 {
                     //Slots[this].RemoveItem();
                     ItemContainer.RemoveItem(Slots[this], Slots[this].Quantity);
@@ -49,7 +49,7 @@ namespace UI
                 {
                     TooltipPopup.Instance.DisplayInfo(ItemSlot.Item);
 
-                    Accept(MouseData.UI);
+                    Accept(MouseData.CurrentUI);
                 }
             }
         }
@@ -73,9 +73,10 @@ namespace UI
             MouseData.TempItemDrag.GetComponent<RectTransform>().SetAsLastSibling();
         }
 
-        public override void OnDrag(PointerEventData eventData)
+        protected override void OnDisable()
         {
-            base.OnDrag(eventData);
+            base.OnDisable();
+            TooltipPopup.Instance.HideInfo();
         }
     }
 }

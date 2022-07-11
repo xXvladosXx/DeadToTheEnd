@@ -1568,6 +1568,8 @@ GameObject:
   - component: {fileID: 7651909019695946322}
   - component: {fileID: 7651909019695946332}
   - component: {fileID: 7651909019695946331}
+  - component: {fileID: 2032346612697085695}
+  - component: {fileID: 4516853823106301095}
   m_Layer: 7
   m_Name: Blue
   m_TagString: Enemy
@@ -1656,16 +1658,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf2e34a1eed45cea8edcef9b28e0040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aliveEntityStatsModifierData: {fileID: 11400000, guid: 201477b9a3d97a044a6208d308e00854,
-    type: 2}
+  <AliveEntityStatsModifierData>k__BackingField: {fileID: 0}
   <AliveEntityStatsData>k__BackingField: {fileID: 11400000, guid: f9836c3f749656f40962bf26ab7ffb90,
     type: 2}
   <LevelCalculator>k__BackingField:
     <Level>k__BackingField: 1
   <EntityData>k__BackingField: {fileID: 11400000, guid: 5d140507215d5464c92798ba12f3fc49,
     type: 2}
+  <Health>k__BackingField:
+    <HealthValue>k__BackingField: 0
   <EnemyAnimationData>k__BackingField: {fileID: 11400000, guid: 5a250fd4ad690d94a9b5c171ad348cda,
     type: 2}
+  <PickableObject>k__BackingField: {fileID: 0}
+  _distanceOfRaycast: 15
+  _distanceOfPickableRaycast: 3
   _lockAim: {fileID: 0}
   _rightHand: {fileID: 0}
   _leftHand: {fileID: 0}
@@ -1705,6 +1711,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b881008428734bb398cc0c29449a7b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2032346612697085695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651909019696066208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6acdb32666e7374690162797b02f272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4516853823106301095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651909019696066208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b3759d1620466a819591aeab8ad8f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GetHitAudios>k__BackingField:
+  - {fileID: 8300000, guid: 6e4765b1d93f08f4397e998110785498, type: 3}
+  - {fileID: 8300000, guid: d1b484933a7412b44950c7e2d7af8085, type: 3}
+  - {fileID: 8300000, guid: 3bf8f424376b6014995acac46cf45a53, type: 3}
+  - {fileID: 8300000, guid: a4e2b5873d903c24999344673232bd48, type: 3}
+  - {fileID: 8300000, guid: 7a1d4bd043b17d24bae903519f863a46, type: 3}
+  <MakeAttackAudios>k__BackingField:
+  - {fileID: 8300000, guid: f6b0476cd486ec947851727a4e6ba417, type: 3}
+  - {fileID: 8300000, guid: 83c16dc09cf46f545a48cd9c744902d8, type: 3}
+  - {fileID: 8300000, guid: 1668664dd9e85a9498565fdcf6148586, type: 3}
+  - {fileID: 8300000, guid: 506f9b469abcd644aab69fef9fdca038, type: 3}
+  - {fileID: 8300000, guid: 6cb8627ae123c934e824caa0f8f12354, type: 3}
+  <IdleAudio>k__BackingField: {fileID: 0}
+  <WalkAudio>k__BackingField: {fileID: 0}
+  <RunAudio>k__BackingField: {fileID: 0}
 --- !u!1 &7651909019696068864
 GameObject:
   m_ObjectHideFlags: 0

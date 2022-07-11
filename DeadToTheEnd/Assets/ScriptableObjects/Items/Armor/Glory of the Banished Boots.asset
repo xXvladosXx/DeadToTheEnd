@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabbe94cdfc6402a9678f1800710bc65, type: 3}
+  m_Name: Glory of the Banished Boots
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 6752180ef5b957742831fec26492f2cf,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: 59404f171a3d5694fa1650a8c37fc39f, type: 3}
+  _name: Glory of the Banished Boots
+  _description: 'Glory of the Banished '
+  _maxItemsInInventory: 1
+  _sellPrice: 600
+  _itemType: 32769
+  _itemData:
+    Id: 30
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 0
+  _healthBonus: 300
+  _criticalDamage: 0
+  _criticalChance: 0
+  _attackSpeedBonus: 0
+  _movementSpeedBonus: 0
+  _healthRegenerationBonus: 0
+  _manaBonus: 100
+  _manaRegenerationBonus: 0
+  _evasionBonus: 0
+  _accuracyBonus: 0

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using GameCore;
 using GameCore.Save;
 using UnityEngine;
@@ -13,17 +15,20 @@ namespace UI.Menu.Core
         
         private Menu _currentMenu;
         private readonly Stack<Menu> _history = new Stack<Menu>();
-        
-        public override void OnCreate(InteractorsBase interactorsBase)
+
+        private void Awake()
         {
             _instance = this;
+        }
 
+        public override void OnCreate(InteractorsBase interactorsBase)
+        {
             var saveInteractor = interactorsBase.GetInteractor<SaveInteractor>();
             
             foreach (var menu in _menus)
             {
                 menu.Initialize(saveInteractor);
-                menu.Hide();
+                menu.HideMenu();
             }
             
             if (_startingMenu != null)
@@ -32,6 +37,7 @@ namespace UI.Menu.Core
             }
         }
 
+      
         public static void Show<T>(bool remember = true) where  T : Menu
         {
             foreach (var menu in _instance._menus)
@@ -45,10 +51,10 @@ namespace UI.Menu.Core
                             _instance._history.Push(_instance._currentMenu);
                         }
                         
-                        _instance._currentMenu.Hide();
+                        _instance._currentMenu.HideMenu();
                     }
                     
-                    menu.Show();
+                    menu.ShowMenu();
                     _instance._currentMenu = menu;
                 }
             }
@@ -63,10 +69,14 @@ namespace UI.Menu.Core
                     _instance._history.Push(_instance._currentMenu);
                 }
                 
-                _instance._currentMenu.Hide();
+                _instance._currentMenu.HideMenu();
             }
             
-            menu.Show();
+            if (remember && _instance._currentMenu == null)
+            {
+                _instance._history.Push(_instance._currentMenu);
+            }
+            menu.ShowMenu();
             _instance._currentMenu = menu;
         }
 
@@ -78,14 +88,12 @@ namespace UI.Menu.Core
             }
         }
 
-        public static void Hide()
+        private void OnDisable()
         {
-            _instance._currentMenu.Hide();
-            _instance._history.Pop();
-        }
-        public void SetStartMenu()
-        {
-            Show(_startingMenu, true);
+            if (_startingMenu != null)
+            {
+                Show(_startingMenu, true);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Entities.Core;
+﻿using System.Text;
+using Entities.Core;
 using UnityEngine;
 
 namespace InventorySystem.Potions

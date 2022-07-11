@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabbe94cdfc6402a9678f1800710bc65, type: 3}
+  m_Name: Glory of the Banished Plate
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 6752180ef5b957742831fec26492f2cf,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: fdf9505acc4050143af4484d372ca54a, type: 3}
+  _name: Glory of the Banished Plate
+  _description: Glory of the Banished
+  _maxItemsInInventory: 1
+  _sellPrice: 1000
+  _itemType: 5
+  _itemData:
+    Id: 33
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 0
+  _healthBonus: 700
+  _criticalDamage: 0
+  _criticalChance: 0
+  _attackSpeedBonus: 0
+  _movementSpeedBonus: 0
+  _healthRegenerationBonus: 0
+  _manaBonus: 200
+  _manaRegenerationBonus: 0
+  _evasionBonus: 0
+  _accuracyBonus: 0

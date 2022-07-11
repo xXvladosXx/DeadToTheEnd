@@ -74,6 +74,8 @@ namespace InventorySystem
 
         public bool IsEmpty => Item == null;
         public bool IsFull => Item.MaxItemsInInventorySlot == Quantity;
+        
+        [field: SerializeField] public bool IsEquipped { get; set; }
     }
 
     [Flags]
@@ -90,12 +92,13 @@ namespace InventorySystem
         Skill = 1<<8,
         Weapon = Item | 1 << 9,
         Bow = Weapon | 1<<10,
-        Sword = Weapon | 1<<11,
-        Stuff = Weapon | 1<<12,
+        ShortSword = Weapon | 1<<11,
+        LongSword = Weapon | 1<<12,
         Gloves = Item | 1 << 13,
         Shoulders = Item | 1 << 14,
         Boots = Item | 1 << 15,
         Health = Potion | 1 << 16,
         Mana = Potion | 1 << 17,
+        Ring = Item | 1 << 18,
     }
 }

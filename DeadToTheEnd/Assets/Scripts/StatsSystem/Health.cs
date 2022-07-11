@@ -1,6 +1,7 @@
 ﻿using System;
 using Data.Combat;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Data.Stats
 {
@@ -12,8 +13,8 @@ namespace Data.Stats
         public event Action<float> OnHealthPctChanged = delegate{ };
         
         private StatsFinder _statsFinder;
-        private bool _isDead;
-
+        public bool IsDead { get; private set; }
+        public Stat Stat => Stat.Health;
         public event Action OnDied;
         public Health(StatsFinder statsFinder)
         {
@@ -39,23 +40,29 @@ namespace Data.Stats
             
             if (HealthValue <= 0)
             {
-                _isDead = true;
+                IsDead = true;
                 OnDied?.Invoke();
             }
 
             InvokeHealthChange();
         }
-        
-        public Stat Stat => Stat.Health;
 
         public void DecreaseHealth(AttackData attackData)
         {
-            if(_isDead) return;
+            if(IsDead) return;
+
+            int criticalChance = Random.Range(0, 100);
+            if (criticalChance < attackData.CriticalChance)
+            {
+                var critDamage = (attackData.CriticalDamage / attackData.Damage) * 100;
+                attackData.Damage += critDamage;
+                Debug.Log("Critical");
+            }
             
             HealthValue -= attackData.Damage;
             if (HealthValue <= 0)
             {
-                _isDead = true;
+                IsDead = true;
                 OnDied?.Invoke();
                 attackData.User.LevelCalculator.ExperienceReward(_statsFinder.GetExperienceReward());
             }

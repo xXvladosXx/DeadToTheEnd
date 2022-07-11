@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities.Core;
 using InventorySystem;
 using InventorySystem.Core;
 using SaveSystem;
 using StateMachine.Core;
-using StateMachine.Player.States.Movement.Grounded.Combat;
 using StateMachine.WarriorEnemy.Components;
+using StatsSystem.Core;
 using TimerSystem;
 using UnityEngine;
 
 namespace SkillsSystem
 {
-    [RequireComponent(typeof(ISkillUser))]
-    public class SkillManager : MonoBehaviour, ISavable, ITimerController
+    [RequireComponent(typeof(IUser))]
+    public class SkillManager : MonoBehaviour, ISavable, ITimerController, IPointsAssignable
     {
         [SerializeField] private Skill _skill;
+        [SerializeField] private int _defaultPointsPerLevel = 2;
         [field: SerializeField] public SkillsContainer SkillsContainer { get; private set; }
         [field: SerializeField] public SkillsContainer QuickBarSkillsContainer { get; private set; }
+        [field: SerializeField] public int UnassignedPoints { get; private set; } = 10;
+       
         public Dictionary<ITimeable, float> SkillsCooldown { get; private set; }
         public Dictionary<ITimeable, float> CurrentSkillsCooldown { get; private set; }
 
         private CooldownTimer _cooldownTimer;
         public Skill LastAppliedSkill { get; set; }
 
-        public Skill Skill => _skill;
+        public event Action OnPointsChange;
+
         private void Awake()
         {
             SkillsCooldown = new Dictionary<ITimeable, float>();
@@ -38,6 +41,11 @@ namespace SkillsSystem
         private void Update()
         {
             _cooldownTimer.Update(Time.deltaTime, CurrentSkillsCooldown);
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                AddNewUnassignedPoints();
+            }
+            
             SkillsCooldown = _cooldownTimer.Cooldowns;
         }
 
@@ -50,7 +58,7 @@ namespace SkillsSystem
         public void SpawnPrefab(int index)
         {
              //_lastAppliedSkill.SpawnPrefab();
-             LastAppliedSkill.ApplySkill(GetComponent<ISkillUser>(), index);
+             LastAppliedSkill.ApplySkill(GetComponent<IUser>(), index);
         }
        
         void OnDrawGizmos()
@@ -81,6 +89,8 @@ namespace SkillsSystem
                 savedInventories.QuickBarSkills.Add(savableItemSlot);
             }
 
+            savedInventories.Points = UnassignedPoints;
+            
             return savedInventories;
         }
 
@@ -104,15 +114,17 @@ namespace SkillsSystem
                     itemSlot.Quantity, itemSlot.ItemId);
                 QuickBarSkillsContainer.ItemContainer.AddItem(slot, itemSlot.Index);
             }
+            
+            UnassignedPoints = savedInventories.Points;
         }
         
-        public bool TryToApplySkill(int index, ISkillUser skillUser)
+        public bool TryToApplySkill(int index, IUser user)
         {
             if (QuickBarSkillsContainer.ItemContainer.GetItemSlots[index].Item is ITimeable timeable)
             {
                 if (SkillsCooldown.ContainsKey(timeable)) return false;
                 var skill = QuickBarSkillsContainer.ItemContainer.GetItemSlots[index].Item as ActiveSkill;
-                if (!skill.CheckRequirementsToCast(skillUser)) return false;
+                if (!skill.CheckRequirementsToCast(user)) return false;
                 
                 LastAppliedSkill = skill;
                 StartCooldown(timeable, timeable.GetTime());
@@ -122,6 +134,19 @@ namespace SkillsSystem
 
             return false;
         }
+        
+        public void AddNewUnassignedPoints()
+        {
+            UnassignedPoints += _defaultPointsPerLevel;
+            OnPointsChange?.Invoke();
+        }
+
+        public void RemovePoints(int value)
+        {
+            UnassignedPoints -= value;
+            OnPointsChange?.Invoke();
+        }
+
     }
     
     [Serializable]
@@ -129,5 +154,6 @@ namespace SkillsSystem
     {
         public List<SavableItemSlot> AllSkills;
         public List<SavableItemSlot> QuickBarSkills;
+        public int Points;
     }
 }

@@ -507,7 +507,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3118d8d0-a5da-44d0-b031-e66b0303de08"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -518,7 +518,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""90814409-3a88-4ace-b630-608ea42be5bd"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -529,7 +529,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6c13a529-6a2d-4842-9452-2e5a9a8f37b7"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -540,7 +540,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""35bddf70-b293-4c28-a017-0b6a29088d85"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -609,6 +609,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""1693d9b4-6561-470f-bbb7-4ab711e9d476"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -666,6 +675,17 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Fight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8171483a-29ae-4d22-84de-12676b0041aa"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -702,6 +722,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_Bar_Skills = m_Bar.FindAction("Skills", throwIfNotFound: true);
         m_Bar_Quests = m_Bar.FindAction("Quests", throwIfNotFound: true);
         m_Bar_Fight = m_Bar.FindAction("Fight", throwIfNotFound: true);
+        m_Bar_Menu = m_Bar.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -959,6 +980,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_Bar_Skills;
     private readonly InputAction m_Bar_Quests;
     private readonly InputAction m_Bar_Fight;
+    private readonly InputAction m_Bar_Menu;
     public struct BarActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -968,6 +990,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Skills => m_Wrapper.m_Bar_Skills;
         public InputAction @Quests => m_Wrapper.m_Bar_Quests;
         public InputAction @Fight => m_Wrapper.m_Bar_Fight;
+        public InputAction @Menu => m_Wrapper.m_Bar_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Bar; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -992,6 +1015,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Fight.started -= m_Wrapper.m_BarActionsCallbackInterface.OnFight;
                 @Fight.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnFight;
                 @Fight.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnFight;
+                @Menu.started -= m_Wrapper.m_BarActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_BarActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_BarActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_BarActionsCallbackInterface = instance;
             if (instance != null)
@@ -1011,6 +1037,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Fight.started += instance.OnFight;
                 @Fight.performed += instance.OnFight;
                 @Fight.canceled += instance.OnFight;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -1046,5 +1075,6 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnSkills(InputAction.CallbackContext context);
         void OnQuests(InputAction.CallbackContext context);
         void OnFight(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
 }

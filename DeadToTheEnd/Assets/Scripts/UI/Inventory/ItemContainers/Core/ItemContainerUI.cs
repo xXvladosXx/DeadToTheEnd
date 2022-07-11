@@ -3,6 +3,7 @@ using GameCore;
 using InventorySystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace UI.Inventory.ItemContainers.Core
 {
@@ -49,12 +50,16 @@ namespace UI.Inventory.ItemContainers.Core
         }
         public void OnPointerEnter(PointerEventData eventData)
         {
-            MouseData.UI = this;
+            MouseData.CurrentUI = this;
+            if(MouseData.StartedDrag) return;
+            MouseData.LastDraggedUI = this;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            MouseData.UI = null;
+            MouseData.CurrentUI = null;
+            if(MouseData.StartedDrag) return;
+            MouseData.LastDraggedUI = null;
         }
 
         public abstract void Visit(ItemSlotUI itemSlotUI);

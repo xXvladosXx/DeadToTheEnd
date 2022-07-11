@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25da68e61e5841fcabb81fe07ff64c7b, type: 3}
+  m_Name: Oathkeeper
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: d60e40b14c005a34cbadb31721c086b8,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: 31a4c3ae639d16247a0764c4f4556437, type: 3}
+  _name: Oathkeeper
+  _description: 'Because its sharp on both its edges this weapon is the champion''s
+    choice. It''ll crush your enemies with cleaving hacks and piercing stabs. '
+  _maxItemsInInventory: 1
+  _sellPrice: 175
+  _itemType: 4609
+  _itemData:
+    Id: 19
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 45
+  _healthBonus: 0
+  _criticalDamage: 0
+  _criticalChance: 0
+  _attackSpeedBonus: 0
+  _movementSpeedBonus: 0
+  _healthRegenerationBonus: 0
+  _manaBonus: 0
+  _manaRegenerationBonus: 0
+  _evasionBonus: 0
+  _accuracyBonus: 0

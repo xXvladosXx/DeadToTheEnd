@@ -19,13 +19,13 @@ namespace Data.Stats.Core
         private int _defaultLevelUpPoints = 5;
         
         public event Action OnStatsChange;
-        
 
-        public StatsValueStorage(AliveEntity aliveEntity)
+        public StatsValueStorage(AliveEntityStatsModifierData aliveEntityStatsModifierData,
+            AliveEntityStatsData aliveEntityStatsData, LevelCalculator levelCalculator )
         {
-            _statsAccordingToClass = aliveEntity.AliveEntityStatsModifierData;
-            _statsData = aliveEntity.AliveEntityStatsData;
-            _levelCalculator = aliveEntity.LevelCalculator;
+            _statsAccordingToClass = aliveEntityStatsModifierData;
+            _statsData = aliveEntityStatsData;
+            _levelCalculator = levelCalculator;
             
             AddStat(Characteristic.Agility);
             AddStat(Characteristic.Intelligence);
@@ -33,11 +33,7 @@ namespace Data.Stats.Core
             
         }
 
-        private void AddStat(Characteristic characteristic)
-        {
-            _assignedPoints.Add(characteristic, (int) _statsData.ReturnLevelValueCharacteristics(characteristic, _levelCalculator.Level));
-        }
-
+      
         public float GetCalculatedStat(Stat stat)
         {
             if(_statsAccordingToClass.StatModifier.TryGetValue(stat, out var c))
@@ -57,19 +53,10 @@ namespace Data.Stats.Core
             return 0;
         }
 
-        private int GetPoints(Characteristic characteristic)
-        {
-            return _assignedPoints.ContainsKey(characteristic) ? _assignedPoints[characteristic] : 0;
-        }
-
-        private int GetPointInTransition(Characteristic characteristic)
-        {
-            return _transitionPoints.ContainsKey(characteristic) ? _transitionPoints[characteristic] : 0;
-        }
-
+       
         public int GetProposedPoints(Characteristic characteristic)
         {
-            return (GetPoints(characteristic) + GetPointInTransition(characteristic) );
+            return (GetPoints(characteristic) + GetPointInTransition(characteristic));
         }
 
         public void AssignPoints(Characteristic characteristic, int points)
@@ -78,6 +65,8 @@ namespace Data.Stats.Core
 
             _transitionPoints[characteristic] = GetPointInTransition(characteristic) + points;
             UnassignedPoints -= points;
+            
+            StatsChanged();
         }
 
         public bool CanAssignPoints(Characteristic characteristic, int points)
@@ -95,16 +84,16 @@ namespace Data.Stats.Core
                 _assignedPoints[characteristic] = GetProposedPoints(characteristic);
             }
 
-            OnStatsChange?.Invoke();
+            StatsChanged();
 
             _transitionPoints.Clear();
         }
 
-        private void AddNewUnassignedPoints()
+        public void StatsChanged()
         {
-            UnassignedPoints += _defaultLevelUpPoints;
+            OnStatsChange?.Invoke();
         }
-
+       
         public ISerializable SerializableData()
         {
             var statsValueSavableStorage = new StatsValueSavableStorage
@@ -121,8 +110,29 @@ namespace Data.Stats.Core
             _assignedPoints = serializableStats.AssignedPoints;
             UnassignedPoints = serializableStats.UnassignedPoints;
             
-            OnStatsChange?.Invoke();
+            StatsChanged();
         }
+        
+        public void AddNewUnassignedPoints()
+        {
+            UnassignedPoints += _defaultLevelUpPoints;
+        }
+        
+        private void AddStat(Characteristic characteristic)
+        {
+            _assignedPoints.Add(characteristic, (int) _statsData.ReturnLevelValueCharacteristics(characteristic, _levelCalculator.Level));
+        }
+
+        private int GetPoints(Characteristic characteristic)
+        {
+            return _assignedPoints.ContainsKey(characteristic) ? _assignedPoints[characteristic] : 0;
+        }
+
+        private int GetPointInTransition(Characteristic characteristic)
+        {
+            return _transitionPoints.ContainsKey(characteristic) ? _transitionPoints[characteristic] : 0;
+        }
+
     }
 
     [Serializable]

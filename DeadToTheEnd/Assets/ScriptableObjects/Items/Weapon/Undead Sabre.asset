@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25da68e61e5841fcabb81fe07ff64c7b, type: 3}
+  m_Name: Undead Sabre
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: d63fb40835001174aa5d4ad2f0869646,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: 56cdb01435272f64f923221450161d3b, type: 3}
+  _name: Undead Sabre
+  _description: The blade itself is unadorned. No decorations of any sorts are on
+    it, but the blade will surely be decorated in battle.
+  _maxItemsInInventory: 1
+  _sellPrice: 775
+  _itemType: 4609
+  _itemData:
+    Id: 15
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 350
+  _healthBonus: 0
+  _criticalDamage: 0
+  _criticalChance: 0
+  _attackSpeedBonus: 0
+  _movementSpeedBonus: 0
+  _healthRegenerationBonus: 0
+  _manaBonus: 0
+  _manaRegenerationBonus: 0
+  _evasionBonus: 0
+  _accuracyBonus: 0

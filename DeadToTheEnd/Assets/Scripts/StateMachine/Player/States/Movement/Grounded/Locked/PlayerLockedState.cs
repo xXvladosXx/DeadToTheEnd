@@ -59,7 +59,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
         {
             base.OnMovementCanceled(obj);
             ResetVelocity();
-            //PlayerStateMachine.ChangeState(PlayerStateMachine.LockedStopping);
         }
         
         protected override void OnLockedPerformed(InputAction.CallbackContext obj)
@@ -67,7 +66,7 @@ namespace StateMachine.Player.States.Movement.Grounded.Locked
             ResetTarget();
         }
 
-        protected void TargetLocked()
+        private void TargetLocked()
         {
             Transform transform;
             (transform = MainPlayer.transform).LookAt(MainPlayer.PlayerStateReusable.Target.transform);

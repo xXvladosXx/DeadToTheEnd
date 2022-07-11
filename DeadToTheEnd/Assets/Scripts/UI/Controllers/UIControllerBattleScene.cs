@@ -5,7 +5,9 @@ using GameCore;
 using GameCore.GameSystem;
 using LootSystem;
 using UI.HUD;
+using UI.Menu.Core;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace UI.Controllers
 {
@@ -24,14 +26,15 @@ namespace UI.Controllers
             
             _enemyLock.OnPlayerLocked += _enemyHudui.InitEnemyData;
             _enemyLock.OnPlayerUnlocked += DeactivateEnemyHUDUI;
-            
+            GameInput.InputAction.Bar.Menu.performed += TryToSwitchToMenu;
+
             foreach (var uiElement in UIElements)
             {
-                uiElement.OnCursorShow += ElementOnCursorShow();
-                uiElement.OnCursorHide += ElementOnCursorHide();
+                uiElement.OnCursorShow += ElementOnCursorShow;
+                uiElement.OnCursorHide += ElementOnCursorHide;
             }
         }
-
+        
         protected override void OnDisable()
         {
             base.OnDisable();
@@ -41,8 +44,8 @@ namespace UI.Controllers
             
             foreach (var uiElement in UIElements)
             {
-                uiElement.OnCursorShow -= ElementOnCursorShow();
-                uiElement.OnCursorHide -= ElementOnCursorHide();
+                uiElement.OnCursorShow -= ElementOnCursorShow;
+                uiElement.OnCursorHide -= ElementOnCursorHide;
             }
         }
 
@@ -76,8 +79,8 @@ namespace UI.Controllers
             _enemyHudui.gameObject.SetActive(false);
         }
 
-        private Action ElementOnCursorHide() => () => _gameStateInteractor.ChangeState(GameStateInteractor.GameStates.Battle);
+        private void ElementOnCursorHide() =>_gameStateInteractor.ChangeState(GameStateInteractor.GameStates.Battle);
 
-        private Action ElementOnCursorShow() => () => _gameStateInteractor.ChangeState(GameStateInteractor.GameStates.UI);
+        private void ElementOnCursorShow() => _gameStateInteractor.ChangeState(GameStateInteractor.GameStates.UI);
     }
 }

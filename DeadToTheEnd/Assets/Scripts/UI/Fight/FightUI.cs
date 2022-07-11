@@ -2,35 +2,45 @@ using System.Collections.Generic;
 using System.Linq;
 using GameCore;
 using GameCore.LevelSystem;
-using GameCore.Save;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Fight
 {
-    public class FightUI : UIElement
+    [RequireComponent(typeof(LevelCompleterUI))]
+    public class FightUI : UIElement, IRefreshable
     {
-        private List<Button> _levels;
+        [SerializeField] private Transform _content;
+        [SerializeField] private FightLevelButtonUI _fightLevel;
+
+        private List<FightLevelButtonUI> _levels;
         private LevelLoaderInteractor _levelLoaderInteractor;
-        
+        private LevelCompleterUI _levelCompleterUI;
+
         public override void OnCreate(InteractorsBase interactorsBase)
         {
-            _levels = GetComponentsInChildren<Button>().ToList();
+            _levels = _content.GetComponentsInChildren<FightLevelButtonUI>().ToList();
             _levelLoaderInteractor = interactorsBase.GetInteractor<LevelLoaderInteractor>();
+            _levelCompleterUI = GetComponent<LevelCompleterUI>();
+            
+            SetDataToLevelButtons();
+            _levelCompleterUI.Init(_levels.Count);
+        }
 
+        public void Refresh()
+        {
+            SetDataToLevelButtons();
+            _levelCompleterUI.Init(_levels.Count);
+        }
+        
+        private void SetDataToLevelButtons()
+        {
             var levelIndex = 2;
             foreach (var level in _levels)
             {
-                var index = levelIndex;
-                level.onClick.AddListener(() => LoadLevel(index));
+                level.SetData(levelIndex, _levelLoaderInteractor);
                 levelIndex++;
             }
         }
-
-        private void LoadLevel(int index)
-        {
-            _levelLoaderInteractor.LoadLevel(index);
-        }
-
     }
 }

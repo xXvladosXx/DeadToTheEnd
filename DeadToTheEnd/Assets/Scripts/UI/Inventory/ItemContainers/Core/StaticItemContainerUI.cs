@@ -20,15 +20,6 @@ namespace UI.Inventory.ItemContainers.Core
             UpdateSlots();
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-        }
 
         public override void CreateSlots()
         {
@@ -37,6 +28,7 @@ namespace UI.Inventory.ItemContainers.Core
 
             foreach (var itemSlot in Inventory.ItemContainer.GetItemSlots)
             {
+                if(ItemSlot == null) continue;
                 var o = Instantiate(ItemSlot, Content);
                 o.SetItemData(Inventory.ItemContainer.GetDatabase.GetItemByID(itemSlot.ID),
                     SlotOnUI, Inventory.ItemContainer, Inventory.ItemContainer.GetItemSlots[Index]);

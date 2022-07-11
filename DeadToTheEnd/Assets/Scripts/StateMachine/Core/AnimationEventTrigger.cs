@@ -1,4 +1,5 @@
-﻿using Data.Combat;
+﻿using AudioSystem;
+using Data.Combat;
 using Entities;
 using Entities.Core;
 using UnityEngine;
@@ -42,6 +43,11 @@ namespace StateMachine.WarriorEnemy
         public void TriggerOnStateAnimationHandleEvent()
         {
             Entity.OnMovementStateAnimationHandleEvent();
+        }
+
+        public void MakeSound(int index)
+        {
+            Entity.GetComponent<AliveEntityAudioManager>().PlayAttackSound(index);
         }
     }
 }

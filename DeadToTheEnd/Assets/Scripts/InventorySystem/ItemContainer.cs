@@ -218,12 +218,8 @@ namespace InventorySystem
                     continue;
                 }
 
-                if (slot.Item != item)
-                {
-                    continue;
-                }
-
-                return true;
+                if(slot.Item == item)
+                    return true;
             }
 
             return false;

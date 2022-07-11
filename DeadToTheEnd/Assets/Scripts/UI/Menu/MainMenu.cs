@@ -18,7 +18,7 @@ namespace UI.Menu
             base.Initialize(saveInteractor);
             if (saveInteractor.GetLastSave == null)
             {
-                _continueButton.gameObject.SetActive(false);
+                _continueButton.interactable = false;
             }
             
             _startButton.onClick.AddListener(() => MainMenuSwitcher.Show<StartMenu>());

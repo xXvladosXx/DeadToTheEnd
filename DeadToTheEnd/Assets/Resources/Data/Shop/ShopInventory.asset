@@ -19,499 +19,419 @@ MonoBehaviour:
       Index: 0
       Quantity: 5
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 11400000, guid: e39fb4386b540374f9053764c2c94c5c, type: 2}
       ID: 1
       Index: 1
-      Quantity: 1
+      Quantity: 2
       ItemTypes: 
-    - Item: {fileID: 11400000, guid: ccd9239f419f1cf4599cfbf5976da2f2, type: 2}
-      ID: 0
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: df737c46250640644ba86642d54a6e65, type: 2}
+      ID: 22
       Index: 2
       Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 6ecd4c2230b193543953c67bd50d5472, type: 2}
+      ID: 21
       Index: 3
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 9eecafda40d5d0d47ae58ec83a12c582, type: 2}
+      ID: 20
       Index: 4
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 99abb41be31517c40b9e939772cb5a87, type: 2}
+      ID: 19
       Index: 5
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: dbd20e609242ab04fafa15823986da91, type: 2}
+      ID: 18
       Index: 6
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 758d2efdcca759a459fb2b552b66f210, type: 2}
+      ID: 4
       Index: 7
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 4e5f7ece3ca187d4390369073c1e45ec, type: 2}
+      ID: 17
       Index: 8
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 25f3cc109c715174c99d291304dca148, type: 2}
+      ID: 16
       Index: 9
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: db44423182d7095479e4789fa2e1b765, type: 2}
+      ID: 2
       Index: 10
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 8ee3c2012225a244c8d506d55a7cb9c9, type: 2}
+      ID: 15
       Index: 11
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: dcdc143e60ab238449e162f97dbe5655, type: 2}
+      ID: 25
       Index: 12
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: a56639a1ab3b2a14b8e2d290ef65dc0e, type: 2}
+      ID: 24
       Index: 13
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: cc65b31a8108df7499d45aefaad8e584, type: 2}
+      ID: 23
       Index: 14
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: d81c6d12c34d2d4408650910b516b3ad, type: 2}
+      ID: 14
       Index: 15
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: e8826a63ed160e94c917e00997140515, type: 2}
+      ID: 26
       Index: 16
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: c2d23f538af2ee74dbeafbc9987dd2f0, type: 2}
+      ID: 27
       Index: 17
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 2c0496396d8a70e45bde12de85d68f02, type: 2}
+      ID: 28
       Index: 18
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: a1e201dcc8157554c87c0920ceb84448, type: 2}
+      ID: 29
       Index: 19
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: fec2e784bacb87344ae07121a32b3792, type: 2}
+      ID: 31
       Index: 20
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 4a8773540fde50148ada5cbb74cb1123, type: 2}
+      ID: 30
       Index: 21
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: b168ae1955a33c74aab62734d16e606f, type: 2}
+      ID: 32
       Index: 22
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: af02df1641c638142844d8a80a221aca, type: 2}
+      ID: 33
       Index: 23
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: fbf207b3438b49b4992d57a1b146a815, type: 2}
+      ID: 34
       Index: 24
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 3d17e15bcd547134186adf22cae060e9, type: 2}
+      ID: 35
       Index: 25
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 2b81659646c22d2468ed059d246093ee, type: 2}
+      ID: 36
       Index: 26
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 8af1f123192d44240aa677d151e1373a, type: 2}
+      ID: 37
       Index: 27
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: c948a8fe2b3bffa4cb7c50c88f01e24b, type: 2}
+      ID: 38
       Index: 28
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 18f39bbbee708bc4795d2a3b52573c29, type: 2}
+      ID: 39
       Index: 29
-      Quantity: 0
+      Quantity: 1
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: b2774a498779c82499ceb8b955149ca4, type: 2}
+      ID: 42
       Index: 30
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 7615423eeed49814b955108c87d17987, type: 2}
+      ID: 40
       Index: 31
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 9e7b44caec047ac4886153850b8fac4c, type: 2}
+      ID: 43
       Index: 32
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: cae40902a68da6a4eab55364856f8a9e, type: 2}
+      ID: 41
       Index: 33
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: b166dede1a7cb7d41aa385ba9e211896, type: 2}
+      ID: 44
       Index: 34
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: ff3e8967aea4a1c4a8662e8458902d6b, type: 2}
+      ID: 45
       Index: 35
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: f139cb73fce88764d8459e5cff5c69e1, type: 2}
+      ID: 46
       Index: 36
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 31d1be12f70eb474191fe5df0af98d73, type: 2}
+      ID: 48
       Index: 37
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
+    - Item: {fileID: 11400000, guid: 4a06b18f03568064dbe6ed87f4ff9bc6, type: 2}
+      ID: 47
       Index: 38
-      Quantity: 0
+      Quantity: 64
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 39
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 40
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 41
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 42
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 43
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 44
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 45
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 46
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 47
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 48
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 49
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 50
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 51
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 52
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 53
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 54
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 55
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 56
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 57
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 58
       Quantity: 0
       ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     - Item: {fileID: 0}
       ID: -1
       Index: 59
       Quantity: 0
       ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 60
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 61
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 62
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 63
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 64
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 65
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 66
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 67
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 68
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 69
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 70
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 71
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 72
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 73
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 74
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 75
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 76
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 77
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 78
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 79
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 80
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 81
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 82
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 83
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 84
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 85
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 86
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 87
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 88
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 89
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 90
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 91
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 92
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 93
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 94
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 95
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 96
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 97
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 98
-      Quantity: 0
-      ItemTypes: 
-    - Item: {fileID: 0}
-      ID: -1
-      Index: 99
-      Quantity: 0
-      ItemTypes: 
+      Changeable: 1
+      <IsEquipped>k__BackingField: 0
     _database: {fileID: 11400000, guid: faaead4ed8ead09488b3d825304e4fe0, type: 2}

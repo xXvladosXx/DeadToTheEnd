@@ -40,7 +40,8 @@ namespace Entities.Enemies
 
         private void Update()
         {
-            StateMachine.Update();
+            if(!Target.Health.IsDead)
+                StateMachine.Update();
         }
 
         private void FixedUpdate()

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31399d8257ec4e8c90a2fafba7bfc7b3, type: 3}
+  m_Name: HugeManaPotion
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 6752180ef5b957742831fec26492f2cf,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: e0feaa64c5025ef47ae328ab4cc1eb8b, type: 3}
+  _name: Huge Mana Potion
+  _description: Regenerates mana
+  _maxItemsInInventory: 64
+  _sellPrice: 175
+  _itemType: 131265
+  _itemData:
+    Id: 45
+  Value: 200

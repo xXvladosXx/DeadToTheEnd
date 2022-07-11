@@ -4,16 +4,16 @@ using UnityEngine;
 namespace SkillsSystem
 {
     [CreateAssetMenu (menuName = "SkillSystem/ActiveSkillChain")]
-    public class ActiveSkillChain : Skill
+    public class ActiveSkillChain : ActiveSkill
     {
         [SerializeField] private ActiveSkill[] _activeSkill;
         [SerializeField] private float _skillChainCooldown;
 
-        public override void ApplySkill(ISkillUser skillUser, int index = 0)
+        public override void ApplySkill(IUser user, int index = 0)
         {
-            base.ApplySkill(skillUser, index);
+            base.ApplySkill(user, index);
             
-            _activeSkill[index].ApplySkill(skillUser, index);
+            _activeSkill[index].ApplySkill(user, index);
         }
 
         public override float GetTime()

@@ -5,8 +5,6 @@ namespace StateMachine.Player.States.Movement.Grounded.Stopping
 {
     public abstract class PlayerStoppingState: PlayerGroundedState
     {
-        private bool _shouldKeepAttacking = false;
-
         public PlayerStoppingState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }

@@ -41,8 +41,11 @@ namespace UI.Inventory
             
             _priceText.text = (itemSlot.Item.SellPrice * _currentQuantity).ToString();
 
-            if(_isBuying)
+            if (_isBuying)
+            {
+                print("isBuying");
                 _accept.interactable = _shopInteractor.HasAllRequirements(_itemSlot, _currentQuantity);
+            }
         }
 
         private void SetAmountText(float arg0)

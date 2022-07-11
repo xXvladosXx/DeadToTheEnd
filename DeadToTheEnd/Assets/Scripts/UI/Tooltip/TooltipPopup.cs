@@ -70,6 +70,7 @@ namespace UI.Tooltip
 
         public void HideInfo()
         {
+            if(this == null) return;
             _popupCanvas.gameObject.SetActive(false);
         }
     }

@@ -34,8 +34,7 @@ namespace GameCore.SceneSystem
             var config = SceneConfigs[sceneName];
             return Coroutines.StartRoutine(InitializeSceneAsync(config, uiController));
         }
-        
-      
+
         IEnumerator InitializeSceneAsync(SceneConfig sceneConfig, UIController uiController)
         {
             Scene = new Scene(sceneConfig);

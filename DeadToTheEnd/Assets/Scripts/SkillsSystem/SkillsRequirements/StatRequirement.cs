@@ -10,9 +10,9 @@ namespace SkillsSystem.SkillsRequirements
         [SerializeField] private Stat _stat;
         [SerializeField] private float _value;
 
-        public override bool IsChecked(ISkillUser skillData)
+        public override bool IsChecked(IUser data)
         {
-            foreach (var statsable in skillData.Statsables)
+            foreach (var statsable in data.Statsables)
             {
                 if (statsable.Stat == _stat)
                 {
@@ -26,9 +26,9 @@ namespace SkillsSystem.SkillsRequirements
             return true;
         }
 
-        public override void ApplyRequirement(ISkillUser skillUser)
+        public override void ApplyRequirement(IUser user)
         {
-            foreach (var statsable in skillUser.Statsables)
+            foreach (var statsable in user.Statsables)
             {
                 if(statsable.Stat == _stat)
                     statsable.Decrease(_value);

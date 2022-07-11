@@ -12,7 +12,9 @@ using Data.Stats.Core;
 using Entities.Enemies;
 using SkillsSystem;
 using StateMachine.WarriorEnemy;
+using StatsSystem;
 using StatsSystem.Bonuses;
+using StatsSystem.Core;
 using UnityEngine;
 
 namespace Entities.Core
@@ -23,7 +25,7 @@ namespace Entities.Core
     
     [RequireComponent(typeof(AnimationEventTrigger),
         typeof(BuffManager))]
-    public abstract class AliveEntity : MonoBehaviour, IModifier, ISkillUser
+    public abstract class AliveEntity : MonoBehaviour, IModifier, IUser
     {
         [field: SerializeField] public AliveEntityStatsModifierData AliveEntityStatsModifierData { get; private set;}
         [field: SerializeField] public AliveEntityStatsData AliveEntityStatsData { get; private set; } 
@@ -45,8 +47,10 @@ namespace Entities.Core
         public StatsFinder StatsFinder { get; private set; }
         public StatsValueStorage StatsValueStorage { get; private set; } 
         public BuffManager BuffManager { get; private set; }
+        public SkillManager SkillManager { get; private set; }
         public List<IStatsable> Statsables { get; } = new();
-        
+        public List<IPointsAssignable> PointsAssignables { get; } = new();
+
         private List<IModifier> _modifiers;
         public event Action OnStatModified;
 
@@ -55,8 +59,9 @@ namespace Entities.Core
             Rigidbody = GetComponent<Rigidbody>();
             Animator = GetComponent<Animator>();
             BuffManager = GetComponent<BuffManager>();
+            SkillManager = GetComponent<SkillManager>();
             
-            StatsValueStorage = new StatsValueStorage(this);
+            StatsValueStorage = new StatsValueStorage(AliveEntityStatsModifierData, AliveEntityStatsData, LevelCalculator);
 
             OrdinaryAttackColliderActivator = GetComponentInChildren<OrdinaryAttackColliderActivator>();
             _modifiers = GetComponents<IModifier>().ToList();
@@ -70,11 +75,14 @@ namespace Entities.Core
             Statsables.Add(Health);
             Statsables.Add(Mana);
             Statsables.Add(AttackSpeed);
+            
+            PointsAssignables.Add(SkillManager);
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             LevelCalculator.OnLevelUp += RecalculateStatsWithMaxValue;
+            
             AttackCalculator.OnDamageTaken += Health.DecreaseHealth;
             Health.OnDied += OnDied;
 
@@ -100,24 +108,10 @@ namespace Entities.Core
             }
         }
         
-
-        public float TryToGetCurrentStatValue(Stat stat)
-        {
-            foreach (var statsable in Statsables)
-            {
-                if (statsable.GetStatValue(stat) != 0)
-                {
-                    float f = statsable.GetStatValue(stat);
-                    return f;
-                }
-            }
-
-            return 0;
-        }
-        
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             LevelCalculator.OnLevelUp -= RecalculateStatsWithMaxValue;
+            
             AttackCalculator.OnDamageTaken -= Health.DecreaseHealth;
             Health.OnDied -= OnDied;
             
@@ -155,6 +149,8 @@ namespace Entities.Core
                 AttackType = attackType,
                 User = this,
                 Damage = StatsFinder.GetStat(Stat.Damage),
+                CriticalChance = StatsFinder.GetStat(Stat.CriticalChance),
+                CriticalDamage = StatsFinder.GetStat(Stat.CriticalDamage),
                 ShakeCameraData = EntityData.ShakeCameraData
             };
 

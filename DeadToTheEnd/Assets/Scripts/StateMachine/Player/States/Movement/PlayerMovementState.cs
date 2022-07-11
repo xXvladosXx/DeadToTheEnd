@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CameraManage;
@@ -15,6 +16,7 @@ using SkillsSystem;
 using StateMachine.Player.States.Movement.Grounded.Combat;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities;
 using Utilities.Layer;
 using Utilities.Raycast;
 
@@ -101,7 +103,9 @@ namespace StateMachine.Player.States.Movement
         {
             MainPlayer.InputAction.PlayerActions.Movement.performed += OnMovementPerformed;
             MainPlayer.InputAction.PlayerActions.Movement.canceled += OnMovementCanceled;
+            
             MainPlayer.InputAction.PlayerActions.Attack.performed += OnAttackPerformed;
+            
             MainPlayer.InputAction.PlayerActions.Locked.performed += OnLockedPerformed;
 
             MainPlayer.InputAction.PlayerActions.FirstSkillCast.performed += OnFirstSkillPerformed;
@@ -116,9 +120,16 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.SecondItem.performed += OnSecondItemUsed;
             MainPlayer.InputAction.PlayerActions.ThirdItem.performed += OnThirdItemUsed;
             MainPlayer.InputAction.PlayerActions.FourthItem.performed += OnFourthItemUsed;
+            
+            MainPlayer.Health.OnDied += OnDied;
         }
 
-        
+
+        private void OnDied()
+        {
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerDieState);
+        }
+
 
         private void OnFirstItemUsed(InputAction.CallbackContext obj)
         {
@@ -167,12 +178,16 @@ namespace StateMachine.Player.States.Movement
 
         protected virtual void OnLockedPerformed(InputAction.CallbackContext obj)
         {
-            if (!TryToChangeWeapon(false)) return;
+            if (MainPlayer.PlayerStateReusable.ChangeWeaponInCooldown) return;
+            if (!TryToChangeWeapon(ItemType.LongSword)) return;
 
             if (MainPlayer.TryGetComponent(out EnemyLockOn enemyLockOn))
             {
                 if (!enemyLockOn.FindTarget()) return;
 
+                MainPlayer.PlayerStateReusable.ChangeWeaponInCooldown = true;
+                Coroutines.StartRoutine(WaitToBeAbleToChangeWeapon());
+                
                 MainPlayer.PlayerStateReusable.LockedState = true;
                 MainPlayer.PlayerStateReusable.Target = enemyLockOn.ScanNearBy();
                 MainPlayer.PlayerStateReusable.Target.Health.OnDied += ResetTarget;
@@ -189,10 +204,22 @@ namespace StateMachine.Player.States.Movement
             }
         }
 
+        private IEnumerator WaitToBeAbleToChangeWeapon()
+        {
+            yield return new WaitForSeconds(2);
+            MainPlayer.PlayerStateReusable.ChangeWeaponInCooldown = false;
+        }
+
 
         protected void ResetTarget()
         {
-            TryToChangeWeapon(true);
+            if (MainPlayer.PlayerStateReusable.ChangeWeaponInCooldown) return;
+
+            MainPlayer.PlayerStateReusable.ChangeWeaponInCooldown = true;
+            Coroutines.StartRoutine(WaitToBeAbleToChangeWeapon());
+            
+            TryToChangeWeapon(ItemType.ShortSword);
+
             PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerIdleState);
             StopAnimation(PlayerAnimationData.LockedParameterHash);
 
@@ -260,6 +287,8 @@ namespace StateMachine.Player.States.Movement
             MainPlayer.InputAction.PlayerActions.SecondItem.performed -= OnSecondItemUsed;
             MainPlayer.InputAction.PlayerActions.ThirdItem.performed -= OnThirdItemUsed;
             MainPlayer.InputAction.PlayerActions.FourthItem.performed -= OnFourthItemUsed;
+            
+            MainPlayer.Health.OnDied -= OnDied;
         }
 
         protected void SetBaseCameraRecenteringData()
@@ -534,13 +563,12 @@ namespace StateMachine.Player.States.Movement
             if (!_skillManager.TryToApplySkill(index, MainPlayer)) return;
 
             MainPlayer.PlayerStateReusable.SkillAnimToPlay = _skillManager.LastAppliedSkill.Anim.AnimName;
-            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerThirdSkillCastState);
+            PlayerStateMachine.ChangeState(PlayerStateMachine.PlayerActiveSkillCastState);
         }
 
-        private bool TryToChangeWeapon(bool toShortSword)
+        private bool TryToChangeWeapon(ItemType toShortSword)
         {
             return MainPlayer.ItemEquipper.TryToChangeWeapon(toShortSword);
-            Debug.Log("Changed");
         }
     }
 }

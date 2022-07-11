@@ -1,6 +1,9 @@
 ﻿using GameCore;
+using UI.Fight;
 using UI.Inventory.ItemContainers;
 using UI.Inventory.ItemContainers.Core;
+using UI.Menu;
+using UI.Menu.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +16,7 @@ namespace UI.Controllers
         [SerializeField] private Button _skills;
         [SerializeField] private Button _quests;
         [SerializeField] private Button _fight;
+        [SerializeField] private Button _menu;
 
         protected override void Init(InteractorsBase interactorsBase)
         {
@@ -23,19 +27,20 @@ namespace UI.Controllers
             _skills.onClick.AddListener(SwitchUIElement<SkillsUI>);
             _quests.onClick.AddListener(SwitchUIElement<QuestsUI>);
             _fight.onClick.AddListener(SwitchUIElement<FightUI>);
+            _menu.onClick.AddListener(SwitchUIElement<MainMenuSwitcher>);
 
             CreateInputs();
         }
 
         private void CreateInputs()
         {
-            MainPlayer.InputAction.BarActions.Fight.performed += context => { SwitchUIElement<FightUI>(); };
-            MainPlayer.InputAction.BarActions.Quests.performed += context => { SwitchUIElement<QuestsUI>(); };
-            MainPlayer.InputAction.BarActions.Skills.performed += context => { SwitchUIElement<SkillsUI>(); };
-            MainPlayer.InputAction.BarActions.Shop.performed += context => { SwitchUIElement<ShopUI>(); };
-            MainPlayer.InputAction.BarActions.Inventory.performed += context => { SwitchUIElement<CharacterContainerUI>(); };
+            GameInput.InputAction.Bar.Fight.performed += context => { SwitchUIElement<FightUI>(); };
+            GameInput.InputAction.Bar.Quests.performed += context => { SwitchUIElement<QuestsUI>(); };
+            GameInput.InputAction.Bar.Skills.performed += context => { SwitchUIElement<SkillsUI>(); };
+            GameInput.InputAction.Bar.Shop.performed += context => { SwitchUIElement<ShopUI>(); };
+            GameInput.InputAction.Bar.Inventory.performed += context => { SwitchUIElement<CharacterContainerUI>(); };
+            GameInput.InputAction.Bar.Menu.performed += TryToSwitchToMenu;
         }
-        
 
         protected override void OnDisable()
         {

@@ -17,6 +17,7 @@ using InventorySystem;
 using LootSystem;
 using SaveSystem;
 using StateMachine;
+using StatsSystem;
 using UnityEngine;
 using Utilities;
 using Utilities.Camera;
@@ -28,21 +29,22 @@ namespace Entities
     [RequireComponent(typeof(PlayerInput), typeof(ItemEquipper))]
     public sealed class MainPlayer : AliveEntity, ISavable
     {
-        [field:SerializeField] public SwordActivator LongSwordActivator { get; private set; }
-        [field:SerializeField] public ShortSwordActivator[] ShortSwordsActivator { get; private set; }
+        [field: SerializeField] public SwordActivator LongSwordActivator { get; private set; }
+        [field: SerializeField] public ShortSwordActivator[] ShortSwordsActivator { get; private set; }
         [field: SerializeField] public PlayerColliderUtility ColliderUtility { get; private set; }
         [field: SerializeField] public PlayerLayerData PlayerLayerData { get; private set; }
         [field: SerializeField] public PlayerCameraUtility CameraUtility { get; private set; }
         [field: SerializeField] public PlayerAnimationData PlayerAnimationData { get; private set; }
         [field: SerializeField] public Gold Gold { get; private set; }
+        [field: SerializeField] public Rage Rage { get; private set; }
 
         [field: SerializeField] private float _distanceToPickObject;
         public Transform MainCamera { get; private set; }
         public PlayerInput InputAction { get; private set; }
         public ItemEquipper ItemEquipper { get; private set; }
-        
+
         public PlayerStateReusableData PlayerStateReusable { get; private set; }
-        public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; } 
+        public ShortAttackColliderActivator[] ShortSwordColliderActivators { get; private set; }
         public DefenseColliderActivator DefenseColliderActivator { get; private set; }
 
         private List<IDataSavable> _savables;
@@ -52,7 +54,7 @@ namespace Entities
             base.Awake();
 
             InputAction = GetComponent<PlayerInput>();
-            
+
             ColliderUtility.Init(gameObject);
             ColliderUtility.CalculateCapsuleColliderDimensions();
             CameraUtility.Init();
@@ -60,7 +62,7 @@ namespace Entities
 
             MainCamera = UnityEngine.Camera.main.transform;
             _savables = new List<IDataSavable>();
-            
+
             DefenseColliderActivator = GetComponentInChildren<DefenseColliderActivator>();
             ShortSwordColliderActivators = GetComponentsInChildren<ShortAttackColliderActivator>();
             ItemEquipper = GetComponent<ItemEquipper>();
@@ -69,9 +71,22 @@ namespace Entities
             PlayerStateReusable = (PlayerStateReusableData) Reusable;
             AttackCalculator = new AttackCalculator(PlayerStateReusable);
             StateMachine = new PlayerStateMachine(this);
-            
+            Rage.Init(BuffManager);
+
             _savables.Add(LevelCalculator);
             _savables.Add(StatsValueStorage);
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            LevelCalculator.OnLevelUp += AddNewPoints;
+        }
+
+        private void AddNewPoints(int obj)
+        {
+            StatsValueStorage.AddNewUnassignedPoints();
+            SkillManager.AddNewUnassignedPoints();
         }
 
         private void Start()
@@ -89,9 +104,6 @@ namespace Entities
         {
             StateMachine.HandleInput();
             StateMachine.Update();
-            
-            Debug.Log(StatsFinder.GetStat(Stat.AttackSpeed));
-            Debug.Log(Mana.ManaValue);
         }
 
         private void FixedUpdate()
@@ -99,26 +111,33 @@ namespace Entities
             StateMachine.FixedUpdate();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            LevelCalculator.OnLevelUp -= AddNewPoints;
+        }
+
         public void ActivateRightSword(float time, AttackType attackType)
         {
             var attackData = CreateAttackData(attackType);
-            
+
             foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
             {
                 if (!shortSwordColliderActivator.RightSword) continue;
-                
+
                 shortSwordColliderActivator.enabled = true;
                 shortSwordColliderActivator.ActivateCollider(time, attackData);
             }
         }
+
         public void ActivateLeftSword(float time, AttackType attackType)
         {
             var attackData = CreateAttackData(attackType);
-            
+
             foreach (var shortSwordColliderActivator in ShortSwordColliderActivators)
             {
                 if (shortSwordColliderActivator.RightSword) continue;
-                
+
                 shortSwordColliderActivator.enabled = true;
                 shortSwordColliderActivator.ActivateCollider(time, attackData);
             }
@@ -146,8 +165,12 @@ namespace Entities
                     savable.RestoreSerializableData(serializable);
                 }
             }
-            
+
             RecalculateStatsWithMaxValue(LevelCalculator.Level);
+        }
+
+        protected override void OnDied()
+        {
         }
     }
 }

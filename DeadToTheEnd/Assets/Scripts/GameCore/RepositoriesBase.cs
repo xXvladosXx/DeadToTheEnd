@@ -19,7 +19,6 @@ namespace GameCore
             _repositories = _sceneConfig.CreateAllRepositories();
         }
 
-       
         public void SendOnCreateRepositories()
         {
             var allRepositories = _repositories.Values;

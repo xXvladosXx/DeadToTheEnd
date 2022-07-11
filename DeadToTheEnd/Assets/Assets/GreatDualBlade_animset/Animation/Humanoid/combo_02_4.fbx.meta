@@ -67,12 +67,33 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.32748538
+        functionName: MakeSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 4
+        messageOptions: 0
       - time: 0.33669698
         functionName: OnRightSwordColliderActivate
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0.2
         intParameter: 0
+        messageOptions: 0
+      - time: 0.34848484
+        functionName: OnLeftSwordColliderActivate
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0.2
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.36105415
+        functionName: MakeSound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 5
         messageOptions: 0
       - time: 0.66704047
         functionName: TriggerOnStateAnimationExitEvent
@@ -86,13 +107,6 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.34848484
-        functionName: OnLeftSwordColliderActivate
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.2
         intParameter: 0
         messageOptions: 0
       transformMask: []

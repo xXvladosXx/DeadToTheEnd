@@ -35,12 +35,14 @@ namespace Data.Stats
             if (attackData.AttackType == AttackType.Knock)
             {
                 OnDamageTaken?.Invoke(attackData);
+
                 return;
             }
             
             if (_reusableData.IsBlocking)
             {
                 OnAttackApplied?.Invoke();
+
                 return;
             }
             

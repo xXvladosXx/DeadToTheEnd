@@ -13,6 +13,12 @@ namespace GameCore.Save
     {
         public List<SavableEntity> SavableEntities { get; private set; } = new List<SavableEntity>();
 
+        private const string EFFECTS_VOLUME = "EffectsVolume";
+        private const string MUSIC_VOLUME = "MusicVolume";
+        private const string RESOLUTION = "Resolution";
+        private const string IS_FULLSCREEN = "Fullscreen";
+        private const string GRAPHICS = "Graphics";
+
         public override void Init()
         {
         }
@@ -44,7 +50,6 @@ namespace GameCore.Save
             }
 
             capturedStates["SceneIndexToLoad"] = SceneManager.GetActiveScene().buildIndex;
-            Debug.Log(capturedStates["SceneIndexToLoad"]);
         }
 
         private void SaveFile(string saveFile, object captureState)
@@ -71,12 +76,16 @@ namespace GameCore.Save
         private Dictionary<string, object> LoadFile(string saveFile)
         {
             string path = GetPathFromSaveFile(saveFile);
+            Debug.Log("Laoding from " + path + " " + saveFile);
+
+            
             if (!File.Exists(path))
             {
                 return new Dictionary<string, object>();
             }
 
             using FileStream fileStream = File.Open(path, FileMode.Open);
+            fileStream.Position = 0;
             BinaryFormatter formatter = new BinaryFormatter();
             return (Dictionary<string, object>) formatter.Deserialize(fileStream);
         }
@@ -130,6 +139,29 @@ namespace GameCore.Save
             }
 
             return -1;
+        }
+
+        public void SaveSettings(SettingsSaveData settingsSaveData)
+        {
+            PlayerPrefs.SetFloat(MUSIC_VOLUME, settingsSaveData.MusicVolume);
+            PlayerPrefs.SetFloat(EFFECTS_VOLUME, settingsSaveData.EffectsVolume);
+            PlayerPrefs.SetInt(IS_FULLSCREEN, Convert.ToInt32(settingsSaveData.Fullscreen));
+            PlayerPrefs.SetInt(RESOLUTION, settingsSaveData.ResolutionIndex);
+            PlayerPrefs.SetInt(GRAPHICS, settingsSaveData.GraphicsIndex);
+        }
+        
+        public SettingsSaveData LoadSettings()
+        {
+            var settingsSaveData = new SettingsSaveData
+            {
+                EffectsVolume = PlayerPrefs.GetFloat(EFFECTS_VOLUME, 0),
+                MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 0),
+                Fullscreen = Convert.ToBoolean(PlayerPrefs.GetInt(IS_FULLSCREEN, 0)),
+                ResolutionIndex = PlayerPrefs.GetInt(RESOLUTION, 0),
+                GraphicsIndex = PlayerPrefs.GetInt(GRAPHICS, 0)
+            };
+            
+            return settingsSaveData;
         }
     }
 }

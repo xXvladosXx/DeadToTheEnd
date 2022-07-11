@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25da68e61e5841fcabb81fe07ff64c7b, type: 3}
+  m_Name: Knightfall
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 47d89f1962a4d3e469075e2276b2ed51,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: c9b87db7a5cd57a42bc837f964f8ee7d, type: 3}
+  _name: Knightfall
+  _description: This weapon is used by higher ranked guards. You'd expect nothing
+    less from such fighters.
+  _maxItemsInInventory: 1
+  _sellPrice: 325
+  _itemType: 2561
+  _itemData:
+    Id: 21
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 90
+  _healthBonus: 0
+  _criticalDamage: 0
+  _criticalChance: 0
+  _attackSpeedBonus: 0
+  _movementSpeedBonus: 0
+  _healthRegenerationBonus: 0
+  _manaBonus: 0
+  _manaRegenerationBonus: 0
+  _evasionBonus: 0
+  _accuracyBonus: 0

@@ -14,11 +14,12 @@ namespace InventorySystem
         private void OnValidate()
         {
             LoadItems();
+            UpdateID();
         }
 
         private void LoadItems()
         {
-            InventoryItems = FindAssetsByType<Item>().ToArray();
+            //InventoryItems = FindAssetsByType<Item>().ToArray();
         }
 
         public List<T> FindAssetsByType<T>() where T : UnityEngine.Object

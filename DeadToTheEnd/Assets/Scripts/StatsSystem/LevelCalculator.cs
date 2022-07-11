@@ -3,17 +3,20 @@ using GameCore.SaveSystem;
 using SaveSystem;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Data.Stats
 {
     [Serializable]
     public class LevelCalculator : IDataSavable
     {
+        [field: SerializeField] public VisualEffect LevelUp { get; private set; }
         [field: SerializeField] public int Level { get; private set; } = 1;
         public float GetExpPct => _currentXP/_aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
     
         private float _currentXP;
         private float _maxXP;
+        private int _lastLevel;
 
         private AliveEntityStatsData _aliveEntityStatsData;
         
@@ -38,8 +41,10 @@ namespace Data.Stats
             {
                 Level = CalculateLevel();
                 _currentXP = 0;
-
                 OnLevelUp?.Invoke(Level);
+                LevelUp.gameObject.SetActive(true);
+                LevelUp.Play();
+                
                 _maxXP = _aliveEntityStatsData.GetExperience(Experience.ExperienceToLevelUp, Level);
                 currentXpPct = _currentXP / _maxXP;
                 OnExperiencePctChanged?.Invoke(currentXpPct);
@@ -66,22 +71,27 @@ namespace Data.Stats
         public ISerializable SerializableData() =>
             new SavableLevel
             {
-                Level = Level,
+                CurrentLevel = Level,
+                LastLevel = Level,
                 Experience = _currentXP
             };
 
         public void RestoreSerializableData(ISerializable serializable)
         {
             if(serializable is not SavableLevel serializableLevel) return;
-            Level = serializableLevel.Level;
+            Level = serializableLevel.CurrentLevel;
+            _lastLevel = serializableLevel.LastLevel;
+            
             _currentXP = serializableLevel.Experience;
         }
+
 
 
         [Serializable]
         public class SavableLevel : ISerializable
         {
-            public int Level;
+            public int CurrentLevel;
+            public int LastLevel;
             public float Experience;
         }
     }

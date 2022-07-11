@@ -5,20 +5,30 @@ using GameCore.SceneSystem;
 using UI;
 using UI.Controllers;
 using UnityEngine;
+using Utilities;
 
 namespace GameCore
 {
+    [RequireComponent(typeof(GameFight))]
     public class GameFight : MonoBehaviour
     {
         [SerializeField] private UIController _uiController;
         [SerializeField] private Camera _secondCamera;
-        
+        [SerializeField] private AudioClip _clip;
+
         private UIController _currentUIController;
+        private GameInput _gameInput;
+
+        private void Awake()
+        {
+            _gameInput = GetComponent<GameInput>();
+        }
 
         private void Start()
         {
             var sceneManager = new SceneManagerFight();
 
+            _uiController.SetInputAction(_gameInput);
             Game.Run(sceneManager, _uiController);
 
             Game.OnGameInitialized += OnGameInit;
@@ -39,6 +49,8 @@ namespace GameCore
 
         private void OnGameInit()
         {
+            AudioManager.Instance.PlayMusicSound(_clip);
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             

@@ -20,19 +20,19 @@ namespace SkillsSystem
 
         private SkillData _skillData;
         
-        public override void ApplySkill(ISkillUser skillUser, int index = 0)
+        public override void ApplySkill(IUser user, int index = 0)
         {
-            base.ApplySkill(skillUser,index);
+            base.ApplySkill(user,index);
             _skillData = new SkillData
             {
-                SkillUser = skillUser as AliveEntity
+                SkillUser = user as AliveEntity
             };
 
             _skillForm.ApplyForm(_skillData);
 
             foreach (var skillRequirement in SkillRequirements)
             {
-                skillRequirement.ApplyRequirement(skillUser);
+                skillRequirement.ApplyRequirement(user);
             }
 
             foreach (var skillEffect in SkillEffects)
@@ -53,11 +53,11 @@ namespace SkillsSystem
             }
         }
 
-        public bool CheckRequirementsToCast(ISkillUser skillUser)
+        public bool CheckRequirementsToCast(IUser user)
         {
             if (SkillRequirements.Length == 0) return true;
             
-            if (SkillRequirements.Any(skillRequirement => !skillRequirement.IsChecked(skillUser)))
+            if (SkillRequirements.Any(skillRequirement => !skillRequirement.IsChecked(user)))
                 return false;
             
             return true;

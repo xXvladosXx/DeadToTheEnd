@@ -16,11 +16,10 @@ MonoBehaviour:
     type: 2}
   _sprite: {fileID: 21300000, guid: dc2d66b0ba5092b4aa1c7783e1bce80b, type: 3}
   _name: Big Health Potion
-  _description: 
-  _maxItemsInInventory: 54
-  _sellPrice: 1111
+  _description: Regenerates health
+  _maxItemsInInventory: 64
+  _sellPrice: 50
   _itemType: 193
   _itemData:
-    Id: 6
-  Stat: 0
-  Value: 100
+    Id: 3
+  Value: 200

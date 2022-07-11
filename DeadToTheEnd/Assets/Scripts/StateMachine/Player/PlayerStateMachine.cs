@@ -1,5 +1,7 @@
 ﻿using Data.States;
 using Entities;
+using StateMachine.Core;
+using StateMachine.Enemies;
 using StateMachine.Player.States.Movement.Grounded;
 using StateMachine.Player.States.Movement.Grounded.Combat;
 using StateMachine.Player.States.Movement.Grounded.Defense;
@@ -11,7 +13,7 @@ using UnityEngine;
 
 namespace StateMachine
 {
-    public class PlayerStateMachine : StateMachine
+    public class PlayerStateMachine : EntityStateMachine
     {
         public MainPlayer MainPlayer { get; }
 
@@ -31,15 +33,11 @@ namespace StateMachine
         public PlayerComboLockedAttackState PlayerComboLockedAttackState { get; set; }
         public PlayerComboAttackState PlayerComboAttackState { get; set; }
         public PlayerAttackState PlayerAttackState { get; set; }
-        
-        //public PlayerMediumHitState PlayerMediumHitState { get; }
         public PlayerKnockHitState PlayerKnockHitState { get; }
         
-        public PlayerFirstSkillCastState PlayerFirstSkillCastState { get; }
-        public PlayerSecondSkillCastState PlayerSecondSkillCastState { get; }
-        public PlayerFourthSkillCastState PlayerFourthSkillCastState { get; }
-        public PlayerThirdSkillCastState PlayerThirdSkillCastState { get; }
+        public PlayerActiveSkillCastState PlayerActiveSkillCastState { get; }
 
+        public PlayerDieState PlayerDieState { get; } 
 
         public PlayerStateMachine(MainPlayer player)
         {
@@ -53,7 +51,6 @@ namespace StateMachine
 
             PlayerLockedMovementState = new PlayerLockedMovement(this);
             
-           // PlayerMediumHitState = new PlayerMediumHitState(this);
             PlayerKnockHitState = new PlayerKnockHitState(this);
             
             PlayerAttackLockedState = new PlayerAttackLockedState(this);
@@ -68,12 +65,10 @@ namespace StateMachine
             MediumStoppingState = new PlayerMediumStoppingState(this);
             HardStoppingState = new PlayerHardStoppingState(this);
             PlayerDefenseImpactState = new PlayerDefenseImpactState(this);
-            //PlayerLockedStoppingState = new PlayerLockedStoppingState(this);
 
-            PlayerFirstSkillCastState = new PlayerFirstSkillCastState(this);
-            PlayerSecondSkillCastState = new PlayerSecondSkillCastState(this);
-            PlayerThirdSkillCastState = new PlayerThirdSkillCastState(this);
-            PlayerFourthSkillCastState = new PlayerFourthSkillCastState(this);
+            PlayerActiveSkillCastState = new PlayerActiveSkillCastState(this);
+
+            PlayerDieState = new PlayerDieState(this);
         }
 
         public override IState StartState() => MediumStoppingState;

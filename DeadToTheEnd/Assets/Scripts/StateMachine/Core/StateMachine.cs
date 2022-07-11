@@ -13,8 +13,8 @@ namespace StateMachine
         public Dictionary<ITimeable, float> StatesCooldown { get; private set; }
         private Dictionary<ITimeable, float> CurrentStatesCooldown { get; set; }
         private CooldownTimer CooldownTimer { get; }
-        
-        protected IState _currentState;
+
+        private IState _currentState;
 
         protected StateMachine()
         {

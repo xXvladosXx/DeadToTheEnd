@@ -52,5 +52,6 @@ namespace Data.States
         public bool ShouldAttack { get; set; }
         public bool LockedState { get; set; }
         public string SkillAnimToPlay { get; set; }
+        public bool ChangeWeaponInCooldown { get; set; }
     }
 }

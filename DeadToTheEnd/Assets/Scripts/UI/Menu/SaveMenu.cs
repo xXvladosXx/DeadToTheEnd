@@ -17,11 +17,15 @@ namespace UI.Menu
         {
             base.Initialize(saveInteractor);
             _backButton.onClick.AddListener(MainMenuSwitcher.ShowLast);
-            _saveNewGameButton.onClick.AddListener(() => MainMenuSwitcher.Show<CreateSaveMenu>());
+            _saveNewGameButton.onClick.AddListener(() => MainMenuSwitcher.Show<CreateGameMenu>());
+            
+            OnEnable();
         }
         
         private void OnEnable()
         {
+            if(SaveInteractor == null) return;
+            
             foreach (Transform child in _content)
             {
                 Destroy(child.gameObject);

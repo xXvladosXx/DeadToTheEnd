@@ -26,6 +26,7 @@ namespace Data.Animations
         [SerializeField] private string _comboParameterName = "Combo";
 
         [SerializeField] private string _attackFirstParameterName = "Attack1";
+        [SerializeField] private string _rageParameterName = "Rage";
         [SerializeField] private string _sprintAttackParameterName = "SprintAttack";
 
         [SerializeField] private string _fallParameterName = "isFalling";
@@ -43,6 +44,9 @@ namespace Data.Animations
         [SerializeField] private string _secondSkillCastParameterName = "SecondSkill";
         [SerializeField] private string _thirdSkillCastParameterName = "ThirdSkill";
         [SerializeField] private string _fourthSkillCastParameterName = "FourthSkill";
+        
+        [SerializeField] private string _dieParameterName = "Death";
+        
         public int GroundedParameterHash { get; private set; }
         public int MovingParameterHash { get; private set; }
         public int WasMovingParameterHash { get; private set; }
@@ -77,6 +81,8 @@ namespace Data.Animations
         public int SecondSkillParameterHash { get; private set; }
         public int ThirdSkillParameterHash { get; private set; }
         public int FourthSkillParameterHash { get; private set; }
+        public int DieParameterHash { get; private set; }
+        public int RageParameterHash { get; private set; }
 
         public void Init()
         {
@@ -101,6 +107,7 @@ namespace Data.Animations
             Attack1ParameterHash = Animator.StringToHash(_attackFirstParameterName);
             ComboParameterHash = Animator.StringToHash(_comboParameterName);
             SprintAttackParameterHash = Animator.StringToHash(_sprintAttackParameterName);
+            RageParameterHash = Animator.StringToHash(_rageParameterName);
 
             FallParameterHash = Animator.StringToHash(_fallParameterName);
             LockedParameterHash = Animator.StringToHash(_lockedParameterName);
@@ -117,6 +124,8 @@ namespace Data.Animations
             SecondSkillParameterHash = Animator.StringToHash(_secondSkillCastParameterName);
             FourthSkillParameterHash = Animator.StringToHash(_fourthSkillCastParameterName);
             ThirdSkillParameterHash = Animator.StringToHash(_thirdSkillCastParameterName);
+
+            DieParameterHash = Animator.StringToHash(_dieParameterName);
         }
     }
 }

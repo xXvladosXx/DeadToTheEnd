@@ -22,7 +22,6 @@ namespace CameraManage
         private Animator _anim;
 
         private Transform _cam;
-        private bool _enemyLocked;
         private float _currentYOffset;
         private Vector3 _pos;
         private MainPlayer _mainPlayer;
@@ -78,13 +77,11 @@ namespace CameraManage
             _cinemachineVirtualCamera.LookAt = _currentTarget.transform;
             OnPlayerLocked?.Invoke(_currentTarget);
             _cinemachineAnimator.Play("LockOn");
-            _enemyLocked = true;
         }
 
         public void ResetTarget()
         {
             _currentTarget = null;
-            _enemyLocked = false;
             OnPlayerUnlocked?.Invoke();
             _cinemachineAnimator.Play("PlayerCamera");
         }

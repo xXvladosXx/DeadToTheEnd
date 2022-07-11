@@ -19,7 +19,6 @@ namespace GameCore
             _interactors = _sceneConfig.CreateAllInteractors();
         }
 
-        
         public void SendOnCreateInteractors()
         {
             var allInteractors = _interactors.Values;

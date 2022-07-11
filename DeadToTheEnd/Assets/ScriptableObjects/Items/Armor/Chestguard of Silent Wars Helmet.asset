@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabbe94cdfc6402a9678f1800710bc65, type: 3}
+  m_Name: Chestguard of Silent Wars Helmet
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 47d89f1962a4d3e469075e2276b2ed51,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: f683841be7595e6438b943365a4d6279, type: 3}
+  _name: Chestguard of Silent Wars Helmet
+  _description: Chestguard of Silent Wars
+  _maxItemsInInventory: 1
+  _sellPrice: 200
+  _itemType: 9
+  _itemData:
+    Id: 23
+  <RequirementsToUpgrade>k__BackingField: []
+  _damageBonus: 0
+  _healthBonus: 50
+  _criticalDamage: 0
+  _criticalChance: 0
+  _attackSpeedBonus: 0
+  _movementSpeedBonus: 0
+  _healthRegenerationBonus: 0
+  _manaBonus: 75
+  _manaRegenerationBonus: 0
+  _evasionBonus: 0
+  _accuracyBonus: 0

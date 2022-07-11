@@ -23,7 +23,8 @@ namespace StateMachine.Player.States.Movement.Grounded.Combat
         public override void Exit()
         {
             base.Exit();
-            
+            MainPlayer.InputAction.PlayerActions.Attack.performed -= OnAttackPerformed;
+
             StopAnimation(PlayerAnimationData.Attack1ParameterHash);
             MainPlayer.Animator.applyRootMotion = false;
         }

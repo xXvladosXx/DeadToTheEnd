@@ -25,7 +25,11 @@ public class BuffManager : MonoBehaviour, IModifier
         {
             foreach (var buffBonus in buff.StatBonuses)
             {
-                if(_buffEffects.ContainsKey(buffBonus)) continue;
+                if (_buffEffects.ContainsKey(buffBonus))
+                {
+                    _buffEffects[buffBonus] = buffBonus.Time;
+                    continue;
+                }
                 _buffEffects.Add(buffBonus, buffBonus.Time);
                 OnBonusAdded?.Invoke(buffBonus);
             }

@@ -31,7 +31,7 @@ namespace UI
         {
             var mouseHoverSlot = SlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
 
-            Inventory.ItemContainer.SwapItem(MouseData.UI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
+            Inventory.ItemContainer.SwapItem(MouseData.LastDraggedUI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
             UpdateSlots();
         }
 

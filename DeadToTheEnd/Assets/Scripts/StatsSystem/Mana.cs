@@ -13,7 +13,6 @@ namespace Data.Stats
         private StatsFinder _statsFinder;
         private bool _isDead;
 
-        public event Action OnDied;
         public Mana(StatsFinder statsFinder)
         {
             _statsFinder = statsFinder;

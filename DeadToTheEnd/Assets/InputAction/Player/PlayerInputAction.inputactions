@@ -485,7 +485,7 @@
                 {
                     "name": "",
                     "id": "3118d8d0-a5da-44d0-b031-e66b0303de08",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -496,7 +496,7 @@
                 {
                     "name": "",
                     "id": "90814409-3a88-4ace-b630-608ea42be5bd",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -507,7 +507,7 @@
                 {
                     "name": "",
                     "id": "6c13a529-6a2d-4842-9452-2e5a9a8f37b7",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -518,7 +518,7 @@
                 {
                     "name": "",
                     "id": "35bddf70-b293-4c28-a017-0b6a29088d85",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -587,6 +587,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "1693d9b4-6561-470f-bbb7-4ab711e9d476",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -642,6 +651,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8171483a-29ae-4d22-84de-12676b0041aa",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

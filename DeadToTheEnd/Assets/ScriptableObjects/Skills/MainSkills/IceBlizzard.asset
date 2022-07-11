@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fde89475aea40cd8d414027e61a9aa8, type: 3}
+  m_Name: IceBlizzard
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 6752180ef5b957742831fec26492f2cf,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: b301210749aa3554bb1dd849875ec3ce, type: 3}
+  _name: Ice blizzard
+  _description: 
+  _maxItemsInInventory: 1
+  _sellPrice: 0
+  _itemType: 256
+  _itemData:
+    Id: 10
+  <RequirementsToUpgrade>k__BackingField:
+  - {fileID: 11400000, guid: 8cf7706674129754a8beac0e39c280d5, type: 2}
+  <Anim>k__BackingField: {fileID: 11400000, guid: adfe0e51ede19594cb949cb1d46a7942,
+    type: 2}
+  _skillForm: {fileID: 11400000, guid: a7f65bd7c3ed0224b82f0225880c54ff, type: 2}
+  _skillCooldown: 0
+  <SkillRequirements>k__BackingField: []
+  <SkillEffects>k__BackingField: []
+  <SkillBonuses>k__BackingField: []
+  <SkillPrefabSpawns>k__BackingField: []
+  _activeSkill:
+  - {fileID: 11400000, guid: 1cdeeb3886a50a844b5f5bd1fb28eeb5, type: 2}
+  - {fileID: 11400000, guid: 340ceba6abac1b54da670726c594dccd, type: 2}
+  _skillChainCooldown: 15

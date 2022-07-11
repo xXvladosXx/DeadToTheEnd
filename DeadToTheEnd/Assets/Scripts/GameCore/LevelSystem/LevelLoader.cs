@@ -16,7 +16,7 @@ namespace GameCore.LevelSystem
         [field: SerializeField] public float TimeToWait { get; private set; } = 1;
 
         private SaveInteractor _saveInteractor;
-        public event Action OnLevelLoaded;
+        private string _lastSaveFile;
         public event Action OnFadeStarted;
         
         public void Awake()
@@ -30,22 +30,29 @@ namespace GameCore.LevelSystem
             _saveInteractor = saveInteractor;
         }
         
-        public void LoadLevelWithSave(int sceneIndex)
+        public void SaveBeforeAndAfterLoading(int sceneIndex, string saveFile = SaveInteractor.DEFAULT_SAVE_FILE)
         {
-            OnLevelLoaded?.Invoke();
             OnFadeStarted?.Invoke();
 
-            StartCoroutine(LoadLevel(sceneIndex));
-
+            SaveBeforeLoading(saveFile, sceneIndex);
+            _lastSaveFile = saveFile;
+            Debug.Log(_lastSaveFile);
+            
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         
-        public IEnumerator LoadLevel(int sceneIndex)
+
+        public void SaveBeforeLoading(string saveFile, int sceneIndex)
         {
-            _saveInteractor.Save();
+            _saveInteractor.Save(saveFile);
+            StartCoroutine(LoadLevel(sceneIndex, saveFile));
+        }
+        
+        private IEnumerator LoadLevel(int sceneIndex, string saveFile)
+        {
             OnFadeStarted?.Invoke();
             yield return new WaitForSeconds(TimeToWait);
-            _saveInteractor.Load();
+           _saveInteractor.Load(saveFile);
             
             var scene = SceneManager.LoadSceneAsync(sceneIndex);
             scene.allowSceneActivation = false;
@@ -64,8 +71,12 @@ namespace GameCore.LevelSystem
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _saveInteractor.Save();
-            OnLevelLoaded?.Invoke();
+            _saveInteractor.Save(_lastSaveFile);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnDestroy()
+        {
         }
     }
 }

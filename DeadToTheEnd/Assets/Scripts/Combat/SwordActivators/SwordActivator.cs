@@ -13,8 +13,6 @@ namespace Combat.SwordActivators
 
         private Renderer _renderer;
         private bool _startCount;
-        private bool _crActivateStarted;
-        private bool _crDeactivateStarted;
         private float _dissolveModifier;
 
         protected bool _isActive;
@@ -41,7 +39,6 @@ namespace Combat.SwordActivators
 
         private IEnumerator ActivateSwordCoroutine()
         {
-            _crActivateStarted = true;
             while (true)
             {
                 _dissolveModifier += Time.deltaTime;
@@ -55,7 +52,6 @@ namespace Combat.SwordActivators
                     _isActive = true;
 
                     _dissolveModifier = 0;
-                    _crActivateStarted = false;
 
                     yield break;
                 }
@@ -67,7 +63,6 @@ namespace Combat.SwordActivators
         private IEnumerator DeactivateSwordCoroutine()
         {
             _renderer.material = _materials[1];
-            _crDeactivateStarted = true;
 
             while (true)
             {
@@ -82,7 +77,6 @@ namespace Combat.SwordActivators
 
                     _dissolveModifier = 0;
                     SetValue(1);
-                    _crDeactivateStarted = false;
 
                     yield break;
                 }

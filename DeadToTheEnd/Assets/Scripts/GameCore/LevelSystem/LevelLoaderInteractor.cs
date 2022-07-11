@@ -1,4 +1,6 @@
-﻿using GameCore.Save;
+﻿using GameCore.Player;
+using GameCore.Save;
+using SaveSystem;
 using UnityEngine;
 using Utilities;
 
@@ -22,16 +24,23 @@ namespace GameCore.LevelSystem
             
             LevelLoader.Init(_saveInteractor);
             LevelExitor.Init(LevelLoader);
+            
+            _saveInteractor.AddEntity(LevelExitor);
+            _saveInteractor.AddEntity(LevelCompleter.Instance);
         }
 
-        public void LoadLevel(int index)
+        public void LoadLevel(int index, string saveFile = SaveInteractor.DEFAULT_SAVE_FILE)
         {
-            Coroutines.StartRoutine(LevelLoader.LoadLevel(index));            
+            LevelLoader.SaveBeforeAndAfterLoading(index, saveFile);            
         }
 
-        public void LoadLevelWithSave(int index)
+        public void LoadLevelWithSave(int index, string saveFile = SaveInteractor.DEFAULT_SAVE_FILE)
         {
-            LevelLoader.LoadLevelWithSave(index);
+            LevelLoader.SaveBeforeAndAfterLoading(index, saveFile);
+        }
+        public void LoadLevelBeforeSave(int index, string saveFile = SaveInteractor.DEFAULT_SAVE_FILE)
+        {
+            LevelLoader.SaveBeforeLoading(saveFile, index);
         }
     }
 }

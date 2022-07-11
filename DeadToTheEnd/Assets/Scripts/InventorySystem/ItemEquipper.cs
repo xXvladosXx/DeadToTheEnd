@@ -26,44 +26,50 @@ namespace InventorySystem
 
         private void Awake()
         {
-            CurrentWeapon = (Equipment.ItemContainer.GetItemSlots
-                .FirstOrDefault(slot => slot.Item != null && slot.Item.ItemType == ItemType.Sword))?.Item;
+            CurrentWeapon = DefaultWeapon;
+            
+            foreach (var itemSlot in Equipment.ItemContainer.GetItemSlots)
+            {
+                if (itemSlot.Item != null)
+                {
+                    if (itemSlot.Item.ItemType == ItemType.ShortSword)
+                    {
+                        CurrentWeapon = itemSlot.Item;
+                    }
+                }
+            }
+           
+            Equipment.ItemContainer.OnItemUpdate += EquipmentChanged;
         }
 
-        public bool TryToChangeWeapon(bool toShortSword)
+        private void EquipmentChanged()
         {
-            var shortSword = Equipment.ItemContainer
-                .GetItemSlots.FirstOrDefault(slot => slot.Item != null && slot.Item.ItemType == ItemType.Sword);
+            var hasCurrentWeapon = Equipment.ItemContainer.HasItem(CurrentWeapon);
+            TryToChangeWeapon(ItemType.ShortSword);
 
-            var longSword = Equipment.ItemContainer
-                .GetItemSlots.FirstOrDefault(slot => slot.Item != null && slot.Item.ItemType == ItemType.Stuff);
+            if (!hasCurrentWeapon && CurrentWeapon == null)
+            {
+                TryToChangeWeapon(ItemType.LongSword);
+            }
 
-            if (shortSword == null)
+            OnStatModified?.Invoke();
+        }
+
+        public bool TryToChangeWeapon(ItemType weaponType)
+        {
+            var possibleWeapon =
+                Equipment.ItemContainer.GetItemSlots.FirstOrDefault(slot =>
+                    slot.Item != null && slot.Item.ItemType == weaponType)
+                    ?.Item;
+            if (weaponType == ItemType.ShortSword && possibleWeapon == null)
             {
                 CurrentWeapon = DefaultWeapon;
-                shortSword = new ItemSlot(DefaultWeapon, 1, DefaultWeapon.ItemData.Id);
-            }
-
-            if (longSword == null)
-            {
-                shortSword.Item.IsEquipped = true;
-                CurrentWeapon = shortSword.Item;
-                return false;
-            }
-
-            if (toShortSword)
-            {
-                shortSword.Item.IsEquipped = true;
-                longSword.Item.IsEquipped = false;
-                CurrentWeapon = shortSword.Item;
-
                 return true;
             }
+            
+            if (possibleWeapon == null) return false;
 
-            shortSword.Item.IsEquipped = false;
-            longSword.Item.IsEquipped = true;
-            CurrentWeapon = longSword.Item;
-
+            CurrentWeapon = possibleWeapon;
             return true;
         }
 
@@ -146,12 +152,16 @@ namespace InventorySystem
                 => modifier.AddBonus(stats);
 
             var itemSlots =
-                Equipment.ItemContainer.GetItemSlots.Where(slot => slot.Item != null && slot.Item.IsEquipped);
+                Equipment.ItemContainer.GetItemSlots;
             var modifiableItems = new List<IModifier>();
             foreach (var itemSlot in itemSlots)
             {
                 if (itemSlot.Item is IModifier modifier)
                 {
+                    if (modifier.GetType() == typeof(Weapon.Weapon) && itemSlot.Item != CurrentWeapon)
+                    {
+                        continue;
+                    }
                     modifiableItems.Add(modifier);
                 }
             }

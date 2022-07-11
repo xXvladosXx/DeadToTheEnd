@@ -25,8 +25,6 @@ namespace StateMachine.Enemies.GoblinEnemy
         public RangeAttackGoblinEnemyState RangeAttackGoblinEnemyState { get; }
         public FirstComboAttackGoblinEnemyState FirstComboAttackGoblinEnemyState { get; }
         public SecondComboAttackGoblinEnemyState SecondComboAttackGoblinEnemyState { get; }
-
-        public BaseDieEnemyState BaseDieEnemyState { get; }
         
         public GoblinStateMachine(Entities.Enemies.GoblinEnemy goblinEnemy) : base(goblinEnemy)
         {
@@ -46,8 +44,6 @@ namespace StateMachine.Enemies.GoblinEnemy
             RangeAttackGoblinEnemyState = new RangeAttackGoblinEnemyState(this);
             FirstComboAttackGoblinEnemyState = new FirstComboAttackGoblinEnemyState(this);
             SecondComboAttackGoblinEnemyState = new SecondComboAttackGoblinEnemyState(this);
-
-            BaseDieEnemyState = new BaseDieEnemyState(this);
         }
 
         public override IState StartState() => FollowGoblinEnemyState;

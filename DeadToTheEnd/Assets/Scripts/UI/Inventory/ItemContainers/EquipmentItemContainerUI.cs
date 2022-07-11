@@ -34,14 +34,12 @@ namespace UI
         }
         private void Update()
         {
-            UpdateSlots();
         }
         public override void Visit(ItemSlotUI itemSlotUI)
         {
             var mouseHoverSlot = SlotOnUI[MouseData.TempItemHover.GetComponent<ItemSlotUI>()];
 
-            Inventory.ItemContainer.SwapItem(MouseData.UI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
-            Debug.Log("VE");
+            Inventory.ItemContainer.SwapItem(MouseData.LastDraggedUI.Inventory.ItemContainer,  itemSlotUI.ItemSlot, mouseHoverSlot);
             UpdateSlots();
         }
 

@@ -30,6 +30,7 @@ namespace UI
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
+                MouseData.StartedDrag = true;
                 MouseData.LastItemClicked = gameObject.GetComponent<ItemDragHandler>();
                 var mouseObj = new GameObject
                 {
@@ -47,6 +48,8 @@ namespace UI
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
+                MouseData.StartedDrag = false;
+
                 Destroy(MouseData.TempItemDrag);
             }
         }
@@ -118,7 +121,9 @@ namespace UI
 
     public static class MouseData
     {
-        public static ItemContainerUI UI { get; set; }
+        public static ItemContainerUI LastDraggedUI { get; set; }
+        public static ItemContainerUI CurrentUI { get; set; }
+        public static bool StartedDrag { get; set; }
         public static GameObject TempItemDrag { get; set; }
         public static GameObject TempItemHover { get; set; }
         public static ItemDragHandler LastItemClicked { get; set; }

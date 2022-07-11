@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281cf08a54d7493790a7a35c6a52d5d7, type: 3}
+  m_Name: LowHealthPotion
+  m_EditorClassIdentifier: 
+  <Rarity>k__BackingField: {fileID: 11400000, guid: 4194cd36c70f8844da673cdee7f62090,
+    type: 2}
+  _sprite: {fileID: 21300000, guid: e29dedca8d07953418199e26a0951c3b, type: 3}
+  _name: Low Health Potion
+  _description: Regenerates health
+  _maxItemsInInventory: 64
+  _sellPrice: 15
+  _itemType: 193
+  _itemData:
+    Id: 41
+  Value: 40

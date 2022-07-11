@@ -19,20 +19,11 @@ namespace UI.Loot
         private ItemContainer _lastDrop;
         private InteractableChecker _interactableChecker;
 
-        public event Action OnLootClosed;
         public override void OnCreate(InteractorsBase interactorsBase)
         {
             _mainPlayer = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer;
             _interactableChecker = _mainPlayer.GetComponent<InteractableChecker>();
             _interactableChecker.OnLootOpen += ShowLoot;
-        }
-
-        private void RefreshLoot()
-        {
-            for (int i = 0; i < _lootItemContainer.Inventory.ItemContainer.GetItemSlots.Length; i++)
-            {
-                _lastDrop.GetItemSlots[i] = _lootItemContainer.Inventory.ItemContainer.GetItemSlots[i];
-            }
         }
 
         private void ShowLoot(ItemContainer drop)

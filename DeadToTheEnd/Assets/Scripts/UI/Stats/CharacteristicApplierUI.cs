@@ -20,6 +20,7 @@ namespace UI.Stats
             _statsValueStorage = interactorsBase.GetInteractor<PlayerInteractor>().MainPlayer.StatsValueStorage;
             _button.onClick.AddListener(ApplyCharacteristicDistribution);
             _unassignedPoints.text = _statsValueStorage.UnassignedPoints.ToString();
+            
             _statsValueStorage.OnStatsChange += ChangePointsChange;
         }
 
