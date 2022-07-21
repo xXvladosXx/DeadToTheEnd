@@ -1,6 +1,8 @@
 # Dead to the end
 This project represents a game with lots of activities to do.
 
+# About Project
+Unity version 2021.3.1f1, Rider 2022.1.2
 
 # Main achivements of this game:
 SkillSystem with bonuses:
