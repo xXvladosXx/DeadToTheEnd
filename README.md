@@ -8,7 +8,8 @@ SkillSystem with bonuses:
 
 
 Core game Architecture:
-![CoreArchetecture drawio](https://user-images.githubusercontent.com/63474317/180267121-7b458a54-0501-4daf-a2b0-9bd2df58b0a9.svg)
+![CoreArchetecture drawio (1)](https://user-images.githubusercontent.com/63474317/180267687-d848da54-a0e5-496b-aae4-f75ac280c560.png)
+
 
 
 Unique StateMachine for every Entity.
