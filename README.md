@@ -4,7 +4,7 @@ This project represents a game with lots of activities to do.
 
 # Main achivements of this game:
 SkillSystem with bonuses:
-![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/63474317/180267053-fc44f0f1-2436-476a-ada5-873d8160b0f2.svg)
+![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/63474317/180267815-7fc39077-f3db-4c48-b932-6830de01e70b.png)
 
 
 Core game Architecture:
