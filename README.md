@@ -1,5 +1,5 @@
 # Dead to the end
-This project represents a game with lots of activities to do.
+This is an Attack&Run game. Kill all monsters to complete a level.
 
 # About Project
 Unity version 2021.3.1f1, Rider 2022.1.2
@@ -11,7 +11,6 @@ SkillSystem with bonuses:
 
 Core game Architecture:
 ![CoreArchetecture drawio (1)](https://user-images.githubusercontent.com/63474317/180267687-d848da54-a0e5-496b-aae4-f75ac280c560.png)
-
 
 
 Unique StateMachine for every Entity.
